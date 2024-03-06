@@ -9,7 +9,9 @@
   [events]="events"
   (clickLine)="onClickLine($event)"
 ></app-rythm-bar-beat-division-line>
-<ng-container *ngIf="number == 1">{{ beatNumber }}</ng-container>
+<ng-container *ngIf="number == 1">
+  <div class="beat-number">V{{ beatNumber }}</div>
+</ng-container>
 <ng-container *ngFor="let event of eventsOnThisDivision">
   <app-note
     *ngIf="line(event) as line"

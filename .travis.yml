@@ -1,0 +1,27 @@
+language: node_js
+node_js:
+  - "8"
+sudo: false
+dist: trusty
+
+cache:
+  directories:
+    - ./node_modules
+
+branches:
+  only:
+  - master
+
+install:
+  - npm install
+
+script:
+  - npm run ng-high-memory -- build --prod --base-href /music-diagram-generator/ --progress=true
+
+deploy:
+  provider: pages
+  skip-cleanup: true
+  github-token: $GITHUB_TOKEN # Set in travis-ci.org dashboard
+  local-dir: dist
+  on:
+    branch: master

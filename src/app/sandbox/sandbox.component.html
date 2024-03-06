@@ -1,0 +1,37 @@
+<div class="viewport">
+  <input
+    type="number"
+    [(ngModel)]="firstFretboardLowestFret"
+    min="0"
+    max="12"
+  />
+  <input
+    type="number"
+    [(ngModel)]="firstFretboardFretsCount"
+    min="5"
+    max="19"
+  />
+  <select [(ngModel)]="firstFretboardRootValue">
+    <option
+      *ngFor="let noteName of NOTE_NAMES; index as noteValue"
+      [value]="noteValue"
+    >
+      {{ noteName }}
+    </option>
+  </select>
+  <select [(ngModel)]="firstFretboardRootModeValue" class="modes">
+    <option
+      *ngFor="let modeName of MODE_NAMES; index as modeValue"
+      [value]="modeValue"
+      [style.display]="modeName.startsWith('b') ? 'none' : undefined"
+    >
+      {{ modeName }}
+    </option>
+  </select>
+  <br />
+  <app-fretboard
+    [lowestFret]="firstFretboardLowestFret"
+    [fretsCount]="firstFretboardFretsCount"
+    [key]="firstFretboardKey"
+  ></app-fretboard>
+</div>

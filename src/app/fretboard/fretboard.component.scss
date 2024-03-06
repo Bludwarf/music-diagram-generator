@@ -1,0 +1,155 @@
+.viewport {
+  display: inline-block;
+}
+
+:host {
+  background: #000;
+  display: inline-grid;
+  grid-template-columns: auto repeat(4, 1fr); /* 4 cordes + 1 colonnes pour les points blancs */
+  gap: 2mm;
+  padding: 2mm;
+  margin: 2mm;
+}
+
+[data-fret] {
+  flex: 1 1 auto;
+  /*border: solid 1px #444;*/
+  height: 2cm;
+  width: 2cm;
+  line-height: 2cm;
+  box-sizing: border-box;
+}
+
+[data-note] {
+  background: var(--disabled-color);
+  color: var(--disabled-color);
+  border-radius: 0.1em;
+}
+
+[data-note][data-fret='0'] {
+  border-top-left-radius: 100%;
+  border-top-right-radius: 100%;
+}
+
+/* Sillet */
+/*[data-note][data-fret="1"] {*/
+/*    box-shadow: 0 -2mm 0 0 #FFF;*/
+/*}*/
+
+[data-note]:hover {
+  color: white;
+  text-shadow: 0 0 1ex #000;
+  border: solid 1pt #fff;
+  /*box-shadow: 0 0 0 1pt #FFF;*/ /* Laisse des traces après le survol */
+}
+
+/*.fret-mark {*/
+/*    !*color: transparent;*!*/
+/*    color: #444;*/
+/*    font-size: 5mm;*/
+/*    text-align: left;*/
+/*    width: 5mm;*/
+/*    padding-left: .5ex;*/
+/*    padding-right: 2ex;*/
+/*    !*noinspection CssInvalidPropertyValue*!*/
+/*    text-wrap: nowrap;*/
+/*}*/
+
+.fret-mark {
+  /*color: transparent;*/
+  color: #444;
+  font-size: 5mm;
+  text-align: right;
+  width: 1cm;
+  /*padding-left: 2ex;*/
+  /*padding-right: .5ex;*/
+  /*noinspection CssInvalidPropertyValue*/
+  text-wrap: nowrap;
+}
+
+.fret-mark[data-fret='3'],
+.fret-mark[data-fret='5'],
+.fret-mark[data-fret='7'],
+.fret-mark[data-fret='9'],
+.fret-mark[data-fret='12'],
+.fret-mark[data-fret='15'] {
+  color: white;
+}
+
+.fret-mark[data-fret='3']:before,
+.fret-mark[data-fret='5']:before,
+.fret-mark[data-fret='7']:before,
+.fret-mark[data-fret='9']:before,
+.fret-mark[data-fret='12']:before,
+.fret-mark[data-fret='15']:before {
+  content: '⬤';
+  margin-right: 1ex;
+}
+
+// TODO il faudrait plutôt mettre les points l'un sur l'autre (vertical)
+.fret-mark[data-fret='12']:before {
+  content: '⬤⬤';
+}
+
+/*[data-note][data-fret="3"]:after,*/
+/*[data-note][data-fret="5"]:after,*/
+/*[data-note][data-fret="7"]:after,*/
+/*[data-note][data-fret="9"]:after,*/
+/*[data-note][data-fret="12"]:after,*/
+/*[data-note][data-fret="15"]:after{*/
+/*    content: '';*/
+/*    border: solid 1px red;*/
+/*}*/
+
+// Gamme Gm : 7 9 10 0 2 3 5
+
+/* Gamme */
+
+[data-mode='vi'] {
+  background: var(--vi-color);
+  color: var(--vi-color);
+  border-color: var(--vi-color);
+}
+
+[data-mode='ii'] {
+  background: var(--ii-color);
+  color: var(--ii-color);
+  border-color: var(--ii-color);
+}
+
+[data-mode='iii'] {
+  background: var(--iii-color);
+  color: var(--iii-color);
+  border-color: var(--iii-color);
+}
+
+[data-mode='vii'] {
+  background: var(--vii-color);
+  color: var(--vii-color);
+  border-color: var(--vii-color);
+}
+
+[data-mode='IV'] {
+  background: var(--IV-color);
+  color: var(--IV-color);
+  border-color: var(--IV-color);
+}
+
+[data-mode='V'] {
+  background: var(--V-color);
+  color: var(--V-color);
+  border-color: var(--V-color);
+}
+
+[data-mode='I'] {
+  background: var(--I-color);
+  color: var(--I-color);
+  border-color: var(--I-color);
+}
+
+/* Tonalité */
+[data-degree='0'] {
+  color: #fff4;
+  font-weight: bold;
+  /*box-shadow: 0 0 0 1pt red;*/
+}

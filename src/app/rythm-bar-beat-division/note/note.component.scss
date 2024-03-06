@@ -1,0 +1,10 @@
+:host {
+  aspect-ratio: 12/7;
+  pointer-events: none;
+}
+
+img {
+  display: block; // Si on laisse inline, il y a une sorte de retour à ligne
+  width: 100%;
+  pointer-events: none;
+}

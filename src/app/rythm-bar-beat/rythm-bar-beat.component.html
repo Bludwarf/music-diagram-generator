@@ -1,0 +1,9 @@
+<app-rythm-bar-beat-division
+  *ngFor="let beatDivision of beatDivisionArray"
+  [barNumber]="barNumber"
+  [beatNumber]="number"
+  [number]="beatDivision"
+  [events]="events"
+  (addEvent)="addEvent.emit($event)"
+  (removeEvent)="removeEvent.emit($event)"
+></app-rythm-bar-beat-division>

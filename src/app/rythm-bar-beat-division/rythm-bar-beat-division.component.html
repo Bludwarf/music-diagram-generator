@@ -1,0 +1,20 @@
+<app-rythm-bar-beat-division-line
+  *ngFor="let line of linesArray"
+  [barNumber]="barNumber"
+  [beatNumber]="beatNumber"
+  [beatDivisionNumber]="number"
+  [lineIndex]="line"
+  [note]="note(line + 1)"
+  [bottomLine]="line + 1 === linesArray.length"
+  [events]="events"
+  (clickLine)="onClickLine($event)"
+></app-rythm-bar-beat-division-line>
+<ng-container *ngIf="number == 1">{{ beatNumber }}</ng-container>
+<ng-container *ngFor="let event of eventsOnThisDivision">
+  <app-note
+    *ngIf="line(event) as line"
+    [style.width.px]="width"
+    [style.left.px]="noteOffsetLeft"
+    [style.top.px]="(line - 1) * (noteHeight + lineBorder)"
+  ></app-note>
+</ng-container>

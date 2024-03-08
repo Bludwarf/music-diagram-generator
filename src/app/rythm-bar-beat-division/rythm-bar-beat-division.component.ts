@@ -1,10 +1,12 @@
 import {
+  AfterViewInit,
+  ChangeDetectorRef,
   Component,
   ElementRef,
   EventEmitter,
-  HostBinding,
   Input,
   Output,
+  QueryList,
   ViewChildren,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -12,6 +14,7 @@ import { sequence } from '../utils';
 import { RythmBarBeatDivisionLineComponent } from '../rythm-bar-beat-division-line/rythm-bar-beat-division-line.component';
 import { NoteComponent } from './note/note.component';
 import { RythmBarEvent } from '../rythm-bar/event';
+import { debounceTime, fromEvent, tap } from 'rxjs';
 
 @Component({
   selector: 'app-rythm-bar-beat-division',
@@ -20,7 +23,7 @@ import { RythmBarEvent } from '../rythm-bar/event';
   templateUrl: './rythm-bar-beat-division.component.html',
   styleUrl: './rythm-bar-beat-division.component.scss',
 })
-export class RythmBarBeatDivisionComponent {
+export class RythmBarBeatDivisionComponent implements AfterViewInit {
   @Input()
   number = 1;
 
@@ -42,19 +45,63 @@ export class RythmBarBeatDivisionComponent {
   @Output()
   removeEvent: EventEmitter<RythmBarEvent> = new EventEmitter();
 
+  @ViewChildren(RythmBarBeatDivisionLineComponent)
+  lineComponents?: QueryList<RythmBarBeatDivisionLineComponent>;
+
   get width(): number {
+    return this.widthV2;
+  }
+
+  get top(): number {
+    return this.el.nativeElement.getBoundingClientRect().top;
+  }
+
+  private get widthV1(): number {
     return this.el.nativeElement.offsetWidth;
   }
-
-  get noteOffsetLeft(): number {
-    // TODO trouver dynamiquement
-    return 2;
+  private get widthV2(): number {
+    return this.el.nativeElement.getBoundingClientRect().width;
   }
 
-  get noteHeight(): number {
-    // TODO trouver la hauteur des lignes dynamiquement
+  getNoteOffsetTop(line: number): number {
+    return this.getNoteOffsetTopV2(line);
+  }
+
+  private getNoteOffsetTopV1(line: number): number {
     const tempCorrection = 0.97;
-    return (this.width / (12 / 7)) * tempCorrection;
+    const noteHeight = (this.width / (12 / 7)) * tempCorrection;
+    const lineBorder = 1;
+    return (line - 1) * (noteHeight + lineBorder);
+  }
+
+  private getNoteOffsetTopV2(line: number): number {
+    if (this.lineComponents) {
+      const minLineComponent = this.minLineComponent(line);
+      if (minLineComponent?.top !== undefined) {
+        const maxLineComponent = this.maxLineComponent(line);
+        if (maxLineComponent === minLineComponent) {
+          return minLineComponent.top - this.top;
+        } else if (maxLineComponent?.top !== undefined) {
+          const ratio = line % 1;
+          return (minLineComponent.top - this.top) + (maxLineComponent.top - this.top) * ratio;
+        }
+      }
+    }
+
+    console.warn('Impossible de calculer getNoteOffsetTopV2 => on utilise getNoteOffsetTopV1');
+    return this.getNoteOffsetTopV1(line);
+  }
+
+  private lineComponent(line: number): RythmBarBeatDivisionLineComponent | undefined {
+    return this.lineComponents?.get(line - 1);
+  }
+
+  private minLineComponent(line: number): RythmBarBeatDivisionLineComponent | undefined {
+    return this.lineComponent(Math.floor(line));
+  }
+
+  private maxLineComponent(line: number): RythmBarBeatDivisionLineComponent | undefined {
+    return this.lineComponent(Math.ceil(line));
   }
 
   get eventsOnThisDivision(): RythmBarEvent[] {
@@ -67,11 +114,6 @@ export class RythmBarBeatDivisionComponent {
     );
   }
 
-  get lineBorder(): number {
-    // TODO récup dynamique ou par variable
-    return 1;
-  }
-
   private _linesArray?: number[];
   protected get linesArray(): number[] {
     if (!this._linesArray) {
@@ -80,12 +122,31 @@ export class RythmBarBeatDivisionComponent {
     return this._linesArray;
   }
 
-  constructor(private readonly el: ElementRef) {}
+  constructor(
+    private readonly el: ElementRef,
+    private readonly changeDetectorRef: ChangeDetectorRef,
+  ) { }
+
+  ngAfterViewInit(): void {
+    this.changeDetectorRef.detectChanges();
+
+    this.detectChangesOnWindowResize();
+  }
+
+  private detectChangesOnWindowResize() {
+    // TODO il suffit de souscrire pour déclencher une détection de changement ? : https://stackoverflow.com/questions/35527456/angular-window-resize-event
+    fromEvent(window, 'resize').pipe(
+      tap(() => console.log('window resize')),
+      debounceTime(1000),
+      tap(() => console.log('debounced window resize'))
+    ).subscribe();
+  }
 
   /**
    * Basé sur 1 pour faciliter la conversion en booléen
    */
   line(event: RythmBarEvent): number {
+    // TODO à mettre dans un composant fonctionnel, qui interprète les events
     switch (event.note) {
       case 'kick':
         return this.lines;

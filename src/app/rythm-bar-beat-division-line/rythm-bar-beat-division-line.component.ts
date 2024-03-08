@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, HostBinding, HostListener, Input, Output } from '@angular/core';
+import { Component, EventEmitter, ElementRef, HostBinding, HostListener, Input, Output } from '@angular/core';
 import { RythmBarEvent, abletonLiveTimeCode } from '../rythm-bar/event';
 
 @Component({
@@ -59,6 +59,19 @@ export class RythmBarBeatDivisionLineComponent {
   onClick() {
     this.clickLine.emit(this);
     return false;
+  }
+
+  get height(): number {
+    return this.el.nativeElement.getBoundingClientRect().height;
+  }
+
+  get top(): number {
+    return this.el.nativeElement.getBoundingClientRect().top;
+  }
+
+  constructor(
+    private readonly el: ElementRef,
+  ) {
   }
 
 }

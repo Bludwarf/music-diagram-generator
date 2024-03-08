@@ -12,11 +12,12 @@
 <ng-container *ngIf="number == 1">
   <div class="beat-number">V{{ beatNumber }}</div>
 </ng-container>
-<ng-container *ngFor="let event of eventsOnThisDivision">
-  <app-note
-    *ngIf="line(event) as line"
-    [style.width.px]="width"
-    [style.left.px]="noteOffsetLeft"
-    [style.top.px]="(line - 1) * (noteHeight + lineBorder)"
-  ></app-note>
+<ng-container *ngIf="lineComponents">
+  <ng-container *ngFor="let event of eventsOnThisDivision">
+    <app-note
+      *ngIf="line(event) as line"
+      [style.width.px]="width"
+      [style.top.px]="getNoteOffsetTop(line)"
+    ></app-note>
+  </ng-container>
 </ng-container>

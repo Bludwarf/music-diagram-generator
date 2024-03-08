@@ -15,7 +15,7 @@ export class RythmSandboxComponent {
   events: RythmBarEvent[] = RythmBarEvent.fromEach(events);
 
   constructor() {
-    console.log(events);
+    console.log('Events chargés depuis le JSON', events);
   }
 
   addEvent(event: RythmBarEvent): void {

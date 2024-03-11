@@ -1,60 +1,70 @@
-Partie bombarde :
-<app-rythm-bar
-  [number]="1"
-  [events]="events"
-  (addEvent)="addEvent($event)"
-  (removeEvent)="removeEvent($event)"
-></app-rythm-bar>
-<br />
-<app-rythm-bar
-  [number]="2"
-  [events]="events"
-  (addEvent)="addEvent($event)"
-  (removeEvent)="removeEvent($event)"
-></app-rythm-bar>
-<br />
+Structure :
 
-Couplet :
-<app-rythm-bar
-  [number]="3"
-  [events]="events"
-  (addEvent)="addEvent($event)"
-  (removeEvent)="removeEvent($event)"
-></app-rythm-bar>
-<br />
-<app-rythm-bar
-  [number]="4"
-  [events]="events"
-  (addEvent)="addEvent($event)"
-  (removeEvent)="removeEvent($event)"
-></app-rythm-bar>
-<br />
+<app-structure (clickPattern)="onClickPattern($event)"></app-structure>
 
-Refrain :
-<app-rythm-bar
-  [number]="5"
-  [events]="events"
-  (addEvent)="addEvent($event)"
-  (removeEvent)="removeEvent($event)"
-></app-rythm-bar>
-<br />
-<app-rythm-bar
-  [number]="6"
-  [events]="events"
-  (addEvent)="addEvent($event)"
-  (removeEvent)="removeEvent($event)"
-></app-rythm-bar>
-<br />
-<app-rythm-bar
-  [number]="7"
-  [events]="events"
-  (addEvent)="addEvent($event)"
-  (removeEvent)="removeEvent($event)"
-></app-rythm-bar>
-<br />
-<app-rythm-bar
-  [number]="8"
-  [events]="events"
-  (addEvent)="addEvent($event)"
-  (removeEvent)="removeEvent($event)"
-></app-rythm-bar>
+<ng-container *ngIf="currentPattern == 'B'">
+  Partie bombarde :
+  <app-rythm-bar
+    [number]="1"
+    [events]="events"
+    (addEvent)="addEvent($event)"
+    (removeEvent)="removeEvent($event)"
+  ></app-rythm-bar>
+  <br />
+  <app-rythm-bar
+    [number]="2"
+    [events]="events"
+    (addEvent)="addEvent($event)"
+    (removeEvent)="removeEvent($event)"
+  ></app-rythm-bar>
+  <br />
+</ng-container>
+
+<ng-container *ngIf="currentPattern == 'C'">
+  Couplet :
+  <app-rythm-bar
+    [number]="3"
+    [events]="events"
+    (addEvent)="addEvent($event)"
+    (removeEvent)="removeEvent($event)"
+  ></app-rythm-bar>
+  <br />
+  <app-rythm-bar
+    [number]="4"
+    [events]="events"
+    (addEvent)="addEvent($event)"
+    (removeEvent)="removeEvent($event)"
+  ></app-rythm-bar>
+  <br />
+</ng-container>
+
+<ng-container *ngIf="currentPattern == 'R'">
+  Refrain :
+  <app-rythm-bar
+    [number]="5"
+    [events]="events"
+    (addEvent)="addEvent($event)"
+    (removeEvent)="removeEvent($event)"
+  ></app-rythm-bar>
+  <br />
+  <app-rythm-bar
+    [number]="6"
+    [events]="events"
+    (addEvent)="addEvent($event)"
+    (removeEvent)="removeEvent($event)"
+  ></app-rythm-bar>
+  <br />
+  <app-rythm-bar
+    [number]="7"
+    [events]="events"
+    (addEvent)="addEvent($event)"
+    (removeEvent)="removeEvent($event)"
+  ></app-rythm-bar>
+  <br />
+  <app-rythm-bar
+    [number]="8"
+    [events]="events"
+    (addEvent)="addEvent($event)"
+    (removeEvent)="removeEvent($event)"
+  ></app-rythm-bar>
+</ng-container>

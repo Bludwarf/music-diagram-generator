@@ -20,6 +20,8 @@ export class RythmSandboxComponent {
 
   private player?: Tone.Player;
 
+  patternToPlay?: string;
+
   constructor() {
     console.log('Events chargés depuis le JSON', events);
   }
@@ -44,6 +46,22 @@ export class RythmSandboxComponent {
 
     await this.stop();
 
+    const getAudioFileURL = (pattern: string) => {
+      const patternIndex = ['C', 'B', 'R'].indexOf(pattern);
+      if (patternIndex === -1) {
+        return undefined;
+      }
+
+      const inputElement = document.getElementsByTagName('input');
+      const file = inputElement?.[patternIndex].files?.[0]
+      if (!file) {
+        return undefined;
+      }
+
+      console.log('file', file)
+      return URL.createObjectURL(file);
+    };
+
     // const bView = "https://drive.google.com/file/d/1DktZf_rGRaoRxoJEbo3NVWd9yYFX39aj/view?usp=sharing";
     // const bDownload = "https://drive.usercontent.google.com/u/0/uc?id=1DktZf_rGRaoRxoJEbo3NVWd9yYFX39aj&export=download";
     const audioFiles: Record<string, string> = {
@@ -51,9 +69,14 @@ export class RythmSandboxComponent {
       'C': 'assets/audio/Petit Papillon/PetitPapillon_couplet [2024-01-20 122633].wav',
       'R': 'assets/audio/Petit Papillon/Refrain [2024-01-31 233926].wav',
     }
-    const audioFile = audioFiles[this.currentPattern];
+    // const audioFile = audioFiles[this.currentPattern];
+
+    const audioFile = getAudioFileURL(this.currentPattern);
     if (!audioFile) {
-      return;
+      delete this.patternToPlay
+      return
+    } else {
+      this.patternToPlay = this.currentPattern;
     }
 
     const player = new Tone.Player({

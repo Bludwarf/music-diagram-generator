@@ -1,11 +1,17 @@
+C : <input type="file" accept=".wav,.mp3"/>
+B : <input type="file" accept=".wav,.mp3"/>
+R : <input type="file" accept=".wav,.mp3"/>
+
 Structure :
 
 <app-structure (clickPattern)="onClickPattern($event)"></app-structure>
 
-<button (click)="play()">Play</button>
-<button (click)="stop()">Stop</button>
-
-<br>
+<ng-container *ngIf="patternToPlay">
+  {{patternToPlay}} : 
+  <button (click)="play()" [disabled]="!patternToPlay">Play</button>
+  <button (click)="stop()" [disabled]="!patternToPlay">Stop</button>
+  <br>
+</ng-container>
 
 <ng-container *ngIf="currentPattern == 'B'">
   Partie bombarde :

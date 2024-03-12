@@ -2,6 +2,11 @@ Structure :
 
 <app-structure (clickPattern)="onClickPattern($event)"></app-structure>
 
+<button (click)="play()">Play</button>
+<button (click)="stop()">Stop</button>
+
+<br>
+
 <ng-container *ngIf="currentPattern == 'B'">
   Partie bombarde :
   <app-rythm-bar

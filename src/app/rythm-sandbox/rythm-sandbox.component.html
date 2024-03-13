@@ -1,10 +1,18 @@
-C : <input type="file" accept=".wav,.mp3"/>
-B : <input type="file" accept=".wav,.mp3"/>
-R : <input type="file" accept=".wav,.mp3"/>
+<input type="file" accept=".wav,.mp3" (change)="uploadFile($event)"/>
+<br/>
+<button (click)="playSong()">Play</button>
+<button (click)="pauseSong()">Pause</button>
+<button (click)="stopSong()">Stop</button>
+<br/>
+{{timecode}}
+<br/>
+<input type="range" min="0" max="100" step="1" [value]="progress" (change)="setProgress($event)" />
+<br/>
 
 Structure :
 
 <app-structure (clickPattern)="onClickPattern($event)"></app-structure>
+<br/>
 
 <ng-container *ngIf="patternToPlay">
   {{patternToPlay}} : 
@@ -13,13 +21,14 @@ Structure :
   <br>
 </ng-container>
 
-<ng-container *ngIf="currentPattern == 'B'">
-  Partie bombarde :
+<ng-container *ngIf="currentPattern && currentPattern.name == 'Partie bombarde'">
+  {{currentPattern.name}} :
   <app-rythm-bar
     [number]="1"
     [events]="events"
     (addEvent)="addEvent($event)"
     (removeEvent)="removeEvent($event)"
+    [timecode]="timecode"
   ></app-rythm-bar>
   <br />
   <app-rythm-bar
@@ -27,12 +36,13 @@ Structure :
     [events]="events"
     (addEvent)="addEvent($event)"
     (removeEvent)="removeEvent($event)"
+    [timecode]="timecode"
   ></app-rythm-bar>
   <br />
 </ng-container>
 
-<ng-container *ngIf="currentPattern == 'C'">
-  Couplet :
+<ng-container *ngIf="currentPattern && currentPattern.name == 'Couplet'">
+  {{currentPattern.name}} :
   <app-rythm-bar
     [number]="3"
     [events]="events"
@@ -49,8 +59,8 @@ Structure :
   <br />
 </ng-container>
 
-<ng-container *ngIf="currentPattern == 'R'">
-  Refrain :
+<ng-container *ngIf="currentPattern && currentPattern.name == 'Refrain'">
+  {{currentPattern.name}} :
   <app-rythm-bar
     [number]="5"
     [events]="events"

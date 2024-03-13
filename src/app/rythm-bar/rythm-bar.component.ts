@@ -28,6 +28,10 @@ export class RythmBarComponent {
   @Input()
   events: RythmBarEvent[] = []
 
+  // TODO utiliser un timecode relatif plutôt qu'absolu ?
+  @Input()
+  timecode?: string;
+
   @Output()
   addEvent: EventEmitter<RythmBarEvent> = new EventEmitter();
 

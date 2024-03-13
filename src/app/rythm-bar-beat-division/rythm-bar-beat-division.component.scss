@@ -24,7 +24,7 @@ app-note {
   width: 24px;
 }
 
-:host:hover {
+:host:hover, :host(.active) {
   background: rgb(255, 255, 155); // TODO factor avec rythm-bar-beat-division-line
   color: black;
 }

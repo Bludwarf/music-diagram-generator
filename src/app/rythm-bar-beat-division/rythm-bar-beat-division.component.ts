@@ -4,6 +4,7 @@ import {
   Component,
   ElementRef,
   EventEmitter,
+  HostBinding,
   Input,
   Output,
   QueryList,
@@ -39,6 +40,10 @@ export class RythmBarBeatDivisionComponent implements AfterViewInit {
   @Input()
   events: RythmBarEvent[] = [];
 
+  // TODO utiliser un timecode relatif plutôt qu'absolu ?
+  @Input()
+  timecode?: string;
+
   @Output()
   addEvent: EventEmitter<RythmBarEvent> = new EventEmitter();
 
@@ -47,6 +52,21 @@ export class RythmBarBeatDivisionComponent implements AfterViewInit {
 
   @ViewChildren(RythmBarBeatDivisionLineComponent)
   lineComponents?: QueryList<RythmBarBeatDivisionLineComponent>;
+
+  @HostBinding('class.active')
+  get active(): boolean {
+    if (!this.timecode) {
+      return false;
+    }
+
+    // TODO faire une classe pour décomposer chaque champ
+    const fields = this.timecode.split(':');
+    const barNumber = +fields[0]
+    const beatNumber = +fields[1]
+    const sixteenthNumber = +fields[2]
+
+    return barNumber === this.barNumber && beatNumber === this.beatNumber && sixteenthNumber === this.number;
+  }
 
   get width(): number {
     return this.widthV2;

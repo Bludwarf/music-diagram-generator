@@ -13,12 +13,12 @@ import { Time } from '../time';
 import { WrapMarker } from '../wrap-marker';
 import { PatternInStructure } from '../structure/pattern/pattern-in-structure';
 import { FretboardComponent } from '../fretboard/fretboard.component';
-import { Key, Note } from '../notes';
+import { Chord, Key, Note } from '../notes';
+import { sequence } from '../utils';
 
 // TODO comment avoir la durée en secondes du sample ?
 // On utilise pour l'instant le fichier DIDAFTA PETIT PAPILLON Master Web 24bit 48Khz_02-01.wav
 const sampleDuration = new Time(Tone.Time(3 * 60 + 28, 's'))
-
 
 const wrapMarkers = [
   new WrapMarker(0, -1.1762159715284715),
@@ -95,6 +95,10 @@ const wrapMarkers = [
   new WrapMarker(195.61702083333333, 356.32361076423575),
   new WrapMarker(197.82550000000001, 360.32361076423575),
   new WrapMarker(197.84312565104167, 360.35486076423575),
+  // TODO pour trouver le WrappedTime après le dernier WrapMarker, il faut calculer le tempo à la fin et interpoler
+  // TODO Pour l'instant on le déduit à la louche
+  // TODO que se passe-t-il si le sample continue alors que la structure est finie ?
+  new WrapMarker(208, 380),
 ]
 
 @Component({
@@ -108,18 +112,22 @@ export class RythmSandboxComponent {
   events: RythmBarEvent[] = RythmBarEvent.fromEach(events);
 
   currentPatternInStructure?: PatternInStructure;
+  currentChord?: Chord;
 
   private player?: Tone.Player;
 
-  patternToPlay?: string;
   progress = 0;
   timecode?: string;
   structure?: Structure;
+  rythmBarTimecode?: string;
+  currentPatternInStructureRelativeTimecode?: string;
+
+  protected sequence = sequence
 
   constructor(
     private readonly changeDetectorRef: ChangeDetectorRef,
   ) {
-    console.log('Events chargés depuis le JSON', events);
+    // console.log('Events chargés depuis le JSON', events);
 
     Tone.Transport.schedule(function (time) {
       console.log('Première mesure')
@@ -163,28 +171,98 @@ export class RythmSandboxComponent {
 
     await Tone.loaded() // évite les erreurs de buffer
 
-    const couplet = new Pattern('Couplet', new Time(Tone.Time('2m')), undefined, new Key(new Note(7), new Note(9)))
-    const bombarde = new Pattern('Partie bombarde', new Time(Tone.Time('2m')), 'B', new Key(new Note(7), new Note(9)))
-    const refrain = new Pattern('Refrain', new Time(Tone.Time('4m')), undefined, new Key(new Note(7), new Note(9)))
+    const key = new Key(new Note(7), new Note(9))
 
-    const coupletBlock = [couplet, couplet]
-    const bombardeBlock = [bombarde, bombarde]
-    const refrainBlock = [refrain]
+    const bombardeSeuleIntro = Pattern.fromData({
+      name: 'Début bombarde (G à 4.4)',
+      initial: 'B0',
+      key,
+      duration: '4m',
+    })
+    const bombarde = Pattern.fromData({
+      name: 'Partie bombarde',
+      initial: 'B',
+      key,
+      chords: '| Gm F | Eb D | Gm F | Eb D Gm Gm |',
+      events: events.filter((event: any) => event.bar >= 1 || event.bar <= 2),
+    })
+    const bombardeSeuleM1 = Pattern.fromData({
+      name: 'Bombarde seule',
+      initial: 'B*1',
+      duration: '1m', // TODO on devrait pouvoir faire plutôt : chords: '|  | Eb D |'
+      key,
+    })
+    const bombardeSeuleM2 = Pattern.fromData({
+      name: 'Retour groupe',
+      initial: 'B*2',
+      chords: '| Eb D |',
+      key,
+      events: events.filter((event: any) => event.bar == 2),
+    })
+    const bombardeM3et4 = Pattern.fromData({
+      name: '1/2 Partie bombarde',
+      initial: 'B*34',
+      key,
+      chords: '| Gm F | Eb D Gm Gm |',
+      events: events.filter((event: any) => event.bar >= 1 || event.bar <= 2),
+    })
+    const couplet = Pattern.fromData({
+      name: 'Couplet',
+      key,
+      chords: '| Gm F | Eb D | Gm F | Eb D Gm Gm |',
+      events: events.filter((event: any) => event.bar >= 3 || event.bar <= 4),
+    })
+    const coupletBb = Pattern.fromData({
+      name: 'Couplet (Bb)',
+      initial: 'C\'',
+      key,
+      chords: '| Gm F | Eb Bb | Gm F | Eb D Gm Gm |',
+      events: events.filter((event: any) => event.bar >= 3 || event.bar <= 4),
+    })
+    const refrain = Pattern.fromData({
+      name: 'Refrain',
+      duration: '4m',
+      key,
+      chords: '| Bb | F | C | Gm |',
+      events: events.filter((event: any) => event.bar >= 5),
+    })
 
-    const coupletPassage = [...coupletBlock, ...coupletBlock]
-    const bombardePassage = [...bombardeBlock, ...bombardeBlock]
-    const refrainPassage = [...refrainBlock, ...refrainBlock]
+    const intro = [bombardeSeuleIntro, bombarde, bombarde]
+    const bombardePassage = [bombarde, bombarde]
+    const bombardePassageApresRefrain = [bombardeSeuleM1, bombardeSeuleM2, bombardeM3et4, bombarde]
+    const coupletPassage = [couplet, coupletBb]
+    const refrainPassage = [refrain, refrain]
 
     const structure = new Structure(
       [
-        ...bombardeBlock, ...bombardeBlock, ...bombardeBlock,
-        ...coupletPassage, ...bombardePassage, ...coupletPassage, ...refrainPassage, ...bombardePassage,
-        ...coupletPassage, ...bombardePassage, ...coupletPassage, ...refrainPassage, ...bombardePassage,
-      ]
+        ...intro,
+        ...coupletPassage, ...bombardePassage, ...coupletPassage, ...refrainPassage, ...bombardePassageApresRefrain,
+        ...coupletPassage, ...bombardePassage, ...coupletPassage, ...refrainPassage, ...bombardePassageApresRefrain,
+      ],
+      (pattern: Pattern) => {
+        if (pattern === bombarde) return Time.fromValue("0:0")
+        if (pattern === bombardeM3et4) return Time.fromValue("0:0")
+        if (pattern === bombardeSeuleM2) return Time.fromValue("1:0")
+        if (pattern === couplet) return Time.fromValue("2:0")
+        if (pattern === coupletBb) return Time.fromValue("2:0")
+        if (pattern === refrain) return Time.fromValue("4:0")
+        return undefined
+      },
+      (pattern: Pattern) => {
+        if (pattern === bombarde) return 2
+        if (pattern === bombardeM3et4) return 2
+        if (pattern === bombardeSeuleM2) return 1
+        if (pattern === couplet) return 2
+        if (pattern === coupletBb) return 2
+        if (pattern === refrain) return 4
+        return undefined
+      },
     )
     // console.log(couplet.duration.toAbletonLiveBarsBeatsSixteenths())
     // console.log(new Structure(coupletBlock).duration.toAbletonLiveBarsBeatsSixteenths())
     // console.log(structure.duration.toBarsBeatsSixteenths())
+
+    this.validateWrapMarker();
 
     // cf. https://github.com/Tonejs/Tone.js/blob/dev/examples/daw.html
     Tone.Transport.bpm.value = 120;
@@ -232,7 +310,27 @@ export class RythmSandboxComponent {
 
     if (this.structure && wrappedTime) {
       const changePatternFasterDelay = Time.fromValue(0) // Time.fromValue('4n') // TODO trop bizarre à l'affichage de la section courante, mais ok pour affichage partoche
-      this.currentPatternInStructure = this.structure.getPatternInStructureAt(wrappedTime.add(changePatternFasterDelay))
+      const delayedWrappedTime = wrappedTime.add(changePatternFasterDelay);
+      this.currentPatternInStructure = this.structure.getPatternInStructureAt(delayedWrappedTime)
+      this.currentChord = this.currentPatternInStructure?.getChordAt(delayedWrappedTime)
+
+      if (this.currentPatternInStructure) {
+        if (this.currentPatternInStructure.eventsStartTime) {
+          this.rythmBarTimecode = delayedWrappedTime
+            .relativeTo(this.currentPatternInStructure.startTime)
+            .mod(this.currentPatternInStructure.eventsDurationInBars)
+            .add(this.currentPatternInStructure.eventsStartTime)
+            .toAbletonLiveBarsBeatsSixteenths()
+        } else {
+          delete this.rythmBarTimecode
+        }
+        this.currentPatternInStructureRelativeTimecode = delayedWrappedTime
+          .relativeTo(this.currentPatternInStructure.startTime)
+          .toAbletonLiveBarsBeatsSixteenths()
+      } else {
+        delete this.rythmBarTimecode
+        delete this.currentPatternInStructureRelativeTimecode
+      }
     }
 
     this.changeDetectorRef.detectChanges();
@@ -261,6 +359,7 @@ export class RythmSandboxComponent {
     const sixteenths = beatTime % 1 * 4
 
     const barsBeatsSixteenth = `${bars}:${beats}:${sixteenths}`;
+    // console.log('wrappedPosition', barsBeatsSixteenth, new Time(Tone.Time(barsBeatsSixteenth)).toBarsBeatsSixteenths())
 
     return new Time(Tone.Time(barsBeatsSixteenth))
   }
@@ -408,4 +507,21 @@ export class RythmSandboxComponent {
   get playing(): boolean {
     return Tone.Transport.state === 'started'
   }
+
+  private validateWrapMarker() {
+    const lastWrapMarker = wrapMarkers[wrapMarkers.length - 1];
+    const sampleDurationInSeconds = sampleDuration.toSeconds();
+    if (lastWrapMarker.secTime !== sampleDurationInSeconds) {
+      const sampleCode = `new WrapMarker(${sampleDurationInSeconds}, "beatTime relevé dans Ableton Live à la fin du sample"),`
+      error(`Pour le moment, on doit ajouter la main un dernier WrapMarker précisément à la fin du sample : ${sampleCode}`)
+    }
+  }
+}
+
+/**
+ * Pour la version mobile, on affiche une alerte, car on n'a pas forcément accès à la console pour voir les erreurs
+ */
+function error(message: string): never {
+  alert(message)
+  throw new Error(message)
 }

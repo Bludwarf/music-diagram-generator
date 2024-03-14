@@ -28,7 +28,10 @@ export class FretboardComponent implements OnInit, OnChanges {
   fretsCount = 5
 
   @Input()
-  key = new Key(Note.fromName('C'), Mode.fromName('I'))
+  key? = new Key(Note.fromName('C'), Mode.fromName('I'))
+
+  @Input()
+  currentNote?: Note
 
   fretboard?: Fretboard;
 

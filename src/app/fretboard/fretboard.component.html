@@ -7,9 +7,10 @@
     [attr.data-fret]="line.fret"
     [attr.data-string]="note.string.name"
     [attr.data-note]="note.value"
-    [attr.data-degree]="note.degreeIn(key).value"
-    [attr.data-mode]="note.modeIn(key).name"
-    [attr.title]="
+    [class.active]="currentNote?.equals(note)"
+    [attr.data-degree]="key && note.degreeIn(key).value"
+    [attr.data-mode]="key && note.modeIn(key).name"
+    [attr.title]="key &&
       'Mode : ' +
       note.modeIn(key).name +
       '\nDegré : +' +

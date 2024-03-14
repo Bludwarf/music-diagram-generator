@@ -13,101 +13,47 @@
   <input type="range" min="0" max="100" step="1" [value]="progress" (change)="setProgress($event)" />
   <br/>
 
+  <!-- Tonalité -->
   Gm
 
   <app-structure [structure]="structure" [currentPatternInStructure]="currentPatternInStructure" (clickPatternInStructure)="onClickPatternInStructure($event)"></app-structure>
   <br/>
 
-  <ng-container *ngIf="patternToPlay">
-    {{patternToPlay}} : 
-    <button (click)="play()" [disabled]="!patternToPlay">Play</button>
-    <button (click)="stop()" [disabled]="!patternToPlay">Stop</button>
-    <br>
-  </ng-container>
+  <!-- TODO : Bombarde dès 1.1.1 mais groupe à 5.1.1 -->
 
-  <!-- Bombarde dès 1.1.1 mais groupe à 5.1.1 -->
+  <ng-container *ngIf="currentPatternInStructure">
+    {{currentPatternInStructure.pattern.name}}<br/>
+    {{currentPatternInStructureRelativeTimecode}}<br/>
+    
+    <ng-container *ngIf="currentPatternInStructure.pattern.chords; let chords">
+      {{chords.toAscii()}}
+    </ng-container>
+    <ng-container *ngIf="!currentPatternInStructure.pattern.chords">
+      {{currentPatternInStructure.pattern.duration.toBars()}}m
+    </ng-container>
+    <br/>
 
-  <ng-container *ngIf="currentPatternInStructure && currentPatternInStructure.pattern && currentPatternInStructure.pattern.name == 'Partie bombarde'">
-    {{currentPatternInStructure.pattern.name}} : | Gm F | Eb D |
     <app-fretboard
-      [lowestFret]="1"
-      [fretsCount]="6"
+      [lowestFret]="0"
+      [fretsCount]="7"
       [key]="currentPatternInStructure.pattern.key"
+      [currentNote]="currentChord?.root"
     ></app-fretboard>
-    <app-rythm-bar
-      [number]="1"
-      [events]="events"
-      (addEvent)="addEvent($event)"
-      (removeEvent)="removeEvent($event)"
-      [timecode]="timecode"
-    ></app-rythm-bar>
-    <br />
-    <app-rythm-bar
-      [number]="2"
-      [events]="events"
-      (addEvent)="addEvent($event)"
-      (removeEvent)="removeEvent($event)"
-      [timecode]="timecode"
-    ></app-rythm-bar>
-    <br />
+
+    <ng-container *ngIf="currentPatternInStructure.eventsStartTime">
+      <ng-container *ngFor="let barNumber of sequence(currentPatternInStructure.eventsDurationInBars, currentPatternInStructure.eventsStartTime.toBars() + 1)">
+        <app-rythm-bar
+          *ngIf="currentPatternInStructure.pattern.events?.length"
+          [number]="barNumber"
+          [events]="currentPatternInStructure.pattern.events"
+          (addEvent)="addEvent($event)"
+          (removeEvent)="removeEvent($event)"
+          [timecode]="rythmBarTimecode"
+        ></app-rythm-bar>
+        <br />
+      </ng-container>
+    </ng-container>
+
   </ng-container>
 
-  <ng-container *ngIf="currentPatternInStructure && currentPatternInStructure.pattern && currentPatternInStructure.pattern.name == 'Couplet'">
-    {{currentPatternInStructure.pattern.name}} : | Gm F | Eb D* | (*Bb sur le 4e pattern)
-    <app-fretboard
-      [lowestFret]="1"
-      [fretsCount]="6"
-      [key]="currentPatternInStructure.pattern.key"
-    ></app-fretboard>
-    <app-rythm-bar
-      [number]="3"
-      [events]="events"
-      (addEvent)="addEvent($event)"
-      (removeEvent)="removeEvent($event)"
-    ></app-rythm-bar>
-    <br />
-    <app-rythm-bar
-      [number]="4"
-      [events]="events"
-      (addEvent)="addEvent($event)"
-      (removeEvent)="removeEvent($event)"
-    ></app-rythm-bar>
-    <br />
-  </ng-container>
-
-  <ng-container *ngIf="currentPatternInStructure && currentPatternInStructure.pattern && currentPatternInStructure.pattern.name == 'Refrain'">
-    {{currentPatternInStructure.pattern.name}} : | Bb | F | C | Gm |
-    <app-fretboard
-      [lowestFret]="1"
-      [fretsCount]="3"
-      [key]="currentPatternInStructure.pattern.key"
-    ></app-fretboard>
-    <app-rythm-bar
-      [number]="5"
-      [events]="events"
-      (addEvent)="addEvent($event)"
-      (removeEvent)="removeEvent($event)"
-    ></app-rythm-bar>
-    <br />
-    <app-rythm-bar
-      [number]="6"
-      [events]="events"
-      (addEvent)="addEvent($event)"
-      (removeEvent)="removeEvent($event)"
-    ></app-rythm-bar>
-    <br />
-    <app-rythm-bar
-      [number]="7"
-      [events]="events"
-      (addEvent)="addEvent($event)"
-      (removeEvent)="removeEvent($event)"
-    ></app-rythm-bar>
-    <br />
-    <app-rythm-bar
-      [number]="8"
-      [events]="events"
-      (addEvent)="addEvent($event)"
-      (removeEvent)="removeEvent($event)"
-    ></app-rythm-bar>
-  </ng-container>
 </ng-container>

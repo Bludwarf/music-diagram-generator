@@ -11,13 +11,15 @@ export class Structure {
 
     constructor(
         patterns: Pattern[],
+        getEventsStartTime: (pattern: Pattern) => Time | undefined, // TODO en attendant de savoir comment faire les events
+        getEventsDurationInBars: (pattern: Pattern) => number | undefined, // TODO en attendant de savoir comment faire les events
     ) {
         this.startTimes = []
         this.patternsInStructure = []
 
         let currentTime = new Time()
         for (const pattern of patterns) {
-            this.patternsInStructure.push(new PatternInStructure(pattern, this, currentTime))
+            this.patternsInStructure.push(new PatternInStructure(pattern, this, currentTime, getEventsStartTime(pattern), getEventsDurationInBars(pattern)))
             currentTime = currentTime.add(pattern.duration)
         }
 
@@ -34,7 +36,7 @@ export class Structure {
         }
 
         for (const patternInStructure of this.patternsInStructure) {
-            if (time.isBefore(patternInStructure.endTime)) {
+            if (time.isBeforeOrEquals(patternInStructure.endTime)) {
                 return patternInStructure
             }
         }

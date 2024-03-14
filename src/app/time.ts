@@ -3,56 +3,129 @@ import * as Tone from 'tone'
 import { Transport } from "tone/build/esm/core/clock/Transport";
 import { TimeValue } from "tone/build/esm/core/type/TimeBase";
 
-
+// TODO Attention valable uniquement en 4/4, sinon il faudra utiliser TimeClass avec un BaseContext
 export class Time {
 
     constructor(
-        private readonly _toneTime: TimeClass = Tone.Time(0),
+        protected readonly _toneTime: TimeClass = Tone.Time(0),
     ) {
     }
 
-    static fromValue(value?: TimeValue): any {
+    static fromValue(value?: TimeValue): Time {
         return new this(Tone.Time(value))
     }
 
-    static fromTransport(transport: Transport): any {
+    static fromTransport(transport: Transport): Time {
         // TODO utiliser time pour être plus précis ?
         return new this(Tone.Time(transport.position)) // TODO OK ?
     }
 
+  private static fromFields(fields: BarsBeatsSixteenthsFields): Time {
+    return Time.fromValue(fieldsToString(fields))
+  }
+
     add(time: Time): Time {
-        const seconds = this.toSeconds() + time.toSeconds()
-        return new Time(Tone.Time(seconds, 's'))
+        const thisFields = this.toBarsBeatsSixteenthsFields()
+        const timeFields = time.toBarsBeatsSixteenthsFields()
+        const sumFields: BarsBeatsSixteenthsFields = {
+            bars: thisFields.bars + timeFields.bars,
+            beats: thisFields.beats + timeFields.beats,
+            sixteenths: thisFields.sixteenths + timeFields.sixteenths,
+        }
+        return Time.fromFields(sumFields)
+    }
+
+    dividedIn(divider: number): Time {
+        const fields = this.toBarsBeatsSixteenthsFields()
+        const dividedFields: BarsBeatsSixteenthsFields = {
+            bars: fields.bars / divider,
+            beats: fields.beats / divider,
+            sixteenths: fields.sixteenths / divider,
+        }
+        return Time.fromFields(dividedFields)
+    }
+
+    relativeTo(startTime: Time): Time {
+        // TODO à tester
+        // console.log('relativeTime', startTime.toBarsBeatsSixteenths(), this.toBarsBeatsSixteenths(), new Time(Tone.Time(this.toSeconds() - startTime.toSeconds(), 's')).toBarsBeatsSixteenths())
+        return new Time(Tone.Time(this.toSeconds() - startTime.toSeconds(), 's'))
+    }
+
+    compareTo(time: Time): number {
+        return this.toSeconds() - time.toSeconds()
     }
 
     isBefore(time: Time): boolean {
-        return this.toSeconds() < time.toSeconds()
+        return this.compareTo(time) < 0
+    }
+
+    isBeforeOrEquals(time: Time): boolean {
+        return this.compareTo(time) <= 0
+    }
+
+    isAfterOrEquals(time: Time): boolean {
+        return this.compareTo(time) >= 0
     }
 
     toBarsBeatsSixteenths(): string {
         return this._toneTime.toBarsBeatsSixteenths()
     }
 
-    toAbletonLiveBarsBeatsSixteenths(): string {
+    toBars(): number {
+        // TODO arrondi OK ?
+        return this.toBarsBeatsSixteenthsFields().bars
+    }
+
+    private toBarsBeatsSixteenthsFields(): BarsBeatsSixteenthsFields {
         const fields = this._toneTime.toBarsBeatsSixteenths().split(':');
-        const bars = +fields[0] + 1
-        const beats = +fields[1] + 1
+        return {
+            bars: +fields[0],
+            beats: +fields[1],
+            sixteenths: +fields[2],
+        }
+    }
+
+    toAbletonLiveBarsBeatsSixteenths(): string {
+        const fields = this.toBarsBeatsSixteenthsFields();
+        ++fields.bars
+        ++fields.beats
         // TODO pour être plus précis, il faudrait utiliser time, puis le convertir en relatif à transport.position
-        const sixteenths = Math.floor(+fields[2]) + 1
-        return `${bars}.${beats}.${sixteenths}`
+        fields.sixteenths = Math.floor(fields.sixteenths) + 1
+        return fieldsToString(fields, '.')
     }
 
     toAbletonLiveBeatTime(): number {
-        // TODO méthode déjà existante dans Tone.js ?
-        const fields = this._toneTime.toBarsBeatsSixteenths().split(':');
-        const bars = +fields[0]
-        const beats = +fields[1]
+        const fields = this.toBarsBeatsSixteenthsFields();
+        const bars = fields.bars
+        const beats = fields.beats
         // TODO pour être plus précis, il faudrait utiliser time, puis le convertir en relatif à transport.position
-        const sixteenths = Math.floor(+fields[2])
+        const sixteenths = Math.floor(fields.sixteenths)
         return bars * 4 + beats + sixteenths / 4 // TODO uniquement en 4/4
     }
 
     toSeconds(): number {
         return this._toneTime.toSeconds();
     }
+
+    toString(): string {
+        return this.toBarsBeatsSixteenths()
+    }
+
+  mod(bars: number): Time {
+    const fields = this.toBarsBeatsSixteenthsFields()
+    fields.bars = fields.bars % bars
+    return Time.fromFields(fields)
+  }
+}
+
+export const ONE_BAR = Time.fromValue('1m')
+
+interface BarsBeatsSixteenthsFields {
+    bars: number
+    beats: number
+    sixteenths: number
+}
+
+function fieldsToString(fields: BarsBeatsSixteenthsFields, separator = ':'): string {
+    return `${fields.bars}${separator}${fields.beats}${separator}${fields.sixteenths}`
 }

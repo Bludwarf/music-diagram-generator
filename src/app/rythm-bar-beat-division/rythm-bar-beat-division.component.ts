@@ -60,7 +60,7 @@ export class RythmBarBeatDivisionComponent implements AfterViewInit {
     }
 
     // TODO faire une classe pour décomposer chaque champ
-    const fields = this.timecode.split(':');
+    const fields = this.timecode.split('.');
     const barNumber = +fields[0]
     const beatNumber = +fields[1]
     const sixteenthNumber = +fields[2]

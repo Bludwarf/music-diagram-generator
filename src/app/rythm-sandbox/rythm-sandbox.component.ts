@@ -12,6 +12,8 @@ import { Pattern } from '../structure/pattern/pattern';
 import { Time } from '../time';
 import { WrapMarker } from '../wrap-marker';
 import { PatternInStructure } from '../structure/pattern/pattern-in-structure';
+import { FretboardComponent } from '../fretboard/fretboard.component';
+import { Key, Note } from '../notes';
 
 // TODO comment avoir la durée en secondes du sample ?
 // On utilise pour l'instant le fichier DIDAFTA PETIT PAPILLON Master Web 24bit 48Khz_02-01.wav
@@ -98,7 +100,7 @@ const wrapMarkers = [
 @Component({
   selector: 'app-rythm-sandbox',
   standalone: true,
-  imports: [RythmBarComponent, JsonPipe, StructureComponent, CommonModule, FormsModule],
+  imports: [RythmBarComponent, JsonPipe, StructureComponent, CommonModule, FormsModule, FretboardComponent],
   templateUrl: './rythm-sandbox.component.html',
   styleUrl: './rythm-sandbox.component.scss',
 })
@@ -161,9 +163,9 @@ export class RythmSandboxComponent {
 
     await Tone.loaded() // évite les erreurs de buffer
 
-    const couplet = new Pattern('Couplet', new Time(Tone.Time('2m')))
-    const bombarde = new Pattern('Partie bombarde', new Time(Tone.Time('2m')), 'B')
-    const refrain = new Pattern('Refrain', new Time(Tone.Time('4m')))
+    const couplet = new Pattern('Couplet', new Time(Tone.Time('2m')), undefined, new Key(new Note(7), new Note(9)))
+    const bombarde = new Pattern('Partie bombarde', new Time(Tone.Time('2m')), 'B', new Key(new Note(7), new Note(9)))
+    const refrain = new Pattern('Refrain', new Time(Tone.Time('4m')), undefined, new Key(new Note(7), new Note(9)))
 
     const coupletBlock = [couplet, couplet]
     const bombardeBlock = [bombarde, bombarde]

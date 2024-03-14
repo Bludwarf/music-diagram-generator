@@ -1,5 +1,6 @@
 import * as Tone from 'tone'
 import { Time } from '../../time';
+import { Key } from '../../notes';
 
 export class Pattern {
 
@@ -7,6 +8,7 @@ export class Pattern {
         readonly name: string,
         readonly duration: Time,
         readonly initial?: string,
+        readonly key?: Key,
     ) {
     }
 

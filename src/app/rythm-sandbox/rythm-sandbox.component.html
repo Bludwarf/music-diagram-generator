@@ -13,6 +13,8 @@
   <input type="range" min="0" max="100" step="1" [value]="progress" (change)="setProgress($event)" />
   <br/>
 
+  Gm
+
   <app-structure [structure]="structure" [currentPatternInStructure]="currentPatternInStructure" (clickPatternInStructure)="onClickPatternInStructure($event)"></app-structure>
   <br/>
 
@@ -23,8 +25,15 @@
     <br>
   </ng-container>
 
+  <!-- Bombarde dès 1.1.1 mais groupe à 5.1.1 -->
+
   <ng-container *ngIf="currentPatternInStructure && currentPatternInStructure.pattern && currentPatternInStructure.pattern.name == 'Partie bombarde'">
-    {{currentPatternInStructure.pattern.name}} :
+    {{currentPatternInStructure.pattern.name}} : | Gm F | Eb D |
+    <app-fretboard
+      [lowestFret]="1"
+      [fretsCount]="6"
+      [key]="currentPatternInStructure.pattern.key"
+    ></app-fretboard>
     <app-rythm-bar
       [number]="1"
       [events]="events"
@@ -44,7 +53,12 @@
   </ng-container>
 
   <ng-container *ngIf="currentPatternInStructure && currentPatternInStructure.pattern && currentPatternInStructure.pattern.name == 'Couplet'">
-    {{currentPatternInStructure.pattern.name}} :
+    {{currentPatternInStructure.pattern.name}} : | Gm F | Eb D* | (*Bb sur le 4e pattern)
+    <app-fretboard
+      [lowestFret]="1"
+      [fretsCount]="6"
+      [key]="currentPatternInStructure.pattern.key"
+    ></app-fretboard>
     <app-rythm-bar
       [number]="3"
       [events]="events"
@@ -62,7 +76,12 @@
   </ng-container>
 
   <ng-container *ngIf="currentPatternInStructure && currentPatternInStructure.pattern && currentPatternInStructure.pattern.name == 'Refrain'">
-    {{currentPatternInStructure.pattern.name}} :
+    {{currentPatternInStructure.pattern.name}} : | Bb | F | C | Gm |
+    <app-fretboard
+      [lowestFret]="1"
+      [fretsCount]="3"
+      [key]="currentPatternInStructure.pattern.key"
+    ></app-fretboard>
     <app-rythm-bar
       [number]="5"
       [events]="events"

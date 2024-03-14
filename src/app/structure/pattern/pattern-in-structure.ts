@@ -14,4 +14,9 @@ export class PatternInStructure {
         this.endTime = startTime.add(pattern.duration)
     }
 
+    get initial(): string {
+        // TODO éviter les doublons
+        return this.pattern.initial ?? this.pattern.name.charAt(0)
+    }
+
 }

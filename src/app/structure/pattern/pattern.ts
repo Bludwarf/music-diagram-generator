@@ -6,6 +6,7 @@ export class Pattern {
     constructor(
         readonly name: string,
         readonly duration: Time,
+        readonly initial?: string,
     ) {
     }
 

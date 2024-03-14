@@ -1,91 +1,94 @@
-<input type="file" accept=".wav,.mp3" (change)="uploadFile($event)"/>
-<br/>
-<button (click)="playSong()">Play</button>
-<button (click)="pauseSong()">Pause</button>
-<button (click)="stopSong()">Stop</button>
-<br/>
-{{timecode}}
-<br/>
-<input type="range" min="0" max="100" step="1" [value]="progress" (change)="setProgress($event)" />
-<br/>
-
-Structure :
-
-<app-structure (clickPattern)="onClickPattern($event)"></app-structure>
-<br/>
-
-<ng-container *ngIf="patternToPlay">
-  {{patternToPlay}} : 
-  <button (click)="play()" [disabled]="!patternToPlay">Play</button>
-  <button (click)="stop()" [disabled]="!patternToPlay">Stop</button>
-  <br>
+<ng-container *ngIf="!structure">
+  <input type="file" accept=".wav,.mp3" (change)="uploadFile($event)"/>
+  <br/>
 </ng-container>
 
-<ng-container *ngIf="currentPattern && currentPattern.name == 'Partie bombarde'">
-  {{currentPattern.name}} :
-  <app-rythm-bar
-    [number]="1"
-    [events]="events"
-    (addEvent)="addEvent($event)"
-    (removeEvent)="removeEvent($event)"
-    [timecode]="timecode"
-  ></app-rythm-bar>
-  <br />
-  <app-rythm-bar
-    [number]="2"
-    [events]="events"
-    (addEvent)="addEvent($event)"
-    (removeEvent)="removeEvent($event)"
-    [timecode]="timecode"
-  ></app-rythm-bar>
-  <br />
-</ng-container>
+<ng-container *ngIf="structure">
+  {{timecode}}
+  <button (click)="playSong()" *ngIf="!playing">⏵</button>
+  <button (click)="pauseSong()" *ngIf="playing">⏸</button>
+  <button (click)="stopSong()">⏹</button>
+  <br/>
+  
+  <input type="range" min="0" max="100" step="1" [value]="progress" (change)="setProgress($event)" />
+  <br/>
 
-<ng-container *ngIf="currentPattern && currentPattern.name == 'Couplet'">
-  {{currentPattern.name}} :
-  <app-rythm-bar
-    [number]="3"
-    [events]="events"
-    (addEvent)="addEvent($event)"
-    (removeEvent)="removeEvent($event)"
-  ></app-rythm-bar>
-  <br />
-  <app-rythm-bar
-    [number]="4"
-    [events]="events"
-    (addEvent)="addEvent($event)"
-    (removeEvent)="removeEvent($event)"
-  ></app-rythm-bar>
-  <br />
-</ng-container>
+  <app-structure [structure]="structure" [currentPatternInStructure]="currentPatternInStructure" (clickPatternInStructure)="onClickPatternInStructure($event)"></app-structure>
+  <br/>
 
-<ng-container *ngIf="currentPattern && currentPattern.name == 'Refrain'">
-  {{currentPattern.name}} :
-  <app-rythm-bar
-    [number]="5"
-    [events]="events"
-    (addEvent)="addEvent($event)"
-    (removeEvent)="removeEvent($event)"
-  ></app-rythm-bar>
-  <br />
-  <app-rythm-bar
-    [number]="6"
-    [events]="events"
-    (addEvent)="addEvent($event)"
-    (removeEvent)="removeEvent($event)"
-  ></app-rythm-bar>
-  <br />
-  <app-rythm-bar
-    [number]="7"
-    [events]="events"
-    (addEvent)="addEvent($event)"
-    (removeEvent)="removeEvent($event)"
-  ></app-rythm-bar>
-  <br />
-  <app-rythm-bar
-    [number]="8"
-    [events]="events"
-    (addEvent)="addEvent($event)"
-    (removeEvent)="removeEvent($event)"
-  ></app-rythm-bar>
+  <ng-container *ngIf="patternToPlay">
+    {{patternToPlay}} : 
+    <button (click)="play()" [disabled]="!patternToPlay">Play</button>
+    <button (click)="stop()" [disabled]="!patternToPlay">Stop</button>
+    <br>
+  </ng-container>
+
+  <ng-container *ngIf="currentPatternInStructure && currentPatternInStructure.pattern && currentPatternInStructure.pattern.name == 'Partie bombarde'">
+    {{currentPatternInStructure.pattern.name}} :
+    <app-rythm-bar
+      [number]="1"
+      [events]="events"
+      (addEvent)="addEvent($event)"
+      (removeEvent)="removeEvent($event)"
+      [timecode]="timecode"
+    ></app-rythm-bar>
+    <br />
+    <app-rythm-bar
+      [number]="2"
+      [events]="events"
+      (addEvent)="addEvent($event)"
+      (removeEvent)="removeEvent($event)"
+      [timecode]="timecode"
+    ></app-rythm-bar>
+    <br />
+  </ng-container>
+
+  <ng-container *ngIf="currentPatternInStructure && currentPatternInStructure.pattern && currentPatternInStructure.pattern.name == 'Couplet'">
+    {{currentPatternInStructure.pattern.name}} :
+    <app-rythm-bar
+      [number]="3"
+      [events]="events"
+      (addEvent)="addEvent($event)"
+      (removeEvent)="removeEvent($event)"
+    ></app-rythm-bar>
+    <br />
+    <app-rythm-bar
+      [number]="4"
+      [events]="events"
+      (addEvent)="addEvent($event)"
+      (removeEvent)="removeEvent($event)"
+    ></app-rythm-bar>
+    <br />
+  </ng-container>
+
+  <ng-container *ngIf="currentPatternInStructure && currentPatternInStructure.pattern && currentPatternInStructure.pattern.name == 'Refrain'">
+    {{currentPatternInStructure.pattern.name}} :
+    <app-rythm-bar
+      [number]="5"
+      [events]="events"
+      (addEvent)="addEvent($event)"
+      (removeEvent)="removeEvent($event)"
+    ></app-rythm-bar>
+    <br />
+    <app-rythm-bar
+      [number]="6"
+      [events]="events"
+      (addEvent)="addEvent($event)"
+      (removeEvent)="removeEvent($event)"
+    ></app-rythm-bar>
+    <br />
+    <app-rythm-bar
+      [number]="7"
+      [events]="events"
+      (addEvent)="addEvent($event)"
+      (removeEvent)="removeEvent($event)"
+    ></app-rythm-bar>
+    <br />
+    <app-rythm-bar
+      [number]="8"
+      [events]="events"
+      (addEvent)="addEvent($event)"
+      (removeEvent)="removeEvent($event)"
+    ></app-rythm-bar>
+  </ng-container>
 </ng-container>

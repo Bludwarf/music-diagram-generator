@@ -1,14 +1,5 @@
-<app-pattern (click)="onClickPattern('C')">C</app-pattern>
-<app-pattern (click)="onClickPattern('C')">C</app-pattern>
-
-<app-pattern (click)="onClickPattern('B')">B</app-pattern>
-<app-pattern (click)="onClickPattern('B')">B</app-pattern>
-
-<app-pattern (click)="onClickPattern('C')">C</app-pattern>
-<app-pattern (click)="onClickPattern('C')">C</app-pattern>
-
-<app-pattern (click)="onClickPattern('R')">R</app-pattern>
-<app-pattern (click)="onClickPattern('R')">R</app-pattern>
-
-<app-pattern (click)="onClickPattern('C')">C</app-pattern>
-<app-pattern (click)="onClickPattern('C')">C</app-pattern>
+<ng-container *ngIf="structure">
+    <app-pattern *ngFor="let patternInStructure of structure.patternsInStructure"
+        [class.active]="patternInStructure == currentPatternInStructure"
+        (click)="onClickPatternInStructure(patternInStructure)">{{patternInStructure.initial}}</app-pattern>
+</ng-container>

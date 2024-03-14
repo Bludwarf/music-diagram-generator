@@ -10,6 +10,90 @@ import { Transport } from 'tone/build/esm/core/clock/Transport';
 import { Structure } from '../structure/structure';
 import { Pattern } from '../structure/pattern/pattern';
 import { Time } from '../time';
+import { WrapMarker } from '../wrap-marker';
+import { PatternInStructure } from '../structure/pattern/pattern-in-structure';
+
+// TODO comment avoir la durée en secondes du sample ?
+// On utilise pour l'instant le fichier DIDAFTA PETIT PAPILLON Master Web 24bit 48Khz_02-01.wav
+const sampleDuration = new Time(Tone.Time(3 * 60 + 28, 's'))
+
+
+const wrapMarkers = [
+  new WrapMarker(0, -1.1762159715284715),
+  new WrapMarker(0.647458333333333358, 0),
+  new WrapMarker(2.5494791666666665, 4),
+  new WrapMarker(4.5332291666666666, 8),
+  new WrapMarker(6.4147291666666666, 12),
+  new WrapMarker(8.4474583333333335, 16),
+  new WrapMarker(8.6234166666666656, 16.323610764235763),
+  new WrapMarker(10.798354166666666, 20.323610764235763),
+  new WrapMarker(12.963208333333332, 24.323610764235763),
+  new WrapMarker(15.102354166666666, 28.323610764235763),
+  new WrapMarker(19.361729166666667, 36.323610764235767),
+  new WrapMarker(21.501687499999999, 40.323610764235767),
+  new WrapMarker(23.657645833333333, 44.323610764235767),
+  new WrapMarker(25.795999999999999, 48.323610764235767),
+  new WrapMarker(30.123145833333332, 56.323610764235767),
+  new WrapMarker(32.308437499999997, 60.323610764235767),
+  new WrapMarker(36.767270833333335, 68.323610764235767),
+  new WrapMarker(38.932333333333332, 72.323610764235767),
+  new WrapMarker(41.07664583333333, 76.323610764235767),
+  new WrapMarker(45.413229166666667, 84.323610764235767),
+  new WrapMarker(47.565520833333331, 88.323610764235767),
+  new WrapMarker(49.753708333333329, 92.323610764235767),
+  new WrapMarker(54.171624999999999, 100.32361076423577),
+  new WrapMarker(56.368416666666661, 104.32361076423577),
+  new WrapMarker(58.552124999999997, 108.32361076423577),
+  new WrapMarker(60.758874999999996, 112.32361076423577),
+  new WrapMarker(62.942520833333333, 116.32361076423577),
+  new WrapMarker(65.113833333333332, 120.32361076423577),
+  new WrapMarker(69.380499999999998, 128.32361076423575),
+  new WrapMarker(71.577979166666665, 132.32361076423575),
+  new WrapMarker(73.796791666666664, 136.32361076423575),
+  new WrapMarker(76.005020833333333, 140.32361076423575),
+  new WrapMarker(78.200583333333327, 144.32361076423575),
+  new WrapMarker(80.448145833333328, 148.32361076423575),
+  new WrapMarker(82.717229166666669, 152.32361076423575),
+  new WrapMarker(84.971625000000003, 156.32361076423575),
+  new WrapMarker(89.405520833333327, 164.32361076423575),
+  new WrapMarker(91.63077083333333, 168.32361076423575),
+  new WrapMarker(96.124416666666662, 176.32361076423575),
+  new WrapMarker(98.34041666666667, 180.32361076423575),
+  new WrapMarker(100.53739583333333, 184.32361076423575),
+  new WrapMarker(102.71122916666667, 188.32361076423575),
+  new WrapMarker(104.86987499999999, 192.32361076423575),
+  new WrapMarker(107.0630625, 196.32361076423575),
+  new WrapMarker(111.51870833333334, 204.32361076423575),
+  new WrapMarker(115.91847916666666, 212.32361076423575),
+  new WrapMarker(118.13981249999999, 216.32361076423575),
+  new WrapMarker(120.3725625, 220.32361076423575),
+  new WrapMarker(122.5775625, 224.32361076423575),
+  new WrapMarker(124.79789583333333, 228.32361076423575),
+  new WrapMarker(129.27608333333333, 236.32361076423575),
+  new WrapMarker(135.8514375, 248.32361076423575),
+  new WrapMarker(138.0909375, 252.32361076423575),
+  new WrapMarker(140.30443750000001, 256.32361076423575),
+  new WrapMarker(144.69927083333332, 264.32361076423575),
+  new WrapMarker(146.91591666666667, 268.32361076423575),
+  new WrapMarker(149.09029166666667, 272.32361076423575),
+  new WrapMarker(151.29185416666667, 276.32361076423575),
+  new WrapMarker(155.75666666666666, 284.32361076423575),
+  new WrapMarker(164.63647916666667, 300.32361076423575),
+  new WrapMarker(169.04481250000001, 308.32361076423575),
+  new WrapMarker(171.278875, 312.32361076423575),
+  new WrapMarker(173.54152083333332, 316.32361076423575),
+  new WrapMarker(175.77772916666666, 320.32361076423575),
+  new WrapMarker(177.99827083333332, 324.32361076423575),
+  new WrapMarker(182.51258333333334, 332.32361076423575),
+  new WrapMarker(184.74072916666665, 336.32361076423575),
+  new WrapMarker(186.95395833333333, 340.32361076423575),
+  new WrapMarker(189.15308333333331, 344.32361076423575),
+  new WrapMarker(191.31456249999999, 348.32361076423575),
+  new WrapMarker(193.45008333333334, 352.32361076423575),
+  new WrapMarker(195.61702083333333, 356.32361076423575),
+  new WrapMarker(197.82550000000001, 360.32361076423575),
+  new WrapMarker(197.84312565104167, 360.35486076423575),
+]
 
 @Component({
   selector: 'app-rythm-sandbox',
@@ -21,7 +105,7 @@ import { Time } from '../time';
 export class RythmSandboxComponent {
   events: RythmBarEvent[] = RythmBarEvent.fromEach(events);
 
-  currentPattern?: Pattern;
+  currentPatternInStructure?: PatternInStructure;
 
   private player?: Tone.Player;
 
@@ -78,7 +162,7 @@ export class RythmSandboxComponent {
     await Tone.loaded() // évite les erreurs de buffer
 
     const couplet = new Pattern('Couplet', new Time(Tone.Time('2m')))
-    const bombarde = new Pattern('Partie bombarde', new Time(Tone.Time('2m')))
+    const bombarde = new Pattern('Partie bombarde', new Time(Tone.Time('2m')), 'B')
     const refrain = new Pattern('Refrain', new Time(Tone.Time('4m')))
 
     const coupletBlock = [couplet, couplet]
@@ -92,40 +176,38 @@ export class RythmSandboxComponent {
     const structure = new Structure(
       [
         ...bombardeBlock, ...bombardeBlock, ...bombardeBlock,
-        ...coupletPassage, ...bombardePassage, ...coupletPassage, ...refrainPassage, ...coupletPassage,
-        ...coupletPassage, ...bombardePassage, ...coupletPassage, ...refrainPassage, ...coupletPassage,
+        ...coupletPassage, ...bombardePassage, ...coupletPassage, ...refrainPassage, ...bombardePassage,
+        ...coupletPassage, ...bombardePassage, ...coupletPassage, ...refrainPassage, ...bombardePassage,
       ]
     )
-    console.log(couplet.duration.toAbletonLiveBarsBeatsSixteenths())
-    console.log(new Structure(coupletBlock).duration.toAbletonLiveBarsBeatsSixteenths())
-    console.log(structure.duration.toBarsBeatsSixteenths())
+    // console.log(couplet.duration.toAbletonLiveBarsBeatsSixteenths())
+    // console.log(new Structure(coupletBlock).duration.toAbletonLiveBarsBeatsSixteenths())
+    // console.log(structure.duration.toBarsBeatsSixteenths())
 
     // cf. https://github.com/Tonejs/Tone.js/blob/dev/examples/daw.html
     Tone.Transport.bpm.value = 120;
     Tone.Transport.loop = true;
-    Tone.Transport.loopStart = "0:0";
-    Tone.Transport.loopEnd = structure.duration.toBarsBeatsSixteenths();
+    Tone.Transport.loopStart = 0;
+    Tone.Transport.loopEnd = sampleDuration.toSeconds() // structure.duration.toBarsBeatsSixteenths();
 
-    player.sync().start("1:0")
+    player.sync().start(0)
 
     const transportProgressLoop = new Tone.Loop((time) => {
       // console.log('t1', time)
       // console.log('t1BBS', Tone.Time(time).toBarsBeatsSixteenths())
       // console.log('P1', Tone.Transport.position)
       Tone.Draw.schedule(() => {
-        this.refresh()
+        this.refresh(time)
       }, time);
 
     }, "16n").start(0);
 
-
-    console.log(player)
-
     this.structure = structure
-
   }
 
-  refresh(): void {
+  refresh(time?: number): void {
+
+    // console.log('time', time, Tone.Transport.seconds, Tone.Transport.position)
 
     const abletonLiveBarsBeatsSixteenths = (transport: Transport) => {
       const fields = transport.position.toString().split(':');
@@ -136,24 +218,77 @@ export class RythmSandboxComponent {
       return `${bars}:${beats}:${sixteenths}`
     }
 
+
     this.progress = Math.min(Math.max(0, Tone.Transport.progress), 1) * 100;
+
+    const wrappedTime = this.getWrappedPosition(Tone.Transport.seconds)
 
     // console.log('t2', time)
     // console.log('P2', Tone.Transport.position)
-    this.timecode = abletonLiveBarsBeatsSixteenths(Tone.Transport)
+    // this.timecode = abletonLiveBarsBeatsSixteenths(Tone.Transport)
+    this.timecode = wrappedTime?.toAbletonLiveBarsBeatsSixteenths()
 
-    // TODO classe pour décomposer chaque champ
-    if (this.structure) {
-      const currentPatternInStructure = this.structure.getPatternInStructureAt(Time.fromTransport(Tone.Transport));
-      this.currentPattern = currentPatternInStructure?.pattern
+    if (this.structure && wrappedTime) {
+      const changePatternFasterDelay = Time.fromValue(0) // Time.fromValue('4n') // TODO trop bizarre à l'affichage de la section courante, mais ok pour affichage partoche
+      this.currentPatternInStructure = this.structure.getPatternInStructureAt(wrappedTime.add(changePatternFasterDelay))
     }
 
     this.changeDetectorRef.detectChanges();
   }
 
+  getWrappedPosition(seconds: number): Time | undefined {
+
+    if (seconds < wrapMarkers[0].secTime) {
+      return undefined // TODO quelle position si on est avant "1:1:1" ? Impossible dans Ableton Live
+    }
+
+    if (seconds > wrapMarkers[wrapMarkers.length - 1].secTime) {
+      return undefined // TODO quelle position si on est après le dernier WrapMarker ?
+    }
+
+    const nextWrapMarkerIndex = wrapMarkers.findIndex(wrapMarker => seconds < wrapMarker.secTime)
+
+    const previousWrapMarker = wrapMarkers[nextWrapMarkerIndex - 1]
+    const nextWrapMarker = wrapMarkers[nextWrapMarkerIndex]
+    const secTimeRatio = (seconds - previousWrapMarker.secTime) / (nextWrapMarker.secTime - previousWrapMarker.secTime)
+    const beatTime = previousWrapMarker.beatTime + secTimeRatio * (nextWrapMarker.beatTime - previousWrapMarker.beatTime)
+
+    // TODO uniquement pour une signature 4/4
+    const bars = Math.floor(beatTime / 4)
+    const beats = Math.floor(beatTime) - bars * 4
+    const sixteenths = beatTime % 1 * 4
+
+    const barsBeatsSixteenth = `${bars}:${beats}:${sixteenths}`;
+
+    return new Time(Tone.Time(barsBeatsSixteenth))
+  }
+
+  getWrappedTime(position: Time): Time | undefined {
+
+    const beatTime = position.toAbletonLiveBeatTime()
+
+    if (beatTime < wrapMarkers[0].beatTime) {
+      return undefined // TODO quelle position si on est avant "1:1:1" ? Impossible dans Ableton Live
+    }
+
+    if (beatTime > wrapMarkers[wrapMarkers.length - 1].beatTime) {
+      return undefined // TODO quelle position si on est après le dernier WrapMarker ?
+    }
+
+    const nextWrapMarkerIndex = wrapMarkers.findIndex(wrapMarker => beatTime < wrapMarker.beatTime)
+
+    const previousWrapMarker = wrapMarkers[nextWrapMarkerIndex - 1]
+    const nextWrapMarker = wrapMarkers[nextWrapMarkerIndex]
+    const beatTimeRatio = (beatTime - previousWrapMarker.beatTime) / (nextWrapMarker.beatTime - previousWrapMarker.beatTime)
+    const secTime = previousWrapMarker.secTime + beatTimeRatio * (nextWrapMarker.secTime - previousWrapMarker.secTime)
+
+    return new Time(Tone.Time(secTime))
+  }
+
   async playSong(): Promise<void> {
     console.log('playSong')
     await Tone.loaded() // évite les erreurs de buffer
+    Tone.start()
     Tone.Transport.start()
   }
 
@@ -168,8 +303,14 @@ export class RythmSandboxComponent {
     Tone.Transport.stop()
   }
 
-  onClickPattern(pattern: string): void {
-    // this.currentPattern = pattern;
+  onClickPatternInStructure(patternInStructure: PatternInStructure): void {
+    const wrappedTime = this.getWrappedTime(patternInStructure.startTime);
+    if (wrappedTime) {
+      // const progress = wrappedTime.toSeconds() / sampleDuration.toSeconds()
+      const progress = wrappedTime.toSeconds() / sampleDuration.toSeconds();
+      this.setProgressPercent(progress * 100)
+      // this.changeDetectorRef.detectChanges();
+    }
   }
 
   async loopPattern(pattern: string): Promise<void> {
@@ -253,8 +394,16 @@ export class RythmSandboxComponent {
   setProgress(event: Event): void {
     const rangeInput = event.target as HTMLInputElement
     const progress = +rangeInput.value
+    this.setProgressPercent(progress)
+  }
+
+  setProgressPercent(progress: number): void {
     const position = new Time(Tone.Time(progress / 100 * +Tone.Transport.loopEnd.valueOf(), 's'))
     Tone.Transport.position = position.toBarsBeatsSixteenths() // TODO trouver la bonne conversion
     this.refresh()
+  }
+
+  get playing(): boolean {
+    return Tone.Transport.state === 'started'
   }
 }

@@ -1,7 +1,7 @@
 import { TimeClass } from "tone";
-import { TimeBaseUnit, TimeValue } from "tone/build/esm/core/type/TimeBase";
 import * as Tone from 'tone'
 import { Transport } from "tone/build/esm/core/clock/Transport";
+import { TimeValue } from "tone/build/esm/core/type/TimeBase";
 
 
 export class Time {
@@ -9,6 +9,10 @@ export class Time {
     constructor(
         private readonly _toneTime: TimeClass = Tone.Time(0),
     ) {
+    }
+
+    static fromValue(value?: TimeValue): any {
+        return new this(Tone.Time(value))
     }
 
     static fromTransport(transport: Transport): any {
@@ -35,7 +39,17 @@ export class Time {
         const beats = +fields[1] + 1
         // TODO pour être plus précis, il faudrait utiliser time, puis le convertir en relatif à transport.position
         const sixteenths = Math.floor(+fields[2]) + 1
-        return `${bars}:${beats}:${sixteenths}`
+        return `${bars}.${beats}.${sixteenths}`
+    }
+
+    toAbletonLiveBeatTime(): number {
+        // TODO méthode déjà existante dans Tone.js ?
+        const fields = this._toneTime.toBarsBeatsSixteenths().split(':');
+        const bars = +fields[0]
+        const beats = +fields[1]
+        // TODO pour être plus précis, il faudrait utiliser time, puis le convertir en relatif à transport.position
+        const sixteenths = Math.floor(+fields[2])
+        return bars * 4 + beats + sixteenths / 4 // TODO uniquement en 4/4
     }
 
     toSeconds(): number {

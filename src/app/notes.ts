@@ -171,8 +171,6 @@ export class Chords {
 
   static fromAsciiChords(asciiChords: AsciiChords): Chords {
 
-    console.log('asciiChords', asciiChords)
-
     const barGroups = asciiChords.split('|').slice(1, -1).map(x => x.trim())
     if (barGroups.length === 0) {
       throw new Error('Cannot find bars in AsciiChords : ' + asciiChords)
@@ -181,7 +179,6 @@ export class Chords {
     const chordsByTime: [Time, Chord][] = []
 
     let time = Time.fromValue(0)
-    console.log('barGroups', barGroups)
     barGroups.forEach(barAsciiChords => {
 
       const chordGroups = barAsciiChords.split(' ')
@@ -189,7 +186,6 @@ export class Chords {
 
       chordGroups.forEach(chordGroup => {
         const chord = new Chord(chordGroup)
-        console.log(time.toBarsBeatsSixteenths(), chord.name)
         chordsByTime.push([time, chord])
 
         time = time.add(chordDuration)

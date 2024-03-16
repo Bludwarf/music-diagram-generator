@@ -3,6 +3,10 @@
   "version": "0.0.0",
   "description": "Example project from an angular.io guide.",
   "license": "MIT",
+  "engines": {
+    "node": "18",
+    "npm": "10"
+  },
   "scripts": {
     "ng": "ng",
     "start": "ng serve",

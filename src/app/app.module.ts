@@ -4,9 +4,9 @@ import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
-import { SandboxComponent } from './sandbox/sandbox.component';
 import { CommonModule } from '@angular/common';
 import { RythmSandboxComponent } from './rythm-sandbox/rythm-sandbox.component';
+import {ConvertComponent} from "./convert/convert.component";
 
 @NgModule({
   imports: [
@@ -15,6 +15,7 @@ import { RythmSandboxComponent } from './rythm-sandbox/rythm-sandbox.component';
     ReactiveFormsModule,
     RouterModule.forRoot([
       { path: '', component: RythmSandboxComponent },
+      { path: 'convert', component: ConvertComponent },
     ])
   ],
   declarations: [

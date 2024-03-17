@@ -1,11 +1,723 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Ableton MajorVersion="5" MinorVersion="10.0_377" SchemaChangeCount="2" Creator="Ableton Live 10.1" Revision="820f098a4a1eff42a9be3d90e07536cb8104c459">
 	<LiveSet>
-		<NextPointeeId Value="29675" />
+		<NextPointeeId Value="30397" />
 		<OverwriteProtectionNumber Value="2561" />
 		<LomId Value="0" />
 		<LomIdView Value="0" />
 		<Tracks>
+			<AudioTrack Id="23">
+				<LomId Value="0" />
+				<LomIdView Value="0" />
+				<IsContentSelected Value="false" />
+				<EnvelopeModePreferred Value="false" />
+				<TrackDelay>
+					<Value Value="0" />
+					<IsValueSampleBased Value="false" />
+				</TrackDelay>
+				<Name>
+					<EffectiveName Value="1-LA FEMME DRAGON sans BASS_03-01" />
+					<UserName Value="" />
+					<Annotation Value="" />
+					<MemorizedFirstClipName Value="LA FEMME DRAGON sans BASS_03-01" />
+				</Name>
+				<ColorIndex Value="164" />
+				<AutomationEnvelopes>
+					<Envelopes />
+				</AutomationEnvelopes>
+				<TrackGroupId Value="-1" />
+				<TrackUnfolded Value="true" />
+				<DevicesListWrapper LomId="0" />
+				<ClipSlotsListWrapper LomId="0" />
+				<ViewData Value="{}" />
+				<SavedPlayingSlot Value="-1" />
+				<SavedPlayingOffset Value="0" />
+				<Freeze Value="false" />
+				<VelocityDetail Value="0" />
+				<NeedArrangerRefreeze Value="true" />
+				<PostProcessFreezeClips Value="0" />
+				<DeviceChain>
+					<AutomationLanes>
+						<AutomationLanes>
+							<AutomationLane Id="0">
+								<SelectedDevice Value="0" />
+								<SelectedEnvelope Value="0" />
+								<IsContentSelected Value="true" />
+								<LaneHeight Value="221" />
+							</AutomationLane>
+						</AutomationLanes>
+						<AreAdditionalAutomationLanesFolded Value="false" />
+					</AutomationLanes>
+					<ClipEnvelopeChooserViewState>
+						<SelectedDevice Value="0" />
+						<SelectedEnvelope Value="0" />
+						<PreferModulationVisible Value="false" />
+					</ClipEnvelopeChooserViewState>
+					<AudioInputRouting>
+						<Target Value="AudioIn/External/S0" />
+						<UpperDisplayString Value="Ext. In" />
+						<LowerDisplayString Value="1/2" />
+					</AudioInputRouting>
+					<MidiInputRouting>
+						<Target Value="MidiIn/External.All/-1" />
+						<UpperDisplayString Value="Ext: All Ins" />
+						<LowerDisplayString Value="" />
+					</MidiInputRouting>
+					<AudioOutputRouting>
+						<Target Value="AudioOut/Master" />
+						<UpperDisplayString Value="Master" />
+						<LowerDisplayString Value="" />
+					</AudioOutputRouting>
+					<MidiOutputRouting>
+						<Target Value="MidiOut/None" />
+						<UpperDisplayString Value="None" />
+						<LowerDisplayString Value="" />
+					</MidiOutputRouting>
+					<Mixer>
+						<LomId Value="0" />
+						<LomIdView Value="0" />
+						<IsExpanded Value="true" />
+						<On>
+							<LomId Value="0" />
+							<Manual Value="true" />
+							<AutomationTarget Id="29648">
+								<LockEnvelope Value="0" />
+							</AutomationTarget>
+							<MidiCCOnOffThresholds>
+								<Min Value="64" />
+								<Max Value="127" />
+							</MidiCCOnOffThresholds>
+						</On>
+						<ParametersListWrapper LomId="0" />
+						<LastSelectedTimeableIndex Value="0" />
+						<LastSelectedClipEnvelopeIndex Value="0" />
+						<LastPresetRef>
+							<Value />
+						</LastPresetRef>
+						<LockedScripts />
+						<IsFolded Value="false" />
+						<ShouldShowPresetName Value="false" />
+						<UserName Value="" />
+						<Annotation Value="" />
+						<SourceContext>
+							<Value />
+						</SourceContext>
+						<Sends>
+							<TrackSendHolder Id="0">
+								<Send>
+									<LomId Value="0" />
+									<Manual Value="0.0003162277571" />
+									<MidiControllerRange>
+										<Min Value="0.0003162277571" />
+										<Max Value="1" />
+									</MidiControllerRange>
+									<AutomationTarget Id="29649">
+										<LockEnvelope Value="0" />
+									</AutomationTarget>
+									<ModulationTarget Id="29650">
+										<LockEnvelope Value="0" />
+									</ModulationTarget>
+								</Send>
+								<Active Value="true" />
+							</TrackSendHolder>
+							<TrackSendHolder Id="1">
+								<Send>
+									<LomId Value="0" />
+									<Manual Value="0.0003162277571" />
+									<MidiControllerRange>
+										<Min Value="0.0003162277571" />
+										<Max Value="1" />
+									</MidiControllerRange>
+									<AutomationTarget Id="29651">
+										<LockEnvelope Value="0" />
+									</AutomationTarget>
+									<ModulationTarget Id="29652">
+										<LockEnvelope Value="0" />
+									</ModulationTarget>
+								</Send>
+								<Active Value="true" />
+							</TrackSendHolder>
+						</Sends>
+						<Speaker>
+							<LomId Value="0" />
+							<Manual Value="true" />
+							<AutomationTarget Id="29653">
+								<LockEnvelope Value="0" />
+							</AutomationTarget>
+							<MidiCCOnOffThresholds>
+								<Min Value="64" />
+								<Max Value="127" />
+							</MidiCCOnOffThresholds>
+						</Speaker>
+						<SoloSink Value="false" />
+						<PanMode Value="0" />
+						<Pan>
+							<LomId Value="0" />
+							<Manual Value="0" />
+							<MidiControllerRange>
+								<Min Value="-1" />
+								<Max Value="1" />
+							</MidiControllerRange>
+							<AutomationTarget Id="29654">
+								<LockEnvelope Value="0" />
+							</AutomationTarget>
+							<ModulationTarget Id="29655">
+								<LockEnvelope Value="0" />
+							</ModulationTarget>
+						</Pan>
+						<SplitStereoPanL>
+							<LomId Value="0" />
+							<Manual Value="-1" />
+							<MidiControllerRange>
+								<Min Value="-1" />
+								<Max Value="1" />
+							</MidiControllerRange>
+							<AutomationTarget Id="29656">
+								<LockEnvelope Value="0" />
+							</AutomationTarget>
+							<ModulationTarget Id="29657">
+								<LockEnvelope Value="0" />
+							</ModulationTarget>
+						</SplitStereoPanL>
+						<SplitStereoPanR>
+							<LomId Value="0" />
+							<Manual Value="1" />
+							<MidiControllerRange>
+								<Min Value="-1" />
+								<Max Value="1" />
+							</MidiControllerRange>
+							<AutomationTarget Id="29658">
+								<LockEnvelope Value="0" />
+							</AutomationTarget>
+							<ModulationTarget Id="29659">
+								<LockEnvelope Value="0" />
+							</ModulationTarget>
+						</SplitStereoPanR>
+						<Volume>
+							<LomId Value="0" />
+							<Manual Value="1" />
+							<MidiControllerRange>
+								<Min Value="0.0003162277571" />
+								<Max Value="1.99526238" />
+							</MidiControllerRange>
+							<AutomationTarget Id="29660">
+								<LockEnvelope Value="0" />
+							</AutomationTarget>
+							<ModulationTarget Id="29661">
+								<LockEnvelope Value="0" />
+							</ModulationTarget>
+						</Volume>
+						<ViewStateSesstionTrackWidth Value="93" />
+						<CrossFadeState>
+							<LomId Value="0" />
+							<Manual Value="1" />
+							<AutomationTarget Id="29662">
+								<LockEnvelope Value="0" />
+							</AutomationTarget>
+						</CrossFadeState>
+						<SendsListWrapper LomId="0" />
+					</Mixer>
+					<MainSequencer>
+						<LomId Value="0" />
+						<LomIdView Value="0" />
+						<IsExpanded Value="true" />
+						<On>
+							<LomId Value="0" />
+							<Manual Value="true" />
+							<AutomationTarget Id="29663">
+								<LockEnvelope Value="0" />
+							</AutomationTarget>
+							<MidiCCOnOffThresholds>
+								<Min Value="64" />
+								<Max Value="127" />
+							</MidiCCOnOffThresholds>
+						</On>
+						<ParametersListWrapper LomId="0" />
+						<LastSelectedTimeableIndex Value="0" />
+						<LastSelectedClipEnvelopeIndex Value="0" />
+						<LastPresetRef>
+							<Value />
+						</LastPresetRef>
+						<LockedScripts />
+						<IsFolded Value="false" />
+						<ShouldShowPresetName Value="true" />
+						<UserName Value="" />
+						<Annotation Value="" />
+						<SourceContext>
+							<Value />
+						</SourceContext>
+						<ClipSlotList>
+							<ClipSlot Id="0">
+								<LomId Value="0" />
+								<ClipSlot>
+									<Value />
+								</ClipSlot>
+								<HasStop Value="true" />
+								<NeedRefreeze Value="true" />
+							</ClipSlot>
+							<ClipSlot Id="1">
+								<LomId Value="0" />
+								<ClipSlot>
+									<Value />
+								</ClipSlot>
+								<HasStop Value="true" />
+								<NeedRefreeze Value="true" />
+							</ClipSlot>
+							<ClipSlot Id="2">
+								<LomId Value="0" />
+								<ClipSlot>
+									<Value />
+								</ClipSlot>
+								<HasStop Value="true" />
+								<NeedRefreeze Value="true" />
+							</ClipSlot>
+							<ClipSlot Id="3">
+								<LomId Value="0" />
+								<ClipSlot>
+									<Value />
+								</ClipSlot>
+								<HasStop Value="true" />
+								<NeedRefreeze Value="true" />
+							</ClipSlot>
+							<ClipSlot Id="4">
+								<LomId Value="0" />
+								<ClipSlot>
+									<Value />
+								</ClipSlot>
+								<HasStop Value="true" />
+								<NeedRefreeze Value="true" />
+							</ClipSlot>
+							<ClipSlot Id="5">
+								<LomId Value="0" />
+								<ClipSlot>
+									<Value />
+								</ClipSlot>
+								<HasStop Value="true" />
+								<NeedRefreeze Value="true" />
+							</ClipSlot>
+							<ClipSlot Id="6">
+								<LomId Value="0" />
+								<ClipSlot>
+									<Value />
+								</ClipSlot>
+								<HasStop Value="true" />
+								<NeedRefreeze Value="true" />
+							</ClipSlot>
+							<ClipSlot Id="7">
+								<LomId Value="0" />
+								<ClipSlot>
+									<Value />
+								</ClipSlot>
+								<HasStop Value="true" />
+								<NeedRefreeze Value="true" />
+							</ClipSlot>
+						</ClipSlotList>
+						<MonitoringEnum Value="2" />
+						<Sample>
+							<LomId Value="0" />
+							<ArrangerAutomation>
+								<Events>
+									<AudioClip Id="0" Time="0">
+										<LomId Value="0" />
+										<LomIdView Value="0" />
+										<CurrentStart Value="0" />
+										<CurrentEnd Value="544" />
+										<Loop>
+											<LoopStart Value="0" />
+											<LoopEnd Value="544" />
+											<StartRelative Value="0" />
+											<LoopOn Value="false" />
+											<OutMarker Value="482.9318265068265" />
+											<HiddenLoopStart Value="-6.0706478417415921" />
+											<HiddenLoopEnd Value="544" />
+										</Loop>
+										<Name Value="LA FEMME DRAGON sans BASS_03-01" />
+										<Annotation Value="" />
+										<ColorIndex Value="24" />
+										<LaunchMode Value="0" />
+										<LaunchQuantisation Value="0" />
+										<TimeSignature>
+											<TimeSignatures>
+												<RemoteableTimeSignature Id="0">
+													<Numerator Value="4" />
+													<Denominator Value="4" />
+													<Time Value="0" />
+												</RemoteableTimeSignature>
+											</TimeSignatures>
+										</TimeSignature>
+										<Envelopes>
+											<Envelopes />
+										</Envelopes>
+										<ScrollerTimePreserver>
+											<LeftTime Value="516.34820681491146" />
+											<RightTime Value="531.65726610518573" />
+										</ScrollerTimePreserver>
+										<TimeSelection>
+											<AnchorTime Value="524.75" />
+											<OtherTime Value="523.75" />
+										</TimeSelection>
+										<Legato Value="false" />
+										<Ram Value="false" />
+										<GrooveSettings>
+											<GrooveId Value="-1" />
+										</GrooveSettings>
+										<Disabled Value="false" />
+										<VelocityAmount Value="0" />
+										<FollowTime Value="4" />
+										<FollowActionA Value="0" />
+										<FollowActionB Value="0" />
+										<FollowChanceA Value="1" />
+										<FollowChanceB Value="0" />
+										<Grid>
+											<FixedNumerator Value="1" />
+											<FixedDenominator Value="16" />
+											<GridIntervalPixel Value="20" />
+											<Ntoles Value="2" />
+											<SnapToGrid Value="true" />
+											<Fixed Value="false" />
+										</Grid>
+										<FreezeStart Value="0" />
+										<FreezeEnd Value="0" />
+										<IsWarped Value="true" />
+										<SampleRef>
+											<FileRef>
+												<HasRelativePath Value="true" />
+												<RelativePathType Value="3" />
+												<RelativePath>
+													<RelativePathElement Id="3" Dir="Samples" />
+													<RelativePathElement Id="4" Dir="Originaux" />
+													<RelativePathElement Id="5" Dir="Exports Ted" />
+												</RelativePath>
+												<Name Value="LA FEMME DRAGON sans BASS_03-01.mp3" />
+												<Type Value="1" />
+												<Data>
+													44003A005C004D007500730069007100750065005C00470072006F0075007000650073005C004400
+													69006400610066002700740061005C00530061006D0070006C00650073005C004F00720069006700
+													69006E006100750078005C004500780070006F0072007400730020005400650064005C004C004100
+													2000460045004D004D004500200044005200410047004F004E002000730061006E00730020004200
+													4100530053005F00300033002D00300031002E006D00700033000000
+												</Data>
+												<RefersToFolder Value="false" />
+												<SearchHint>
+													<PathHint>
+														<RelativePathElement Id="0" Dir="Musique" />
+														<RelativePathElement Id="1" Dir="Groupes" />
+														<RelativePathElement Id="2" Dir="Didaf'ta" />
+														<RelativePathElement Id="3" Dir="Samples" />
+														<RelativePathElement Id="4" Dir="Originaux" />
+														<RelativePathElement Id="5" Dir="Exports Ted" />
+													</PathHint>
+													<FileSize Value="10724384" />
+													<Crc Value="32689" />
+													<MaxCrcSize Value="16384" />
+													<HasExtendedInfo Value="true" />
+												</SearchHint>
+												<LivePackName Value="" />
+												<LivePackId Value="" />
+											</FileRef>
+											<LastModDate Value="1708765432" />
+											<SourceContext>
+												<SourceContext Id="0">
+													<OriginalFileRef>
+														<FileRef Id="1">
+															<HasRelativePath Value="true" />
+															<RelativePathType Value="3" />
+															<RelativePath>
+																<RelativePathElement Id="6" Dir="Samples" />
+																<RelativePathElement Id="7" Dir="Originaux" />
+																<RelativePathElement Id="8" Dir="Exports Ted" />
+															</RelativePath>
+															<Name Value="LA FEMME DRAGON sans BASS_03-01.mp3" />
+															<Type Value="1" />
+															<Data>
+																44003A005C004D007500730069007100750065005C00470072006F0075007000650073005C004400
+																69006400610066002700740061005C00530061006D0070006C00650073005C004F00720069006700
+																69006E006100750078005C004500780070006F0072007400730020005400650064005C004C004100
+																2000460045004D004D004500200044005200410047004F004E002000730061006E00730020004200
+																4100530053005F00300033002D00300031002E006D00700033000000
+															</Data>
+															<RefersToFolder Value="false" />
+															<SearchHint>
+																<PathHint>
+																	<RelativePathElement Id="0" Dir="Musique" />
+																	<RelativePathElement Id="1" Dir="Groupes" />
+																	<RelativePathElement Id="2" Dir="Didaf'ta" />
+																	<RelativePathElement Id="3" Dir="Samples" />
+																	<RelativePathElement Id="4" Dir="Originaux" />
+																	<RelativePathElement Id="5" Dir="Exports Ted" />
+																</PathHint>
+																<FileSize Value="10724384" />
+																<Crc Value="32689" />
+																<MaxCrcSize Value="16384" />
+																<HasExtendedInfo Value="true" />
+															</SearchHint>
+															<LivePackName Value="" />
+															<LivePackId Value="" />
+														</FileRef>
+													</OriginalFileRef>
+													<BrowserContentPath Value="query:CurrentProject#Samples:Originaux:Exports%20Ted:LA%20FEMME%20DRAGON%20sans%20BASS_03-01.mp3" />
+												</SourceContext>
+											</SourceContext>
+											<SampleUsageHint Value="0" />
+											<DefaultDuration Value="12868992" />
+											<DefaultSampleRate Value="48000" />
+										</SampleRef>
+										<Onsets>
+											<UserOnsets />
+											<HasUserOnsets Value="false" />
+										</Onsets>
+										<WarpMode Value="4" />
+										<GranularityTones Value="30" />
+										<GranularityTexture Value="65" />
+										<FluctuationTexture Value="25" />
+										<TransientResolution Value="6" />
+										<TransientLoopMode Value="2" />
+										<TransientEnvelope Value="100" />
+										<ComplexProFormants Value="100" />
+										<ComplexProEnvelope Value="128" />
+										<Sync Value="true" />
+										<HiQ Value="true" />
+										<Fade Value="true" />
+										<Fades>
+											<FadeInLength Value="0" />
+											<FadeOutLength Value="0" />
+											<ClipFadesAreInitialized Value="true" />
+											<CrossfadeInState Value="0" />
+											<FadeInCurveSkew Value="0" />
+											<FadeInCurveSlope Value="0" />
+											<FadeOutCurveSkew Value="0" />
+											<FadeOutCurveSlope Value="0" />
+											<IsDefaultFadeIn Value="true" />
+											<IsDefaultFadeOut Value="true" />
+										</Fades>
+										<PitchCoarse Value="0" />
+										<PitchFine Value="0" />
+										<SampleVolume Value="1" />
+										<MarkerDensity Value="2" />
+										<AutoWarpTolerance Value="4" />
+										<WarpMarkers>
+											<WarpMarker Id="61" SecTime="0" BeatTime="-6.0706478417415921" />
+											<WarpMarker Id="121" SecTime="2.7962500000000001" BeatTime="0" />
+											<WarpMarker Id="172" SecTime="10.183145833333333" BeatTime="16" />
+											<WarpMarker Id="173" SecTime="10.400416666666667" BeatTime="16.469161827755578" />
+											<WarpMarker Id="174" SecTime="21.514916666666664" BeatTime="40.469161827755578" />
+											<WarpMarker Id="175" SecTime="27.053374999999999" BeatTime="52.469161827755578" />
+											<WarpMarker Id="176" SecTime="34.425395833333333" BeatTime="68.469161827755585" />
+											<WarpMarker Id="177" SecTime="39.961437499999995" BeatTime="80.469161827755585" />
+											<WarpMarker Id="178" SecTime="45.450583333333334" BeatTime="92.469161827755585" />
+											<WarpMarker Id="179" SecTime="47.292937500000001" BeatTime="96.469161827755585" />
+											<WarpMarker Id="180" SecTime="51.012145833333335" BeatTime="104.46916182775558" />
+											<WarpMarker Id="181" SecTime="54.691562499999996" BeatTime="112.46916182775558" />
+											<WarpMarker Id="182" SecTime="56.542541666666665" BeatTime="116.46916182775558" />
+											<WarpMarker Id="183" SecTime="60.266749999999995" BeatTime="124.46916182775558" />
+											<WarpMarker Id="184" SecTime="67.633812500000005" BeatTime="140.46916182775558" />
+											<WarpMarker Id="185" SecTime="71.341104166666668" BeatTime="148.46916182775558" />
+											<WarpMarker Id="186" SecTime="73.185312499999995" BeatTime="152.46916182775558" />
+											<WarpMarker Id="187" SecTime="76.84075" BeatTime="160.46916182775558" />
+											<WarpMarker Id="188" SecTime="78.681437500000001" BeatTime="164.46916182775558" />
+											<WarpMarker Id="189" SecTime="82.405895833333332" BeatTime="172.46916182775558" />
+											<WarpMarker Id="190" SecTime="84.25877083333333" BeatTime="176.46916182775558" />
+											<WarpMarker Id="191" SecTime="87.930666666666667" BeatTime="184.46916182775558" />
+											<WarpMarker Id="192" SecTime="91.583562499999999" BeatTime="192.46916182775558" />
+											<WarpMarker Id="193" SecTime="93.424499999999995" BeatTime="196.46916182775558" />
+											<WarpMarker Id="194" SecTime="95.282583333333335" BeatTime="200.46916182775558" />
+											<WarpMarker Id="195" SecTime="97.150708333333327" BeatTime="204.46916182775558" />
+											<WarpMarker Id="196" SecTime="100.86670833333334" BeatTime="212.46916182775558" />
+											<WarpMarker Id="197" SecTime="102.7330625" BeatTime="216.46916182775558" />
+											<WarpMarker Id="198" SecTime="110.16397916666666" BeatTime="232.46916182775558" />
+											<WarpMarker Id="199" SecTime="115.68195833333333" BeatTime="244.46916182775558" />
+											<WarpMarker Id="200" SecTime="119.36985416666666" BeatTime="252.46916182775558" />
+											<WarpMarker Id="201" SecTime="121.19622916666667" BeatTime="256.46916182775556" />
+											<WarpMarker Id="202" SecTime="128.54733333333334" BeatTime="272.46916182775556" />
+											<WarpMarker Id="203" SecTime="132.25552083333332" BeatTime="280.46916182775556" />
+											<WarpMarker Id="204" SecTime="135.93462499999998" BeatTime="288.46916182775556" />
+											<WarpMarker Id="205" SecTime="141.489375" BeatTime="300.46916182775556" />
+											<WarpMarker Id="230" SecTime="143.13072916666667" BeatTime="304" />
+											<WarpMarker Id="329" SecTime="156.49854166666665" BeatTime="328" />
+											<WarpMarker Id="330" SecTime="160.89670833333332" BeatTime="336" />
+											<WarpMarker Id="332" SecTime="163.15268749999998" BeatTime="340" />
+											<WarpMarker Id="331" SecTime="165.30560416666665" BeatTime="344" />
+											<WarpMarker Id="253" SecTime="179.17770833333333" BeatTime="368" />
+											<WarpMarker Id="254" SecTime="179.40547916666665" BeatTime="368.38746149683652" />
+											<WarpMarker Id="279" SecTime="192.94172916666665" BeatTime="392" />
+											<WarpMarker Id="333" SecTime="197.71937499999999" BeatTime="400" />
+											<WarpMarker Id="396" SecTime="204.60860416666665" BeatTime="416" />
+											<WarpMarker Id="397" SecTime="211.55589583333332" BeatTime="432" />
+											<WarpMarker Id="398" SecTime="225.621375" BeatTime="464" />
+											<WarpMarker Id="399" SecTime="232.67797916666666" BeatTime="480" />
+											<WarpMarker Id="400" SecTime="239.4586875" BeatTime="495.50797613844486" />
+											<WarpMarker Id="401" SecTime="239.78333333333333" BeatTime="496" />
+											<WarpMarker Id="402" SecTime="246.67620833333334" BeatTime="512" />
+											<WarpMarker Id="395" SecTime="251.91654166666666" BeatTime="524" />
+											<WarpMarker Id="394" SecTime="253.79974999999999" BeatTime="528" />
+											<WarpMarker Id="393" SecTime="253.82692031838877" BeatTime="528.03125" />
+										</WarpMarkers>
+										<SavedWarpMarkersForStretched />
+										<MarkersGenerated Value="false" />
+										<IsSongTempoMaster Value="true" />
+									</AudioClip>
+								</Events>
+								<AutomationTransformViewState>
+									<IsTransformPending Value="false" />
+									<TimeAndValueTransforms />
+								</AutomationTransformViewState>
+							</ArrangerAutomation>
+						</Sample>
+						<VolumeModulationTarget Id="29664">
+							<LockEnvelope Value="0" />
+						</VolumeModulationTarget>
+						<TranspositionModulationTarget Id="29665">
+							<LockEnvelope Value="0" />
+						</TranspositionModulationTarget>
+						<GrainSizeModulationTarget Id="29666">
+							<LockEnvelope Value="0" />
+						</GrainSizeModulationTarget>
+						<FluxModulationTarget Id="29667">
+							<LockEnvelope Value="0" />
+						</FluxModulationTarget>
+						<SampleOffsetModulationTarget Id="29668">
+							<LockEnvelope Value="0" />
+						</SampleOffsetModulationTarget>
+						<PitchViewScrollPosition Value="-1073741824" />
+						<SampleOffsetModulationScrollPosition Value="-1073741824" />
+						<Recorder>
+							<IsArmed Value="false" />
+							<TakeCounter Value="1" />
+						</Recorder>
+					</MainSequencer>
+					<FreezeSequencer>
+						<LomId Value="0" />
+						<LomIdView Value="0" />
+						<IsExpanded Value="true" />
+						<On>
+							<LomId Value="0" />
+							<Manual Value="true" />
+							<AutomationTarget Id="29669">
+								<LockEnvelope Value="0" />
+							</AutomationTarget>
+							<MidiCCOnOffThresholds>
+								<Min Value="64" />
+								<Max Value="127" />
+							</MidiCCOnOffThresholds>
+						</On>
+						<ParametersListWrapper LomId="0" />
+						<LastSelectedTimeableIndex Value="0" />
+						<LastSelectedClipEnvelopeIndex Value="0" />
+						<LastPresetRef>
+							<Value />
+						</LastPresetRef>
+						<LockedScripts />
+						<IsFolded Value="false" />
+						<ShouldShowPresetName Value="true" />
+						<UserName Value="" />
+						<Annotation Value="" />
+						<SourceContext>
+							<Value />
+						</SourceContext>
+						<ClipSlotList>
+							<ClipSlot Id="0">
+								<LomId Value="0" />
+								<ClipSlot>
+									<Value />
+								</ClipSlot>
+								<HasStop Value="true" />
+								<NeedRefreeze Value="true" />
+							</ClipSlot>
+							<ClipSlot Id="1">
+								<LomId Value="0" />
+								<ClipSlot>
+									<Value />
+								</ClipSlot>
+								<HasStop Value="true" />
+								<NeedRefreeze Value="true" />
+							</ClipSlot>
+							<ClipSlot Id="2">
+								<LomId Value="0" />
+								<ClipSlot>
+									<Value />
+								</ClipSlot>
+								<HasStop Value="true" />
+								<NeedRefreeze Value="true" />
+							</ClipSlot>
+							<ClipSlot Id="3">
+								<LomId Value="0" />
+								<ClipSlot>
+									<Value />
+								</ClipSlot>
+								<HasStop Value="true" />
+								<NeedRefreeze Value="true" />
+							</ClipSlot>
+							<ClipSlot Id="4">
+								<LomId Value="0" />
+								<ClipSlot>
+									<Value />
+								</ClipSlot>
+								<HasStop Value="true" />
+								<NeedRefreeze Value="true" />
+							</ClipSlot>
+							<ClipSlot Id="5">
+								<LomId Value="0" />
+								<ClipSlot>
+									<Value />
+								</ClipSlot>
+								<HasStop Value="true" />
+								<NeedRefreeze Value="true" />
+							</ClipSlot>
+							<ClipSlot Id="6">
+								<LomId Value="0" />
+								<ClipSlot>
+									<Value />
+								</ClipSlot>
+								<HasStop Value="true" />
+								<NeedRefreeze Value="true" />
+							</ClipSlot>
+							<ClipSlot Id="7">
+								<LomId Value="0" />
+								<ClipSlot>
+									<Value />
+								</ClipSlot>
+								<HasStop Value="true" />
+								<NeedRefreeze Value="true" />
+							</ClipSlot>
+						</ClipSlotList>
+						<MonitoringEnum Value="1" />
+						<Sample>
+							<LomId Value="0" />
+							<ArrangerAutomation>
+								<Events />
+								<AutomationTransformViewState>
+									<IsTransformPending Value="false" />
+									<TimeAndValueTransforms />
+								</AutomationTransformViewState>
+							</ArrangerAutomation>
+						</Sample>
+						<VolumeModulationTarget Id="29670">
+							<LockEnvelope Value="0" />
+						</VolumeModulationTarget>
+						<TranspositionModulationTarget Id="29671">
+							<LockEnvelope Value="0" />
+						</TranspositionModulationTarget>
+						<GrainSizeModulationTarget Id="29672">
+							<LockEnvelope Value="0" />
+						</GrainSizeModulationTarget>
+						<FluxModulationTarget Id="29673">
+							<LockEnvelope Value="0" />
+						</FluxModulationTarget>
+						<SampleOffsetModulationTarget Id="29674">
+							<LockEnvelope Value="0" />
+						</SampleOffsetModulationTarget>
+						<PitchViewScrollPosition Value="-1073741824" />
+						<SampleOffsetModulationScrollPosition Value="-1073741824" />
+						<Recorder>
+							<IsArmed Value="false" />
+							<TakeCounter Value="1" />
+						</Recorder>
+					</FreezeSequencer>
+					<DeviceChain>
+						<Devices />
+					</DeviceChain>
+				</DeviceChain>
+			</AudioTrack>
 			<AudioTrack Id="8">
 				<LomId Value="0" />
 				<LomIdView Value="0" />
@@ -26,7 +738,7 @@
 					<Envelopes />
 				</AutomationEnvelopes>
 				<TrackGroupId Value="-1" />
-				<TrackUnfolded Value="true" />
+				<TrackUnfolded Value="false" />
 				<DevicesListWrapper LomId="0" />
 				<ClipSlotsListWrapper LomId="0" />
 				<ViewData Value="{}" />
@@ -49,8 +761,8 @@
 						<AreAdditionalAutomationLanesFolded Value="false" />
 					</AutomationLanes>
 					<ClipEnvelopeChooserViewState>
-						<SelectedDevice Value="10" />
-						<SelectedEnvelope Value="1" />
+						<SelectedDevice Value="0" />
+						<SelectedEnvelope Value="0" />
 						<PreferModulationVisible Value="true" />
 					</ClipEnvelopeChooserViewState>
 					<AudioInputRouting>
@@ -90,7 +802,7 @@
 						</On>
 						<ParametersListWrapper LomId="0" />
 						<LastSelectedTimeableIndex Value="2" />
-						<LastSelectedClipEnvelopeIndex Value="0" />
+						<LastSelectedClipEnvelopeIndex Value="1" />
 						<LastPresetRef>
 							<Value />
 						</LastPresetRef>
@@ -349,7 +1061,7 @@
 											<Envelopes />
 										</Envelopes>
 										<ScrollerTimePreserver>
-											<LeftTime Value="10.153968358095373" />
+											<LeftTime Value="10.294569335166326" />
 											<RightTime Value="558.24251308324165" />
 										</ScrollerTimePreserver>
 										<TimeSelection>
@@ -384,9 +1096,9 @@
 												<HasRelativePath Value="true" />
 												<RelativePathType Value="3" />
 												<RelativePath>
-													<RelativePathElement Id="33" Dir="Samples" />
-													<RelativePathElement Id="34" Dir="lalicornerouge_20230701120016" />
-													<RelativePathElement Id="35" Dir="DIDAFTA - ALBUM" />
+													<RelativePathElement Id="36" Dir="Samples" />
+													<RelativePathElement Id="37" Dir="lalicornerouge_20230701120016" />
+													<RelativePathElement Id="38" Dir="DIDAFTA - ALBUM" />
 												</RelativePath>
 												<Name Value="LA FEMME DRAGON Arrangements.wav" />
 												<Type Value="1" />
@@ -420,13 +1132,13 @@
 											<SourceContext>
 												<SourceContext Id="0">
 													<OriginalFileRef>
-														<FileRef Id="11">
+														<FileRef Id="12">
 															<HasRelativePath Value="true" />
 															<RelativePathType Value="3" />
 															<RelativePath>
-																<RelativePathElement Id="36" Dir="Samples" />
-																<RelativePathElement Id="37" Dir="lalicornerouge_20230701120016" />
-																<RelativePathElement Id="38" Dir="DIDAFTA - ALBUM" />
+																<RelativePathElement Id="39" Dir="Samples" />
+																<RelativePathElement Id="40" Dir="lalicornerouge_20230701120016" />
+																<RelativePathElement Id="41" Dir="DIDAFTA - ALBUM" />
 															</RelativePath>
 															<Name Value="LA FEMME DRAGON Arrangements.wav" />
 															<Type Value="1" />
@@ -558,7 +1270,7 @@
 										</WarpMarkers>
 										<SavedWarpMarkersForStretched />
 										<MarkersGenerated Value="false" />
-										<IsSongTempoMaster Value="true" />
+										<IsSongTempoMaster Value="false" />
 									</AudioClip>
 								</Events>
 								<AutomationTransformViewState>
@@ -744,8 +1456,8 @@
 												<HasRelativePath Value="true" />
 												<RelativePathType Value="5" />
 												<RelativePath>
-													<RelativePathElement Id="46" Dir="Audio Effect Racks" />
-													<RelativePathElement Id="47" Dir="Mixing &amp; Mastering" />
+													<RelativePathElement Id="48" Dir="Audio Effect Racks" />
+													<RelativePathElement Id="49" Dir="Mixing &amp; Mastering" />
 												</RelativePath>
 												<Name Value="Full Chain Master.adg" />
 												<Type Value="1" />
@@ -784,8 +1496,8 @@
 													<HasRelativePath Value="true" />
 													<RelativePathType Value="5" />
 													<RelativePath>
-														<RelativePathElement Id="46" Dir="Audio Effect Racks" />
-														<RelativePathElement Id="47" Dir="Mixing &amp; Mastering" />
+														<RelativePathElement Id="48" Dir="Audio Effect Racks" />
+														<RelativePathElement Id="49" Dir="Mixing &amp; Mastering" />
 													</RelativePath>
 													<Name Value="Full Chain Master.adg" />
 													<Type Value="1" />
@@ -816,8 +1528,8 @@
 														<HasRelativePath Value="true" />
 														<RelativePathType Value="5" />
 														<RelativePath>
-															<RelativePathElement Id="46" Dir="Audio Effect Racks" />
-															<RelativePathElement Id="47" Dir="Mixing &amp; Mastering" />
+															<RelativePathElement Id="48" Dir="Audio Effect Racks" />
+															<RelativePathElement Id="49" Dir="Mixing &amp; Mastering" />
 														</RelativePath>
 														<Name Value="Full Chain Master.adg" />
 														<Type Value="1" />
@@ -885,10 +1597,10 @@
 																		<HasRelativePath Value="true" />
 																		<RelativePathType Value="5" />
 																		<RelativePath>
-																			<RelativePathElement Id="152" Dir="Devices" />
-																			<RelativePathElement Id="153" Dir="Audio Effects" />
-																			<RelativePathElement Id="154" Dir="EQ Eight" />
-																			<RelativePathElement Id="155" Dir="Instrument" />
+																			<RelativePathElement Id="156" Dir="Devices" />
+																			<RelativePathElement Id="157" Dir="Audio Effects" />
+																			<RelativePathElement Id="158" Dir="EQ Eight" />
+																			<RelativePathElement Id="159" Dir="Instrument" />
 																		</RelativePath>
 																		<Name Value="Electric Git EQ 1.adv" />
 																		<Type Value="1" />
@@ -2074,9 +2786,9 @@
 																		<HasRelativePath Value="true" />
 																		<RelativePathType Value="5" />
 																		<RelativePath>
-																			<RelativePathElement Id="114" Dir="Devices" />
-																			<RelativePathElement Id="115" Dir="Audio Effects" />
-																			<RelativePathElement Id="116" Dir="Glue Compressor" />
+																			<RelativePathElement Id="117" Dir="Devices" />
+																			<RelativePathElement Id="118" Dir="Audio Effects" />
+																			<RelativePathElement Id="119" Dir="Glue Compressor" />
 																		</RelativePath>
 																		<Name Value="" />
 																		<Type Value="1" />
@@ -2395,9 +3107,9 @@
 																		<HasRelativePath Value="true" />
 																		<RelativePathType Value="5" />
 																		<RelativePath>
-																			<RelativePathElement Id="114" Dir="Devices" />
-																			<RelativePathElement Id="115" Dir="Audio Effects" />
-																			<RelativePathElement Id="116" Dir="Overdrive" />
+																			<RelativePathElement Id="117" Dir="Devices" />
+																			<RelativePathElement Id="118" Dir="Audio Effects" />
+																			<RelativePathElement Id="119" Dir="Overdrive" />
 																		</RelativePath>
 																		<Name Value="" />
 																		<Type Value="1" />
@@ -2560,9 +3272,9 @@
 																		<HasRelativePath Value="true" />
 																		<RelativePathType Value="5" />
 																		<RelativePath>
-																			<RelativePathElement Id="114" Dir="Devices" />
-																			<RelativePathElement Id="115" Dir="Audio Effects" />
-																			<RelativePathElement Id="116" Dir="Utility" />
+																			<RelativePathElement Id="117" Dir="Devices" />
+																			<RelativePathElement Id="118" Dir="Audio Effects" />
+																			<RelativePathElement Id="119" Dir="Utility" />
 																		</RelativePath>
 																		<Name Value="" />
 																		<Type Value="1" />
@@ -2801,9 +3513,9 @@
 																		<HasRelativePath Value="true" />
 																		<RelativePathType Value="5" />
 																		<RelativePath>
-																			<RelativePathElement Id="114" Dir="Devices" />
-																			<RelativePathElement Id="115" Dir="Audio Effects" />
-																			<RelativePathElement Id="116" Dir="Limiter" />
+																			<RelativePathElement Id="117" Dir="Devices" />
+																			<RelativePathElement Id="118" Dir="Audio Effects" />
+																			<RelativePathElement Id="119" Dir="Limiter" />
 																		</RelativePath>
 																		<Name Value="" />
 																		<Type Value="1" />
@@ -2944,9 +3656,9 @@
 																		<HasRelativePath Value="true" />
 																		<RelativePathType Value="5" />
 																		<RelativePath>
-																			<RelativePathElement Id="114" Dir="Devices" />
-																			<RelativePathElement Id="115" Dir="Audio Effects" />
-																			<RelativePathElement Id="116" Dir="Spectrum" />
+																			<RelativePathElement Id="117" Dir="Devices" />
+																			<RelativePathElement Id="118" Dir="Audio Effects" />
+																			<RelativePathElement Id="119" Dir="Spectrum" />
 																		</RelativePath>
 																		<Name Value="" />
 																		<Type Value="1" />
@@ -3017,9 +3729,9 @@
 																<HasRelativePath Value="true" />
 																<RelativePathType Value="5" />
 																<RelativePath>
-																	<RelativePathElement Id="114" Dir="Devices" />
-																	<RelativePathElement Id="115" Dir="Audio Effects" />
-																	<RelativePathElement Id="116" Dir="Compressor" />
+																	<RelativePathElement Id="117" Dir="Devices" />
+																	<RelativePathElement Id="118" Dir="Audio Effects" />
+																	<RelativePathElement Id="119" Dir="Compressor" />
 																</RelativePath>
 																<Name Value="Classical Compression.adv" />
 																<Type Value="1" />
@@ -4502,722 +5214,6 @@
 					</DeviceChain>
 				</DeviceChain>
 			</AudioTrack>
-			<AudioTrack Id="23">
-				<LomId Value="0" />
-				<LomIdView Value="0" />
-				<IsContentSelected Value="true" />
-				<EnvelopeModePreferred Value="false" />
-				<TrackDelay>
-					<Value Value="0" />
-					<IsValueSampleBased Value="false" />
-				</TrackDelay>
-				<Name>
-					<EffectiveName Value="2-LA FEMME DRAGON sans BASS_03-01" />
-					<UserName Value="" />
-					<Annotation Value="" />
-					<MemorizedFirstClipName Value="LA FEMME DRAGON sans BASS_03-01" />
-				</Name>
-				<ColorIndex Value="164" />
-				<AutomationEnvelopes>
-					<Envelopes />
-				</AutomationEnvelopes>
-				<TrackGroupId Value="-1" />
-				<TrackUnfolded Value="true" />
-				<DevicesListWrapper LomId="0" />
-				<ClipSlotsListWrapper LomId="0" />
-				<ViewData Value="{}" />
-				<SavedPlayingSlot Value="-1" />
-				<SavedPlayingOffset Value="0" />
-				<Freeze Value="false" />
-				<VelocityDetail Value="0" />
-				<NeedArrangerRefreeze Value="true" />
-				<PostProcessFreezeClips Value="0" />
-				<DeviceChain>
-					<AutomationLanes>
-						<AutomationLanes>
-							<AutomationLane Id="0">
-								<SelectedDevice Value="0" />
-								<SelectedEnvelope Value="0" />
-								<IsContentSelected Value="false" />
-								<LaneHeight Value="221" />
-							</AutomationLane>
-						</AutomationLanes>
-						<AreAdditionalAutomationLanesFolded Value="false" />
-					</AutomationLanes>
-					<ClipEnvelopeChooserViewState>
-						<SelectedDevice Value="0" />
-						<SelectedEnvelope Value="0" />
-						<PreferModulationVisible Value="false" />
-					</ClipEnvelopeChooserViewState>
-					<AudioInputRouting>
-						<Target Value="AudioIn/External/S0" />
-						<UpperDisplayString Value="Ext. In" />
-						<LowerDisplayString Value="1/2" />
-					</AudioInputRouting>
-					<MidiInputRouting>
-						<Target Value="MidiIn/External.All/-1" />
-						<UpperDisplayString Value="Ext: All Ins" />
-						<LowerDisplayString Value="" />
-					</MidiInputRouting>
-					<AudioOutputRouting>
-						<Target Value="AudioOut/Master" />
-						<UpperDisplayString Value="Master" />
-						<LowerDisplayString Value="" />
-					</AudioOutputRouting>
-					<MidiOutputRouting>
-						<Target Value="MidiOut/None" />
-						<UpperDisplayString Value="None" />
-						<LowerDisplayString Value="" />
-					</MidiOutputRouting>
-					<Mixer>
-						<LomId Value="0" />
-						<LomIdView Value="0" />
-						<IsExpanded Value="true" />
-						<On>
-							<LomId Value="0" />
-							<Manual Value="true" />
-							<AutomationTarget Id="29648">
-								<LockEnvelope Value="0" />
-							</AutomationTarget>
-							<MidiCCOnOffThresholds>
-								<Min Value="64" />
-								<Max Value="127" />
-							</MidiCCOnOffThresholds>
-						</On>
-						<ParametersListWrapper LomId="0" />
-						<LastSelectedTimeableIndex Value="0" />
-						<LastSelectedClipEnvelopeIndex Value="0" />
-						<LastPresetRef>
-							<Value />
-						</LastPresetRef>
-						<LockedScripts />
-						<IsFolded Value="false" />
-						<ShouldShowPresetName Value="false" />
-						<UserName Value="" />
-						<Annotation Value="" />
-						<SourceContext>
-							<Value />
-						</SourceContext>
-						<Sends>
-							<TrackSendHolder Id="0">
-								<Send>
-									<LomId Value="0" />
-									<Manual Value="0.0003162277571" />
-									<MidiControllerRange>
-										<Min Value="0.0003162277571" />
-										<Max Value="1" />
-									</MidiControllerRange>
-									<AutomationTarget Id="29649">
-										<LockEnvelope Value="0" />
-									</AutomationTarget>
-									<ModulationTarget Id="29650">
-										<LockEnvelope Value="0" />
-									</ModulationTarget>
-								</Send>
-								<Active Value="true" />
-							</TrackSendHolder>
-							<TrackSendHolder Id="1">
-								<Send>
-									<LomId Value="0" />
-									<Manual Value="0.0003162277571" />
-									<MidiControllerRange>
-										<Min Value="0.0003162277571" />
-										<Max Value="1" />
-									</MidiControllerRange>
-									<AutomationTarget Id="29651">
-										<LockEnvelope Value="0" />
-									</AutomationTarget>
-									<ModulationTarget Id="29652">
-										<LockEnvelope Value="0" />
-									</ModulationTarget>
-								</Send>
-								<Active Value="true" />
-							</TrackSendHolder>
-						</Sends>
-						<Speaker>
-							<LomId Value="0" />
-							<Manual Value="true" />
-							<AutomationTarget Id="29653">
-								<LockEnvelope Value="0" />
-							</AutomationTarget>
-							<MidiCCOnOffThresholds>
-								<Min Value="64" />
-								<Max Value="127" />
-							</MidiCCOnOffThresholds>
-						</Speaker>
-						<SoloSink Value="false" />
-						<PanMode Value="0" />
-						<Pan>
-							<LomId Value="0" />
-							<Manual Value="0" />
-							<MidiControllerRange>
-								<Min Value="-1" />
-								<Max Value="1" />
-							</MidiControllerRange>
-							<AutomationTarget Id="29654">
-								<LockEnvelope Value="0" />
-							</AutomationTarget>
-							<ModulationTarget Id="29655">
-								<LockEnvelope Value="0" />
-							</ModulationTarget>
-						</Pan>
-						<SplitStereoPanL>
-							<LomId Value="0" />
-							<Manual Value="-1" />
-							<MidiControllerRange>
-								<Min Value="-1" />
-								<Max Value="1" />
-							</MidiControllerRange>
-							<AutomationTarget Id="29656">
-								<LockEnvelope Value="0" />
-							</AutomationTarget>
-							<ModulationTarget Id="29657">
-								<LockEnvelope Value="0" />
-							</ModulationTarget>
-						</SplitStereoPanL>
-						<SplitStereoPanR>
-							<LomId Value="0" />
-							<Manual Value="1" />
-							<MidiControllerRange>
-								<Min Value="-1" />
-								<Max Value="1" />
-							</MidiControllerRange>
-							<AutomationTarget Id="29658">
-								<LockEnvelope Value="0" />
-							</AutomationTarget>
-							<ModulationTarget Id="29659">
-								<LockEnvelope Value="0" />
-							</ModulationTarget>
-						</SplitStereoPanR>
-						<Volume>
-							<LomId Value="0" />
-							<Manual Value="1" />
-							<MidiControllerRange>
-								<Min Value="0.0003162277571" />
-								<Max Value="1.99526238" />
-							</MidiControllerRange>
-							<AutomationTarget Id="29660">
-								<LockEnvelope Value="0" />
-							</AutomationTarget>
-							<ModulationTarget Id="29661">
-								<LockEnvelope Value="0" />
-							</ModulationTarget>
-						</Volume>
-						<ViewStateSesstionTrackWidth Value="93" />
-						<CrossFadeState>
-							<LomId Value="0" />
-							<Manual Value="1" />
-							<AutomationTarget Id="29662">
-								<LockEnvelope Value="0" />
-							</AutomationTarget>
-						</CrossFadeState>
-						<SendsListWrapper LomId="0" />
-					</Mixer>
-					<MainSequencer>
-						<LomId Value="0" />
-						<LomIdView Value="0" />
-						<IsExpanded Value="true" />
-						<On>
-							<LomId Value="0" />
-							<Manual Value="true" />
-							<AutomationTarget Id="29663">
-								<LockEnvelope Value="0" />
-							</AutomationTarget>
-							<MidiCCOnOffThresholds>
-								<Min Value="64" />
-								<Max Value="127" />
-							</MidiCCOnOffThresholds>
-						</On>
-						<ParametersListWrapper LomId="0" />
-						<LastSelectedTimeableIndex Value="0" />
-						<LastSelectedClipEnvelopeIndex Value="0" />
-						<LastPresetRef>
-							<Value />
-						</LastPresetRef>
-						<LockedScripts />
-						<IsFolded Value="false" />
-						<ShouldShowPresetName Value="true" />
-						<UserName Value="" />
-						<Annotation Value="" />
-						<SourceContext>
-							<Value />
-						</SourceContext>
-						<ClipSlotList>
-							<ClipSlot Id="0">
-								<LomId Value="0" />
-								<ClipSlot>
-									<Value />
-								</ClipSlot>
-								<HasStop Value="true" />
-								<NeedRefreeze Value="true" />
-							</ClipSlot>
-							<ClipSlot Id="1">
-								<LomId Value="0" />
-								<ClipSlot>
-									<Value />
-								</ClipSlot>
-								<HasStop Value="true" />
-								<NeedRefreeze Value="true" />
-							</ClipSlot>
-							<ClipSlot Id="2">
-								<LomId Value="0" />
-								<ClipSlot>
-									<Value />
-								</ClipSlot>
-								<HasStop Value="true" />
-								<NeedRefreeze Value="true" />
-							</ClipSlot>
-							<ClipSlot Id="3">
-								<LomId Value="0" />
-								<ClipSlot>
-									<Value />
-								</ClipSlot>
-								<HasStop Value="true" />
-								<NeedRefreeze Value="true" />
-							</ClipSlot>
-							<ClipSlot Id="4">
-								<LomId Value="0" />
-								<ClipSlot>
-									<Value />
-								</ClipSlot>
-								<HasStop Value="true" />
-								<NeedRefreeze Value="true" />
-							</ClipSlot>
-							<ClipSlot Id="5">
-								<LomId Value="0" />
-								<ClipSlot>
-									<Value />
-								</ClipSlot>
-								<HasStop Value="true" />
-								<NeedRefreeze Value="true" />
-							</ClipSlot>
-							<ClipSlot Id="6">
-								<LomId Value="0" />
-								<ClipSlot>
-									<Value />
-								</ClipSlot>
-								<HasStop Value="true" />
-								<NeedRefreeze Value="true" />
-							</ClipSlot>
-							<ClipSlot Id="7">
-								<LomId Value="0" />
-								<ClipSlot>
-									<Value />
-								</ClipSlot>
-								<HasStop Value="true" />
-								<NeedRefreeze Value="true" />
-							</ClipSlot>
-						</ClipSlotList>
-						<MonitoringEnum Value="2" />
-						<Sample>
-							<LomId Value="0" />
-							<ArrangerAutomation>
-								<Events>
-									<AudioClip Id="0" Time="0">
-										<LomId Value="0" />
-										<LomIdView Value="0" />
-										<CurrentStart Value="0" />
-										<CurrentEnd Value="583.15990754037625" />
-										<Loop>
-											<LoopStart Value="0" />
-											<LoopEnd Value="583.15990754037625" />
-											<StartRelative Value="0" />
-											<LoopOn Value="false" />
-											<OutMarker Value="583.15990754037625" />
-											<HiddenLoopStart Value="-6.0706478417415921" />
-											<HiddenLoopEnd Value="583.15990754037625" />
-										</Loop>
-										<Name Value="LA FEMME DRAGON sans BASS_03-01" />
-										<Annotation Value="" />
-										<ColorIndex Value="24" />
-										<LaunchMode Value="0" />
-										<LaunchQuantisation Value="0" />
-										<TimeSignature>
-											<TimeSignatures>
-												<RemoteableTimeSignature Id="0">
-													<Numerator Value="4" />
-													<Denominator Value="4" />
-													<Time Value="0" />
-												</RemoteableTimeSignature>
-											</TimeSignatures>
-										</TimeSignature>
-										<Envelopes>
-											<Envelopes />
-										</Envelopes>
-										<ScrollerTimePreserver>
-											<LeftTime Value="-0.0662603879797956097" />
-											<RightTime Value="583.15990762074944" />
-										</ScrollerTimePreserver>
-										<TimeSelection>
-											<AnchorTime Value="484.42009344821844" />
-											<OtherTime Value="484.42009344821844" />
-										</TimeSelection>
-										<Legato Value="false" />
-										<Ram Value="false" />
-										<GrooveSettings>
-											<GrooveId Value="-1" />
-										</GrooveSettings>
-										<Disabled Value="false" />
-										<VelocityAmount Value="0" />
-										<FollowTime Value="4" />
-										<FollowActionA Value="0" />
-										<FollowActionB Value="0" />
-										<FollowChanceA Value="1" />
-										<FollowChanceB Value="0" />
-										<Grid>
-											<FixedNumerator Value="1" />
-											<FixedDenominator Value="16" />
-											<GridIntervalPixel Value="20" />
-											<Ntoles Value="2" />
-											<SnapToGrid Value="true" />
-											<Fixed Value="false" />
-										</Grid>
-										<FreezeStart Value="0" />
-										<FreezeEnd Value="0" />
-										<IsWarped Value="true" />
-										<SampleRef>
-											<FileRef>
-												<HasRelativePath Value="true" />
-												<RelativePathType Value="3" />
-												<RelativePath>
-													<RelativePathElement Id="0" Dir="Samples" />
-													<RelativePathElement Id="1" Dir="Originaux" />
-													<RelativePathElement Id="2" Dir="Exports Ted" />
-												</RelativePath>
-												<Name Value="LA FEMME DRAGON sans BASS_03-01.mp3" />
-												<Type Value="1" />
-												<Data>
-													44003A005C004D007500730069007100750065005C00470072006F0075007000650073005C004400
-													69006400610066002700740061005C00530061006D0070006C00650073005C004F00720069006700
-													69006E006100750078005C004500780070006F0072007400730020005400650064005C004C004100
-													2000460045004D004D004500200044005200410047004F004E002000730061006E00730020004200
-													4100530053005F00300033002D00300031002E006D00700033000000
-												</Data>
-												<RefersToFolder Value="false" />
-												<SearchHint>
-													<PathHint>
-														<RelativePathElement Id="0" Dir="Musique" />
-														<RelativePathElement Id="1" Dir="Groupes" />
-														<RelativePathElement Id="2" Dir="Didaf'ta" />
-														<RelativePathElement Id="3" Dir="Samples" />
-														<RelativePathElement Id="4" Dir="Originaux" />
-														<RelativePathElement Id="5" Dir="Exports Ted" />
-													</PathHint>
-													<FileSize Value="10724384" />
-													<Crc Value="32689" />
-													<MaxCrcSize Value="16384" />
-													<HasExtendedInfo Value="true" />
-												</SearchHint>
-												<LivePackName Value="" />
-												<LivePackId Value="" />
-											</FileRef>
-											<LastModDate Value="1708765432" />
-											<SourceContext>
-												<SourceContext Id="0">
-													<OriginalFileRef>
-														<FileRef Id="0">
-															<HasRelativePath Value="true" />
-															<RelativePathType Value="3" />
-															<RelativePath>
-																<RelativePathElement Id="3" Dir="Samples" />
-																<RelativePathElement Id="4" Dir="Originaux" />
-																<RelativePathElement Id="5" Dir="Exports Ted" />
-															</RelativePath>
-															<Name Value="LA FEMME DRAGON sans BASS_03-01.mp3" />
-															<Type Value="1" />
-															<Data>
-																44003A005C004D007500730069007100750065005C00470072006F0075007000650073005C004400
-																69006400610066002700740061005C00530061006D0070006C00650073005C004F00720069006700
-																69006E006100750078005C004500780070006F0072007400730020005400650064005C004C004100
-																2000460045004D004D004500200044005200410047004F004E002000730061006E00730020004200
-																4100530053005F00300033002D00300031002E006D00700033000000
-															</Data>
-															<RefersToFolder Value="false" />
-															<SearchHint>
-																<PathHint>
-																	<RelativePathElement Id="0" Dir="Musique" />
-																	<RelativePathElement Id="1" Dir="Groupes" />
-																	<RelativePathElement Id="2" Dir="Didaf'ta" />
-																	<RelativePathElement Id="3" Dir="Samples" />
-																	<RelativePathElement Id="4" Dir="Originaux" />
-																	<RelativePathElement Id="5" Dir="Exports Ted" />
-																</PathHint>
-																<FileSize Value="10724384" />
-																<Crc Value="32689" />
-																<MaxCrcSize Value="16384" />
-																<HasExtendedInfo Value="true" />
-															</SearchHint>
-															<LivePackName Value="" />
-															<LivePackId Value="" />
-														</FileRef>
-													</OriginalFileRef>
-													<BrowserContentPath Value="query:CurrentProject#Samples:Originaux:Exports%20Ted:LA%20FEMME%20DRAGON%20sans%20BASS_03-01.mp3" />
-												</SourceContext>
-											</SourceContext>
-											<SampleUsageHint Value="0" />
-											<DefaultDuration Value="12868992" />
-											<DefaultSampleRate Value="48000" />
-										</SampleRef>
-										<Onsets>
-											<UserOnsets />
-											<HasUserOnsets Value="false" />
-										</Onsets>
-										<WarpMode Value="4" />
-										<GranularityTones Value="30" />
-										<GranularityTexture Value="65" />
-										<FluctuationTexture Value="25" />
-										<TransientResolution Value="6" />
-										<TransientLoopMode Value="2" />
-										<TransientEnvelope Value="100" />
-										<ComplexProFormants Value="100" />
-										<ComplexProEnvelope Value="128" />
-										<Sync Value="true" />
-										<HiQ Value="true" />
-										<Fade Value="true" />
-										<Fades>
-											<FadeInLength Value="0" />
-											<FadeOutLength Value="0" />
-											<ClipFadesAreInitialized Value="true" />
-											<CrossfadeInState Value="0" />
-											<FadeInCurveSkew Value="0" />
-											<FadeInCurveSlope Value="0" />
-											<FadeOutCurveSkew Value="0" />
-											<FadeOutCurveSlope Value="0" />
-											<IsDefaultFadeIn Value="true" />
-											<IsDefaultFadeOut Value="true" />
-										</Fades>
-										<PitchCoarse Value="0" />
-										<PitchFine Value="0" />
-										<SampleVolume Value="1" />
-										<MarkerDensity Value="2" />
-										<AutoWarpTolerance Value="4" />
-										<WarpMarkers>
-											<WarpMarker Id="61" SecTime="0" BeatTime="-6.0706478417415921" />
-											<WarpMarker Id="121" SecTime="2.7962500000000001" BeatTime="0" />
-											<WarpMarker Id="172" SecTime="10.183145833333333" BeatTime="16" />
-											<WarpMarker Id="173" SecTime="10.400416666666667" BeatTime="16.469161827755578" />
-											<WarpMarker Id="174" SecTime="21.514916666666664" BeatTime="40.469161827755578" />
-											<WarpMarker Id="175" SecTime="27.053374999999999" BeatTime="52.469161827755578" />
-											<WarpMarker Id="176" SecTime="34.425395833333333" BeatTime="68.469161827755585" />
-											<WarpMarker Id="177" SecTime="39.961437499999995" BeatTime="80.469161827755585" />
-											<WarpMarker Id="178" SecTime="45.450583333333334" BeatTime="92.469161827755585" />
-											<WarpMarker Id="179" SecTime="47.292937500000001" BeatTime="96.469161827755585" />
-											<WarpMarker Id="180" SecTime="51.012145833333335" BeatTime="104.46916182775558" />
-											<WarpMarker Id="181" SecTime="54.691562499999996" BeatTime="112.46916182775558" />
-											<WarpMarker Id="182" SecTime="56.542541666666665" BeatTime="116.46916182775558" />
-											<WarpMarker Id="183" SecTime="60.266749999999995" BeatTime="124.46916182775558" />
-											<WarpMarker Id="184" SecTime="67.633812500000005" BeatTime="140.46916182775558" />
-											<WarpMarker Id="185" SecTime="71.341104166666668" BeatTime="148.46916182775558" />
-											<WarpMarker Id="186" SecTime="73.185312499999995" BeatTime="152.46916182775558" />
-											<WarpMarker Id="187" SecTime="76.84075" BeatTime="160.46916182775558" />
-											<WarpMarker Id="188" SecTime="78.681437500000001" BeatTime="164.46916182775558" />
-											<WarpMarker Id="189" SecTime="82.405895833333332" BeatTime="172.46916182775558" />
-											<WarpMarker Id="190" SecTime="84.25877083333333" BeatTime="176.46916182775558" />
-											<WarpMarker Id="191" SecTime="87.930666666666667" BeatTime="184.46916182775558" />
-											<WarpMarker Id="192" SecTime="91.583562499999999" BeatTime="192.46916182775558" />
-											<WarpMarker Id="193" SecTime="93.424499999999995" BeatTime="196.46916182775558" />
-											<WarpMarker Id="194" SecTime="95.282583333333335" BeatTime="200.46916182775558" />
-											<WarpMarker Id="195" SecTime="97.150708333333327" BeatTime="204.46916182775558" />
-											<WarpMarker Id="196" SecTime="100.86670833333334" BeatTime="212.46916182775558" />
-											<WarpMarker Id="197" SecTime="102.7330625" BeatTime="216.46916182775558" />
-											<WarpMarker Id="198" SecTime="110.16397916666666" BeatTime="232.46916182775558" />
-											<WarpMarker Id="199" SecTime="115.68195833333333" BeatTime="244.46916182775558" />
-											<WarpMarker Id="200" SecTime="119.36985416666666" BeatTime="252.46916182775558" />
-											<WarpMarker Id="201" SecTime="121.19622916666667" BeatTime="256.46916182775556" />
-											<WarpMarker Id="202" SecTime="128.54733333333334" BeatTime="272.46916182775556" />
-											<WarpMarker Id="203" SecTime="132.25552083333332" BeatTime="280.46916182775556" />
-											<WarpMarker Id="204" SecTime="135.93462499999998" BeatTime="288.46916182775556" />
-											<WarpMarker Id="205" SecTime="141.489375" BeatTime="300.46916182775556" />
-											<WarpMarker Id="206" SecTime="167.49847916666667" BeatTime="356.46916182775556" />
-											<WarpMarker Id="207" SecTime="173.04354166666667" BeatTime="368.46916182775556" />
-											<WarpMarker Id="208" SecTime="182.23893749999999" BeatTime="388.46916182775556" />
-											<WarpMarker Id="209" SecTime="191.38633333333334" BeatTime="408.46916182775556" />
-											<WarpMarker Id="210" SecTime="196.86093750000001" BeatTime="420.46916182775556" />
-											<WarpMarker Id="211" SecTime="200.49949999999998" BeatTime="428.46916182775556" />
-											<WarpMarker Id="212" SecTime="205.9345625" BeatTime="440.46916182775556" />
-											<WarpMarker Id="213" SecTime="207.71541666666667" BeatTime="444.46916182775556" />
-											<WarpMarker Id="214" SecTime="209.4665" BeatTime="448.46916182775556" />
-											<WarpMarker Id="215" SecTime="211.20058333333333" BeatTime="452.46916182775556" />
-											<WarpMarker Id="216" SecTime="214.64147916666667" BeatTime="460.46916182775556" />
-											<WarpMarker Id="217" SecTime="218.14641666666665" BeatTime="468.46916182775556" />
-											<WarpMarker Id="218" SecTime="221.67214583333333" BeatTime="476.46916182775556" />
-											<WarpMarker Id="219" SecTime="223.44379166666667" BeatTime="480.46916182775556" />
-											<WarpMarker Id="220" SecTime="228.70514583333332" BeatTime="492.46916182775556" />
-											<WarpMarker Id="221" SecTime="232.23089583333334" BeatTime="500.46916182775556" />
-											<WarpMarker Id="222" SecTime="235.74954166666666" BeatTime="508.46916182775556" />
-											<WarpMarker Id="223" SecTime="239.25014583333333" BeatTime="516.46916182775556" />
-											<WarpMarker Id="224" SecTime="242.78743749999998" BeatTime="524.46916182775556" />
-											<WarpMarker Id="225" SecTime="244.53739583333333" BeatTime="528.46916182775556" />
-											<WarpMarker Id="226" SecTime="246.26306249999999" BeatTime="532.46916182775556" />
-											<WarpMarker Id="227" SecTime="249.68516666666665" BeatTime="540.46916182775556" />
-											<WarpMarker Id="228" SecTime="249.69864941406249" BeatTime="540.50041182775556" />
-										</WarpMarkers>
-										<SavedWarpMarkersForStretched />
-										<MarkersGenerated Value="false" />
-										<IsSongTempoMaster Value="true" />
-									</AudioClip>
-								</Events>
-								<AutomationTransformViewState>
-									<IsTransformPending Value="false" />
-									<TimeAndValueTransforms />
-								</AutomationTransformViewState>
-							</ArrangerAutomation>
-						</Sample>
-						<VolumeModulationTarget Id="29664">
-							<LockEnvelope Value="0" />
-						</VolumeModulationTarget>
-						<TranspositionModulationTarget Id="29665">
-							<LockEnvelope Value="0" />
-						</TranspositionModulationTarget>
-						<GrainSizeModulationTarget Id="29666">
-							<LockEnvelope Value="0" />
-						</GrainSizeModulationTarget>
-						<FluxModulationTarget Id="29667">
-							<LockEnvelope Value="0" />
-						</FluxModulationTarget>
-						<SampleOffsetModulationTarget Id="29668">
-							<LockEnvelope Value="0" />
-						</SampleOffsetModulationTarget>
-						<PitchViewScrollPosition Value="-1073741824" />
-						<SampleOffsetModulationScrollPosition Value="-1073741824" />
-						<Recorder>
-							<IsArmed Value="false" />
-							<TakeCounter Value="1" />
-						</Recorder>
-					</MainSequencer>
-					<FreezeSequencer>
-						<LomId Value="0" />
-						<LomIdView Value="0" />
-						<IsExpanded Value="true" />
-						<On>
-							<LomId Value="0" />
-							<Manual Value="true" />
-							<AutomationTarget Id="29669">
-								<LockEnvelope Value="0" />
-							</AutomationTarget>
-							<MidiCCOnOffThresholds>
-								<Min Value="64" />
-								<Max Value="127" />
-							</MidiCCOnOffThresholds>
-						</On>
-						<ParametersListWrapper LomId="0" />
-						<LastSelectedTimeableIndex Value="0" />
-						<LastSelectedClipEnvelopeIndex Value="0" />
-						<LastPresetRef>
-							<Value />
-						</LastPresetRef>
-						<LockedScripts />
-						<IsFolded Value="false" />
-						<ShouldShowPresetName Value="true" />
-						<UserName Value="" />
-						<Annotation Value="" />
-						<SourceContext>
-							<Value />
-						</SourceContext>
-						<ClipSlotList>
-							<ClipSlot Id="0">
-								<LomId Value="0" />
-								<ClipSlot>
-									<Value />
-								</ClipSlot>
-								<HasStop Value="true" />
-								<NeedRefreeze Value="true" />
-							</ClipSlot>
-							<ClipSlot Id="1">
-								<LomId Value="0" />
-								<ClipSlot>
-									<Value />
-								</ClipSlot>
-								<HasStop Value="true" />
-								<NeedRefreeze Value="true" />
-							</ClipSlot>
-							<ClipSlot Id="2">
-								<LomId Value="0" />
-								<ClipSlot>
-									<Value />
-								</ClipSlot>
-								<HasStop Value="true" />
-								<NeedRefreeze Value="true" />
-							</ClipSlot>
-							<ClipSlot Id="3">
-								<LomId Value="0" />
-								<ClipSlot>
-									<Value />
-								</ClipSlot>
-								<HasStop Value="true" />
-								<NeedRefreeze Value="true" />
-							</ClipSlot>
-							<ClipSlot Id="4">
-								<LomId Value="0" />
-								<ClipSlot>
-									<Value />
-								</ClipSlot>
-								<HasStop Value="true" />
-								<NeedRefreeze Value="true" />
-							</ClipSlot>
-							<ClipSlot Id="5">
-								<LomId Value="0" />
-								<ClipSlot>
-									<Value />
-								</ClipSlot>
-								<HasStop Value="true" />
-								<NeedRefreeze Value="true" />
-							</ClipSlot>
-							<ClipSlot Id="6">
-								<LomId Value="0" />
-								<ClipSlot>
-									<Value />
-								</ClipSlot>
-								<HasStop Value="true" />
-								<NeedRefreeze Value="true" />
-							</ClipSlot>
-							<ClipSlot Id="7">
-								<LomId Value="0" />
-								<ClipSlot>
-									<Value />
-								</ClipSlot>
-								<HasStop Value="true" />
-								<NeedRefreeze Value="true" />
-							</ClipSlot>
-						</ClipSlotList>
-						<MonitoringEnum Value="1" />
-						<Sample>
-							<LomId Value="0" />
-							<ArrangerAutomation>
-								<Events />
-								<AutomationTransformViewState>
-									<IsTransformPending Value="false" />
-									<TimeAndValueTransforms />
-								</AutomationTransformViewState>
-							</ArrangerAutomation>
-						</Sample>
-						<VolumeModulationTarget Id="29670">
-							<LockEnvelope Value="0" />
-						</VolumeModulationTarget>
-						<TranspositionModulationTarget Id="29671">
-							<LockEnvelope Value="0" />
-						</TranspositionModulationTarget>
-						<GrainSizeModulationTarget Id="29672">
-							<LockEnvelope Value="0" />
-						</GrainSizeModulationTarget>
-						<FluxModulationTarget Id="29673">
-							<LockEnvelope Value="0" />
-						</FluxModulationTarget>
-						<SampleOffsetModulationTarget Id="29674">
-							<LockEnvelope Value="0" />
-						</SampleOffsetModulationTarget>
-						<PitchViewScrollPosition Value="-1073741824" />
-						<SampleOffsetModulationScrollPosition Value="-1073741824" />
-						<Recorder>
-							<IsArmed Value="false" />
-							<TakeCounter Value="1" />
-						</Recorder>
-					</FreezeSequencer>
-					<DeviceChain>
-						<Devices />
-					</DeviceChain>
-				</DeviceChain>
-			</AudioTrack>
 			<MidiTrack Id="15">
 				<LomId Value="0" />
 				<LomIdView Value="0" />
@@ -5238,7 +5234,7 @@
 					<Envelopes />
 				</AutomationEnvelopes>
 				<TrackGroupId Value="-1" />
-				<TrackUnfolded Value="true" />
+				<TrackUnfolded Value="false" />
 				<DevicesListWrapper LomId="0" />
 				<ClipSlotsListWrapper LomId="0" />
 				<ViewData Value="{}" />
@@ -5543,7 +5539,7 @@
 											<HiddenLoopStart Value="0" />
 											<HiddenLoopEnd Value="4" />
 										</Loop>
-										<Name Value="C" />
+										<Name Value="Cs" />
 										<Annotation Value="" />
 										<ColorIndex Value="19" />
 										<LaunchMode Value="0" />
@@ -5608,7 +5604,7 @@
 										<NoteEditorFoldOutZoom Value="3072" />
 										<NoteEditorFoldOutScroll Value="-1320" />
 									</MidiClip>
-									<MidiClip Id="15" Time="48">
+									<MidiClip Id="18" Time="48">
 										<LomId Value="0" />
 										<LomIdView Value="0" />
 										<CurrentStart Value="48" />
@@ -5622,9 +5618,9 @@
 											<HiddenLoopStart Value="0" />
 											<HiddenLoopEnd Value="4" />
 										</Loop>
-										<Name Value="Pré-R" />
+										<Name Value="R" />
 										<Annotation Value="" />
-										<ColorIndex Value="3" />
+										<ColorIndex Value="1" />
 										<LaunchMode Value="0" />
 										<LaunchQuantisation Value="0" />
 										<TimeSignature>
@@ -5687,7 +5683,7 @@
 										<NoteEditorFoldOutZoom Value="3072" />
 										<NoteEditorFoldOutScroll Value="-1320" />
 									</MidiClip>
-									<MidiClip Id="0" Time="80">
+									<MidiClip Id="19" Time="80">
 										<LomId Value="0" />
 										<LomIdView Value="0" />
 										<CurrentStart Value="80" />
@@ -5701,9 +5697,9 @@
 											<HiddenLoopStart Value="0" />
 											<HiddenLoopEnd Value="4" />
 										</Loop>
-										<Name Value="R" />
+										<Name Value="C" />
 										<Annotation Value="" />
-										<ColorIndex Value="1" />
+										<ColorIndex Value="19" />
 										<LaunchMode Value="0" />
 										<LaunchQuantisation Value="0" />
 										<TimeSignature>
@@ -5799,7 +5795,7 @@
 										</Envelopes>
 										<ScrollerTimePreserver>
 											<LeftTime Value="0" />
-											<RightTime Value="16" />
+											<RightTime Value="0.0013437271919087882" />
 										</ScrollerTimePreserver>
 										<TimeSelection>
 											<AnchorTime Value="0" />
@@ -5845,7 +5841,7 @@
 										<NoteEditorFoldOutZoom Value="3072" />
 										<NoteEditorFoldOutScroll Value="-1320" />
 									</MidiClip>
-									<MidiClip Id="2" Time="144">
+									<MidiClip Id="20" Time="144">
 										<LomId Value="0" />
 										<LomIdView Value="0" />
 										<CurrentStart Value="144" />
@@ -5859,9 +5855,9 @@
 											<HiddenLoopStart Value="0" />
 											<HiddenLoopEnd Value="4" />
 										</Loop>
-										<Name Value="Pré-R" />
+										<Name Value="R" />
 										<Annotation Value="" />
-										<ColorIndex Value="3" />
+										<ColorIndex Value="1" />
 										<LaunchMode Value="0" />
 										<LaunchQuantisation Value="0" />
 										<TimeSignature>
@@ -5924,7 +5920,7 @@
 										<NoteEditorFoldOutZoom Value="3072" />
 										<NoteEditorFoldOutScroll Value="-1320" />
 									</MidiClip>
-									<MidiClip Id="3" Time="176">
+									<MidiClip Id="21" Time="176">
 										<LomId Value="0" />
 										<LomIdView Value="0" />
 										<CurrentStart Value="176" />
@@ -5938,9 +5934,9 @@
 											<HiddenLoopStart Value="0" />
 											<HiddenLoopEnd Value="4" />
 										</Loop>
-										<Name Value="R" />
+										<Name Value="C" />
 										<Annotation Value="" />
-										<ColorIndex Value="1" />
+										<ColorIndex Value="19" />
 										<LaunchMode Value="0" />
 										<LaunchQuantisation Value="0" />
 										<TimeSignature>
@@ -6082,7 +6078,7 @@
 										<NoteEditorFoldOutZoom Value="3072" />
 										<NoteEditorFoldOutScroll Value="-1320" />
 									</MidiClip>
-									<MidiClip Id="4" Time="240">
+									<MidiClip Id="22" Time="240">
 										<LomId Value="0" />
 										<LomIdView Value="0" />
 										<CurrentStart Value="240" />
@@ -6096,9 +6092,9 @@
 											<HiddenLoopStart Value="0" />
 											<HiddenLoopEnd Value="4" />
 										</Loop>
-										<Name Value="Pré-R" />
+										<Name Value="R" />
 										<Annotation Value="" />
-										<ColorIndex Value="3" />
+										<ColorIndex Value="1" />
 										<LaunchMode Value="0" />
 										<LaunchQuantisation Value="0" />
 										<TimeSignature>
@@ -6161,7 +6157,7 @@
 										<NoteEditorFoldOutZoom Value="3072" />
 										<NoteEditorFoldOutScroll Value="-1320" />
 									</MidiClip>
-									<MidiClip Id="6" Time="272">
+									<MidiClip Id="23" Time="272">
 										<LomId Value="0" />
 										<LomIdView Value="0" />
 										<CurrentStart Value="272" />
@@ -6175,9 +6171,9 @@
 											<HiddenLoopStart Value="0" />
 											<HiddenLoopEnd Value="4" />
 										</Loop>
-										<Name Value="R" />
+										<Name Value="C" />
 										<Annotation Value="" />
-										<ColorIndex Value="1" />
+										<ColorIndex Value="19" />
 										<LaunchMode Value="0" />
 										<LaunchQuantisation Value="0" />
 										<TimeSignature>
@@ -6194,7 +6190,7 @@
 										</Envelopes>
 										<ScrollerTimePreserver>
 											<LeftTime Value="0" />
-											<RightTime Value="0.0013437271919087882" />
+											<RightTime Value="16" />
 										</ScrollerTimePreserver>
 										<TimeSelection>
 											<AnchorTime Value="0" />
@@ -6398,7 +6394,7 @@
 										<NoteEditorFoldOutZoom Value="3072" />
 										<NoteEditorFoldOutScroll Value="-1320" />
 									</MidiClip>
-									<MidiClip Id="8" Time="400">
+									<MidiClip Id="24" Time="400">
 										<LomId Value="0" />
 										<LomIdView Value="0" />
 										<CurrentStart Value="400" />
@@ -6412,9 +6408,9 @@
 											<HiddenLoopStart Value="0" />
 											<HiddenLoopEnd Value="4" />
 										</Loop>
-										<Name Value="R'" />
+										<Name Value="C" />
 										<Annotation Value="" />
-										<ColorIndex Value="15" />
+										<ColorIndex Value="19" />
 										<LaunchMode Value="0" />
 										<LaunchQuantisation Value="0" />
 										<TimeSignature>
@@ -8190,7 +8186,7 @@
 						</On>
 						<ParametersListWrapper LomId="0" />
 						<LastSelectedTimeableIndex Value="2" />
-						<LastSelectedClipEnvelopeIndex Value="2" />
+						<LastSelectedClipEnvelopeIndex Value="1" />
 						<LastPresetRef>
 							<Value />
 						</LastPresetRef>
@@ -8461,7 +8457,7 @@
 										<GrooveSettings>
 											<GrooveId Value="-1" />
 										</GrooveSettings>
-										<Disabled Value="false" />
+										<Disabled Value="true" />
 										<VelocityAmount Value="0" />
 										<FollowTime Value="4" />
 										<FollowActionA Value="0" />
@@ -8484,8 +8480,8 @@
 												<HasRelativePath Value="true" />
 												<RelativePathType Value="3" />
 												<RelativePath>
-													<RelativePathElement Id="0" Dir="Samples" />
-													<RelativePathElement Id="1" Dir="Recorded" />
+													<RelativePathElement Id="2" Dir="Samples" />
+													<RelativePathElement Id="3" Dir="Recorded" />
 												</RelativePath>
 												<Name Value="Basse 0001 [2024-02-24 100115].wav" />
 												<Type Value="1" />
@@ -8830,7 +8826,7 @@
 										<NumberOfPrograms Value="128" />
 										<Flags Value="67110662" />
 										<Preset>
-											<VstPreset Id="24">
+											<VstPreset Id="25">
 												<OverwriteProtectionNumber Value="2561" />
 												<ParameterSettings />
 												<IsOn Value="true" />
@@ -8861,113 +8857,113 @@
 													2066EE915FD2C1D6E8997602BB4EE19C9171E9869718881657CC416425F2FA61E02A2F2CA32DD18F
 													4B8BC6B7E878B4BDA474221B066D309D252F3735BB1F557432EAFFDB789BA698B83F7DC79B1FF113
 													A4824D74BEBCF054B7B8E804D61F89D1E157E6DE2FA8BAF31061746164020000007473727062696C
-													7A8110000050B5000078DAED5DD976DABC16EEB9ED5378719B45F16CF3AFB4FF4A08246942421232
-													B4AB37C20870F1540F6478AFF37E4706634B36044C12A4E6A4378D65B3F5790F9FB435993B6DDFFD
-													E7D3A74F07FFFDF469F7DF07DBE226D00F4CD7F95A11BEF0150E3A86DB379DE1D7CA75B755D52B5C
-													1002A70F2CD7815F2B8E5BE1FEFDF67977E8574D2708FDC8864E5835469133E67A9169F5AB4E64F7
-													A0FFB5827E68B8B6877E851EF08031AE9A7D54435DE3E5BAAAEB62851BF8C086F7AE3FBB836AB6C1
-													6FD7AFA6681454621ABE9B95887189833F834A3C1F06704915A16923D05720E45AB0C789322708FF
-													48D23FB2C489BC2857BE7DFECC71BB811B39FD6A1F84A00702C80D2DB707ACAA0D43DF755C7B8A6C
-													64A24AAAB6DB8733A066DF442F0D1C075AA842B5529B49425AF1110C4CA1A80A0EFDDB1D980FD554
-													1D0187945435436807E811397926FF1417BF8C5EE77954A103E2F7B83C491F450FC70F5A30845951
-													52B8FCD75C14C5C586D195DBE1FE6472FD38FE793DD1AE6EC5481D7EFD5AC145E1C2AAC3C824EFA1
-													BB1313DE6326466FE3592084D51E70C65F2B9545B76640628F727DD8AFC61212A5CA152E7F15983D
-													0BFD3D00560063051395D79EC186E10651DF7439CC5B0A6FE181D80B43F404727C806A44BF095D1B
-													84D31FC4CA43A6CA1E8A4D1A0744681AC4834241322E7B6A0C736F6E8963270E2903EE19A13981E8
-													5D81154D1DAB280349899D1243C0F9D076912E6DF0300533BF34A7706B0B60D4D21F17DE3EBB152C
-													57F0548984976537317FAC151D72378D4D3F4C91EDD608377FC6F955DC7BCD2177E23A2826AD9241
-													B04C4A120C4FE313CBD265C08F77C4C191103A177F9ECEEEA90683400483C07030F04B82A1C6A237
-													498B1D8113CB3AD47241894FDD1C7A970E68DED863E8EBDFE5FDE0F8F0BBFB41B01F04CB5848E8CB
-													3C592ADBD1582E2809894889FEFC69ED0FDA63F07864F4ACF62598981F21F111128C85848839F2DE
-													D492C74EC9605828220983EFFAADD21F5DEFEBE3C353916FFD393A788A067B1FBD8D77D7DB10303E
-													4429614917CAFF3AF11EE76470A3349B7578BDF37DD2EA5CEE09AD83F0E283448BDE2314BD47DB94
-													44310EF5A2903B04A693F1E71765EB0C5A0078380778886CC59D3BB5F3C1204528D0C7D725F07547
-													28B046AED5C794C800C8F6CD1C651B0471E18D6B4536D6527ED155455275FA484FE7404F4DDB8C0B
-													7316E71980D84831C241C8356643652CF9E46503EBAE8E8A103F3A46F9F4191F4BEC020F1E4063CC
-													096573E725529206EEEA76289DDE39BECBDBC14EE77E080FCFCEF7DE510317A237EEA33716405440
-													3DBF17BB58C173CA348D9B348EF5858DE392202023C94A43DD75BD15F1F30A11B422CC0BF04298BA
-													1B32B69B7110CF0E443F85E80327F0DC0032A8C7280519390CE2F326737CC5865B565581159C7E8A
-													F3121AAEDFCFF73398016A76B0B103E8875CC70DCC9817D8B3BD15E01CC45D85A889631025245036
-													9D3E75A32FEF73ACE875C4B79734665BCBB06501EB4B5C9908CA08A566DC344B2B9B6F3F2B2BE99C
-													F4EA7CAF7B3AD27EF38F3B8F4F1E700F1A7B3FE8CE14F144E7846738FB16F8B57B18B9B0B9E19712
-													3B03B9775398A36B3EA032075873A76127D73915B38C11A5B60E4B99625B4AD3EE28844CE5B0329E
-													C33295BB2A44EECA12B4963A87D6322D5428700D14ED6C0D4EB43412A398C7C8821E751223538151
-													CFFA312879DFBFFD3F1934210404F33E42D58CE9BEBAE4B997B5662FD2DC52ADBDBC05DB0AAE12AD
-													D656F0ACDD526D473BEBB64E5B41B37E8BB415381BB442DBC155BEE5D90EAEF55B9BED38778916E6
-													2D00EDD6D6A277F4EB62F1FA09AC8C0F85470E527BB9A4B5F8FB245195AE0D79E21D49EDEBDB96F5
-													249EF66EFB673DBAA3E82291A88A0C27AAEAA6796ACB4D83C8F5C72C75D8BAE9485E17A98DEB98A1
-													314AF1A975FA0083D0379C301D7E097DB7076B8D78A53C4B6AEC7B6587E9B70ACF1F6403CB03E843
-													C7C8E0C9320300837636C066C524D64664F0F7E50EF1545DCCB6DC7CD0AD4665F4135F65D64EF6AA
-													C0B2C39E8B8524CD48FBE90A5E4CBC6EC043B17DA9FD3CF6A2080EDFCF5AB5F90E1F10718615EF1E
-													1A98B1A4C63FBF3ABE3B449EC1A1DE100C7E355CDB769DE4E20CC4EB27B9E374F353F0EB303243E0
-													73F1B257053DECA05C25FC956AF397E5DE23F113F8E51E4CD0EB5A26AAA967863608C6D3579895BC
-													4DDD2313ABDA8EACD0F4AC99E2663A966B288D08E268346006AA1ACFC73BFD781717BA1D79DEECAF
-													6DCF492B9BCF4977EED329D5B5964351980DBA7252367C740CF6F0756D6FC9C4B9A47ED1658D159C
-													ED68615ACE8C1E6FAC92D3178CCFFA65ACF9BA036A73B978AA9570E38C9D113D5553D224B80C23B0
-													E40959ACCB755513EBCA1A4CF652C77F9B0C74913E5E2DF554F14D717BB6B7E700EB31289D812E15
-													93F4202E7B664F3B77FC6EF3AABE1F1DD8B67EDC39FD58AFFCFE56BB2B0AE6089DA9A8F9BA96721E
-													F58CA0C4A7FC9BDEA1F6B339DA19ABBAF3A0B6F89FAD47F3E26316FE95BB54F90ED5CDD2564C9644
-													FAB9E5418AEFC07F5C6F49D556F1DDA6F86E318F66075FFB2EED45990F2C01EBDC616CC0C59B6138
-													84D07486FF8F938E539155B7C47463C9B8DDCAE87EC958DDCEE4DE9AFEBF15309BF8FC56809564B1
-													B7E918AF088217F68C357ED10685B247042C9392F4617E1F9F5D0EC0E3EF8BE6CED31138EFB7346F
-													7FF40EB73988AC6D7350371F52FA5BD69733BE1DC3BCC287BDB8AECBCDB6DB7D2C2A7F378BCAFF9A
-													2D0FAFB2FA5DA4B3FABD8E6FA44B76ACB6EE4A36534B8424ADD441F3D117DD43F7A2793E90CFBBFB
-													66E3E487B1F7317AB3DE7AF74D779B979DBA60738634BB6BB84E08CC78BED4984D4F55A736332D33
-													7C4CC7BDB2A3F116F50491B5236BAAC17E8F331D242B3B00509E0B40C546FC48900A454AF751DCF8
-													EEFDAC0CB36FBE86911B8498A15035057B0A6F3ECF9B2B4C34BEEBB84E75D18DE26CAE846F6269A1
-													70E61A6E3C983D0B67FDFC64D4EAB997DF9B00D6EEFA939FF2E18F06B97D657928AF08E3C37801E0
-													D2483E3E3BEEAE8E667C3637F42322989706F2BA41FC5643652F08DEAD646CC73C7178053EF924A8
-													BC4C07D4B990B539631879F4D740EFA56B8DF7C2707AE00A5DB35D29F85EB4C6883872644B79F622
-													EA5F4AFB0BE8303FB28F2F57DC0741C0757C77CE4DA34BEDC7996D3CB96331741A35A92EB57E0BC3
-													57E326AE150FEA2CE5A783632E06546EDD22031425CAEF82A31A7B5757D8E23FE84397F640D7F251
-													5345E0558D0E28EC981FE20422A1AE504274900DE43E7FA8DC56D0ECE3EC82E947D325AD4E695839
-													1B55EED36FE5EC1606876BF9F04F041DE3119F13D0259D0EB66EB6B616F62C06B64545E9314BD756
-													E803EE943A29F552DEDEF759D865131D911A3A32696B68D84C29D207DEC834B8E6056D2DC969A747
-													E6B9A3279C9744A9AED201554F41D573A028459BA0A788D09F4C4092B2EE2AFA938424A1E449A203
-													4BC960297958A222F2B40C989A8F1BB360BD34A113D9C0936ED79473780455AB53EABE0959CCF124
-													2A3A78E0453A51D0BCE058D91F7D28A7BDB8C34B79D5A695BF221717047CE0BF919CD57DE9BA369E
-													949FDE0E0F8F1CFDA0730DC496FCDD84777FFCDC2CF596070C99CEC6EBEF63C4303B5D14029FFAA6
-													FB6726DD7541A2C49B4301CFC4E3D32BE99A6C28127844FA9C39940844120388640291CC00228540
-													A43080482510A90C20D208441A03887402914E1F9197B25107E064440F90880362808D3C0907C400
-													1979320E88012EF2141C100354E4A938200698C8D370400C1091A7E38018E0215BC03762E2444409
-													8F48E011A9E321CE8FC26988121E99C02353C7A3107814EA7854028F4A1D8F46E0D1A8E3D1093C3A
-													6D3C41CA3F57AEE5D2E79F4024F050E79F4022F050E79F4026F050E79F4021F050E79F4025F050E7
-													9F4023F050E79F4027F050E71FCFCC12B111AAEFD899D02721CF140BA044FAA0A40228893E28B900
-													4AA60F4A298052E883520BA054FAA0B402288D3E28BD008A3E4F8D489E6280A446244931C0502392
-													A118A0A711494F0C70D388E42606886944121303AC34225989014A1A9194449F8FFC948EA613D0D4
-													D9C817093CD4B9C897083CD499C897093CD479C857083CD459C857093CD439C8D7083CD419C8D709
-													3CF4F9C72609888DD16BDF168BA8E873912D1551D167245B2EA2A2CF4BB65244459F9D6CB5888A3E
-													47D95A11157DA6B2F5222AFAE3DC8CED9502E9D64993FA87237A4BB600C9A22651DAEC1A2EDFD8A2
-													CA0AA5DD360DD04B1B3DF4B7E9C0907E93D7368D6C0AD9341800D471030211BAA68F0AD94BCCDB4E
-													A47E7E9A6988B8A644166C27E66D2732603B296F3B8901DB49B8A624166C27E56D2731603B396F3B
-													9901DBC9B8A664166C27E76D2733603B256F3B8501DB29B8A614166CA7E46DA730603B356F3B9501
-													DBA9B8A654166CA7E66DA732603B2D6F3B8D01DB69B8A634166CA7E56DA731603B3D6F3B9D01DBE9
-													B8A674166CA7E76DA7FF651B04776B8B0F19DBAD0DFDAA0F8CF1B7CFF1950F81159A3634661B06FB
-													BD6CF3DCDC1D76937B16F4FB2004D37745450373383FA62DB91B1F5756C1B627CECB39CB35C6B323
-													DC66032F275C07F68185EDB79BDE8DB1C049FC6AD3DDBEBA1C1FB867B9B34B743F7487438BFC3CD7
-													F3B59C98C6F8C0BD775654C46B125691905524AC5BD1D57DFCFD3D4E78BE228197EB5845E2E61589
-													2B2A927805AB48DABC226945458A8ADB48DEBC22794545BAA06115296B5624142B52888A848233E0
-													8A53F16AF0E3FF52BAC8A291F8BC05FA6F5249F698CEBE6D031EAA29CB728808AA299924DF9C439A
-													9E8A4D4FCA4CCE188C7C2BBE0AC1303E1B1BC5F3ECCA1FC22C2E6657F31FCE2F23BB17C76415D750
-													2D535129ADA92BB4A6E36EA06DAAB633F81096549BC8A0DA920FB73EA73045C2DD592FADB0A48A52
-													AAE24955111F6C5C536BB3F3DE08C5C55F80CCA9EE351C4E7F5E7F5A1DA7EC7A69FD611F467C890E
-													BBC05B5B77C9871909E575BD972B0F27D3F46BEFD3F675557B244A22DE1E099B34B1B91A57344CA2
-													A2E3FC2A08656B3C83F75C72B6C1F30E827F2D2CAB4F2C1F68F383FE8597794AC7028F6BBB8A5A2F
-													BA8A67957315BC24D76D4B1E00106142AFBC46276E5671A1FB162B16EB9965DF4A5A702AEF325159
-													1F6D264D20A509E5A4651DB19934F135A4897369D26B4893E6D2E4D79026CFA529AF214D994B539F
-													93469CBC311537F574223E923E4DD1416735AF89479DE3D15E058FB8199EA4B19D21D15F43CFFA5C
-													5AFD45D28A749FC4D0CB42B2C8E989586173B1047127E2D609CEDD5A4253C9E59B9D1BBE3B4BD217
-													E4C172A578E44E75D6D25866104227CEF8E34A7265B1FF93AE99C0AAC67C9CC9274F3CD94DD49655
-													9575BC3296AEE27DC735DBA512DDB6243E70BCAFF526493768D1ABD4377B95E73B516FF82A4933BD
-													E85562DFDEE45D9E6FE59F79177C6028E787E9238103BC60E486F878525A36F5E0F46A7970D77252
-													766BB9C0498AD73A7E3F959A3C383D9329EB8C653F4FB5C1AF3CFABE565EA8A8AD3C1F6B23A9EA5C
-													ECD5ED503ABD737C97B7839DCEFD101E9E9DEF6D28565979C0F62658757DE527E237102BF1A90A7A
-													75BED73D1D69BFF9C79DC7270FB8078DBD1F9BDA2BCEFE567C766B13B16AFA352FE9DA9027DE91D4
-													BEBE6D594FE269EFB67FD6DB50ACA44B2B3FBFB2095A25F55AE76470A3349B7578BDF37DD2EA5CEE
-													09AD8370532528EACACFB2A66D7321C86723CC8541E5D95833AA13C49C559B5DA23A92BC841BB8BE
-													6D03070C6304E9675FE28700A2BA09AC4E5325108EB8E43A49A45CBF8F7A2AD9880D99522522F067
-													4D6788FA0788ABA70C5AFB361D0D379D20F4237BFA659351E48CBF7DFE1F4B8ADE2F617461640200
-													0000444E535362696C7A160000001000000078DA63626060D0F5F4D33575CFF40332190011A50227
+													7A8010000050B5000078DAED5DDB76DABAD6EE7FDBA7F0E03683E2B3CD1A69F7A004923421210949
+													DA357A2340808B6DB93E9026EFB5DFEF97C1D8920D019314A9DDE94D63D94C7D9E874F9A3A5938EF
+													7CFDBF77EFDE1DFDF7DDBBC3FFFC726C6106FDC042EEC78AF441AC08D01DA0A1E58E3F566E7BEDAA
+													59118210B8436023177EACB8A822FCE7D3FBC3B15FB5DC20F42307BA61753089DCA9D08F2C7B5875
+													23A70FFD8F15FCC301723CFC2BFC800706D3AA35C435D40D51ADEBA6295784910F1CF880FCC51D5C
+													B3037E20BF9AA2D1708935F0515622C7252EF90C2EF17C18C0355584968341DF44AED001BE201982
+													2CFEA389FF282AFE43562B9FDEBF1784C30045EEB03A0421E883000A631BF5815D7560E823173973
+													64130B575275D0102E805A430BBF34705D68E30AF54A6D21096BC5C7300885E22A04FCEF7064FDAA
+													A6EA0804ACA4AA154227C08FA8C933F9A784F865CCBA28E20A5D10BFC7F559FA287E387ED08621CC
+													8A92C2F5BF16A2282EBEAD1F3D21AF011E5B976EF4205EB502A90E1F3E7EAC90A24861D57164D1F7
+													F0DD99051F0813E3B7F16C10C26A1FB8D38F95CAAA5B0B20B147211F0EABB18444A96A45C85F0556
+													DFC67F8F801DC058C154E5B567B011B84134B49040784BE12D3C107B61889FC08E0F708DF8372172
+													4038FF41AC3C6CAAECA1D8A4714084D6807A502A482665CF8D613596963875E3901AC0C620B46610
+													BF2BB0A3B96315656029B1531208041F3A08EBD201BFE6609697D61C6E6D058C5AFAE3C2DB67B782
+													F50A9E2B91F2B2EC26E18FB5A2431EA6B1E98729B2C31AE5E6CF38BF4E7AAF3516CE908B63D22E19
+													04EBA424C1F0343DB36D5305E2F4401E9D48A17BF5F3E9826D30485430481C0783B826186A3C7A93
+													B2DA1104B9AC43AD1794F8D4DDB177ED82D69D3385BEF945FD1C9C1E7F41E337827D2358BE42C25C
+													E7C94AD98EC67A414948445AF4F367FBF3A833058F2783BEDDB90633EB2D24DE4282B3909009476E
+													CC2D79EA960C869522923018C9B39F7D34697EB905A8ADF5EF9DFE111C8FDF7A1B7F5D6F4322F810
+													A784255D28FFEBC47BDCB3D19DD66AD5E1EDC19759BB7BDD90DA47E1D51B8916BD472A7A8FB12B89
+													121CEA45A1700C2C37E3CF0FDADE19B400F07809F018DB4AB8746B97A3518A50628FAF47E1EB4D70
+													604D903D2494C801C8CEDD1265070471E11DB2238768293F98BAA6E8267BA4E74BA0E79663C58539
+													8B8B1C406CA618E128149A8BA1329E7CF2BA4974572745886F1DA37CFA4C8E25F680078FE0602A48
+													6573E735529206EEE67EAC9C7F757D243AC141F7610C8F2F2E1B7F510317E2371EE23796405440BD
+													BC17BB58C173CA348DBB348EF5958DE39A20A023C94E431D216F43FCBC42046D08F302BC10A6EE86
+													8D8D320E12F981E8A7107DE0061E0A20877A8C529091CB213E6FB6C4576CB8555D9778C1E9A738AF
+													E100F9C37C3F831BA05697183B807E28745160C5BCC09FEDED80E420E126C44D1C87282185B2E50E
+													991B7D7D9F6343AF23BEBDA631DB5B86AD4A445FE2C6C25026383513E6595AD97CFB595949E7A45F
+													17FBBDF389F1437C3C787CF2003A6A36BEB19D2912A9CE89C871F62D895BF73072617327AE25760E
+													72EF96B444D7FA85CB5C602F9D869F5CE75CCE32469CDABA3C658A1D254DBBA3107295C3AA640ECB
+													55EEAA51B92B4FD0DAFA125ADBB271A1243471B4F33538D136688C721E230F7A34698C5C05463DEB
+													C7E0E4FDF3FDFFC8A009252058F611AA564CF7D535CFBDAC357B91E6D66AEDE52DD85E709568B5F6
+													8267EB966A3FDAD9B675DA0B9AED5BA4BDC0D9A115DA0FAEF22DCF7E706DDFDAECC7B94BB430BF03
+													D0616D2B7AC7BF2E166F9FC0AAE45078E462B5974B5A8BBF4F1255E576A0CEBC13A5737BDFB69FE4
+													F3FEFDF0A2CF76145DA6125599E34455DF354F6DA33488903FE5A9C3D64B47F27A586D42D70A0793
+													149F5E670F3008FD811BA6C32FA18FFAB0D68C57CAF3A4C6A15776987EAFF0FC5136B03C823E7407
+													193C55E50060D0C906D8EC98C43A980CFEBCDC219EAA8BD956580EBAD5988C7E92ABCC3AC95E1558
+													76D873B590A419E93CDDC0AB99D70B442877AE8D7F4FBD28827FD15AB5E50E1F1009033BDE3D34B2
+													6249CD7FBE777D34C69E21E0DE100CBE3791E32037B9B800F1FA49E134DDFC147C3F8EAC10F842BC
+													EC55C30FBB385709BFA7DAFC6EA3072C7E063F3C80197E5DDBC235F5ADD001C174FE0A8B92DF53F7
+													C422AA76223BB43C7BA1B8858ED51A4E2382381A073003558DE7E3DD61BC8B0BDF8E3C6FF1D7BEE7
+													A4B5DDE7A4BB0FE994EA56CBA118CC06DDB8291B3EBA03FEF0F51C6FCDC4B96C7C505599179C9D68
+													655ACE8D1EEFEC92D3179CCFFA65ACF9BA036A4BB964AA9570E3829D313D5553D2A4B88C20B0E409
+													55AEAB75DD90EBDA164CF652C7FF3D19E82A7DBC5AEAA9939BE21A8ED77081FD1894CE40D78A497A
+													10BD6F960EBBCDC6CDEDA3E6F76E7E8E244D93DFD62BFF7DABDD358D7084EE5CD4725D4B398F7A46
+													50E253FE5DFFD8F8B7353998EAA6FB4B6F8BFFB61FADABB759F857EE52E53B54776B5B315591D9E7
+													964729BE23FF71BB25557BC5779FE2BB273C9A1F7C9DAF692FCAFAC513B0EE57820D8478338C8011
+													5AEEF87F71D2712EB28A4A4C37968CDBBD8CEE978CD5FD4CEE6DE9FF7B01B38BCFEF05584916FB3D
+													1DE30D41F0C29EB121AEDAA050F688807552923ECC8FD38BEB1178FC71D53A783A0197C3B6E17D9E
+													FC85DB1C64DEB639E8BB0F29FD29EBCB39DF8E61DD90C35E420F098BED766F8BCAFF9A45E57FCC96
+													875759FD2EB359FD5E2737D2253B56DB5F4B36536B8424ADD451EBD197D131BA6A5D8ED4CBDE67AB
+													79F66DD0781BBDD96EBDFBAEBBCDCB4E5DF039439ADD1D203704563C5F3A584C4F55E736B36C2B7C
+													4CC7BDB2A3F156F504B1B5237BAEC1615FB05C2C2B3B00505D0AC0C583F89120158A95EEE3B8F1D1
+													C3A28CB06FBE86090A42C250B89A823DA5DF3ECF9B2B4C347EE822B7BAEA467136572137B1B47138
+													0B4D140F662FC2D9BC3C9BB4FBE8FA4B0BC0DAD7E1EC5FF5F85B93DEBEB23E943784F171BC00706D
+													249F5E9CF6364733399B1BFA1115CC6B0379DB20FE5D43652F08DEBD646CA72275780539F924E9A2
+													CA06D4A594B539531879ECD74037D2B5C68D309C1FB8C2D66C371AB917AD39A18E1CD9539EBD8AFA
+													D7D2FE0A3ACC8FEC93CB153F832010BA3E5A72D3E4DAF876E10C9ED0540EDD664DA92BED1FD2F8D5
+													B84968C7833A6BF9E9E8548801955BB7C80145C9EA5FC151CDC6CD0DB1F80FFA10B11EE85A3F6AAA
+													49A26EB001451CF3439D4024D53546888EB281DCE70F95DB0B9ACF24BB10FA314CC5A8331A56CE46
+													9587EC5B39A74DC011DA3EFC194177F048CE09988AC9065B2F5B5B0BFB3607DBA2A2F498A55B3BF4
+													8170CE9C94FA296F7FF679D865139DD01A3AB1586B68DC4A29D207DEC41A08AD2BD65A52D34E8F2A
+													0A274F242FC94A5D6703AA9E82AAE740318A36C94C11E13FB980A464DD55FC270D49C1C993C20696
+													96C1D2F2B0644D16591930359F30E5C17A694227F38127DDAEA9E6F048BA5167D47D93B298136954
+													6CF0C0AB74A2A07525F0B23FFA584D7B71C7D7EAA64D2B7F442E2E49E4C07F3339ABFB1A21874CCA
+													CFEFC7C727AE79D4BD05725BFD62C1AF3FFDDC2CF59E070CB9CEC6EB7FC7886176BA28043EF34DF7
+													CF4CBA9B92C28837C7129989C7A757B235D958A6F0C8EC3973AC5088140E10A914229503441A8548
+													E300914E21D239406450880C0E10991422933D222F65A32E20C9881D209904C4011B790A09880332
+													F2541210075CE46924200EA8C8D349401C3091679080382022CF240171C0438E446EC4248988111E
+													99C22333C7439D1F45D210233C2A8547658E47A3F068CCF1E8141E9D391E83C26330C76352784CD6
+													7882947F6E908DD8F34F20537898F34FA0507898F34FA0527898F34FA0517898F34FA0537898F34F
+													60507898F34F60527898F38F676589D804D777EACED8939067C90550327B504A0194C21E945A00A5
+													B207A5154069EC41E905503A7B50460194C11E945900C59EA726344F714052139AA43860A809CD50
+													1CD0D384A6270EB86942731307C434A1898903569AD0ACC401254D684A62CF477E4A47F30968E66C
+													E4CB141EE65CE42B141EE64CE4AB141EE63CE46B141EE62CE4EB141EE61CE41B141EE60CE49B141E
+													F6FCE3D004C4C7E8B5EFC84554ECB9C8518AA8D83392A31651B1E725472BA262CF4E8E5E44C59EA3
+													1CA3888A3D5339661115FB716ECEF64A8174EBA4C5FCC311FD355B8054D950186D760DD76F6CD155
+													8DD16E9B26E8A78D1EFEDB7261C8BEC9EB58836C0AD91A7000A88B020A11BE668F0ADB4BCEDB4E66
+													7E7E9A3590494DC93CD84ECEDB4EE6C0764ADE760A07B653484D293CD84EC9DB4EE1C0766ADE762A
+													07B653494DA93CD84ECDDB4EE5C0765ADE761A07B6D3484D693CD84ECBDB4EE3C0767ADE763A07B6
+													D3494DE93CD84ECFDB4EE7C07646DE760607B633484D193CD8CEC8DBCEE0C07666DE762607B63349
+													4D993CD8CECCDBCEFCC336081ED6561F3276581BFB551F0CA69FDEC7573E0476683970B0D83038EC
+													679BE796EE7098DCB3A13F042198BF2B2E1A59E3E5316DC9DDF8B8B20AB13D71592ED868305D1CE1
+													B618783913BA70086C62BFDDFC6E8C05CEE2579BEFF635D5F8C03D1B2D2EF1FD108DC736FD79AEE7
+													6B39B306D323F4E06EA8483414A22229AB48DAB6A29B87F8FB7B82F47C4592A8D6898AE4DD2B9237
+													54A4881A5191B27B45CA868A349DB491BA7B45EA868A4CC9202AD2B6AC482A56A451154905672015
+													A793D590C7FFA574914523F5790BFCDFAC92EC315D7CDB06FCAAA62C2B6022A8A664927C730E6B7A
+													2E363D2933396330F2EDF82A04E3F86C6C1CCF8B2B7F0CB3B8585C2D7FB8BC8C9C7E1C93555243B5
+													4C45A5B4A66FD09A49BA81B1ABDA2EE0AFB0A4DA640ED5967CB8F53985690AE9CE66698525559452
+													9548AB8AFA60E3965A5B9CF746292EFE02644E75AFE170E6F3FA33EA2465D74BEB8FF830E24B74D8
+													03DED6BA4B3ECC4829AFE7BD5C792499A65F7B9FB7AF9BDA235991C9F648DAA589CDD5B8A1619235
+													93E457492A5BE3057C1092B30D9E7710F26B61597D72F9405B1EF42FBDCC53BA3678DCDA55F47AD1
+													553CBB9CAB9025B96E5BF2008018137EE52D3A718B8A0BDDB758B144CF2CFB56D28A5379D789CAFA
+													680B69122D4D2A272DEB882DA4C9AF214D5E4A535E439AB294A6BE863475294D7B0D69DA529AFE9C
+													34EAE48DB9B8B9A753F191F4698A0EBAA8794B3CFA128FF12A78E4DDF0248DED0289F91A7A3697D2
+													EA2F9256A4FB24865E1692454E4FC44ABB8BA5883B11B74D701ED6129A4A2E7FDBB9E1878B247D45
+													1EAC568A47EE54172D8D6D052174E38C3FAE245716FB3FED9A09AC6ACCC7997CFAC493C3446D5955
+													59C72B63E92AD977DCB25D2AD16D4BE283C4FB5A6F92748356BD4A7DB75779BE13F51B5F2569A657
+													BD4AECDBBBBCCBF3ADFC33EF420E0CE5FC307D247081174C50488E27A565730F4EAFD607772D27E5
+													B0960B9CA478ABE3F753A9C983F33399B2CE58F6F3541BE2C6A3EF6BE585CAC6C6F3B17692AA2FC5
+													DEDC8F95F3AFAE8F442738E83E8CE1F1C5656347B1DAC603B677C16A9A1B3F11BF8358454C55D0AF
+													8BFDDEF9C4F8213E1E3C3E79001D351BDF76B5579CFD6DF8ECD62E62F5F46B5ECAED409D79274AE7
+													F6BE6D3FC9E7FDFBE1457F47B18AA96CFCFCCA2E68B5D46BDDB3D19DD66AD5E1EDC19759BB7BDD90
+													DA47E1AE4AD0F48D9F654DDBE642902F46980B83CA8BB1665C278839ABB6B8C4752479893042BEE3
+													00178C6304E9675FE28700A6BA19ACCE5325104E84E43A49A4903FC43D956CC4864EA91211E4B396
+													3BC6FD03CCD57306AD7D9A8F865B6E10FA9133FFB2C92472A79FDEFF3F6243DED061746164020000
+													00444E535362696C7A160000001000000078DA63626060D0F5F4D33575CFF40332190011A50227
 												</Buffer>
 												<Name Value="" />
 												<PluginVersion Value="1" />
@@ -12263,7 +12259,7 @@
 										<LomId Value="0" />
 										<LomIdView Value="0" />
 										<CurrentStart Value="0" />
-										<CurrentEnd Value="577.80879120879126" />
+										<CurrentEnd Value="541.85793243215119" />
 										<Loop>
 											<LoopStart Value="0" />
 											<LoopEnd Value="263" />
@@ -12326,9 +12322,9 @@
 												<HasRelativePath Value="true" />
 												<RelativePathType Value="3" />
 												<RelativePath>
-													<RelativePathElement Id="3" Dir="Samples" />
-													<RelativePathElement Id="4" Dir="lalicornerouge_20230701120016" />
-													<RelativePathElement Id="5" Dir="DIDAFTA - ALBUM" />
+													<RelativePathElement Id="6" Dir="Samples" />
+													<RelativePathElement Id="7" Dir="lalicornerouge_20230701120016" />
+													<RelativePathElement Id="8" Dir="DIDAFTA - ALBUM" />
 												</RelativePath>
 												<Name Value="LA FEMME DRAGON  PB Mathieu.wav" />
 												<Type Value="1" />
@@ -12398,65 +12394,61 @@
 										<MarkerDensity Value="2" />
 										<AutoWarpTolerance Value="4" />
 										<WarpMarkers>
-											<WarpMarker Id="293" SecTime="0" BeatTime="0" />
-											<WarpMarker Id="294" SecTime="7.386895697453931" BeatTime="16" />
-											<WarpMarker Id="295" SecTime="7.6184478321340663" BeatTime="16.5" />
-											<WarpMarker Id="296" SecTime="18.732947678792698" BeatTime="40.5" />
-											<WarpMarker Id="297" SecTime="24.271405966863313" BeatTime="52.5" />
-											<WarpMarker Id="298" SecTime="31.643427009170409" BeatTime="68.5" />
-											<WarpMarker Id="299" SecTime="37.179468712696689" BeatTime="80.5" />
-											<WarpMarker Id="300" SecTime="42.668614352591248" BeatTime="92.5" />
-											<WarpMarker Id="301" SecTime="44.510968524911732" BeatTime="96.5" />
-											<WarpMarker Id="302" SecTime="48.230176882196247" BeatTime="104.5" />
-											<WarpMarker Id="303" SecTime="51.909593607959323" BeatTime="112.5" />
-											<WarpMarker Id="304" SecTime="53.760572781760857" BeatTime="116.5" />
-											<WarpMarker Id="305" SecTime="57.484780913620853" BeatTime="124.5" />
-											<WarpMarker Id="306" SecTime="64.851843525833829" BeatTime="140.5" />
-											<WarpMarker Id="307" SecTime="68.559134982086107" BeatTime="148.5" />
-											<WarpMarker Id="308" SecTime="70.403343245323413" BeatTime="152.5" />
-											<WarpMarker Id="309" SecTime="74.058780690626008" BeatTime="160.5" />
-											<WarpMarker Id="310" SecTime="75.89946822404454" BeatTime="164.5" />
-											<WarpMarker Id="311" SecTime="79.623926366799424" BeatTime="172.5" />
-											<WarpMarker Id="312" SecTime="81.476801268905547" BeatTime="176.5" />
-											<WarpMarker Id="313" SecTime="85.148697279662883" BeatTime="184.5" />
-											<WarpMarker Id="314" SecTime="88.801592949119367" BeatTime="192.5" />
-											<WarpMarker Id="315" SecTime="90.642530393852212" BeatTime="196.5" />
-											<WarpMarker Id="316" SecTime="92.500613713826169" BeatTime="200.5" />
-											<WarpMarker Id="317" SecTime="94.368738808027047" BeatTime="204.5" />
-											<WarpMarker Id="318" SecTime="98.084738633671805" BeatTime="212.5" />
-											<WarpMarker Id="319" SecTime="99.951092798410173" BeatTime="216.5" />
-											<WarpMarker Id="320" SecTime="107.38200924120611" BeatTime="232.5" />
-											<WarpMarker Id="321" SecTime="112.89998872129217" BeatTime="244.5" />
-											<WarpMarker Id="322" SecTime="116.58788462406665" BeatTime="252.5" />
-											<WarpMarker Id="323" SecTime="118.41425971429089" BeatTime="256.5" />
-											<WarpMarker Id="324" SecTime="125.76536419289187" BeatTime="272.5" />
-											<WarpMarker Id="325" SecTime="129.47355153171884" BeatTime="280.5" />
-											<WarpMarker Id="326" SecTime="133.15265583912696" BeatTime="288.5" />
-											<WarpMarker Id="327" SecTime="138.70740605564788" BeatTime="300.5" />
-											<WarpMarker Id="328" SecTime="164.71651061993907" BeatTime="356.5" />
-											<WarpMarker Id="329" SecTime="170.261573113341" BeatTime="368.5" />
-											<WarpMarker Id="330" SecTime="179.45696896112349" BeatTime="388.5" />
-											<WarpMarker Id="331" SecTime="188.60436492071312" BeatTime="408.5" />
-											<WarpMarker Id="332" SecTime="194.07896910009731" BeatTime="420.5" />
-											<WarpMarker Id="333" SecTime="197.71753166727285" BeatTime="428.5" />
-											<WarpMarker Id="334" SecTime="203.15259427322599" BeatTime="440.5" />
-											<WarpMarker Id="335" SecTime="204.93344851406437" BeatTime="444.5" />
-											<WarpMarker Id="336" SecTime="206.68453181917357" BeatTime="448.5" />
-											<WarpMarker Id="337" SecTime="208.41861510272065" BeatTime="452.5" />
-											<WarpMarker Id="338" SecTime="211.85951107312576" BeatTime="460.5" />
-											<WarpMarker Id="339" SecTime="215.36444854870206" BeatTime="468.5" />
-											<WarpMarker Id="340" SecTime="218.89017789475474" BeatTime="476.5" />
-											<WarpMarker Id="341" SecTime="220.66182374850905" BeatTime="480.5" />
-											<WarpMarker Id="342" SecTime="225.92317811747489" BeatTime="492.5" />
-											<WarpMarker Id="343" SecTime="229.44892801214883" BeatTime="500.5" />
-											<WarpMarker Id="344" SecTime="232.96757369292754" BeatTime="508.5" />
-											<WarpMarker Id="345" SecTime="236.46817789426132" BeatTime="516.5" />
-											<WarpMarker Id="346" SecTime="240.00546958109771" BeatTime="524.5" />
-											<WarpMarker Id="347" SecTime="241.75542797009621" BeatTime="528.5" />
-											<WarpMarker Id="348" SecTime="243.48109457056853" BeatTime="532.5" />
-											<WarpMarker Id="349" SecTime="246.90319890286628" BeatTime="540.5" />
-											<WarpMarker Id="350" SecTime="265.34759831213159" BeatTime="583.25" />
-											<WarpMarker Id="351" SecTime="265.35117159929757" BeatTime="583.28125" />
+											<WarpMarker Id="13543" SecTime="0" BeatTime="0" />
+											<WarpMarker Id="13544" SecTime="7.386895697453931" BeatTime="16" />
+											<WarpMarker Id="13545" SecTime="7.6184478321340663" BeatTime="16.5" />
+											<WarpMarker Id="13546" SecTime="18.732947678792698" BeatTime="40.5" />
+											<WarpMarker Id="13547" SecTime="24.271405966863313" BeatTime="52.5" />
+											<WarpMarker Id="13548" SecTime="31.643427009170409" BeatTime="68.5" />
+											<WarpMarker Id="13549" SecTime="37.179468712696689" BeatTime="80.5" />
+											<WarpMarker Id="13550" SecTime="42.668614352591248" BeatTime="92.5" />
+											<WarpMarker Id="13551" SecTime="44.510968524911732" BeatTime="96.5" />
+											<WarpMarker Id="13552" SecTime="48.230176882196247" BeatTime="104.5" />
+											<WarpMarker Id="13553" SecTime="51.909593607959323" BeatTime="112.5" />
+											<WarpMarker Id="13554" SecTime="53.760572781760857" BeatTime="116.5" />
+											<WarpMarker Id="13555" SecTime="57.484780913620853" BeatTime="124.5" />
+											<WarpMarker Id="13556" SecTime="64.851843525833829" BeatTime="140.5" />
+											<WarpMarker Id="13557" SecTime="68.559134982086107" BeatTime="148.5" />
+											<WarpMarker Id="13558" SecTime="70.403343245323413" BeatTime="152.5" />
+											<WarpMarker Id="13559" SecTime="74.058780690626008" BeatTime="160.5" />
+											<WarpMarker Id="13560" SecTime="75.89946822404454" BeatTime="164.5" />
+											<WarpMarker Id="13561" SecTime="79.623926366799424" BeatTime="172.5" />
+											<WarpMarker Id="13562" SecTime="81.476801268905547" BeatTime="176.5" />
+											<WarpMarker Id="13563" SecTime="85.148697279662883" BeatTime="184.5" />
+											<WarpMarker Id="13564" SecTime="88.801592949119367" BeatTime="192.5" />
+											<WarpMarker Id="13565" SecTime="90.642530393852212" BeatTime="196.5" />
+											<WarpMarker Id="13566" SecTime="92.500613713826169" BeatTime="200.5" />
+											<WarpMarker Id="13567" SecTime="94.368738808027047" BeatTime="204.5" />
+											<WarpMarker Id="13568" SecTime="98.084738633671805" BeatTime="212.5" />
+											<WarpMarker Id="13569" SecTime="99.951092798410173" BeatTime="216.5" />
+											<WarpMarker Id="13570" SecTime="107.38200924120611" BeatTime="232.5" />
+											<WarpMarker Id="13571" SecTime="112.89998872129217" BeatTime="244.5" />
+											<WarpMarker Id="13572" SecTime="116.58788462406665" BeatTime="252.5" />
+											<WarpMarker Id="13573" SecTime="118.41425971429089" BeatTime="256.5" />
+											<WarpMarker Id="13574" SecTime="125.76536419289187" BeatTime="272.5" />
+											<WarpMarker Id="13575" SecTime="129.47355153171884" BeatTime="280.5" />
+											<WarpMarker Id="13576" SecTime="133.15265583912696" BeatTime="288.5" />
+											<WarpMarker Id="13577" SecTime="138.70740605564788" BeatTime="300.5" />
+											<WarpMarker Id="13578" SecTime="140.33442467303394" BeatTime="304" />
+											<WarpMarker Id="13579" SecTime="153.70223761284433" BeatTime="328" />
+											<WarpMarker Id="13580" SecTime="158.10040426044725" BeatTime="336" />
+											<WarpMarker Id="13581" SecTime="160.35638335505064" BeatTime="340" />
+											<WarpMarker Id="13582" SecTime="162.50930006001363" BeatTime="344" />
+											<WarpMarker Id="13583" SecTime="176.38140401896089" BeatTime="368" />
+											<WarpMarker Id="13584" SecTime="176.67533107673853" BeatTime="368.5" />
+											<WarpMarker Id="13585" SecTime="190.14706668796134" BeatTime="392" />
+											<WarpMarker Id="13586" SecTime="194.92471266157372" BeatTime="400" />
+											<WarpMarker Id="13587" SecTime="201.81394153996371" BeatTime="416" />
+											<WarpMarker Id="13588" SecTime="208.76123296628066" BeatTime="432" />
+											<WarpMarker Id="13589" SecTime="222.82671263066004" BeatTime="464" />
+											<WarpMarker Id="13590" SecTime="229.88331694177759" BeatTime="480" />
+											<WarpMarker Id="13591" SecTime="236.76984753877332" BeatTime="495.75" />
+											<WarpMarker Id="13592" SecTime="236.93480184635973" BeatTime="496" />
+											<WarpMarker Id="13593" SecTime="243.82767706259619" BeatTime="512" />
+											<WarpMarker Id="13594" SecTime="249.06801026067114" BeatTime="524" />
+											<WarpMarker Id="13595" SecTime="250.951218617618" BeatTime="528" />
+											<WarpMarker Id="13596" SecTime="264.86242090082669" BeatTime="544" />
+											<WarpMarker Id="13597" SecTime="264.87577995062077" BeatTime="544.03125" />
 										</WarpMarkers>
 										<SavedWarpMarkersForStretched />
 										<MarkersGenerated Value="true" />
@@ -12939,7 +12931,7 @@
 										<LomId Value="0" />
 										<LomIdView Value="0" />
 										<CurrentStart Value="0" />
-										<CurrentEnd Value="575.49101445429574" />
+										<CurrentEnd Value="540.7077802405928" />
 										<Loop>
 											<LoopStart Value="0" />
 											<LoopEnd Value="261.99999999320215" />
@@ -13002,9 +12994,9 @@
 												<HasRelativePath Value="true" />
 												<RelativePathType Value="3" />
 												<RelativePath>
-													<RelativePathElement Id="3" Dir="Samples" />
-													<RelativePathElement Id="4" Dir="lalicornerouge_20230701120016" />
-													<RelativePathElement Id="5" Dir="DIDAFTA - ALBUM" />
+													<RelativePathElement Id="6" Dir="Samples" />
+													<RelativePathElement Id="7" Dir="lalicornerouge_20230701120016" />
+													<RelativePathElement Id="8" Dir="DIDAFTA - ALBUM" />
 												</RelativePath>
 												<Name Value="LA FEMME DRAGON  exemple bass.wav" />
 												<Type Value="1" />
@@ -13074,65 +13066,61 @@
 										<MarkerDensity Value="2" />
 										<AutoWarpTolerance Value="4" />
 										<WarpMarkers>
-											<WarpMarker Id="409" SecTime="0" BeatTime="0" />
-											<WarpMarker Id="410" SecTime="7.386895697453931" BeatTime="16" />
-											<WarpMarker Id="411" SecTime="7.6184478321340663" BeatTime="16.5" />
-											<WarpMarker Id="412" SecTime="18.732947678792698" BeatTime="40.5" />
-											<WarpMarker Id="413" SecTime="24.271405966863313" BeatTime="52.5" />
-											<WarpMarker Id="414" SecTime="31.643427009170409" BeatTime="68.5" />
-											<WarpMarker Id="415" SecTime="37.179468712696689" BeatTime="80.5" />
-											<WarpMarker Id="416" SecTime="42.668614352591248" BeatTime="92.5" />
-											<WarpMarker Id="417" SecTime="44.510968524911732" BeatTime="96.5" />
-											<WarpMarker Id="418" SecTime="48.230176882196247" BeatTime="104.5" />
-											<WarpMarker Id="419" SecTime="51.909593607959323" BeatTime="112.5" />
-											<WarpMarker Id="420" SecTime="53.760572781760857" BeatTime="116.5" />
-											<WarpMarker Id="421" SecTime="57.484780913620853" BeatTime="124.5" />
-											<WarpMarker Id="422" SecTime="64.851843525833829" BeatTime="140.5" />
-											<WarpMarker Id="423" SecTime="68.559134982086107" BeatTime="148.5" />
-											<WarpMarker Id="424" SecTime="70.403343245323413" BeatTime="152.5" />
-											<WarpMarker Id="425" SecTime="74.058780690626008" BeatTime="160.5" />
-											<WarpMarker Id="426" SecTime="75.89946822404454" BeatTime="164.5" />
-											<WarpMarker Id="427" SecTime="79.623926366799424" BeatTime="172.5" />
-											<WarpMarker Id="428" SecTime="81.476801268905547" BeatTime="176.5" />
-											<WarpMarker Id="429" SecTime="85.148697279662883" BeatTime="184.5" />
-											<WarpMarker Id="430" SecTime="88.801592949119367" BeatTime="192.5" />
-											<WarpMarker Id="431" SecTime="90.642530393852212" BeatTime="196.5" />
-											<WarpMarker Id="432" SecTime="92.500613713826169" BeatTime="200.5" />
-											<WarpMarker Id="433" SecTime="94.368738808027047" BeatTime="204.5" />
-											<WarpMarker Id="434" SecTime="98.084738633671805" BeatTime="212.5" />
-											<WarpMarker Id="435" SecTime="99.951092798410173" BeatTime="216.5" />
-											<WarpMarker Id="436" SecTime="107.38200924120611" BeatTime="232.5" />
-											<WarpMarker Id="437" SecTime="112.89998872129217" BeatTime="244.5" />
-											<WarpMarker Id="438" SecTime="116.58788462406665" BeatTime="252.5" />
-											<WarpMarker Id="439" SecTime="118.41425971429089" BeatTime="256.5" />
-											<WarpMarker Id="440" SecTime="125.76536419289187" BeatTime="272.5" />
-											<WarpMarker Id="441" SecTime="129.47355153171884" BeatTime="280.5" />
-											<WarpMarker Id="442" SecTime="133.15265583912696" BeatTime="288.5" />
-											<WarpMarker Id="443" SecTime="138.70740605564788" BeatTime="300.5" />
-											<WarpMarker Id="444" SecTime="164.71651061993907" BeatTime="356.5" />
-											<WarpMarker Id="445" SecTime="170.261573113341" BeatTime="368.5" />
-											<WarpMarker Id="446" SecTime="179.45696896112349" BeatTime="388.5" />
-											<WarpMarker Id="447" SecTime="188.60436492071312" BeatTime="408.5" />
-											<WarpMarker Id="448" SecTime="194.07896910009731" BeatTime="420.5" />
-											<WarpMarker Id="449" SecTime="197.71753166727285" BeatTime="428.5" />
-											<WarpMarker Id="450" SecTime="203.15259427322599" BeatTime="440.5" />
-											<WarpMarker Id="451" SecTime="204.93344851406437" BeatTime="444.5" />
-											<WarpMarker Id="452" SecTime="206.68453181917357" BeatTime="448.5" />
-											<WarpMarker Id="453" SecTime="208.41861510272065" BeatTime="452.5" />
-											<WarpMarker Id="454" SecTime="211.85951107312576" BeatTime="460.5" />
-											<WarpMarker Id="455" SecTime="215.36444854870206" BeatTime="468.5" />
-											<WarpMarker Id="456" SecTime="218.89017789475474" BeatTime="476.5" />
-											<WarpMarker Id="457" SecTime="220.66182374850905" BeatTime="480.5" />
-											<WarpMarker Id="458" SecTime="225.92317811747489" BeatTime="492.5" />
-											<WarpMarker Id="459" SecTime="229.44892801214883" BeatTime="500.5" />
-											<WarpMarker Id="460" SecTime="232.96757369292754" BeatTime="508.5" />
-											<WarpMarker Id="461" SecTime="236.46817789426132" BeatTime="516.5" />
-											<WarpMarker Id="462" SecTime="240.00546958109771" BeatTime="524.5" />
-											<WarpMarker Id="463" SecTime="241.75542797009621" BeatTime="528.5" />
-											<WarpMarker Id="464" SecTime="243.48109457056853" BeatTime="532.5" />
-											<WarpMarker Id="465" SecTime="246.90319890286628" BeatTime="540.5" />
-											<WarpMarker Id="466" SecTime="265.34759831213159" BeatTime="583.25" />
-											<WarpMarker Id="467" SecTime="265.35117159929757" BeatTime="583.28125" />
+											<WarpMarker Id="13652" SecTime="0" BeatTime="0" />
+											<WarpMarker Id="13653" SecTime="7.386895697453931" BeatTime="16" />
+											<WarpMarker Id="13654" SecTime="7.6184478321340663" BeatTime="16.5" />
+											<WarpMarker Id="13655" SecTime="18.732947678792698" BeatTime="40.5" />
+											<WarpMarker Id="13656" SecTime="24.271405966863313" BeatTime="52.5" />
+											<WarpMarker Id="13657" SecTime="31.643427009170409" BeatTime="68.5" />
+											<WarpMarker Id="13658" SecTime="37.179468712696689" BeatTime="80.5" />
+											<WarpMarker Id="13659" SecTime="42.668614352591248" BeatTime="92.5" />
+											<WarpMarker Id="13660" SecTime="44.510968524911732" BeatTime="96.5" />
+											<WarpMarker Id="13661" SecTime="48.230176882196247" BeatTime="104.5" />
+											<WarpMarker Id="13662" SecTime="51.909593607959323" BeatTime="112.5" />
+											<WarpMarker Id="13663" SecTime="53.760572781760857" BeatTime="116.5" />
+											<WarpMarker Id="13664" SecTime="57.484780913620853" BeatTime="124.5" />
+											<WarpMarker Id="13665" SecTime="64.851843525833829" BeatTime="140.5" />
+											<WarpMarker Id="13666" SecTime="68.559134982086107" BeatTime="148.5" />
+											<WarpMarker Id="13667" SecTime="70.403343245323413" BeatTime="152.5" />
+											<WarpMarker Id="13668" SecTime="74.058780690626008" BeatTime="160.5" />
+											<WarpMarker Id="13669" SecTime="75.89946822404454" BeatTime="164.5" />
+											<WarpMarker Id="13670" SecTime="79.623926366799424" BeatTime="172.5" />
+											<WarpMarker Id="13671" SecTime="81.476801268905547" BeatTime="176.5" />
+											<WarpMarker Id="13672" SecTime="85.148697279662883" BeatTime="184.5" />
+											<WarpMarker Id="13673" SecTime="88.801592949119367" BeatTime="192.5" />
+											<WarpMarker Id="13674" SecTime="90.642530393852212" BeatTime="196.5" />
+											<WarpMarker Id="13675" SecTime="92.500613713826169" BeatTime="200.5" />
+											<WarpMarker Id="13676" SecTime="94.368738808027047" BeatTime="204.5" />
+											<WarpMarker Id="13677" SecTime="98.084738633671805" BeatTime="212.5" />
+											<WarpMarker Id="13678" SecTime="99.951092798410173" BeatTime="216.5" />
+											<WarpMarker Id="13679" SecTime="107.38200924120611" BeatTime="232.5" />
+											<WarpMarker Id="13680" SecTime="112.89998872129217" BeatTime="244.5" />
+											<WarpMarker Id="13681" SecTime="116.58788462406665" BeatTime="252.5" />
+											<WarpMarker Id="13682" SecTime="118.41425971429089" BeatTime="256.5" />
+											<WarpMarker Id="13683" SecTime="125.76536419289187" BeatTime="272.5" />
+											<WarpMarker Id="13684" SecTime="129.47355153171884" BeatTime="280.5" />
+											<WarpMarker Id="13685" SecTime="133.15265583912696" BeatTime="288.5" />
+											<WarpMarker Id="13686" SecTime="138.70740605564788" BeatTime="300.5" />
+											<WarpMarker Id="13687" SecTime="140.33442467303394" BeatTime="304" />
+											<WarpMarker Id="13688" SecTime="153.70223761284433" BeatTime="328" />
+											<WarpMarker Id="13689" SecTime="158.10040426044725" BeatTime="336" />
+											<WarpMarker Id="13690" SecTime="160.35638335505064" BeatTime="340" />
+											<WarpMarker Id="13691" SecTime="162.50930006001363" BeatTime="344" />
+											<WarpMarker Id="13692" SecTime="176.38140401896089" BeatTime="368" />
+											<WarpMarker Id="13693" SecTime="176.67533107673853" BeatTime="368.5" />
+											<WarpMarker Id="13694" SecTime="190.14706668796134" BeatTime="392" />
+											<WarpMarker Id="13695" SecTime="194.92471266157372" BeatTime="400" />
+											<WarpMarker Id="13696" SecTime="201.81394153996371" BeatTime="416" />
+											<WarpMarker Id="13697" SecTime="208.76123296628066" BeatTime="432" />
+											<WarpMarker Id="13698" SecTime="222.82671263066004" BeatTime="464" />
+											<WarpMarker Id="13699" SecTime="229.88331694177759" BeatTime="480" />
+											<WarpMarker Id="13700" SecTime="236.76984753877332" BeatTime="495.75" />
+											<WarpMarker Id="13701" SecTime="236.93480184635973" BeatTime="496" />
+											<WarpMarker Id="13702" SecTime="243.82767706259619" BeatTime="512" />
+											<WarpMarker Id="13703" SecTime="249.06801026067114" BeatTime="524" />
+											<WarpMarker Id="13704" SecTime="250.951218617618" BeatTime="528" />
+											<WarpMarker Id="13705" SecTime="264.86242090082669" BeatTime="544" />
+											<WarpMarker Id="13706" SecTime="264.87577995062077" BeatTime="544.03125" />
 										</WarpMarkers>
 										<SavedWarpMarkersForStretched />
 										<MarkersGenerated Value="true" />
@@ -13532,10 +13520,10 @@
 												<HasRelativePath Value="true" />
 												<RelativePathType Value="5" />
 												<RelativePath>
-													<RelativePathElement Id="132" Dir="Devices" />
-													<RelativePathElement Id="133" Dir="Audio Effects" />
-													<RelativePathElement Id="134" Dir="Reverb" />
-													<RelativePathElement Id="135" Dir="Room" />
+													<RelativePathElement Id="136" Dir="Devices" />
+													<RelativePathElement Id="137" Dir="Audio Effects" />
+													<RelativePathElement Id="138" Dir="Reverb" />
+													<RelativePathElement Id="139" Dir="Room" />
 												</RelativePath>
 												<Name Value="Ambience Medium.adv" />
 												<Type Value="1" />
@@ -13574,10 +13562,10 @@
 													<HasRelativePath Value="true" />
 													<RelativePathType Value="5" />
 													<RelativePath>
-														<RelativePathElement Id="132" Dir="Devices" />
-														<RelativePathElement Id="133" Dir="Audio Effects" />
-														<RelativePathElement Id="134" Dir="Reverb" />
-														<RelativePathElement Id="135" Dir="Room" />
+														<RelativePathElement Id="136" Dir="Devices" />
+														<RelativePathElement Id="137" Dir="Audio Effects" />
+														<RelativePathElement Id="138" Dir="Reverb" />
+														<RelativePathElement Id="139" Dir="Room" />
 													</RelativePath>
 													<Name Value="Ambience Medium.adv" />
 													<Type Value="1" />
@@ -13608,10 +13596,10 @@
 														<HasRelativePath Value="true" />
 														<RelativePathType Value="5" />
 														<RelativePath>
-															<RelativePathElement Id="132" Dir="Devices" />
-															<RelativePathElement Id="133" Dir="Audio Effects" />
-															<RelativePathElement Id="134" Dir="Reverb" />
-															<RelativePathElement Id="135" Dir="Room" />
+															<RelativePathElement Id="136" Dir="Devices" />
+															<RelativePathElement Id="137" Dir="Audio Effects" />
+															<RelativePathElement Id="138" Dir="Reverb" />
+															<RelativePathElement Id="139" Dir="Room" />
 														</RelativePath>
 														<Name Value="Ambience Medium.adv" />
 														<Type Value="1" />
@@ -14840,138 +14828,118 @@
 						</EnvelopeTarget>
 						<Automation>
 							<Events>
-								<FloatEvent Id="61415" Time="-63072000" Value="137.721527" />
-								<FloatEvent Id="62120" Time="0" Value="137.721527" />
-								<FloatEvent Id="62006" Time="0" Value="130.259766" />
-								<FloatEvent Id="62007" Time="0" Value="129.959869" />
-								<FloatEvent Id="62008" Time="16" Value="129.959869" />
-								<FloatEvent Id="62009" Time="16" Value="129.560455" />
-								<FloatEvent Id="62010" Time="16.469161827755578" Value="129.560455" />
-								<FloatEvent Id="62011" Time="16.469161827755578" Value="129.560486" />
-								<FloatEvent Id="62012" Time="40.469161827755578" Value="129.560486" />
-								<FloatEvent Id="62013" Time="40.469161827755578" Value="130.000076" />
-								<FloatEvent Id="62014" Time="52.469161827755578" Value="130.000076" />
-								<FloatEvent Id="62015" Time="52.469161827755578" Value="130.222092" />
-								<FloatEvent Id="62016" Time="68.469161827755585" Value="130.222092" />
-								<FloatEvent Id="62017" Time="68.469161827755585" Value="130.056824" />
-								<FloatEvent Id="62018" Time="80.469161827755585" Value="130.056824" />
-								<FloatEvent Id="62019" Time="80.469161827755585" Value="131.167953" />
-								<FloatEvent Id="62020" Time="92.469161827755585" Value="131.167953" />
-								<FloatEvent Id="62021" Time="92.469161827755585" Value="130.268112" />
-								<FloatEvent Id="62022" Time="96.469161827755585" Value="130.268112" />
-								<FloatEvent Id="62023" Time="96.469161827755585" Value="129.059723" />
-								<FloatEvent Id="62024" Time="104.46916182775558" Value="129.059723" />
-								<FloatEvent Id="62025" Time="104.46916182775558" Value="130.45546" />
-								<FloatEvent Id="62026" Time="112.46916182775558" Value="130.45546" />
-								<FloatEvent Id="62027" Time="112.46916182775558" Value="129.661102" />
-								<FloatEvent Id="62028" Time="116.46916182775558" Value="129.661102" />
-								<FloatEvent Id="62029" Time="116.46916182775558" Value="128.886459" />
-								<FloatEvent Id="62030" Time="124.46916182775558" Value="128.886459" />
-								<FloatEvent Id="62031" Time="124.46916182775558" Value="130.309738" />
-								<FloatEvent Id="62032" Time="140.46916182775558" Value="130.309738" />
-								<FloatEvent Id="62033" Time="140.46916182775558" Value="129.474579" />
-								<FloatEvent Id="62034" Time="148.46916182775558" Value="129.474579" />
-								<FloatEvent Id="62035" Time="148.46916182775558" Value="130.137146" />
-								<FloatEvent Id="62036" Time="152.46916182775558" Value="130.137146" />
-								<FloatEvent Id="62037" Time="152.46916182775558" Value="131.311234" />
-								<FloatEvent Id="62038" Time="160.46916182775558" Value="131.311234" />
-								<FloatEvent Id="62039" Time="160.46916182775558" Value="130.386063" />
-								<FloatEvent Id="62040" Time="164.46916182775558" Value="130.386063" />
-								<FloatEvent Id="62041" Time="164.46916182775558" Value="128.877808" />
-								<FloatEvent Id="62042" Time="172.46916182775558" Value="128.877808" />
-								<FloatEvent Id="62043" Time="172.46916182775558" Value="129.528442" />
-								<FloatEvent Id="62044" Time="176.46916182775558" Value="129.528442" />
-								<FloatEvent Id="62045" Time="176.46916182775558" Value="130.722656" />
-								<FloatEvent Id="62046" Time="184.46916182775558" Value="130.722656" />
-								<FloatEvent Id="62047" Time="184.46916182775558" Value="131.402603" />
-								<FloatEvent Id="62048" Time="192.46916182775558" Value="131.402603" />
-								<FloatEvent Id="62049" Time="192.46916182775558" Value="130.368362" />
-								<FloatEvent Id="62050" Time="196.46916182775558" Value="130.368362" />
-								<FloatEvent Id="62051" Time="196.46916182775558" Value="129.165359" />
-								<FloatEvent Id="62052" Time="200.46916182775558" Value="129.165359" />
-								<FloatEvent Id="62053" Time="200.46916182775558" Value="128.471054" />
-								<FloatEvent Id="62054" Time="204.46916182775558" Value="128.471054" />
-								<FloatEvent Id="62055" Time="204.46916182775558" Value="129.171158" />
-								<FloatEvent Id="62056" Time="212.46916182775558" Value="129.171158" />
-								<FloatEvent Id="62057" Time="212.46916182775558" Value="128.592957" />
-								<FloatEvent Id="62058" Time="216.46916182775558" Value="128.592957" />
-								<FloatEvent Id="62059" Time="216.46916182775558" Value="129.189987" />
-								<FloatEvent Id="62060" Time="232.46916182775558" Value="129.189987" />
-								<FloatEvent Id="62061" Time="232.46916182775558" Value="130.482544" />
-								<FloatEvent Id="62062" Time="244.46916182775558" Value="130.482544" />
-								<FloatEvent Id="62063" Time="244.46916182775558" Value="130.155518" />
-								<FloatEvent Id="62064" Time="252.46916182775558" Value="130.155518" />
-								<FloatEvent Id="62065" Time="252.46916182775558" Value="131.407837" />
-								<FloatEvent Id="62066" Time="256.46916182775556" Value="131.407837" />
-								<FloatEvent Id="62067" Time="256.46916182775556" Value="130.592621" />
-								<FloatEvent Id="62068" Time="272.46916182775556" Value="130.592621" />
-								<FloatEvent Id="62069" Time="272.46916182775556" Value="129.443298" />
-								<FloatEvent Id="62070" Time="280.46916182775556" Value="129.443298" />
-								<FloatEvent Id="62071" Time="280.46916182775556" Value="130.466537" />
-								<FloatEvent Id="62072" Time="288.46916182775556" Value="130.466537" />
-								<FloatEvent Id="62073" Time="288.46916182775556" Value="129.61879" />
-								<FloatEvent Id="62074" Time="300.46916182775556" Value="129.61879" />
-								<FloatEvent Id="62075" Time="300.46916182775556" Value="129.185532" />
-								<FloatEvent Id="62076" Time="356.46916182775556" Value="129.185532" />
-								<FloatEvent Id="62077" Time="356.46916182775556" Value="129.845245" />
-								<FloatEvent Id="62078" Time="368.46916182775556" Value="129.845245" />
-								<FloatEvent Id="62079" Time="368.46916182775556" Value="130.500092" />
-								<FloatEvent Id="62080" Time="388.46916182775556" Value="130.500092" />
-								<FloatEvent Id="62081" Time="388.46916182775556" Value="131.184875" />
-								<FloatEvent Id="62082" Time="408.46916182775556" Value="131.184875" />
-								<FloatEvent Id="62083" Time="408.46916182775556" Value="131.516357" />
-								<FloatEvent Id="62084" Time="420.46916182775556" Value="131.516357" />
-								<FloatEvent Id="62085" Time="420.46916182775556" Value="131.920227" />
-								<FloatEvent Id="62086" Time="428.46916182775556" Value="131.920227" />
-								<FloatEvent Id="62087" Time="428.46916182775556" Value="132.473175" />
-								<FloatEvent Id="62088" Time="440.46916182775556" Value="132.473175" />
-								<FloatEvent Id="62089" Time="440.46916182775556" Value="134.766785" />
-								<FloatEvent Id="62090" Time="444.46916182775556" Value="134.766785" />
-								<FloatEvent Id="62091" Time="444.46916182775556" Value="137.058014" />
-								<FloatEvent Id="62092" Time="448.46916182775556" Value="137.058014" />
-								<FloatEvent Id="62093" Time="448.46916182775556" Value="138.401657" />
-								<FloatEvent Id="62094" Time="452.46916182775556" Value="138.401657" />
-								<FloatEvent Id="62095" Time="452.46916182775556" Value="139.49855" />
-								<FloatEvent Id="62096" Time="460.46916182775556" Value="139.49855" />
-								<FloatEvent Id="62097" Time="460.46916182775556" Value="136.949661" />
-								<FloatEvent Id="62098" Time="468.46916182775556" Value="136.949661" />
-								<FloatEvent Id="62099" Time="468.46916182775556" Value="136.142044" />
-								<FloatEvent Id="62100" Time="476.46916182775556" Value="136.142044" />
-								<FloatEvent Id="62101" Time="476.46916182775556" Value="135.467255" />
-								<FloatEvent Id="62102" Time="480.46916182775556" Value="135.467255" />
-								<FloatEvent Id="62103" Time="480.46916182775556" Value="136.846893" />
-								<FloatEvent Id="62104" Time="492.46916182775556" Value="136.846893" />
-								<FloatEvent Id="62105" Time="492.46916182775556" Value="136.141251" />
-								<FloatEvent Id="62106" Time="500.46916182775556" Value="136.141251" />
-								<FloatEvent Id="62107" Time="500.46916182775556" Value="136.416122" />
-								<FloatEvent Id="62108" Time="508.46916182775556" Value="136.416122" />
-								<FloatEvent Id="62109" Time="508.46916182775556" Value="137.119186" />
-								<FloatEvent Id="62110" Time="516.46916182775556" Value="137.119186" />
-								<FloatEvent Id="62111" Time="516.46916182775556" Value="135.697037" />
-								<FloatEvent Id="62112" Time="524.46916182775556" Value="135.697037" />
-								<FloatEvent Id="62113" Time="524.46916182775556" Value="137.146118" />
-								<FloatEvent Id="62114" Time="528.46916182775556" Value="137.146118" />
-								<FloatEvent Id="62115" Time="528.46916182775556" Value="139.076691" />
-								<FloatEvent Id="62116" Time="532.46916182775556" Value="139.076691" />
-								<FloatEvent Id="62117" Time="532.46916182775556" Value="140.264572" />
-								<FloatEvent Id="62118" Time="540.46916182775556" Value="140.264572" />
-								<FloatEvent Id="62119" Time="540.46916182775556" Value="139.066605" />
-								<FloatEvent Id="62123" Time="583.15990754037625" Value="139.066605" />
-								<FloatEvent Id="62121" Time="583.15990754037625" Value="524.726929" />
-								<FloatEvent Id="61418" Time="584.45499318389943" Value="524.726929" />
-								<FloatEvent Id="61419" Time="584.45499318389943" Value="530.912292" />
-								<FloatEvent Id="61420" Time="648.45499318389943" Value="530.912292" />
-								<FloatEvent Id="61421" Time="648.45499318389943" Value="533.365295" />
-								<FloatEvent Id="61422" Time="716.45499318389943" Value="533.365295" />
-								<FloatEvent Id="61423" Time="716.45499318389943" Value="536.608704" />
-								<FloatEvent Id="61424" Time="792.45499318389943" Value="536.608704" />
-								<FloatEvent Id="61425" Time="792.45499318389943" Value="539.455261" />
-								<FloatEvent Id="61426" Time="856.45499318389943" Value="539.455261" />
-								<FloatEvent Id="61427" Time="856.45499318389943" Value="542.798828" />
-								<FloatEvent Id="61428" Time="928.45499318389943" Value="542.798828" />
-								<FloatEvent Id="61429" Time="928.45499318389943" Value="544.806458" />
-								<FloatEvent Id="61430" Time="1020.992584758991" Value="544.806458" />
-								<FloatEvent Id="61431" Time="1020.992584758991" Value="109" />
+								<FloatEvent Id="88159" Time="-63072000" Value="69.3629074" />
+								<FloatEvent Id="99370" Time="0" Value="69.3629074" />
+								<FloatEvent Id="99264" Time="0" Value="130.259766" />
+								<FloatEvent Id="99265" Time="0" Value="129.959869" />
+								<FloatEvent Id="99266" Time="16" Value="129.959869" />
+								<FloatEvent Id="99267" Time="16" Value="129.560455" />
+								<FloatEvent Id="99268" Time="16.469161827755578" Value="129.560455" />
+								<FloatEvent Id="99269" Time="16.469161827755578" Value="129.560486" />
+								<FloatEvent Id="99270" Time="40.469161827755578" Value="129.560486" />
+								<FloatEvent Id="99271" Time="40.469161827755578" Value="130.000076" />
+								<FloatEvent Id="99272" Time="52.469161827755578" Value="130.000076" />
+								<FloatEvent Id="99273" Time="52.469161827755578" Value="130.222092" />
+								<FloatEvent Id="99274" Time="68.469161827755585" Value="130.222092" />
+								<FloatEvent Id="99275" Time="68.469161827755585" Value="130.056824" />
+								<FloatEvent Id="99276" Time="80.469161827755585" Value="130.056824" />
+								<FloatEvent Id="99277" Time="80.469161827755585" Value="131.167953" />
+								<FloatEvent Id="99278" Time="92.469161827755585" Value="131.167953" />
+								<FloatEvent Id="99279" Time="92.469161827755585" Value="130.268112" />
+								<FloatEvent Id="99280" Time="96.469161827755585" Value="130.268112" />
+								<FloatEvent Id="99281" Time="96.469161827755585" Value="129.059723" />
+								<FloatEvent Id="99282" Time="104.46916182775558" Value="129.059723" />
+								<FloatEvent Id="99283" Time="104.46916182775558" Value="130.45546" />
+								<FloatEvent Id="99284" Time="112.46916182775558" Value="130.45546" />
+								<FloatEvent Id="99285" Time="112.46916182775558" Value="129.661102" />
+								<FloatEvent Id="99286" Time="116.46916182775558" Value="129.661102" />
+								<FloatEvent Id="99287" Time="116.46916182775558" Value="128.886459" />
+								<FloatEvent Id="99288" Time="124.46916182775558" Value="128.886459" />
+								<FloatEvent Id="99289" Time="124.46916182775558" Value="130.309738" />
+								<FloatEvent Id="99290" Time="140.46916182775558" Value="130.309738" />
+								<FloatEvent Id="99291" Time="140.46916182775558" Value="129.474579" />
+								<FloatEvent Id="99292" Time="148.46916182775558" Value="129.474579" />
+								<FloatEvent Id="99293" Time="148.46916182775558" Value="130.137146" />
+								<FloatEvent Id="99294" Time="152.46916182775558" Value="130.137146" />
+								<FloatEvent Id="99295" Time="152.46916182775558" Value="131.311234" />
+								<FloatEvent Id="99296" Time="160.46916182775558" Value="131.311234" />
+								<FloatEvent Id="99297" Time="160.46916182775558" Value="130.386063" />
+								<FloatEvent Id="99298" Time="164.46916182775558" Value="130.386063" />
+								<FloatEvent Id="99299" Time="164.46916182775558" Value="128.877808" />
+								<FloatEvent Id="99300" Time="172.46916182775558" Value="128.877808" />
+								<FloatEvent Id="99301" Time="172.46916182775558" Value="129.528442" />
+								<FloatEvent Id="99302" Time="176.46916182775558" Value="129.528442" />
+								<FloatEvent Id="99303" Time="176.46916182775558" Value="130.722656" />
+								<FloatEvent Id="99304" Time="184.46916182775558" Value="130.722656" />
+								<FloatEvent Id="99305" Time="184.46916182775558" Value="131.402603" />
+								<FloatEvent Id="99306" Time="192.46916182775558" Value="131.402603" />
+								<FloatEvent Id="99307" Time="192.46916182775558" Value="130.368362" />
+								<FloatEvent Id="99308" Time="196.46916182775558" Value="130.368362" />
+								<FloatEvent Id="99309" Time="196.46916182775558" Value="129.165359" />
+								<FloatEvent Id="99310" Time="200.46916182775558" Value="129.165359" />
+								<FloatEvent Id="99311" Time="200.46916182775558" Value="128.471054" />
+								<FloatEvent Id="99312" Time="204.46916182775558" Value="128.471054" />
+								<FloatEvent Id="99313" Time="204.46916182775558" Value="129.171158" />
+								<FloatEvent Id="99314" Time="212.46916182775558" Value="129.171158" />
+								<FloatEvent Id="99315" Time="212.46916182775558" Value="128.592957" />
+								<FloatEvent Id="99316" Time="216.46916182775558" Value="128.592957" />
+								<FloatEvent Id="99317" Time="216.46916182775558" Value="129.189987" />
+								<FloatEvent Id="99318" Time="232.46916182775558" Value="129.189987" />
+								<FloatEvent Id="99319" Time="232.46916182775558" Value="130.482544" />
+								<FloatEvent Id="99320" Time="244.46916182775558" Value="130.482544" />
+								<FloatEvent Id="99321" Time="244.46916182775558" Value="130.155518" />
+								<FloatEvent Id="99322" Time="252.46916182775558" Value="130.155518" />
+								<FloatEvent Id="99323" Time="252.46916182775558" Value="131.407837" />
+								<FloatEvent Id="99324" Time="256.46916182775556" Value="131.407837" />
+								<FloatEvent Id="99325" Time="256.46916182775556" Value="130.592621" />
+								<FloatEvent Id="99326" Time="272.46916182775556" Value="130.592621" />
+								<FloatEvent Id="99327" Time="272.46916182775556" Value="129.443298" />
+								<FloatEvent Id="99328" Time="280.46916182775556" Value="129.443298" />
+								<FloatEvent Id="99329" Time="280.46916182775556" Value="130.466537" />
+								<FloatEvent Id="99330" Time="288.46916182775556" Value="130.466537" />
+								<FloatEvent Id="99331" Time="288.46916182775556" Value="129.61879" />
+								<FloatEvent Id="99332" Time="300.46916182775556" Value="129.61879" />
+								<FloatEvent Id="99333" Time="300.46916182775556" Value="129.070435" />
+								<FloatEvent Id="99334" Time="304" Value="129.070435" />
+								<FloatEvent Id="99335" Time="304" Value="107.721436" />
+								<FloatEvent Id="99336" Time="328" Value="107.721436" />
+								<FloatEvent Id="99337" Time="328" Value="109.136383" />
+								<FloatEvent Id="99338" Time="336" Value="109.136383" />
+								<FloatEvent Id="99339" Time="336" Value="106.383965" />
+								<FloatEvent Id="99340" Time="340" Value="106.383965" />
+								<FloatEvent Id="99341" Time="340" Value="111.476677" />
+								<FloatEvent Id="99342" Time="344" Value="111.476677" />
+								<FloatEvent Id="99343" Time="344" Value="103.80545" />
+								<FloatEvent Id="99344" Time="368" Value="103.80545" />
+								<FloatEvent Id="99345" Time="368" Value="102.066139" />
+								<FloatEvent Id="99346" Time="368.38746149683652" Value="102.066139" />
+								<FloatEvent Id="99347" Time="368.38746149683652" Value="104.663574" />
+								<FloatEvent Id="99348" Time="392" Value="104.663574" />
+								<FloatEvent Id="99349" Time="392" Value="100.467888" />
+								<FloatEvent Id="99350" Time="400" Value="100.467888" />
+								<FloatEvent Id="99351" Time="400" Value="139.347961" />
+								<FloatEvent Id="99352" Time="416" Value="139.347961" />
+								<FloatEvent Id="99353" Time="416" Value="138.18335" />
+								<FloatEvent Id="99354" Time="432" Value="138.18335" />
+								<FloatEvent Id="99355" Time="432" Value="136.50441" />
+								<FloatEvent Id="99356" Time="464" Value="136.50441" />
+								<FloatEvent Id="99357" Time="464" Value="136.04277" />
+								<FloatEvent Id="99358" Time="480" Value="136.04277" />
+								<FloatEvent Id="99359" Time="480" Value="137.224396" />
+								<FloatEvent Id="99360" Time="495.50797613844486" Value="137.224396" />
+								<FloatEvent Id="99361" Time="495.50797613844486" Value="90.9342728" />
+								<FloatEvent Id="99362" Time="496" Value="90.9342728" />
+								<FloatEvent Id="99363" Time="496" Value="139.274246" />
+								<FloatEvent Id="99364" Time="512" Value="139.274246" />
+								<FloatEvent Id="99365" Time="512" Value="137.395844" />
+								<FloatEvent Id="99366" Time="524" Value="137.395844" />
+								<FloatEvent Id="99367" Time="524" Value="127.442085" />
+								<FloatEvent Id="99368" Time="528" Value="127.442085" />
+								<FloatEvent Id="99369" Time="528" Value="69.0091324" />
+								<FloatEvent Id="99373" Time="544" Value="69.0091324" />
+								<FloatEvent Id="99371" Time="544" Value="140.354294" />
+								<FloatEvent Id="88178" Time="558.04115597943724" Value="140.354294" />
+								<FloatEvent Id="88179" Time="558.04115597943724" Value="100" />
 							</Events>
 							<AutomationTransformViewState>
 								<IsTransformPending Value="false" />
@@ -14982,7 +14950,7 @@
 				</Envelopes>
 			</AutomationEnvelopes>
 			<TrackGroupId Value="-1" />
-			<TrackUnfolded Value="false" />
+			<TrackUnfolded Value="true" />
 			<DevicesListWrapper LomId="0" />
 			<ClipSlotsListWrapper LomId="0" />
 			<ViewData Value="{}" />
@@ -15401,7 +15369,7 @@
 					</SplitStereoPanR>
 					<Volume>
 						<LomId Value="0" />
-						<Manual Value="0.07079458237" />
+						<Manual Value="0.3548133373" />
 						<MidiControllerRange>
 							<Min Value="0.0003162277571" />
 							<Max Value="1.99526238" />
@@ -15484,11 +15452,11 @@
 		</SceneNames>
 		<Transport>
 			<PhaseNudgeTempo Value="10" />
-			<LoopOn Value="true" />
+			<LoopOn Value="false" />
 			<LoopStart Value="420" />
 			<LoopLength Value="148" />
 			<LoopIsSongStart Value="false" />
-			<CurrentTime Value="487.56600380678179" />
+			<CurrentTime Value="524" />
 			<PunchIn Value="false" />
 			<PunchOut Value="false" />
 			<DrawMode Value="false" />
@@ -15512,15 +15480,15 @@
 		</ScaleInformation>
 		<SmpteFormat Value="0" />
 		<TimeSelection>
-			<AnchorTime Value="484.42009344821844" />
-			<OtherTime Value="484.42009344821844" />
+			<AnchorTime Value="524" />
+			<OtherTime Value="524" />
 		</TimeSelection>
 		<SequencerNavigator>
 			<BeatTimeHelper>
-				<CurrentZoom Value="0.590904929718850225" />
+				<CurrentZoom Value="0.424929178470254965" />
 			</BeatTimeHelper>
-			<ScrollerPos X="-43" Y="-149" />
-			<ClientSize X="1741" Y="497" />
+			<ScrollerPos X="0" Y="-3" />
+			<ClientSize X="1414" Y="497" />
 		</SequencerNavigator>
 		<ViewStateLaunchPanel Value="false" />
 		<ViewStateEnvelopePanel Value="false" />
@@ -15535,21 +15503,21 @@
 			<Locators>
 				<Locator Id="0">
 					<LomId Value="0" />
-					<Time Value="80" />
+					<Time Value="48" />
 					<Name Value="R" />
 					<Annotation Value="" />
 					<IsSongStart Value="false" />
 				</Locator>
 				<Locator Id="1">
 					<LomId Value="0" />
-					<Time Value="176" />
+					<Time Value="144" />
 					<Name Value="R" />
 					<Annotation Value="" />
 					<IsSongStart Value="false" />
 				</Locator>
 				<Locator Id="2">
 					<LomId Value="0" />
-					<Time Value="272" />
+					<Time Value="240" />
 					<Name Value="R" />
 					<Annotation Value="" />
 					<IsSongStart Value="false" />
@@ -15557,7 +15525,7 @@
 				<Locator Id="3">
 					<LomId Value="0" />
 					<Time Value="400" />
-					<Name Value="R" />
+					<Name Value="Bombarde" />
 					<Annotation Value="" />
 					<IsSongStart Value="false" />
 				</Locator>
@@ -15617,6 +15585,34 @@
 					<Annotation Value="" />
 					<IsSongStart Value="false" />
 				</Locator>
+				<Locator Id="12">
+					<LomId Value="0" />
+					<Time Value="80" />
+					<Name Value="flute" />
+					<Annotation Value="" />
+					<IsSongStart Value="false" />
+				</Locator>
+				<Locator Id="13">
+					<LomId Value="0" />
+					<Time Value="176" />
+					<Name Value="flute" />
+					<Annotation Value="" />
+					<IsSongStart Value="false" />
+				</Locator>
+				<Locator Id="14">
+					<LomId Value="0" />
+					<Time Value="272" />
+					<Name Value="Guitare" />
+					<Annotation Value="" />
+					<IsSongStart Value="false" />
+				</Locator>
+				<Locator Id="15">
+					<LomId Value="0" />
+					<Time Value="432" />
+					<Name Value="C" />
+					<Annotation Value="" />
+					<IsSongStart Value="false" />
+				</Locator>
 			</Locators>
 		</Locators>
 		<DetailClipKeyMidis />
@@ -15631,7 +15627,7 @@
 		<SoloInPlace Value="true" />
 		<CrossfadeCurve Value="2" />
 		<LatencyCompensation Value="2" />
-		<HighlightedTrackIndex Value="1" />
+		<HighlightedTrackIndex Value="0" />
 		<GroovePool>
 			<Grooves />
 		</GroovePool>

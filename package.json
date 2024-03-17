@@ -44,8 +44,10 @@
     "karma": "6",
     "karma-chrome-launcher": "3",
     "karma-coverage": "2",
+    "karma-coverage-istanbul-reporter": "3",
     "karma-jasmine": "5",
     "karma-jasmine-html-reporter": "2",
+    "karma-junit-reporter": "2",
     "protractor": "7",
     "ts-node": "10",
     "typescript": "5.2"

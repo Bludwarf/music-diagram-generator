@@ -131,6 +131,12 @@ export class Time {
     fields.bars = fields.bars % bars
     return Time.fromFields(fields)
   }
+
+  toBeatTime() {
+    const fields = this.toBarsBeatsSixteenthsFields()
+    // TODO uniquement en 4/4
+    return fields.bars * 4 + fields.beats
+  }
 }
 
 export const ONE_BAR = Time.fromValue('1m')

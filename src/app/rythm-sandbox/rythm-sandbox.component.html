@@ -1,35 +1,40 @@
+<ol>
+  <li *ngFor="let songName of playlist"><a [routerLink]="'morceaux/' + songName">{{ songName }}</a></li>
+</ol>
+
 <ng-container *ngIf="!structure">
   <input type="file" accept=".wav,.mp3" (change)="uploadFile($event)"/>
   <br/>
 </ng-container>
 
 <ng-container *ngIf="structure">
-  {{timecode}}
+  {{ timecode }}
   <button (click)="playSong()" *ngIf="!playing">⏵</button>
   <button (click)="pauseSong()" *ngIf="playing">⏸</button>
   <button (click)="stopSong()">⏹</button>
   <br/>
-  
-  <input type="range" min="0" max="100" step="1" [value]="progress" (change)="setProgress($event)" />
+
+  <input type="range" min="0" max="100" step="1" [value]="progress" (change)="setProgress($event)"/>
   <br/>
 
   <!-- Tonalité -->
   Gm
 
-  <app-structure [structure]="structure" [currentPatternInStructure]="currentPatternInStructure" (clickPatternInStructure)="onClickPatternInStructure($event)"></app-structure>
+  <app-structure [structure]="structure" [currentPatternInStructure]="currentPatternInStructure"
+                 (clickPatternInStructure)="onClickPatternInStructure($event)"></app-structure>
   <br/>
 
   <!-- TODO : Bombarde dès 1.1.1 mais groupe à 5.1.1 -->
 
   <ng-container *ngIf="currentPatternInStructure">
-    {{currentPatternInStructure.pattern.name}}<br/>
-    {{currentPatternInStructureRelativeTimecode}}<br/>
-    
+    {{ currentPatternInStructure.pattern.name }}<br/>
+    {{ currentPatternInStructureRelativeTimecode }}<br/>
+
     <ng-container *ngIf="currentPatternInStructure.pattern.chords; let chords">
-      {{chords.toAscii()}}
+      {{ chords.toAscii() }}
     </ng-container>
     <ng-container *ngIf="!currentPatternInStructure.pattern.chords">
-      {{currentPatternInStructure.pattern.duration.toBars()}}m
+      {{ currentPatternInStructure.pattern.duration.toBars() }}m
     </ng-container>
     <br/>
 
@@ -41,7 +46,8 @@
     ></app-fretboard>
 
     <ng-container *ngIf="currentPatternInStructure.eventsStartTime">
-      <ng-container *ngFor="let barNumber of sequence(currentPatternInStructure.eventsDurationInBars, currentPatternInStructure.eventsStartTime.toBars() + 1)">
+      <ng-container
+        *ngFor="let barNumber of sequence(currentPatternInStructure.eventsDurationInBars, currentPatternInStructure.eventsStartTime.toBars() + 1)">
         <app-rythm-bar
           *ngIf="currentPatternInStructure.pattern.events?.length"
           [number]="barNumber"
@@ -50,7 +56,7 @@
           (removeEvent)="removeEvent($event)"
           [timecode]="rythmBarTimecode"
         ></app-rythm-bar>
-        <br />
+        <br/>
       </ng-container>
     </ng-container>
 

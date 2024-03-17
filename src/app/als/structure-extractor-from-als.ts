@@ -28,10 +28,9 @@ export class StructureExtractorFromAls {
     return this.originalAudioClip.wrapMarkers.map(wrapMarker => new WarpMarker(wrapMarker.secTime, wrapMarker.beatTime))
   }
 
-  toStructureObject(sampleBeatTimeDuration: number): StructureObject {
+  toStructureObject(): StructureObject {
     return {
       sampleDuration: this.sampleDuration.toSeconds(),
-      sampleBeatTimeDuration,
       warpMarkers: this.warpMarkers,
     }
   }
@@ -47,7 +46,7 @@ export interface StructureObject {
   /**
    * BeatTime à la tout fin du sample observée dans Ableton Live.
    */
-  sampleBeatTimeDuration: number
+  sampleBeatTimeDuration?: number
 
   warpMarkers: WarpMarker[]
 }

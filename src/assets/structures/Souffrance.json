@@ -1,0 +1,117 @@
+{
+  "sampleDuration": 185.60035416666668,
+  "warpMarkers": [
+    {
+      "secTime": 0,
+      "beatTime": -2.2997661192973693
+    },
+    {
+      "secTime": 0.8784166666666666,
+      "beatTime": 0
+    },
+    {
+      "secTime": 6.8019791666666665,
+      "beatTime": 16
+    },
+    {
+      "secTime": 12.905208333333333,
+      "beatTime": 32
+    },
+    {
+      "secTime": 25.032791666666665,
+      "beatTime": 64
+    },
+    {
+      "secTime": 37.25477083333333,
+      "beatTime": 96
+    },
+    {
+      "secTime": 49.66683333333333,
+      "beatTime": 128
+    },
+    {
+      "secTime": 61.934625,
+      "beatTime": 160
+    },
+    {
+      "secTime": 74.08143749999999,
+      "beatTime": 192
+    },
+    {
+      "secTime": 86.46016666666667,
+      "beatTime": 224
+    },
+    {
+      "secTime": 98.69770833333332,
+      "beatTime": 256
+    },
+    {
+      "secTime": 111.03422916666666,
+      "beatTime": 288
+    },
+    {
+      "secTime": 123.28531249999999,
+      "beatTime": 320
+    },
+    {
+      "secTime": 135.49777083333333,
+      "beatTime": 352
+    },
+    {
+      "secTime": 147.93939583333332,
+      "beatTime": 384
+    },
+    {
+      "secTime": 151.2485,
+      "beatTime": 392
+    },
+    {
+      "secTime": 153.70666666666665,
+      "beatTime": 396
+    },
+    {
+      "secTime": 155.90406249999998,
+      "beatTime": 400
+    },
+    {
+      "secTime": 157.94277083333333,
+      "beatTime": 404
+    },
+    {
+      "secTime": 159.982375,
+      "beatTime": 408
+    },
+    {
+      "secTime": 161.9501875,
+      "beatTime": 412
+    },
+    {
+      "secTime": 163.83564583333333,
+      "beatTime": 416
+    },
+    {
+      "secTime": 165.64431249999998,
+      "beatTime": 420
+    },
+    {
+      "secTime": 167.2971875,
+      "beatTime": 424
+    },
+    {
+      "secTime": 173.294875,
+      "beatTime": 440
+    },
+    {
+      "secTime": 179.38589583333334,
+      "beatTime": 456
+    },
+    {
+      "secTime": 213.89711263469778,
+      "beatTime": 557.7002338807026
+    },
+    {
+      "secTime": 213.91220199013253,
+      "beatTime": 557.7314838807026
+    }
+  ]
+}

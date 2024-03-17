@@ -77,6 +77,7 @@ export namespace Note {
   export const E = Note.fromName('E')
   export const F = Note.fromName('F')
   export const Fs = Note.fromName('F#')
+  export const Gb = Fs
   export const G = Note.fromName('G')
   export const Ab = Note.fromName('Ab')
   export const A = Note.fromName('A')
@@ -113,11 +114,22 @@ export class Mode extends Mod12Value {
   }
 }
 
-/** Tonalité */
-export class Key {
-  constructor(readonly note: Note, readonly mode: Mode) { }
+export namespace Mode {
+  export const I = Mode.fromName('I')
+  export const vi = Mode.fromName('vi')
 }
 
+/** Tonalité */
+export class Key {
+  constructor(readonly note: Note, readonly mode: Mode = Mode.I) { }
+}
+
+export namespace Key {
+  export const Cm = new Key(Note.C, Mode.vi)
+  export const Gm = new Key(Note.G, Mode.vi)
+  export const Am = new Key(Note.A, Mode.vi)
+  export const Bb = new Key(Note.Bb)
+}
 
 export class Degree extends Mod12Value {
   constructor(value: number) {
@@ -143,6 +155,8 @@ export class Chord {
     }
     // TODO gérer '#' -> 's'
     switch (name) {
+      case 'Gb':
+        return Note.Gb
       case 'Gm':
         return Note.G
     }

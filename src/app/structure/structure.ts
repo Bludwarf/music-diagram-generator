@@ -4,6 +4,11 @@ import {PatternInStructure} from "./pattern/pattern-in-structure";
 import {StructureObject} from "../als/structure-extractor-from-als";
 import {WarpMarker} from "./warp-marker";
 import * as Tone from "tone";
+import {error} from "../utils";
+
+function getSampleBeatTimeDurationFromPatterns(patterns: Pattern[]) {
+  return patterns.map(p => p.duration).reduce((s, d) => s.add(d)).toBeatTime()
+}
 
 class StructureBuilder {
   private _stuctureObject?: StructureObject;
@@ -38,8 +43,10 @@ class StructureBuilder {
     if (!this._patterns) {
       throw new Error('Missing patterns')
     }
+    const sampleBeatTimeDuration = this._stuctureObject.sampleBeatTimeDuration ?? getSampleBeatTimeDurationFromPatterns(this._patterns)
     return new Structure(
       Time.fromValue(this._stuctureObject.sampleDuration),
+      sampleBeatTimeDuration,
       this._patterns,
       this._stuctureObject.warpMarkers,
       this._getEventsStartTime,
@@ -54,6 +61,7 @@ export class Structure {
 
   constructor(
     readonly sampleDuration: Time,
+    readonly sampleBeatTimeDuration: number,
     patterns: Pattern[],
     readonly warpMarkers: WarpMarker[],
     getEventsStartTime?: (pattern: Pattern) => Time | undefined, // TODO en attendant de savoir comment faire les events
@@ -103,7 +111,7 @@ export class Structure {
       // TODO pour trouver le WrappedTime après le dernier WrapMarker, il faut calculer le tempo à la fin et interpoler
       // TODO Pour l'instant on le déduit à la louche
       // TODO que se passe-t-il si le sample continue alors que la structure est finie ?
-      new WarpMarker(this.sampleDuration.toSeconds(), 380),
+      new WarpMarker(this.sampleDuration.toSeconds(), this.sampleBeatTimeDuration),
     ]
   }
 
@@ -155,7 +163,8 @@ export class Structure {
     }
 
     if (beatTime > warpMarkers[warpMarkers.length - 1].beatTime) {
-      return undefined // TODO quelle position si on est après le dernier WrapMarker ?
+      // TODO quelle position si on est après le dernier WrapMarker ?
+      error(`beatTime après le dernier WrapMarker : ${beatTime} > ${warpMarkers[warpMarkers.length - 1].beatTime}`)
     }
 
     const nextWrapMarkerIndex = warpMarkers.findIndex(wrapMarker => beatTime < wrapMarker.beatTime)

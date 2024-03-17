@@ -37,7 +37,7 @@ describe('AlsExtractor', () => {
   it('should get JSON structure from Petit papillon', async () => {
     const filePath = 'src/assets/als/Petit papillon.als.xml';
     const extractor = await createExtractorFor(filePath)
-    const jsonStructure = extractor.toStructureObject(380)
+    const jsonStructure = extractor.toStructureObject()
     console.log(JSON.stringify(jsonStructure))
     expect(jsonStructure).toBeTruthy()
   });

@@ -2,31 +2,26 @@ import {ChangeDetectorRef, Component} from '@angular/core';
 import {RythmBarComponent} from '../rythm-bar/rythm-bar.component';
 import {RythmBarEvent} from '../rythm-bar/event';
 import {CommonModule, JsonPipe} from '@angular/common';
-import events from '../../assets/events/Petit Papillon/events.json';
-import stuctureObject from '../../assets/structures/Petit Papillon.json';
 import {StructureComponent} from '../structure/structure.component';
 import * as Tone from 'tone'
 import {FormsModule} from '@angular/forms';
-import {Transport} from 'tone/build/esm/core/clock/Transport';
 import {Structure} from '../structure/structure';
-import {Pattern} from '../structure/pattern/pattern';
 import {Time} from '../time';
 import {PatternInStructure} from '../structure/pattern/pattern-in-structure';
 import {FretboardComponent} from '../fretboard/fretboard.component';
-import {Chord, Key, Note} from '../notes';
+import {Chord} from '../notes';
 import {sequence} from '../utils';
-
-// On utilise pour l'instant le fichier DIDAFTA PETIT PAPILLON Master Web 24bit 48Khz_02-01.wav
+import structureEntry from "../song/entries/Petit Papillon";
+import {RouterLink} from "@angular/router";
 
 @Component({
   selector: 'app-rythm-sandbox',
   standalone: true,
-  imports: [RythmBarComponent, JsonPipe, StructureComponent, CommonModule, FormsModule, FretboardComponent],
+  imports: [RythmBarComponent, JsonPipe, StructureComponent, CommonModule, FormsModule, FretboardComponent, RouterLink],
   templateUrl: './rythm-sandbox.component.html',
   styleUrl: './rythm-sandbox.component.scss',
 })
 export class RythmSandboxComponent {
-  events: RythmBarEvent[] = RythmBarEvent.fromEach(events);
 
   currentPatternInStructure?: PatternInStructure;
   currentChord?: Chord;
@@ -38,6 +33,16 @@ export class RythmSandboxComponent {
   structure?: Structure;
   rythmBarTimecode?: string;
   currentPatternInStructureRelativeTimecode?: string;
+
+  playlist = [
+    'Petit Papillon',
+    'Surcouf',
+    'La femme dragon',
+    'Le jour (le phare)',
+    'Le résistant',
+    'Noyer le silence',
+    'Nuages blancs',
+  ]
 
   protected sequence = sequence
 
@@ -52,20 +57,15 @@ export class RythmSandboxComponent {
   }
 
   addEvent(event: RythmBarEvent): void {
-    this.events.push(event);
-    this.logEvents();
-    this.changeDetectorRef.detectChanges() // TODO nécessaire (depuis l'ajout de Tone il semblerait)
+    // this.events.push(event);
+    // this.logEvents();
+    // this.changeDetectorRef.detectChanges() // TODO nécessaire (depuis l'ajout de Tone il semblerait)
   }
 
   removeEvent(event: RythmBarEvent): void {
-    this.events.splice(this.events.indexOf(event), 1);
-    this.logEvents();
-    this.changeDetectorRef.detectChanges() // TODO nécessaire (depuis l'ajout de Tone il semblerait)
-  }
-
-  logEvents(): void {
-    // console.table(this.events)
-    console.log(this.events);
+    // this.events.splice(this.events.indexOf(event), 1);
+    // this.logEvents();
+    // this.changeDetectorRef.detectChanges() // TODO nécessaire (depuis l'ajout de Tone il semblerait)
   }
 
   async uploadFile(event: Event): Promise<void> {
@@ -88,97 +88,7 @@ export class RythmSandboxComponent {
 
     await Tone.loaded() // évite les erreurs de buffer
 
-    const key = new Key(new Note(7), new Note(9))
-
-    const bombardeSeuleIntro = Pattern.fromData({
-      name: 'Début bombarde (G à 4.4)',
-      initial: 'B0',
-      key,
-      duration: '4m',
-    })
-    const bombarde = Pattern.fromData({
-      name: 'Partie bombarde',
-      initial: 'B',
-      key,
-      chords: '| Gm F | Eb D | Gm F | Eb D Gm Gm |',
-      events: events.filter((event: any) => event.bar >= 1 || event.bar <= 2),
-    })
-    const bombardeSeuleM1 = Pattern.fromData({
-      name: 'Bombarde seule',
-      initial: 'B*1',
-      duration: '1m', // TODO on devrait pouvoir faire plutôt : chords: '|  | Eb D |'
-      key,
-    })
-    const bombardeSeuleM2 = Pattern.fromData({
-      name: 'Retour groupe',
-      initial: 'B*2',
-      chords: '| Eb D |',
-      key,
-      events: events.filter((event: any) => event.bar == 2),
-    })
-    const bombardeM3et4 = Pattern.fromData({
-      name: '1/2 Partie bombarde',
-      initial: 'B*34',
-      key,
-      chords: '| Gm F | Eb D Gm Gm |',
-      events: events.filter((event: any) => event.bar >= 1 || event.bar <= 2),
-    })
-    const couplet = Pattern.fromData({
-      name: 'Couplet',
-      key,
-      chords: '| Gm F | Eb D | Gm F | Eb D Gm Gm |',
-      events: events.filter((event: any) => event.bar >= 3 || event.bar <= 4),
-    })
-    const coupletBb = Pattern.fromData({
-      name: 'Couplet (Bb)',
-      initial: 'C\'',
-      key,
-      chords: '| Gm F | Eb Bb | Gm F | Eb D Gm Gm |',
-      events: events.filter((event: any) => event.bar >= 3 || event.bar <= 4),
-    })
-    const refrain = Pattern.fromData({
-      name: 'Refrain',
-      duration: '4m',
-      key,
-      chords: '| Bb | F | C | Gm |',
-      events: events.filter((event: any) => event.bar >= 5),
-    })
-
-    const intro = [bombardeSeuleIntro, bombarde, bombarde]
-    const bombardePassage = [bombarde, bombarde]
-    const bombardePassageApresRefrain = [bombardeSeuleM1, bombardeSeuleM2, bombardeM3et4, bombarde]
-    const coupletPassage = [couplet, coupletBb]
-    const refrainPassage = [refrain, refrain]
-
-    const structure = Structure.builder()
-      .stuctureObject(stuctureObject)
-      .patterns([
-        ...intro,
-        ...coupletPassage, ...bombardePassage, ...coupletPassage, ...refrainPassage, ...bombardePassageApresRefrain,
-        ...coupletPassage, ...bombardePassage, ...coupletPassage, ...refrainPassage, ...bombardePassageApresRefrain,
-      ])
-      .getEventsStartTime((pattern: Pattern) => {
-        if (pattern === bombarde) return Time.fromValue("0:0")
-        if (pattern === bombardeM3et4) return Time.fromValue("0:0")
-        if (pattern === bombardeSeuleM2) return Time.fromValue("1:0")
-        if (pattern === couplet) return Time.fromValue("2:0")
-        if (pattern === coupletBb) return Time.fromValue("2:0")
-        if (pattern === refrain) return Time.fromValue("4:0")
-        return undefined
-      })
-      .getEventsDurationInBars((pattern: Pattern) => {
-        if (pattern === bombarde) return 2
-        if (pattern === bombardeM3et4) return 2
-        if (pattern === bombardeSeuleM2) return 1
-        if (pattern === couplet) return 2
-        if (pattern === coupletBb) return 2
-        if (pattern === refrain) return 4
-        return undefined
-      })
-      .build()
-    // console.log(couplet.duration.toAbletonLiveBarsBeatsSixteenths())
-    // console.log(new Structure(coupletBlock).duration.toAbletonLiveBarsBeatsSixteenths())
-    // console.log(structure.duration.toBarsBeatsSixteenths())
+    const structure = structureEntry.structure
 
     // cf. https://github.com/Tonejs/Tone.js/blob/dev/examples/daw.html
     Tone.Transport.bpm.value = 120;
@@ -204,16 +114,6 @@ export class RythmSandboxComponent {
   refresh(time?: number): void {
 
     // console.log('time', time, Tone.Transport.seconds, Tone.Transport.position)
-
-    const abletonLiveBarsBeatsSixteenths = (transport: Transport) => {
-      const fields = transport.position.toString().split(':');
-      const bars = +fields[0] + 1
-      const beats = +fields[1] + 1
-      // TODO pour être plus précis, il faudrait utiliser time, puis le convertir en relatif à transport.position
-      const sixteenths = Math.floor(+fields[2]) + 1
-      return `${bars}:${beats}:${sixteenths}`
-    }
-
 
     this.progress = Math.min(Math.max(0, Tone.Transport.progress), 1) * 100;
 

@@ -7,9 +7,16 @@
   {{ timecode }}
   <button (click)="playSong()" *ngIf="!playing">⏵</button>
   <button (click)="pauseSong()" *ngIf="playing">⏸</button>
-  <button (click)="stopSong()">⏹</button><br/>
-  {{transportBeatTime}} - {{ transportSeconds }}
+  <button (click)="stopSong()">⏹</button>
+  <ng-container *ngIf="debug">
+    {{ transportPosition }}
+  </ng-container>
   <br/>
+
+  <ng-container *ngIf="debug">
+    {{ transportBeatTime }} - {{ transportSeconds }}
+    <br/>
+  </ng-container>
 
   <input type="range" min="0" max="100" step="1" [value]="progress" (change)="setProgress($event)"/>
   <br/>
@@ -19,15 +26,20 @@
 <ng-container *ngIf="structure">
 
   <!-- Tonalité -->
-  Gm
+  {{structure.key}}<br/>
 
-  <app-structure [structure]="structure" [currentPatternInStructure]="currentPatternInStructure"
-                 (clickPatternInStructure)="onClickPatternInStructure($event)"></app-structure>
+  <app-structure [structure]="structure"
+                 [currentSectionInStructure]="currentSectionInStructure"
+                 [currentPatternInStructure]="currentPatternInStructure"
+                 [currentSectionInStructureRelativeTimecode]="currentSectionInStructureRelativeTimecode"
+                 (clickSectionInStructure)="onClickSectionInStructure($event)"
+                 (clickPatternInStructure)="onClickPatternInStructure($event)"
+  ></app-structure>
   <br/>
 
   <ng-container *ngIf="currentPatternInStructure">
-    {{ currentPatternInStructure.pattern.name }}<br/>
-    {{ currentPatternInStructureRelativeTimecode }}<br/>
+    <span class="active pattern">{{ currentPatternInStructure.pattern.name }}</span><br/>
+    {{ currentPatternInStructureRelativeTimecode }} / {{ currentPatternInStructure.pattern.duration.toBars() }}<br/>
 
     <ng-container *ngIf="currentPatternInStructure.pattern.chords; let chords">
       {{ chords.toAscii() }}

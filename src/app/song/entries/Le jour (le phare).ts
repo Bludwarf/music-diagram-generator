@@ -2,6 +2,7 @@ import stuctureObject from "../../../assets/structures/Le jour (le phare).json";
 import {FretboardData, Pattern} from "../../structure/pattern/pattern";
 import {Structure} from "../../structure/structure";
 import {Key} from "../../notes";
+import {Section} from "../../structure/section/section";
 
 const key = Key.Cm
 const fretboard: FretboardData = {
@@ -52,28 +53,28 @@ const fin = Pattern.fromData({
   fretboard,
 })
 
-const patterns: Pattern[] = [
-  couplet, couplet, coupletEb, coupletEb, // PYM + David
-  couplet, couplet, coupletEb, coupletEb, // Groupe
-  couplet, couplet, couplet, couplet, // C
-  refrain, refrain,
+const sections: Section[] = [
+  new Section('Intro', [couplet, couplet, coupletEb, coupletEb,]), // PYM + David
+  new Section('B1', [couplet, couplet, coupletEb, coupletEb,]), // Groupe
+  new Section('C1', [couplet, couplet, couplet, couplet,]), // C
+  new Section('R1', [refrain, refrain,]),
 
-  couplet, couplet, coupletEb, coupletEb,
-  couplet, couplet, couplet, couplet, // C
-  refrain, refrain,
+  new Section('B2', [couplet, couplet, coupletEb, coupletEb,]),
+  new Section('C2', [couplet, couplet, couplet, couplet,]), // C
+  new Section('R2', [refrain, refrain,]),
 
-  couplet, couplet,
-  bloquee, breakBatterie,
+  new Section('C3', [couplet, couplet,]),
+  new Section('Break', [bloquee, breakBatterie,]),
 
-  couplet, couplet, coupletEb, coupletEb,
-  // couplet, couplet, coupletEb, coupletEb, // Pas dans l'album
+  new Section('Final', [couplet, couplet, coupletEb, coupletEb,]),
+// new Section('Final2', [couplet, couplet, coupletEb, coupletEb]),// couplet, couplet, coupletEb, coupletEb,]) // Pas dans l'album
 
-  fin,
+  new Section('Fin', [fin,])
 ]
 
 const structure = Structure.builder()
   .stuctureObject(stuctureObject)
-  .patterns(patterns)
+  .sections(sections)
   .build()
 
 export default {

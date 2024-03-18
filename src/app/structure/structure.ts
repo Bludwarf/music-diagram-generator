@@ -5,13 +5,16 @@ import {StructureObject} from "../als/structure-extractor-from-als";
 import {WarpMarker} from "./warp-marker";
 import * as Tone from "tone";
 import {error} from "../utils";
+import {Section} from "./section/section";
+import {SectionInStructure} from "./section/section-in-structure";
 
 function getSampleBeatTimeDurationFromPatterns(patterns: Pattern[]) {
-  return patterns.map(p => p.duration).reduce((s, d) => s.add(d)).toBeatTime()
+  return Time.sum(patterns.map(p => p.duration)).toBeatTime()
 }
 
 class StructureBuilder {
   private _stuctureObject?: StructureObject;
+  private _sections?: Section[];
   private _patterns?: Pattern[];
   private _getEventsStartTime?: (pattern: Pattern) => (Time) | undefined;
   private _getEventsDurationInBars?: (pattern: Pattern) => number | undefined
@@ -21,8 +24,14 @@ class StructureBuilder {
     return this
   }
 
-  patterns(patterns: typeof this._patterns) {
-    this._patterns = patterns
+  sections(sections: typeof this._sections) {
+    this._sections = sections
+    return this
+  }
+
+  /** @deprecated Utiliser plutôt sections */
+  patterns(sections: typeof this._patterns) {
+    this._patterns = sections
     return this
   }
 
@@ -40,14 +49,25 @@ class StructureBuilder {
     if (!this._stuctureObject) {
       throw new Error('Missing stuctureObject')
     }
-    if (!this._patterns) {
-      throw new Error('Missing patterns')
+
+    let sections: Section[] | undefined
+    if (this._sections) {
+      sections = this._sections
     }
-    const sampleBeatTimeDuration = this._stuctureObject.sampleBeatTimeDuration ?? getSampleBeatTimeDurationFromPatterns(this._patterns)
+    if (this._patterns) {
+      const defaultSection = new Section('Section', this._patterns);
+      sections = [defaultSection]
+    }
+    if (!sections) {
+      throw new Error('Missing sections or patterns')
+    }
+
+    // TODO attention au typage de getSampleBeatTimeDurationFromPatterns()
+    const sampleBeatTimeDuration = this._stuctureObject.sampleBeatTimeDuration ?? getSampleBeatTimeDurationFromPatterns(sections)
     return new Structure(
       Time.fromValue(this._stuctureObject.sampleDuration),
       sampleBeatTimeDuration,
-      this._patterns,
+      sections,
       this._stuctureObject.warpMarkers,
       this._getEventsStartTime,
       this._getEventsDurationInBars
@@ -57,22 +77,30 @@ class StructureBuilder {
 
 export class Structure {
 
-  readonly patternsInStructure: PatternInStructure[]
+  readonly sectionsInStructure: SectionInStructure[]
+  key = 'Gm (mock)'; // TODO
 
   constructor(
     readonly sampleDuration: Time,
     readonly sampleBeatTimeDuration: number,
-    patterns: Pattern[],
+    sections: Section[],
     readonly warpMarkers: WarpMarker[],
     getEventsStartTime?: (pattern: Pattern) => Time | undefined, // TODO en attendant de savoir comment faire les events
     getEventsDurationInBars?: (pattern: Pattern) => number | undefined, // TODO en attendant de savoir comment faire les events
   ) {
-    this.patternsInStructure = []
+    this.sectionsInStructure = []
 
     let currentTime = new Time()
-    for (const pattern of patterns) {
-      this.patternsInStructure.push(new PatternInStructure(pattern, this, currentTime, getEventsStartTime?.(pattern), getEventsDurationInBars?.(pattern)))
-      currentTime = currentTime.add(pattern.duration)
+    for (const section of sections) {
+
+      const patternsInStructure: PatternInStructure[] = []
+      for (const pattern of section.patterns) {
+        patternsInStructure.push(new PatternInStructure(pattern, this, currentTime, getEventsStartTime?.(pattern), getEventsDurationInBars?.(pattern)))
+        currentTime = currentTime.add(pattern.duration)
+      }
+
+      const sectionInStructure = new SectionInStructure(section, this, patternsInStructure);
+      this.sectionsInStructure.push(sectionInStructure)
     }
 
     if (currentTime.toSeconds() !== sampleDuration.toSeconds()) {
@@ -81,24 +109,13 @@ export class Structure {
     if (currentTime.toAbletonLiveBarsBeatsSixteenths() !== sampleDuration.toAbletonLiveBarsBeatsSixteenths()) {
       console.warn('currentTime != duration', currentTime.toAbletonLiveBarsBeatsSixteenths(), sampleDuration.toAbletonLiveBarsBeatsSixteenths())
     }
+
+    console.log('Structure created :')
+    this.sectionsInStructure.forEach(s => console.log(s.toString()))
   }
 
-  getPatternInStructureAt(time: Time): PatternInStructure | undefined {
-
-    // TODO Attention : cette méthode n'est valable pour des time en seconds que si l'enregistrement est pile poil calé sur le tempo, sinon il faut convertir
-
-    const firstPatternInStructure = this.patternsInStructure[0];
-    if (time.isBefore(firstPatternInStructure.startTime)) {
-      return undefined
-    }
-
-    for (const patternInStructure of this.patternsInStructure) {
-      if (time.isBeforeOrEquals(patternInStructure.endTime)) {
-        return patternInStructure
-      }
-    }
-
-    return undefined
+  getSectionInStructureAt(time: Time): SectionInStructure | undefined {
+    return Time.getElementAt(time, this.sectionsInStructure, true)
   }
 
   static builder(): StructureBuilder {
@@ -176,5 +193,4 @@ export class Structure {
 
     return new Time(Tone.Time(secTime))
   }
-
 }

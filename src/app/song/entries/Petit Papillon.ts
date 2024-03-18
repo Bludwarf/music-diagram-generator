@@ -5,6 +5,7 @@ import {RythmBarEvent} from "../../rythm-bar/event";
 import eventsJson from '../../../assets/events/Petit Papillon/events.json';
 import {Pattern} from "../../structure/pattern/pattern";
 import {Structure} from "../../structure/structure";
+import {Section} from "../../structure/section/section";
 
 
 // On utilise pour l'instant le fichier DIDAFTA PETIT PAPILLON Master Web 24bit 48Khz_02-01.wav
@@ -84,13 +85,15 @@ const bombardePassageApresRefrain = [bombardeSeuleM1, bombardeSeuleM2, bombardeM
 const coupletPassage = [couplet, coupletBb]
 const refrainPassage = [refrain, refrain]
 
+const sections: Section[] = [
+  new Section('Intro', [...intro,]),
+  new Section('1', [...coupletPassage, ...bombardePassage, ...coupletPassage, ...refrainPassage, ...bombardePassageApresRefrain,]),
+  new Section('2', [...coupletPassage, ...bombardePassage, ...coupletPassage, ...refrainPassage, ...bombardePassageApresRefrain,]),
+]
+
 const structure = Structure.builder()
   .stuctureObject(stuctureObject)
-  .patterns([
-    ...intro,
-    ...coupletPassage, ...bombardePassage, ...coupletPassage, ...refrainPassage, ...bombardePassageApresRefrain,
-    ...coupletPassage, ...bombardePassage, ...coupletPassage, ...refrainPassage, ...bombardePassageApresRefrain,
-  ])
+  .sections(sections)
   .getEventsStartTime((pattern: Pattern) => {
     if (pattern === bombarde) return Time.fromValue("0:0")
     if (pattern === bombardeM3et4) return Time.fromValue("0:0")

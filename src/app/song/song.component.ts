@@ -6,7 +6,7 @@ import {StructureComponent} from '../structure/structure.component';
 import * as Tone from 'tone'
 import {FormsModule} from '@angular/forms';
 import {Structure} from '../structure/structure';
-import {Time} from '../time';
+import {Time, TimedElement} from '../time';
 import {PatternInStructure} from '../structure/pattern/pattern-in-structure';
 import {FretboardComponent} from '../fretboard/fretboard.component';
 import {Chord} from '../notes';
@@ -21,6 +21,7 @@ import nuagesEntry from "./entries/Nuages blancs";
 import {Title} from "@angular/platform-browser";
 import {ActivatedRoute} from "@angular/router";
 import {SongEntry} from "./song-entry";
+import {SectionInStructure} from "../structure/section/section-in-structure";
 
 @Component({
   selector: 'app-song',
@@ -31,15 +32,20 @@ import {SongEntry} from "./song-entry";
 })
 export class SongComponent implements OnInit {
 
+  debug = false
+
+  currentSectionInStructure?: SectionInStructure;
   currentPatternInStructure?: PatternInStructure;
   currentChord?: Chord;
 
   progress = 0;
   timecode?: string;
+  transportPosition?: any;
   transportSeconds?: number
   structure?: Structure;
   rythmBarTimecode?: string;
   transportBeatTime?: number
+  currentSectionInStructureRelativeTimecode?: string;
   currentPatternInStructureRelativeTimecode?: string;
 
   songEntries: SongEntry[] = []
@@ -172,12 +178,22 @@ export class SongComponent implements OnInit {
         // console.log('t2', time)
         // console.log('P2', Tone.Transport.position)
         // this.timecode = abletonLiveBarsBeatsSixteenths(Tone.Transport)
+        this.transportPosition = Tone.Transport.position
         this.timecode = warpTime.toAbletonLiveBarsBeatsSixteenths()
         this.transportBeatTime = +warpTime.toBeatTime().toFixed(0)
 
         const changePatternFasterDelay = Time.fromValue(0) // Time.fromValue('4n') // TODO trop bizarre à l'affichage de la section courante, mais ok pour affichage partoche
         const delayedWrappedTime = warpTime.add(changePatternFasterDelay);
-        this.currentPatternInStructure = this.structure.getPatternInStructureAt(delayedWrappedTime)
+        this.currentSectionInStructure = this.structure.getSectionInStructureAt(delayedWrappedTime)
+        if (this.currentSectionInStructure) {
+          this.currentPatternInStructure = this.currentSectionInStructure.getPatternInStructureAt(delayedWrappedTime)
+          this.currentSectionInStructureRelativeTimecode = delayedWrappedTime
+            .relativeTo(this.currentSectionInStructure.startTime)
+            .toAbletonLiveBarsBeatsSixteenths()
+        } else {
+          delete this.currentPatternInStructure
+          delete this.currentSectionInStructureRelativeTimecode
+        }
         this.currentChord = this.currentPatternInStructure?.getChordAt(delayedWrappedTime)
 
         if (this.currentPatternInStructure) {
@@ -222,13 +238,20 @@ export class SongComponent implements OnInit {
     Tone.Transport.stop()
   }
 
+  onClickSectionInStructure(sectionInStructure: SectionInStructure): void {
+    this.onClickElementInStructure(sectionInStructure, sectionInStructure.structure)
+  }
+
   onClickPatternInStructure(patternInStructure: PatternInStructure): void {
-    const wrappedTime = patternInStructure.structure.getWrappedTime(patternInStructure.startTime);
+    this.onClickElementInStructure(patternInStructure, patternInStructure.structure)
+  }
+
+  private onClickElementInStructure(element: TimedElement, structure: Structure): void {
+    const wrappedTime = structure.getWrappedTime(element.startTime);
     if (wrappedTime) {
-      // const progress = wrappedTime.toSeconds() / sampleDuration.toSeconds()
-      const progress = wrappedTime.toSeconds() / patternInStructure.structure.sampleDuration.toSeconds();
-      this.setProgressPercent(progress * 100)
-      // this.changeDetectorRef.detectChanges();
+      const fixOffset = 0.05 // On corrige la sélection qui arrive souvent sur l'élément précédent
+      Tone.Transport.seconds = wrappedTime.toSeconds() + fixOffset
+      this.refresh()
     }
   }
 
@@ -290,8 +313,7 @@ export class SongComponent implements OnInit {
   }
 
   setProgressPercent(progress: number): void {
-    const position = new Time(Tone.Time(progress / 100 * +Tone.Transport.loopEnd.valueOf(), 's'))
-    Tone.Transport.position = position.toBarsBeatsSixteenths() // TODO trouver la bonne conversion
+    Tone.Transport.position = progress / 100 * Time.fromValue(Tone.Transport.loopEnd).toSeconds()
     this.refresh()
   }
 

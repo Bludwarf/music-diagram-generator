@@ -2,6 +2,7 @@ import stuctureObject from "../../../assets/structures/Surcouf.json";
 import {FretboardData, Pattern} from "../../structure/pattern/pattern";
 import {Structure} from "../../structure/structure";
 import {Key} from "../../notes";
+import {Section} from "../../structure/section/section";
 
 const key = Key.Bb
 const fretboard: FretboardData = {
@@ -38,16 +39,16 @@ const refrain = Pattern.fromData({
   fretboard,
 })
 
-const patterns: Pattern[] = [
-  soloBombarde,
-  couplet, couplet, couplet, couplet, refrain, refrain, refrain,
-  couplet, couplet, refrain, refrain, refrain,
-  couplet, soloBombarde, couplet, couplet,
+const sections: Section[] = [
+  new Section('Intro', [soloBombarde,]),
+  new Section('1', [couplet, couplet, couplet, couplet, refrain, refrain, refrain,]),
+  new Section('2', [couplet, couplet, refrain, refrain, refrain,]),
+  new Section('3', [couplet, soloBombarde, couplet, couplet,]),
 ]
 
 const structure = Structure.builder()
   .stuctureObject(stuctureObject)
-  .patterns(patterns)
+  .sections(sections)
   .build()
 
 export default {

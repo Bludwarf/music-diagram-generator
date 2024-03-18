@@ -2,6 +2,7 @@ import stuctureObject from "../../../assets/structures/Le résistant.json";
 import {FretboardData, Pattern} from "../../structure/pattern/pattern";
 import {Structure} from "../../structure/structure";
 import {Key} from "../../notes";
+import {Section} from "../../structure/section/section";
 
 const key = Key.Cm
 const fretboard: FretboardData = {
@@ -36,15 +37,15 @@ const fin = Pattern.fromData({
   fretboard,
 })
 
-const patterns: Pattern[] = [
-  couplet, couplet, couplet, couplet, couplet, refrain, silence,
-  couplet, couplet, couplet, couplet, refrain, silence,
-  couplet, fin,
+const sections: Section[] = [
+  new Section('1', [couplet, couplet, couplet, couplet, couplet, refrain, silence,]),
+  new Section('2', [couplet, couplet, couplet, couplet, refrain, silence,]),
+  new Section('Final', [couplet, fin,]),
 ]
 
 const structure = Structure.builder()
   .stuctureObject(stuctureObject)
-  .patterns(patterns)
+  .sections(sections)
   .build()
 
 export default {

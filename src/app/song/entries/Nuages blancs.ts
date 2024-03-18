@@ -2,6 +2,7 @@ import stuctureObject from "../../../assets/structures/Nuages blancs.json";
 import {FretboardData, Pattern} from "../../structure/pattern/pattern";
 import {Structure} from "../../structure/structure";
 import {Key} from "../../notes";
+import {Section} from "../../structure/section/section";
 
 const key = Key.Gm
 const fretboard: FretboardData = {
@@ -63,19 +64,19 @@ const sA = Pattern.fromData({
   fretboard, // TODO fretboard
 })
 
-const patterns: Pattern[] = [
-  i, i, i, i, i, i, i, i, // 8 fois I
-  c, c, c, r, r, r, rp, i, i, i, i, i, i, i, i, // 8 fois I
-  c, c, c, r, r, r, rp, i, i, i, i, i, i, i, i, // 8 fois I
-  sB, sB, sB, sB, sA, sA, sA, sA, sA, sA, sA, sA, sB, sB, sB, sB, // solo = 16 fois I
-  c, c, c, r, r, r, rp, i, i, i, i, i, i, i, i, // 8 fois I
-  c, c, c, r, r, r, rp, i, i, i, i, i, i, i, i, // 8 fois I
-  i, i, i, i, fin, // fin
+const sections : Section[] = [
+  new Section('Intro', [i, i, i, i, i, i, i, i,]), // 8 fois I
+  new Section('C1', [c, c, c, r, r, r, rp, i, i, i, i, i, i, i, i,]), // 8 fois I
+  new Section('C2', [c, c, c, r, r, r, rp, i, i, i, i, i, i, i, i,]), // 8 fois I
+  new Section('Solo', [sB, sB, sB, sB, sA, sA, sA, sA, sA, sA, sA, sA, sB, sB, sB, sB,]), // solo = 16 fois I
+  new Section('C3', [c, c, c, r, r, r, rp, i, i, i, i, i, i, i, i,]), // 8 fois I
+  new Section('C4', [c, c, c, r, r, r, rp, i, i, i, i, i, i, i, i,]), // 8 fois I
+  new Section('Fin', [i, i, i, i, fin,]), // fin
 ]
 
 const structure = Structure.builder()
   .stuctureObject(stuctureObject)
-  .patterns(patterns)
+  .sections(sections)
   .build()
 
 export default {

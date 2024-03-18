@@ -1,5 +1,19 @@
 <ng-container *ngIf="structure">
-    <app-pattern *ngFor="let patternInStructure of structure.patternsInStructure"
-        [class.active]="patternInStructure == currentPatternInStructure"
-        (click)="onClickPatternInStructure(patternInStructure)">{{patternInStructure.initial}}</app-pattern>
+  <app-section *ngFor="let sectionInStructure of structure.sectionsInStructure"
+               [class.active]="sectionInStructure == currentSectionInStructure"
+               (click)="onClickSectionInStructure(sectionInStructure)">{{ sectionInStructure.section.name }}
+  </app-section>
+  <ng-container *ngIf="currentSectionInStructure">
+    <br/>
+    {{ currentSectionInStructureRelativeTimecode }} / {{ currentSectionInStructure.section.duration.toBars() }}
+    <br/>
+    ---
+    <br/>
+    <div class="patterns">
+      <app-pattern *ngFor="let patternInStructure of currentSectionInStructure.patternsInStructure"
+                   [class.active]="patternInStructure == currentPatternInStructure"
+                   (click)="onClickPatternInStructure(patternInStructure)">{{ patternInStructure.initial }}
+      </app-pattern>
+    </div>
+  </ng-container>
 </ng-container>

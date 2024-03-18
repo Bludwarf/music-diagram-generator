@@ -1,8 +1,12 @@
-:host {
+.patterns {
     display: flex;
     flex-wrap: wrap;
+
+  app-pattern {
+    flex: 1;
+  }
 }
 
-app-pattern.active {
+.active {
     color: white;
 }

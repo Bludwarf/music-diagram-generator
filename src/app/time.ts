@@ -137,6 +137,34 @@ export class Time {
     // TODO uniquement en 4/4
     return fields.bars * 4 + fields.beats
   }
+
+  static sum(times: Time[]) {
+    return times.reduce((s, t) => s.add(t));
+  }
+
+  static getElementAt<E extends TimedElement>(time: Time, elements: E[], overflow = false): E | undefined {
+
+    // TODO Attention : cette méthode n'est valable pour des time en seconds que si l'enregistrement est pile poil calé sur le tempo, sinon il faut convertir
+
+    const firstElement = elements[0];
+    if (time.isBefore(firstElement.startTime)) {
+      return overflow ? firstElement : undefined
+    }
+
+    for (const element of elements) {
+      if (time.isBeforeOrEquals(element.endTime)) {
+        // console.log('getElementAt', time.toSeconds(), (element as any).section?.name, elements.indexOf(element))
+        return element
+      }
+    }
+
+    return overflow ? elements[elements.length - 1] : undefined
+  }
+}
+
+export interface TimedElement {
+  startTime: Time
+  endTime: Time
 }
 
 export const ONE_BAR = Time.fromValue('1m')

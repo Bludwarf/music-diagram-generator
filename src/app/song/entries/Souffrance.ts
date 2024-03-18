@@ -2,6 +2,7 @@ import stuctureObject from "../../../assets/structures/Souffrance.json";
 import {FretboardData, Pattern} from "../../structure/pattern/pattern";
 import {Structure} from "../../structure/structure";
 import {Key} from "../../notes";
+import {Section} from "../../structure/section/section";
 
 const key = Key.Cm
 const fretboard: FretboardData = {
@@ -43,16 +44,16 @@ const fin = Pattern.fromData({
   fretboard,
 })
 
-const patterns: Pattern[] = [
-  i, i, i, i,
-  c, c, i, i, c, c, r, r, i, i,
-  c, c, i, i, c, c, r, r, i, i,
-  silence, i, i, i, i, fin,
+const sections: Section[] = [
+  new Section('Intro', [i, i, i, i,]),
+  new Section('1', [c, c, i, i, c, c, r, r, i, i,]),
+  new Section('2', [c, c, i, i, c, c, r, r, i, i,]),
+  new Section('Final', [silence, i, i, i, i, fin,]),
 ]
 
 const structure = Structure.builder()
   .stuctureObject(stuctureObject)
-  .patterns(patterns)
+  .sections(sections)
   .build()
 
 export default {

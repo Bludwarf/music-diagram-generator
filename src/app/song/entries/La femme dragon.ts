@@ -2,6 +2,7 @@ import {Key} from "../../notes";
 import stuctureObject from "../../../assets/structures/La femme dragon.json";
 import {Pattern} from "../../structure/pattern/pattern";
 import {Structure} from "../../structure/structure";
+import {Section} from "../../structure/section/section";
 
 
 const fretboard = {
@@ -43,12 +44,6 @@ const refrain = Pattern.fromData({
 const couplet_fois_4 = [couplet, couplet, couplet, couplet]
 const refrain_fois_2 = [refrain, refrain]
 
-const ligne1 = [coupletSansBasse, coupletSansBasse, coupletSansBasse, refrainCalme, refrainCalme]
-const ligne2 = [...couplet_fois_4, ...refrain_fois_2]
-const ligne3 = [...couplet_fois_4, ...refrain_fois_2, couplet, couplet]
-const ligne4Lent = [coupletSansBasse, coupletSansBasse, coupletSansBasse, coupletSansBasse, refrainCalme, refrainCalme]
-
-
 const fretboardFinal = {
   lowestFret: 3,
   fretsCount: 4,
@@ -70,20 +65,17 @@ const refrainFinal = Pattern.fromData({
   fretboard: fretboardFinal,
 })
 
-const ligne5Final = [coupletFinal, coupletFinal, coupletFinal, coupletFinal, refrainFinal, refrainFinal, coupletFinal, coupletFinal]
-
-const patterns: Pattern[] = [
-  ...ligne1,
-  ...ligne2,
-  ...ligne3,
-  ...ligne4Lent,
-  ...ligne5Final
-  // TODO il manque la toute fin (ralenti sur chaque temps, puis dernier accord)
+const sections = [
+  new Section('1', [coupletSansBasse, coupletSansBasse, coupletSansBasse, refrainCalme, refrainCalme]),
+  new Section('2', [...couplet_fois_4, ...refrain_fois_2]),
+  new Section('3', [...couplet_fois_4, ...refrain_fois_2, couplet, couplet]),
+  new Section('Calme', [coupletSansBasse, coupletSansBasse, coupletSansBasse, coupletSansBasse, refrainCalme, refrainCalme]),
+  new Section('Final', [coupletFinal, coupletFinal, coupletFinal, coupletFinal, refrainFinal, refrainFinal, coupletFinal, coupletFinal]),
 ]
 
 const structure = Structure.builder()
   .stuctureObject(stuctureObject)
-  .patterns(patterns)
+  .sections(sections)
   .build()
 
 export default {

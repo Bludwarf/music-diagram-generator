@@ -7,12 +7,13 @@
 import {AlsProject} from "./v10/als-project";
 import {checkXmlContent} from "../xml/xml-js-utils";
 
-declare function require(name:string): any; // source : https://stackoverflow.com/a/12742371/1655155
+import * as convert from 'xml-js';
+import {Injectable} from "@angular/core";
 
-var convert = require('xml-js')
-
+@Injectable({
+  providedIn: 'root'
+})
 // TODO trouver un utilitaire pour dézipper côté client
-
 export class AlsImporter {
 
   // async load(file: Blob): Promise<void> {
@@ -60,14 +61,22 @@ export class AlsImporter {
   //   })
   // }
 
-  async loadUnzipped(xmlFile: Blob) {
+  async loadUnzipped(xmlFile: Blob): Promise<AlsProject> {
     // TODO utiliser plutôt des stream
     const xmlContent = await xmlFile.text()
+    return this.loadXmlContent(xmlContent)
+  }
+
+  loadXmlContent(xmlContent: string): AlsProject {
     checkXmlContent(xmlContent);
-    const parsedXml = convert.xml2json(xmlContent, {
+    const jsonContent = convert.xml2json(xmlContent, {
       compact: true,
     })
-    return new AlsProject(JSON.parse(parsedXml))
+    return this.loadJsonContent(jsonContent)
+  }
+
+  loadJsonContent(jsonContent: string): AlsProject {
+    return new AlsProject(JSON.parse(jsonContent))
   }
 
 }

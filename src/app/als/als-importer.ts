@@ -5,6 +5,7 @@
 // const unzip = require('unzip-js')
 
 import {AlsProject} from "./v10/als-project";
+import {checkXmlContent} from "../xml/xml-js-utils";
 
 declare function require(name:string): any; // source : https://stackoverflow.com/a/12742371/1655155
 
@@ -62,7 +63,7 @@ export class AlsImporter {
   async loadUnzipped(xmlFile: Blob) {
     // TODO utiliser plutôt des stream
     const xmlContent = await xmlFile.text()
-    console.log(xmlContent)
+    checkXmlContent(xmlContent);
     const parsedXml = convert.xml2json(xmlContent, {
       compact: true,
     })

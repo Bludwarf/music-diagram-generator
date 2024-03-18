@@ -23,13 +23,12 @@ describe('AlsImporter', () => {
   //   request.send(null);
   // });
 
-  it('should load Petit papillon.als.xml', async (done) => {
+  it('should load Petit papillon.als.xml', async () => {
     const alsImporter = new AlsImporter();
     const filePath = 'src/assets/als/Petit papillon.als.xml';
     const blob = await getKarmaFile(filePath)
     const alsProject = await alsImporter.loadUnzipped(blob)
     expect(alsProject).toBeTruthy();
-    done();
   });
 
 });

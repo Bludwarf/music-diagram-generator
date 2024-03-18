@@ -62,6 +62,7 @@ export class AlsImporter {
   async loadUnzipped(xmlFile: Blob) {
     // TODO utiliser plutôt des stream
     const xmlContent = await xmlFile.text()
+    console.log(xmlContent)
     const parsedXml = convert.xml2json(xmlContent, {
       compact: true,
     })

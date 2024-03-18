@@ -34,12 +34,12 @@ export class SongComponent implements OnInit {
   currentPatternInStructure?: PatternInStructure;
   currentChord?: Chord;
 
-  private player?: Tone.Player;
-
   progress = 0;
   timecode?: string;
+  transportSeconds?: number
   structure?: Structure;
   rythmBarTimecode?: string;
+  transportBeatTime?: number
   currentPatternInStructureRelativeTimecode?: string;
 
   songEntries: SongEntry[] = []
@@ -132,8 +132,6 @@ export class SongComponent implements OnInit {
       // loopEnd: this.structure.sampleDuration.toSeconds(),
     }).toDestination();
 
-    await Tone.loaded() // évite les erreurs de buffer
-
     // cf. https://github.com/Tonejs/Tone.js/blob/dev/examples/daw.html
     Tone.Transport.bpm.value = 120;
     Tone.Transport.loop = true;
@@ -152,6 +150,9 @@ export class SongComponent implements OnInit {
 
     }, "16n").start(0);
 
+    await Tone.loaded() // évite les erreurs de buffer
+    await Tone.start()
+
     this.sampleIsLoaded = true
 
   }
@@ -163,14 +164,17 @@ export class SongComponent implements OnInit {
     this.progress = Math.min(Math.max(0, Tone.Transport.progress), 1) * 100;
 
     if (this.structure) {
+      this.transportSeconds = +Tone.Transport.seconds.toFixed(3)
       const warpTime = this.structure.getWarpPosition(Tone.Transport.seconds)
 
-      // console.log('t2', time)
-      // console.log('P2', Tone.Transport.position)
-      // this.timecode = abletonLiveBarsBeatsSixteenths(Tone.Transport)
-      this.timecode = warpTime?.toAbletonLiveBarsBeatsSixteenths()
-
       if (warpTime) {
+
+        // console.log('t2', time)
+        // console.log('P2', Tone.Transport.position)
+        // this.timecode = abletonLiveBarsBeatsSixteenths(Tone.Transport)
+        this.timecode = warpTime.toAbletonLiveBarsBeatsSixteenths()
+        this.transportBeatTime = +warpTime.toBeatTime().toFixed(0)
+
         const changePatternFasterDelay = Time.fromValue(0) // Time.fromValue('4n') // TODO trop bizarre à l'affichage de la section courante, mais ok pour affichage partoche
         const delayedWrappedTime = warpTime.add(changePatternFasterDelay);
         this.currentPatternInStructure = this.structure.getPatternInStructureAt(delayedWrappedTime)
@@ -193,6 +197,10 @@ export class SongComponent implements OnInit {
           delete this.rythmBarTimecode
           delete this.currentPatternInStructureRelativeTimecode
         }
+      } else {
+        delete this.timecode
+        delete this.rythmBarTimecode
+        delete this.currentPatternInStructureRelativeTimecode
       }
     }
 
@@ -201,14 +209,11 @@ export class SongComponent implements OnInit {
 
   async playSong(): Promise<void> {
     console.log('playSong')
-    await Tone.loaded() // évite les erreurs de buffer
-    Tone.start()
     Tone.Transport.start()
   }
 
   async pauseSong(): Promise<void> {
     console.log('pauseSong')
-    await Tone.loaded() // évite les erreurs de buffer
     Tone.Transport.pause()
   }
 
@@ -276,33 +281,6 @@ export class SongComponent implements OnInit {
 
     // await this.play();
 
-  }
-
-  async play(): Promise<void> {
-    if (this.player) {
-      console.log('play')
-      const bView = "https://drive.google.com/file/d/1DktZf_rGRaoRxoJEbo3NVWd9yYFX39aj/view?usp=sharing";
-      const bDownload = "https://drive.usercontent.google.com/u/0/uc?id=1DktZf_rGRaoRxoJEbo3NVWd9yYFX39aj&export=download";
-      const b = "../assets/audio/Petit Papillon/Partie bombarde [2024-01-31 233921].wav";
-      // const player = new Tone.Player({
-      //   url: b,
-      //   loop: true,
-      //   autostart: true,
-      // }).toDestination();
-      // Tone.loaded().then(() => {
-      //   player.start();
-      // });
-      await Tone.start()
-      this.player.start();
-    }
-  }
-
-  async stop(): Promise<void> {
-    if (this.player) {
-      await Tone.start()
-      this.player.stop()
-    }
-    this.refresh() // TODO KO
   }
 
   setProgress(event: Event): void {

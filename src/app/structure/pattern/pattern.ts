@@ -35,6 +35,8 @@ export class Pattern {
     );
   }
 
+  // TODO constructeur de copie / clone pour éviter de tout dupliquer dans les entries
+
 }
 
 export interface PatternInitData {

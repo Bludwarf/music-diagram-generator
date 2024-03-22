@@ -7,13 +7,13 @@ import {FretboardComponent} from '../fretboard/fretboard.component';
 import {RouterLink} from "@angular/router";
 
 @Component({
-  selector: 'app-rythm-sandbox',
+  selector: 'app-index',
   standalone: true,
   imports: [RythmBarComponent, JsonPipe, StructureComponent, CommonModule, FormsModule, FretboardComponent, RouterLink],
-  templateUrl: './rythm-sandbox.component.html',
-  styleUrl: './rythm-sandbox.component.scss',
+  templateUrl: './index.component.html',
+  styleUrl: './index.component.scss',
 })
-export class RythmSandboxComponent {
+export class IndexComponent {
 
   playlist = [
     'Petit Papillon',
@@ -24,8 +24,5 @@ export class RythmSandboxComponent {
     'Noyer le silence',
     'Nuages blancs',
   ]
-
-  constructor() {
-  }
 
 }

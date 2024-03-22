@@ -1,13 +1,13 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { RouterModule } from '@angular/router';
-import { ReactiveFormsModule } from '@angular/forms';
+import {NgModule} from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {RouterModule} from '@angular/router';
+import {ReactiveFormsModule} from '@angular/forms';
 
-import { AppComponent } from './app.component';
-import { CommonModule } from '@angular/common';
-import { RythmSandboxComponent } from './rythm-sandbox/rythm-sandbox.component';
+import {AppComponent} from './app.component';
+import {CommonModule} from '@angular/common';
 import {ConvertComponent} from "./convert/convert.component";
 import {SongComponent} from "./song/song.component";
+import {IndexComponent} from "./index/index.component";
 
 @NgModule({
   imports: [
@@ -15,7 +15,7 @@ import {SongComponent} from "./song/song.component";
     BrowserModule,
     ReactiveFormsModule,
     RouterModule.forRoot([
-      { path: '', component: RythmSandboxComponent },
+      { path: '', component: IndexComponent },
       { path: 'morceaux/:songName', component: SongComponent },
       { path: 'convert', component: ConvertComponent },
     ])

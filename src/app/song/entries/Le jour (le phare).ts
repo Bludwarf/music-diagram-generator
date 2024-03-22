@@ -63,7 +63,7 @@ const sections: Section[] = [
   new Section('C2', [couplet, couplet, couplet, couplet,]), // C
   new Section('R2', [refrain, refrain,]),
 
-  new Section('C3', [couplet, couplet,]),
+  new Section('B3', [couplet, couplet,]),
   new Section('Break', [bloquee, breakBatterie,]),
 
   new Section('Final', [couplet, couplet, coupletEb, coupletEb,]),

@@ -1,8 +1,9 @@
-import stuctureObject from "../../../assets/structures/Nuages blancs.json";
 import {FretboardData, Pattern} from "../../structure/pattern/pattern";
 import {Structure} from "../../structure/structure";
 import {Key} from "../../notes";
 import {Section} from "../../structure/section/section";
+import recordingInitData from "../../../assets/recordings/NUAGES BLANCS PréMaster Brut v2.02 SANS_01.json";
+import {Recording} from "../../recording/recording";
 
 const key = Key.Gm
 const fretboard: FretboardData = {
@@ -75,11 +76,15 @@ const sections : Section[] = [
 ]
 
 const structure = Structure.builder()
-  .stuctureObject(stuctureObject)
   .sections(sections)
+  .build()
+
+const recording = Recording.builder()
+  .initData(recordingInitData)
   .build()
 
 export default {
   name: 'Nuages blancs',
   structure,
+  recording,
 }

@@ -1,9 +1,18 @@
 import {WarpMarker} from "./warp-marker";
+import {Loop} from "./loop";
 
 export class AudioClip {
 
   constructor(private readonly xmlAudioClip: any) {
 
+  }
+
+  get name(): string {
+    return this.xmlAudioClip.Name._attributes.Value
+  }
+
+  get loop(): Loop {
+    return new Loop(this.xmlAudioClip.Loop)
   }
 
   get duration(): number {

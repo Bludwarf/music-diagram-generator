@@ -24,6 +24,7 @@ import {FormsModule} from "@angular/forms";
 import {FretboardComponent} from "../../../fretboard/fretboard.component";
 import {PatternComponent} from "../../../structure/pattern/pattern.component";
 import {SectionComponent} from "../../../structure/section/section.component";
+import {Recording} from "../../../recording/recording";
 
 @Component({
   selector: 'app-mobile-rehearsal-a',
@@ -47,6 +48,7 @@ export class MobileRehearsalAComponent implements OnInit {
   transportPosition?: any;
   transportSeconds?: number
   structure?: Structure;
+  recording?: Recording;
   rythmBarTimecode?: string;
   transportBeatTime?: number
   currentSectionInStructureRelativeTimecode?: string;
@@ -96,6 +98,7 @@ export class MobileRehearsalAComponent implements OnInit {
       error('SongEntry inconnu pour ' + this.songName)
     }
     this.structure = entry.structure
+    this.recording = entry.recording
   }
 
   private songNameEquals(songName: string) {
@@ -122,6 +125,9 @@ export class MobileRehearsalAComponent implements OnInit {
     if (!this.structure) {
       error('Aucune structure')
     }
+    if (!this.recording) {
+      error('Aucun enregistrement (Recording)')
+    }
 
     const element = event.currentTarget as HTMLInputElement;
     let fileList: FileList | null = element.files;
@@ -146,7 +152,7 @@ export class MobileRehearsalAComponent implements OnInit {
     Tone.Transport.bpm.value = 120;
     Tone.Transport.loop = true;
     Tone.Transport.loopStart = 0;
-    Tone.Transport.loopEnd = this.structure.sampleDuration.toSeconds() // structure.duration.toBarsBeatsSixteenths();
+    Tone.Transport.loopEnd = this.recording.sampleDuration.toSeconds() // structure.duration.toBarsBeatsSixteenths();
 
     player.sync().start(0)
 
@@ -173,9 +179,9 @@ export class MobileRehearsalAComponent implements OnInit {
 
     this.progress = Math.min(Math.max(0, Tone.Transport.progress), 1) * 100;
 
-    if (this.structure) {
+    if (this.structure && this.recording) {
       this.transportSeconds = +Tone.Transport.seconds.toFixed(3)
-      const warpTime = this.structure.getWarpPosition(Tone.Transport.seconds)
+      const warpTime = this.recording.getWarpPosition(Tone.Transport.seconds)
 
       if (warpTime) {
 
@@ -251,7 +257,10 @@ export class MobileRehearsalAComponent implements OnInit {
   }
 
   private onClickElementInStructure(element: TimedElement, structure: Structure): void {
-    const wrappedTime = structure.getWrappedTime(element.startTime);
+    if (!this.recording) {
+      error('Aucun enregistrement (Recording)')
+    }
+    const wrappedTime = this.recording.getWrappedTime(element.startTime);
     if (wrappedTime) {
       const fixOffset = 0.05 // On corrige la sélection qui arrive souvent sur l'élément précédent
       Tone.Transport.seconds = wrappedTime.toSeconds() + fixOffset

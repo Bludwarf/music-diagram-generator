@@ -1,0 +1,87 @@
+{
+  "name": "LE RESISTANT Pré-Masterbrut_02-01",
+  "sampleDuration": 197,
+  "sampleBeatTimeDuration": 379.3883330211455,
+  "warpMarkers": [
+    {
+      "secTime": 0,
+      "beatTime": -0.8124305382117882
+    },
+    {
+      "secTime": 0.4874583333333333,
+      "beatTime": 0
+    },
+    {
+      "secTime": 16.617874999999998,
+      "beatTime": 32
+    },
+    {
+      "secTime": 48.40141666666666,
+      "beatTime": 64
+    },
+    {
+      "secTime": 64.38291666666666,
+      "beatTime": 96
+    },
+    {
+      "secTime": 80.41875,
+      "beatTime": 128
+    },
+    {
+      "secTime": 88.55091666666667,
+      "beatTime": 144
+    },
+    {
+      "secTime": 92.64445833333333,
+      "beatTime": 152
+    },
+    {
+      "secTime": 96.5581875,
+      "beatTime": 160
+    },
+    {
+      "secTime": 112.64314583333334,
+      "beatTime": 192
+    },
+    {
+      "secTime": 116.72545833333334,
+      "beatTime": 200
+    },
+    {
+      "secTime": 124.68491666666667,
+      "beatTime": 216
+    },
+    {
+      "secTime": 128.59675,
+      "beatTime": 224
+    },
+    {
+      "secTime": 144.51929166666667,
+      "beatTime": 256
+    },
+    {
+      "secTime": 160.56816666666666,
+      "beatTime": 288
+    },
+    {
+      "secTime": 168.65872916666666,
+      "beatTime": 304
+    },
+    {
+      "secTime": 176.70497916666667,
+      "beatTime": 320
+    },
+    {
+      "secTime": 190.65445833333334,
+      "beatTime": 348
+    },
+    {
+      "secTime": 192.58866666666665,
+      "beatTime": 352
+    },
+    {
+      "secTime": 192.60741666707017,
+      "beatTime": 352.03125
+    }
+  ]
+}

@@ -1,0 +1,147 @@
+{
+  "name": "NUAGES BLANCS PréMaster Brut v2.02 SANS_01",
+  "sampleDuration": 273.96295833333335,
+  "sampleBeatTimeDuration": 932.7827300303862,
+  "warpMarkers": [
+    {
+      "secTime": 0,
+      "beatTime": -0.7827300303862804
+    },
+    {
+      "secTime": 0.42395837309788215,
+      "beatTime": 0
+    },
+    {
+      "secTime": 17.701291666666666,
+      "beatTime": 64
+    },
+    {
+      "secTime": 30.922270833333332,
+      "beatTime": 112
+    },
+    {
+      "secTime": 49.082541666666664,
+      "beatTime": 176
+    },
+    {
+      "secTime": 66.80204166666667,
+      "beatTime": 240
+    },
+    {
+      "secTime": 71.44810416666667,
+      "beatTime": 256
+    },
+    {
+      "secTime": 75.98356249999999,
+      "beatTime": 272
+    },
+    {
+      "secTime": 78.25212499999999,
+      "beatTime": 280
+    },
+    {
+      "secTime": 79.38366666666667,
+      "beatTime": 284
+    },
+    {
+      "secTime": 80.44440520387778,
+      "beatTime": 288
+    },
+    {
+      "secTime": 80.90841666666667,
+      "beatTime": 290
+    },
+    {
+      "secTime": 85.04110416666667,
+      "beatTime": 304
+    },
+    {
+      "secTime": 89.59554166666666,
+      "beatTime": 320
+    },
+    {
+      "secTime": 94.15424999999999,
+      "beatTime": 336
+    },
+    {
+      "secTime": 96.50452083333333,
+      "beatTime": 344
+    },
+    {
+      "secTime": 98.6989375,
+      "beatTime": 352
+    },
+    {
+      "secTime": 116.77741666666667,
+      "beatTime": 416
+    },
+    {
+      "secTime": 125.7705625,
+      "beatTime": 448
+    },
+    {
+      "secTime": 143.68041666666667,
+      "beatTime": 512
+    },
+    {
+      "secTime": 152.68768749999998,
+      "beatTime": 544
+    },
+    {
+      "secTime": 157.23129166666666,
+      "beatTime": 560
+    },
+    {
+      "secTime": 161.73185416666666,
+      "beatTime": 576
+    },
+    {
+      "secTime": 166.23175,
+      "beatTime": 592
+    },
+    {
+      "secTime": 184.92158333333333,
+      "beatTime": 656
+    },
+    {
+      "secTime": 202.97295833333334,
+      "beatTime": 720
+    },
+    {
+      "secTime": 217.38062499999998,
+      "beatTime": 768
+    },
+    {
+      "secTime": 236.63854166666667,
+      "beatTime": 832
+    },
+    {
+      "secTime": 255.14091666666667,
+      "beatTime": 896
+    },
+    {
+      "secTime": 257.5819583333333,
+      "beatTime": 904
+    },
+    {
+      "secTime": 259.93664583333333,
+      "beatTime": 912
+    },
+    {
+      "secTime": 262.32047916666664,
+      "beatTime": 920
+    },
+    {
+      "secTime": 263.4732916666667,
+      "beatTime": 924
+    },
+    {
+      "secTime": 264.54720833333334,
+      "beatTime": 928
+    },
+    {
+      "secTime": 264.61854869968425,
+      "beatTime": 928.03125
+    }
+  ]
+}

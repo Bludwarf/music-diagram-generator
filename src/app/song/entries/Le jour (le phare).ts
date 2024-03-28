@@ -1,8 +1,9 @@
-import stuctureObject from "../../../assets/structures/Le jour (le phare).json";
 import {FretboardData, Pattern} from "../../structure/pattern/pattern";
 import {Structure} from "../../structure/structure";
 import {Key} from "../../notes";
+import recordingInitData from "../../../assets/recordings/LE PHARE Master Web 24bit 48Khz_v2_04.json";
 import {Section} from "../../structure/section/section";
+import {Recording} from "../../recording/recording";
 
 const key = Key.Cm
 const fretboard: FretboardData = {
@@ -73,11 +74,15 @@ const sections: Section[] = [
 ]
 
 const structure = Structure.builder()
-  .stuctureObject(stuctureObject)
   .sections(sections)
+  .build()
+
+const recording = Recording.builder()
+  .initData(recordingInitData)
   .build()
 
 export default {
   name: 'Le jour (le phare)',
   structure,
+  recording,
 }

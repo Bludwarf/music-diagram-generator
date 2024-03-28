@@ -122,6 +122,7 @@ export class Structure {
     return new StructureBuilder()
   }
 
+  /** @deprecated */
   private getWarpMarkers(): WarpMarker[] {
     return [
       ...this.warpMarkers,
@@ -142,6 +143,7 @@ export class Structure {
   //   }
   // }
 
+  /** @deprecated */
   getWarpPosition(seconds: number): Time | undefined {
 
     const warpMarkers = this.getWarpMarkers()

@@ -9,3 +9,7 @@ export function error(message: string): never {
   alert(message)
   throw new Error(message)
 }
+
+export interface Builder<T> {
+  build(): T
+}

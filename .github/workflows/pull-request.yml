@@ -1,0 +1,23 @@
+name: Merge Request
+on:
+  pull_request:
+    types:
+      - opened
+jobs:
+  test:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      # Source : https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-nodejs#example-using-npm
+      - uses: actions/checkout@v4
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+      - name: Install dependencies
+        run: npm ci
+      - run: npm test
+
+permissions:
+  contents: write # Allow write permission to GITHUB_TOKEN to commit to deploy branch.

@@ -1,0 +1,59 @@
+:host {
+  width: 100%;
+}
+
+input[type=file] {
+  font-size: 14px;
+  border-radius: 2px;
+  padding: 8px;
+  margin-bottom: 16px;
+  border: 1px solid #BDBDBD;
+}
+
+input[type=range] {
+  width: 100%;
+  margin: 0;
+}
+
+#transport {
+  display: flex;
+  gap: 2px;
+  padding: 2px;
+  align-items: center;
+
+  & > * {
+    flex: 1;
+  }
+
+  #transport-timecode {
+    text-align: right;
+  }
+
+  #transport-buttons {
+    flex: 0;
+    display: flex;
+    justify-content: center;
+
+    button {
+      aspect-ratio: 1;
+    }
+  }
+
+  #range-container {
+  }
+}
+
+#sections,
+#patterns {
+  display: flex;
+  flex-wrap: wrap;
+
+  & > * {
+    flex: 1;
+    padding: 0 0.1rem;
+  }
+}
+
+.active {
+  color: white;
+}

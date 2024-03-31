@@ -49,16 +49,6 @@ a:hover {
   opacity: 0.8;
 }
 
-/* Input */
-
-input {
-  font-size: 14px;
-  border-radius: 2px;
-  padding: 8px;
-  margin-bottom: 16px;
-  border: 1px solid #BDBDBD;
-}
-
 label {
   font-size: 12px;
   font-weight: bold;

@@ -4,20 +4,19 @@
 
 :host {
   background: #000;
-  display: inline-grid;
+  display: grid;
   grid-template-columns: auto repeat(4, 1fr); /* 4 cordes + 1 colonnes pour les points blancs */
-  gap: 2mm;
+  gap: 1mm;
   padding: 2mm;
-  margin: 2mm;
 }
 
 [data-fret] {
   flex: 1 1 auto;
   /*border: solid 1px #444;*/
-  height: 2cm;
-  width: 2cm;
-  line-height: 2cm;
+  aspect-ratio: 1;
+  line-height: 18mm;
   box-sizing: border-box;
+  overflow: clip;
 }
 
 [data-note] {
@@ -43,28 +42,12 @@
   /*box-shadow: 0 0 0 1pt #FFF;*/ /* Laisse des traces après le survol */
 }
 
-/*.fret-mark {*/
-/*    !*color: transparent;*!*/
-/*    color: #444;*/
-/*    font-size: 5mm;*/
-/*    text-align: left;*/
-/*    width: 5mm;*/
-/*    padding-left: .5ex;*/
-/*    padding-right: 2ex;*/
-/*    !*noinspection CssInvalidPropertyValue*!*/
-/*    text-wrap: nowrap;*/
-/*}*/
-
 .fret-mark {
-  /*color: transparent;*/
   color: #444;
-  font-size: 5mm;
+  font-size: 72%;
   text-align: right;
-  width: 1cm;
-  /*padding-left: 2ex;*/
-  /*padding-right: .5ex;*/
-  /*noinspection CssInvalidPropertyValue*/
   text-wrap: nowrap;
+  aspect-ratio: unset;
 }
 
 .fret-mark[data-fret='3'],

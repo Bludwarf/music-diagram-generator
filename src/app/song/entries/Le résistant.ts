@@ -4,6 +4,7 @@ import {FretboardData, Pattern} from "../../structure/pattern/pattern";
 import {Recording} from "../../recording/recording";
 import {Structure} from "../../structure/structure";
 import {Section} from "../../structure/section/section";
+import {Part} from "../../structure/part/part";
 
 const key = Key.Cm
 const fretboard: FretboardData = {
@@ -38,14 +39,30 @@ const fin = Pattern.fromData({
   fretboard,
 })
 
-const sections: Section[] = [
-  new Section('1', [couplet, couplet, couplet, couplet, couplet, refrain, silence,]),
-  new Section('2', [couplet, couplet, couplet, couplet, refrain, silence,]),
-  new Section('Final', [couplet, fin,]),
+const parts: Part[] = [
+  new Part('Intro', [
+    new Section(`D'nB`, [couplet]),
+  ]),
+  new Part('1', [
+    new Section(`Bombarde`, [couplet]),
+    new Section(`Couplet`, [couplet, couplet]),
+    new Section(`Bombarde`, [couplet]),
+    new Section(`Refrain`, [refrain, silence]),
+  ]),
+  new Part('2', [
+    new Section(`Bombarde`, [couplet]),
+    new Section(`Couplet`, [couplet, couplet]),
+    new Section(`Bombarde`, [couplet]),
+    new Section(`Refrain`, [refrain, silence]),
+  ]),
+  new Part('Final', [
+    new Section(`Bombarde`, [couplet]),
+    new Section(`Fin`, [fin]),
+  ]),
 ]
 
 const structure = Structure.builder()
-  .sections(sections)
+  .parts(parts)
   .build()
 
 const recording = Recording.builder()

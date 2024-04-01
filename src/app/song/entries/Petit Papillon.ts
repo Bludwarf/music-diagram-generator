@@ -7,6 +7,7 @@ import {Pattern} from "../../structure/pattern/pattern";
 import {Recording} from "../../recording/recording";
 import {Structure} from "../../structure/structure";
 import {Section} from "../../structure/section/section";
+import {Part} from "../../structure/part/part";
 
 
 // On utilise pour l'instant le fichier DIDAFTA PETIT PAPILLON Master Web 24bit 48Khz_02-01.wav
@@ -80,20 +81,34 @@ const refrain = Pattern.fromData({
   events: events.filter((event: any) => event.bar >= 5),
 })
 
-const intro = [bombardeSeuleIntro, bombarde, bombarde]
-const bombardePassage = [bombarde, bombarde]
-const bombardePassageApresRefrain = [bombardeSeuleM1, bombardeSeuleM2, bombardeM3et4, bombarde]
-const coupletPassage = [couplet, coupletBb]
-const refrainPassage = [refrain, refrain]
+const intro = new Section('Intro', [bombardeSeuleIntro, bombarde, bombarde])
+const bombardePassage = new Section('Bombarde', [bombarde, bombarde])
+const bombardePassageApresRefrain = new Section('Bombarde après refrain', [bombardeSeuleM1, bombardeSeuleM2, bombardeM3et4, bombarde], 'Ba')
+const coupletPassage = new Section('Couplet', [couplet, coupletBb])
+const refrainPassage = new Section('Refrain', [refrain, refrain])
 
-const sections: Section[] = [
-  new Section('Intro', [...intro,]),
-  new Section('1', [...coupletPassage, ...bombardePassage, ...coupletPassage, ...refrainPassage, ...bombardePassageApresRefrain,]),
-  new Section('2', [...coupletPassage, ...bombardePassage, ...coupletPassage, ...refrainPassage, ...bombardePassageApresRefrain,]),
+const parts: Part[] = [
+  new Part('Intro', [
+    intro,
+  ]),
+  new Part('1', [
+    coupletPassage,
+    bombardePassage,
+    coupletPassage,
+    refrainPassage,
+    bombardePassageApresRefrain
+  ]),
+  new Part('2', [
+    coupletPassage,
+    bombardePassage,
+    coupletPassage,
+    refrainPassage,
+    bombardePassageApresRefrain
+  ]),
 ]
 
 const structure = Structure.builder()
-  .sections(sections)
+  .parts(parts)
   .getEventsStartTime((pattern: Pattern) => {
     if (pattern === bombarde) return Time.fromValue("0:0")
     if (pattern === bombardeM3et4) return Time.fromValue("0:0")

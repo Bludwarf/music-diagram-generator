@@ -4,6 +4,7 @@ import {Key} from "../../notes";
 import {Section} from "../../structure/section/section";
 import recordingInitData from "../../../assets/recordings/NUAGES BLANCS PréMaster Brut v2.02 SANS_01.json";
 import {Recording} from "../../recording/recording";
+import {Part} from "../../structure/part/part";
 
 const key = Key.Gm
 const fretboard: FretboardData = {
@@ -53,30 +54,69 @@ const sB = Pattern.fromData({
   key,
   name: 'Solo (base)',
   initial: 'Sb',
-  chords: '| G | C |', // TODO accords
-  fretboard, // TODO fretboard
+  chords: '| G | G |',
+  fretboard,
 })
 
-const sA = Pattern.fromData({
+const sAData = ({
   key,
   name: 'Solo (accords)',
-  initial: 'Sa',
-  chords: '| G | C |', // TODO accords
-  fretboard, // TODO fretboard
+  fretboard: {
+    lowestFret: 8,
+    fretsCount: 8,
+  }
 })
 
-const sections : Section[] = [
-  new Section('Intro', [i, i, i, i, i, i, i, i,]), // 8 fois I
-  new Section('C1', [c, c, c, r, r, r, rp, i, i, i, i, i, i, i, i,]), // 8 fois I
-  new Section('C2', [c, c, c, r, r, r, rp, i, i, i, i, i, i, i, i,]), // 8 fois I
-  new Section('Solo', [sB, sB, sB, sB, sA, sA, sA, sA, sA, sA, sA, sA, sB, sB, sB, sB,]), // solo = 16 fois I
-  new Section('C3', [c, c, c, r, r, r, rp, i, i, i, i, i, i, i, i,]), // 8 fois I
-  new Section('C4', [c, c, c, r, r, r, rp, i, i, i, i, i, i, i, i,]), // 8 fois I
-  new Section('Fin', [i, i, i, i, fin,]), // fin
+const sAG = Pattern.fromData({
+  ...sAData,
+  initial: 'Gm',
+  chords: '| Gm | Gm |',
+})
+
+const sAD = Pattern.fromData({
+  ...sAData,
+  initial: 'Dm',
+  chords: '| Dm | Dm |',
+})
+
+const sAC = Pattern.fromData({
+  ...sAData,
+  initial: 'Cm',
+  chords: '| Cm | Cm |',
+})
+
+const sADMaj = Pattern.fromData({
+  ...sAData,
+  initial: 'D*',
+  chords: '| Dm | D |',
+})
+
+const couplet = new Section('Couplet', [c, c, c,]);
+const refrain = new Section('Refrain', [r, r, r, rp,]);
+const bombarde = new Section('Bombarde', [i, i, i, i, i, i, i, i,]);
+
+const coupletRap = new Section('Couplet (rap)', [c, c, c,]);
+
+const parts: Part[] = [
+  new Part('Intro', [
+    new Section(`D'nB`, [i, i, i, i, i, i, i, i,]) // 8 fois I
+  ]),
+  new Part('1', [couplet, refrain, bombarde,]),
+  new Part('2', [couplet, refrain, bombarde,]),
+  new Part('Solo', [
+    new Section(`D'nB`, [sB, sB, sB, sB]),
+    new Section(`Accords`, [sAG, sAG, sAD, sAD, sAC, sAC, sADMaj, sADMaj]),
+    new Section(`D'nB`, [sB, sB, sB, sB]),
+  ]),
+  new Part('3', [coupletRap, refrain, bombarde,]),
+  new Part('4', [couplet, refrain, bombarde,]),
+  new Part('Fin', [
+    new Section('Fin', [i, i, i, i, fin])
+  ]),
 ]
 
 const structure = Structure.builder()
-  .sections(sections)
+  .parts(parts)
   .build()
 
 const recording = Recording.builder()

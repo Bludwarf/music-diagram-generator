@@ -26,21 +26,35 @@
 
 <ng-container *ngIf="structure">
 
-  <!-- Sections -->
-  <div id="sections">
-    <app-section *ngFor="let sectionInStructure of structure.sectionsInStructure"
-                 [class.active]="sectionInStructure == currentSectionInStructure"
-                 (click)="onClickSectionInStructure(sectionInStructure)">{{ sectionInStructure.section.name }}
+  <!-- Parties -->
+  <div id="parts">
+    <app-section *ngFor="let partInStructure of structure.partsInStructure"
+                 [class.active]="partInStructure === currentPartInStructure"
+                 (click)="this.onClickElementInStructure(partInStructure)">{{ partInStructure.part.name }}
     </app-section>
   </div>
 
-  <!-- Patterns -->
-  <div id="patterns" *ngIf="currentSectionInStructure">
-    <app-pattern *ngFor="let patternInStructure of currentSectionInStructure.patternsInStructure"
-                 [class.active]="patternInStructure == currentPatternInStructure"
-                 (click)="onClickPatternInStructure(patternInStructure)">{{ patternInStructure.initial }}
-    </app-pattern>
+  <!-- Sections -->
+  <div id="sections" *ngIf="currentPartInStructure">
+    <app-section *ngFor="let sectionInStructure of currentPartInStructure.sectionsInStructure"
+                 [class.active]="sectionInStructure === currentSectionInStructure"
+                 (click)="this.onClickElementInStructure(sectionInStructure)">{{ sectionInStructure.initial }}
+    </app-section>
   </div>
+
+  <!-- Détails de la section courante -->
+  <ng-container *ngIf="currentSectionInStructure">
+    <span class="active pattern">{{ currentSectionInStructure.section.name }}</span><br/>
+
+    <!-- Patterns -->
+    <div id="patterns">
+      <app-pattern *ngFor="let patternInStructure of currentSectionInStructure.patternsInStructure"
+                   [class.active]="patternInStructure == currentPatternInStructure"
+                   (click)="this.onClickElementInStructure(patternInStructure)">{{ patternInStructure.initial }}
+      </app-pattern>
+    </div>
+
+  </ng-container>
 
   <!-- Détail sur le pattern courant -->
   <ng-container *ngIf="currentPatternInStructure">

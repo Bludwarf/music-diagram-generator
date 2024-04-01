@@ -5,6 +5,7 @@ import recordingInitData from "../../../assets/recordings/NOYER LE SILENCE Maste
 import {Key} from "../../notes";
 import {Section} from "../../structure/section/section";
 import {Recording} from "../../recording/recording";
+import {Part} from "../../structure/part/part";
 
 const key = Key.Cm
 const fretboard: FretboardData = {
@@ -46,15 +47,35 @@ const fin = Pattern.fromData({
   fretboard,
 })
 
-const sections: Section[] = [
-  new Section('Intro', [i, i, i, i,]),
-  new Section('1', [c, c, i, i, c, c, r, r, i, i,]),
-  new Section('2', [c, c, i, i, c, c, r, r, i, i,]),
-  new Section('Final', [silence, i, i, i, i, fin,]),
+const parts: Part[] = [
+  new Part('Intro', [
+    new Section('Solo Bombarde', [i]),
+    new Section('Instru', [i, i, i]),
+  ]),
+  new Part('1', [
+    new Section('Couplet', [c, c]),
+    new Section('Bombarde', [i, i]),
+    new Section('Couplet', [c, c]),
+    new Section('Refrain', [r, r]),
+    new Section('Bombarde', [i, i]),
+  ]),
+  new Part('2', [
+    new Section('Couplet', [c, c]),
+    new Section('Bombarde', [i, i]),
+    new Section('Couplet', [c, c]),
+    new Section('Refrain', [r, r]),
+    new Section('Bombarde', [i, i]),
+  ]),
+  new Part('Final', [
+    new Section('Silence', [silence]),
+    new Section('Montée', [i, i,]),
+    new Section('Bombarde', [i, i]),
+    new Section('Fin', [fin]),
+  ]),
 ]
 
 const structure = Structure.builder()
-  .sections(sections)
+  .parts(parts)
   .build()
 
 const recording = Recording.builder()

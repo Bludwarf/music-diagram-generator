@@ -159,6 +159,10 @@ export class Chord {
         return Note.Gb
       case 'Gm':
         return Note.G
+      case 'Cm':
+        return Note.C
+      case 'Dm':
+        return Note.D
     }
     throw new Error('Cannot find root from ' + name)
   }

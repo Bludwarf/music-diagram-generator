@@ -19,18 +19,19 @@ import {Time, TimedElement} from "../../../time";
 import {error, sequence} from '../../../utils';
 import {RythmBarComponent} from "../../../rythm-bar/rythm-bar.component";
 import {CommonModule, JsonPipe} from "@angular/common";
-import {StructureComponent} from "../../../structure/structure.component";
 import {FormsModule} from "@angular/forms";
 import {FretboardComponent} from "../../../fretboard/fretboard.component";
 import {PatternComponent} from "../../../structure/pattern/pattern.component";
 import {SectionComponent} from "../../../structure/section/section.component";
 import {Recording} from "../../../recording/recording";
+import {PartInStructure} from "../../../structure/part/part-in-structure";
+import {InStructure} from "../../../structure/in-structure";
 
 @Component({
   selector: 'app-mobile-rehearsal-a',
   standalone: true,
   imports: [
-    RythmBarComponent, JsonPipe, StructureComponent, CommonModule, FormsModule, FretboardComponent, PatternComponent, SectionComponent
+    RythmBarComponent, JsonPipe, CommonModule, FormsModule, FretboardComponent, PatternComponent, SectionComponent
   ],
   templateUrl: './mobile-rehearsal-a.component.html',
   styleUrl: './mobile-rehearsal-a.component.scss'
@@ -39,6 +40,7 @@ export class MobileRehearsalAComponent implements OnInit {
 
   debug = false
 
+  currentPartInStructure?: PartInStructure;
   currentSectionInStructure?: SectionInStructure;
   currentPatternInStructure?: PatternInStructure;
   currentChord?: Chord;
@@ -194,7 +196,14 @@ export class MobileRehearsalAComponent implements OnInit {
 
         const changePatternFasterDelay = Time.fromValue(0) // Time.fromValue('4n') // TODO trop bizarre à l'affichage de la section courante, mais ok pour affichage partoche
         const delayedWrappedTime = warpTime.add(changePatternFasterDelay);
-        this.currentSectionInStructure = this.structure.getSectionInStructureAt(delayedWrappedTime)
+
+        this.currentPartInStructure = this.structure.getPartInStructureAt(delayedWrappedTime)
+        if (this.currentPartInStructure) {
+          this.currentSectionInStructure = this.currentPartInStructure.getSectionInStructureAt(delayedWrappedTime)
+        } else {
+          delete this.currentSectionInStructure
+        }
+
         if (this.currentSectionInStructure) {
           this.currentPatternInStructure = this.currentSectionInStructure.getPatternInStructureAt(delayedWrappedTime)
           this.currentSectionInStructureRelativeTimecode = delayedWrappedTime
@@ -247,16 +256,7 @@ export class MobileRehearsalAComponent implements OnInit {
     console.log('stopSong')
     Tone.Transport.stop()
   }
-
-  onClickSectionInStructure(sectionInStructure: SectionInStructure): void {
-    this.onClickElementInStructure(sectionInStructure, sectionInStructure.structure)
-  }
-
-  onClickPatternInStructure(patternInStructure: PatternInStructure): void {
-    this.onClickElementInStructure(patternInStructure, patternInStructure.structure)
-  }
-
-  private onClickElementInStructure(element: TimedElement, structure: Structure): void {
+  onClickElementInStructure(element: TimedElement & InStructure, structure = element.structure): void {
     if (!this.recording) {
       error('Aucun enregistrement (Recording)')
     }

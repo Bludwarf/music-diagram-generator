@@ -4,6 +4,7 @@ import {Structure} from "../../structure/structure";
 import {Section} from "../../structure/section/section";
 import recordingInitData from "../../../assets/recordings/LA FEMME DRAGON MasterBrut_01.json";
 import {Recording} from "../../recording/recording";
+import {Part} from "../../structure/part/part";
 
 
 const fretboard = {
@@ -37,26 +38,25 @@ const refrainData = {
   fretboard: fretboardRefrain,
 }
 
-const refrainPData = Object.assign({}, refrainData, {
+const refrainPData = {
+  ...refrainData,
   initial: 'R\'',
   chords: '| A | E | F | F |',
+};
+
+const refrainCalme = Pattern.fromData({
+  ...refrainData,
+  name: 'Refrain (calme)',
 });
 
-const refrainCalme = Pattern.fromData(Object.assign({}, refrainData, {
-  name: 'Refrain (calme)',
-}));
-
-const refrainPCalme = Pattern.fromData(Object.assign({}, refrainPData, {
+const refrainPCalme = Pattern.fromData({
+  ...refrainPData,
   name: 'Refrain\' (calme)',
-}));
+});
 
 const refrain = Pattern.fromData(refrainData);
 
 const refrainP = Pattern.fromData(refrainPData);
-
-const refrainCalme_fois_2 = [refrainCalme, refrainPCalme]
-const couplet_fois_4 = [couplet, couplet, couplet, couplet]
-const refrain_fois_2 = [refrain, refrainP]
 
 const fretboardFinal = {
   lowestFret: 3,
@@ -80,24 +80,45 @@ const refrainFinalData = {
 
 const refrainFinal = Pattern.fromData(refrainFinalData)
 
-const refrainPFinal = Pattern.fromData(Object.assign({}, refrainFinalData, {
+const refrainPFinal = Pattern.fromData({
+  ...refrainFinalData,
   name: 'Refrain\' final',
   initial: 'R\'',
   chords: '| C | G | Ab | Ab |',
-}))
+})
 
-const refrain_final_fois_2 = [refrainFinal, refrainPFinal]
-
-const sections = [
-  new Section('1', [coupletSansBasse, coupletSansBasse, coupletSansBasse, ...refrainCalme_fois_2]),
-  new Section('2', [...couplet_fois_4, ...refrain_fois_2]),
-  new Section('3', [...couplet_fois_4, ...refrain_fois_2, couplet, couplet]),
-  new Section('Calme', [coupletSansBasse, coupletSansBasse, coupletSansBasse, coupletSansBasse, ...refrainCalme_fois_2]),
-  new Section('Final', [coupletFinal, coupletFinal, coupletFinal, coupletFinal, ...refrain_final_fois_2, coupletFinal, coupletFinal]),
+const parts: Part[] = [
+  new Part('1', [
+    new Section('Intro', [coupletSansBasse]),
+    new Section('Couplet', [coupletSansBasse, coupletSansBasse]),
+    new Section('Refrain', [refrainCalme, refrainPCalme]),
+  ]),
+  new Part('2', [
+    new Section('Flute', [couplet, couplet]),
+    new Section('Couplet', [couplet, couplet]),
+    new Section('Refrain', [refrain, refrainP]),
+  ]),
+  new Part('3', [
+    new Section('Flute', [couplet, couplet]),
+    new Section('Couplet', [couplet, couplet]),
+    new Section('Refrain', [refrain, refrainP]),
+    new Section('Guitare', [couplet, couplet]),
+  ]),
+  new Part('Calme', [
+    new Section('Guitare', [coupletSansBasse, coupletSansBasse]),
+    new Section('Couplet', [coupletSansBasse, coupletSansBasse]),
+    new Section('Refrain', [refrainCalme, refrainPCalme]),
+  ]),
+  new Part('Final', [
+    new Section('Bombarde', [coupletFinal, coupletFinal]),
+    new Section('Couplet', [coupletFinal, coupletFinal]),
+    new Section('Refrain', [refrainFinal, refrainPFinal]),
+    new Section('Bombarde', [coupletFinal, coupletFinal]),
+  ]),
 ]
 
 const structure = Structure.builder()
-  .sections(sections)
+  .parts(parts)
   .build()
 
 const recording = Recording.builder()

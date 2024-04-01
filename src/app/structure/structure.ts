@@ -1,17 +1,21 @@
 import {Time} from "../time";
 import {Pattern} from "./pattern/pattern";
 import {PatternInStructure} from "./pattern/pattern-in-structure";
+import {WarpMarker} from "./warp-marker";
+import * as Tone from "tone";
+import {error} from "../utils";
 import {Section} from "./section/section";
 import {SectionInStructure} from "./section/section-in-structure";
+import {Part} from "./part/part";
+import {PartInStructure} from "./part/part-in-structure";
 
 class StructureBuilder {
-  private _sections?: Section[];
-  private _patterns?: Pattern[];
+  private _parts?: Part[];
   private _getEventsStartTime?: (pattern: Pattern) => (Time) | undefined;
   private _getEventsDurationInBars?: (pattern: Pattern) => number | undefined
 
-  sections(sections: typeof this._sections) {
-    this._sections = sections
+  parts(parts: typeof this._parts) {
+    this._parts = parts
     return this
   }
 
@@ -26,20 +30,16 @@ class StructureBuilder {
   }
 
   build(): Structure {
-    let sections: Section[] | undefined
-    if (this._sections) {
-      sections = this._sections
+    let parts: Part[] | undefined
+    if (this._parts) {
+      parts = this._parts
     }
-    if (this._patterns) {
-      const defaultSection = new Section('Section', this._patterns);
-      sections = [defaultSection]
-    }
-    if (!sections) {
-      throw new Error('Missing sections or patterns')
+    if (!parts) {
+      throw new Error('Missing parts')
     }
 
     return new Structure(
-      sections,
+      parts,
       this._getEventsStartTime,
       this._getEventsDurationInBars
     )
@@ -48,28 +48,38 @@ class StructureBuilder {
 
 export class Structure {
 
-  readonly sectionsInStructure: SectionInStructure[]
   key = 'Gm (mock)'; // TODO
+  readonly partsInStructure: PartInStructure[];
 
   constructor(
-    sections: Section[],
+    parts: Part[],
     getEventsStartTime?: (pattern: Pattern) => Time | undefined, // TODO en attendant de savoir comment faire les events
     getEventsDurationInBars?: (pattern: Pattern) => number | undefined, // TODO en attendant de savoir comment faire les events
   ) {
-    this.sectionsInStructure = []
 
     let currentTime = new Time()
-    for (const section of sections) {
 
-      const patternsInStructure: PatternInStructure[] = []
-      for (const pattern of section.patterns) {
-        patternsInStructure.push(new PatternInStructure(pattern, this, currentTime, getEventsStartTime?.(pattern), getEventsDurationInBars?.(pattern)))
-        currentTime = currentTime.add(pattern.duration)
+    const partsInStructure: PartInStructure[] = []
+    for (const part of parts) {
+
+      const sectionsInStructure: SectionInStructure[] = []
+      for (const section of part.sections) {
+
+        const patternsInStructure: PatternInStructure[] = []
+        for (const pattern of section.patterns) {
+          patternsInStructure.push(new PatternInStructure(pattern, this, currentTime, getEventsStartTime?.(pattern), getEventsDurationInBars?.(pattern)))
+          currentTime = currentTime.add(pattern.duration)
+        }
+
+        const sectionInStructure = new SectionInStructure(section, this, patternsInStructure)
+        sectionsInStructure.push(sectionInStructure)
       }
 
-      const sectionInStructure = new SectionInStructure(section, this, patternsInStructure);
-      this.sectionsInStructure.push(sectionInStructure)
+      const partInStructure = new PartInStructure(part, this, sectionsInStructure)
+      partsInStructure.push(partInStructure)
     }
+
+    this.partsInStructure = partsInStructure
 
     // if (currentTime.toSeconds() !== sampleDuration.toSeconds()) {
     //   console.warn('currentTime != duration', currentTime.toSeconds(), currentTime.toAbletonLiveBarsBeatsSixteenths(), sampleDuration.toSeconds())
@@ -78,12 +88,11 @@ export class Structure {
     //   console.warn('currentTime != duration', currentTime.toAbletonLiveBarsBeatsSixteenths(), sampleDuration.toAbletonLiveBarsBeatsSixteenths())
     // }
 
-    console.log('Structure created :')
-    this.sectionsInStructure.forEach(s => console.log(s.toString()))
+    console.log('Structure created')
   }
 
-  getSectionInStructureAt(time: Time): SectionInStructure | undefined {
-    return Time.getElementAt(time, this.sectionsInStructure, true)
+  getPartInStructureAt(time: Time): PartInStructure | undefined {
+    return Time.getElementAt(time, this.partsInStructure, true)
   }
 
   static builder(): StructureBuilder {

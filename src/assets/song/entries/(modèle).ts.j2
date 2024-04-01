@@ -1,7 +1,9 @@
 import {Key} from "../../notes";
-import stuctureObject from "../../../assets/structures/{{songName}}.json";
+import structureObject from "../../../assets/structures/{{songName}}.json";
 import {Pattern} from "../../structure/pattern/pattern";
 import {Structure} from "../../structure/structure";
+import {Section} from "../../structure/section/section";
+import {Part} from "../../structure/part/part";
 
 const key = Key.Gm
 const fretboard = {
@@ -23,15 +25,16 @@ const refrain = Pattern.fromData({
   fretboard,
 })
 
-const ligne1 = [couplet, couplet, refrain,]
-
-const patterns: Pattern[] = [
-  ...ligne1,
+const parts: Part[] = [
+  new Part('1', [
+    new Section('Couplet', [couplet, couplet]),
+    new Section('Refrain', [refrain, refrain]),
+  ]),
 ]
 
 const structure = Structure.builder()
-  .stuctureObject(stuctureObject)
-  .patterns(patterns)
+  .stuctureObject(structureObject)
+  .parts(parts)
   .build()
 
 export default {

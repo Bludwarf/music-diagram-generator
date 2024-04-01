@@ -4,6 +4,7 @@ import {Key} from "../../notes";
 import recordingInitData from "../../../assets/recordings/LE PHARE Master Web 24bit 48Khz_v2_04.json";
 import {Section} from "../../structure/section/section";
 import {Recording} from "../../recording/recording";
+import {Part} from "../../structure/part/part";
 
 const key = Key.Cm
 const fretboard: FretboardData = {
@@ -13,14 +14,14 @@ const fretboard: FretboardData = {
 
 // Morceau en 3/4 très rapide
 
-const couplet = Pattern.fromData({
+const C = Pattern.fromData({
   key,
   name: 'Couplet',
   chords: '| G | Bb | F | F |',
   fretboard,
 })
 
-const coupletEb = Pattern.fromData({
+const Ceb = Pattern.fromData({
   key,
   name: 'Couplet (Eb)',
   initial: 'C\'',
@@ -28,7 +29,7 @@ const coupletEb = Pattern.fromData({
   fretboard,
 })
 
-const refrain = Pattern.fromData({
+const R = Pattern.fromData({
   key,
   name: 'Refrain',
   chords: '| C | G | Bb | F |',
@@ -54,27 +55,36 @@ const fin = Pattern.fromData({
   fretboard,
 })
 
-const sections: Section[] = [
-  new Section('Intro', [couplet, couplet, coupletEb, coupletEb,]), // PYM + David
-  new Section('B1', [couplet, couplet, coupletEb, coupletEb,]), // Groupe
-  new Section('C1', [couplet, couplet, couplet, couplet,]), // C
-  new Section('R1', [refrain, refrain,]),
-
-  new Section('B2', [couplet, couplet, coupletEb, coupletEb,]),
-  new Section('C2', [couplet, couplet, couplet, couplet,]), // C
-  new Section('R2', [refrain, refrain,]),
-
-  new Section('B3', [couplet, couplet,]),
-  new Section('Break', [bloquee, breakBatterie,]),
-
-  new Section('Final', [couplet, couplet, coupletEb, coupletEb,]),
-// new Section('Final2', [couplet, couplet, coupletEb, coupletEb]),// couplet, couplet, coupletEb, coupletEb,]) // Pas dans l'album
-
-  new Section('Fin', [fin,])
+const bombarde = new Section('Bombarde', [C, C, Ceb, Ceb,]);
+const couplet = new Section('Couplet', [C, C, C, C,]);
+const refrain = new Section('Refrain', [R, R,]);
+const parts: Part[] = [
+  new Part('Intro', [
+    new Section('Bombarde + guitare', [C, C, Ceb, Ceb,]),
+  ]),
+  new Part('1', [
+    bombarde, // Groupe
+    couplet, // C
+    refrain,
+  ]),
+  new Part('2', [
+    bombarde,
+    couplet, // C
+    refrain,
+  ]),
+  new Part('3', [
+    new Section('Bombarde', [C, C,]),
+    new Section('Break', [bloquee, breakBatterie,], 'Bk'),
+  ]),
+  new Part('Final', [
+    bombarde,
+// bombarde, // Pas dans l'album
+    new Section('Fin', [fin,])
+  ]),
 ]
 
 const structure = Structure.builder()
-  .sections(sections)
+  .parts(parts)
   .build()
 
 const recording = Recording.builder()

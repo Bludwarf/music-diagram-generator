@@ -1,8 +1,10 @@
-import stuctureObject from "../../../assets/structures/Souffrance.json";
 import {FretboardData, Pattern} from "../../structure/pattern/pattern";
 import {Structure} from "../../structure/structure";
+// FIXME : Pour Noyer le silence, on n'arrive pas à trouver le vrai sampleBeatTimeDuration : on a 485.9167899808525 alors que le dernier WarpMarker tombe sur 557.7314838807026
+import recordingInitData from "../../../assets/recordings/NOYER LE SILENCE Master Brut_01.json";
 import {Key} from "../../notes";
 import {Section} from "../../structure/section/section";
+import {Recording} from "../../recording/recording";
 
 const key = Key.Cm
 const fretboard: FretboardData = {
@@ -52,11 +54,15 @@ const sections: Section[] = [
 ]
 
 const structure = Structure.builder()
-  .stuctureObject(stuctureObject)
   .sections(sections)
+  .build()
+
+const recording = Recording.builder()
+  .initData(recordingInitData)
   .build()
 
 export default {
   name: 'Noyer le silence', // TODO faire des alias
   structure,
+  recording,
 }

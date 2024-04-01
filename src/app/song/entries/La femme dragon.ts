@@ -1,8 +1,9 @@
 import {Key} from "../../notes";
-import stuctureObject from "../../../assets/structures/La femme dragon.json";
 import {Pattern} from "../../structure/pattern/pattern";
 import {Structure} from "../../structure/structure";
 import {Section} from "../../structure/section/section";
+import recordingInitData from "../../../assets/recordings/LA FEMME DRAGON MasterBrut_01.json";
+import {Recording} from "../../recording/recording";
 
 
 const fretboard = {
@@ -96,11 +97,15 @@ const sections = [
 ]
 
 const structure = Structure.builder()
-  .stuctureObject(stuctureObject)
   .sections(sections)
+  .build()
+
+const recording = Recording.builder()
+  .initData(recordingInitData)
   .build()
 
 export default {
   name: 'La femme dragon',
   structure,
+  recording,
 }

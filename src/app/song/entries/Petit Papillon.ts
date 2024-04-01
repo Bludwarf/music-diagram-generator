@@ -1,9 +1,10 @@
 import {Key} from "../../notes";
-import stuctureObject from "../../../assets/structures/Petit Papillon.json";
+import recordingInitData from "../../../assets/recordings/DIDAFTA PETIT PAPILLON Master Web 24bit 48Khz_02-01.json";
 import {Time} from "../../time";
 import {RythmBarEvent} from "../../rythm-bar/event";
 import eventsJson from '../../../assets/events/Petit Papillon/events.json';
 import {Pattern} from "../../structure/pattern/pattern";
+import {Recording} from "../../recording/recording";
 import {Structure} from "../../structure/structure";
 import {Section} from "../../structure/section/section";
 
@@ -92,7 +93,6 @@ const sections: Section[] = [
 ]
 
 const structure = Structure.builder()
-  .stuctureObject(stuctureObject)
   .sections(sections)
   .getEventsStartTime((pattern: Pattern) => {
     if (pattern === bombarde) return Time.fromValue("0:0")
@@ -117,7 +117,12 @@ const structure = Structure.builder()
 // console.log(new Structure(coupletBlock).duration.toAbletonLiveBarsBeatsSixteenths())
 // console.log(structure.duration.toBarsBeatsSixteenths())
 
+const recording = Recording.builder()
+  .initData(recordingInitData)
+  .build()
+
 export default {
   name: 'Petit Papillon',
   structure,
+  recording,
 }

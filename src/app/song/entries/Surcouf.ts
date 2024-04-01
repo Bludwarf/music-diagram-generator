@@ -1,7 +1,8 @@
-import stuctureObject from "../../../assets/structures/Surcouf.json";
 import {FretboardData, Pattern} from "../../structure/pattern/pattern";
 import {Structure} from "../../structure/structure";
+import recordingInitData from "../../../assets/recordings/SURCOUF Preview voix_02.json";
 import {Key} from "../../notes";
+import {Recording} from "../../recording/recording";
 import {Section} from "../../structure/section/section";
 
 const key = Key.Bb
@@ -47,11 +48,15 @@ const sections: Section[] = [
 ]
 
 const structure = Structure.builder()
-  .stuctureObject(stuctureObject)
   .sections(sections)
+  .build()
+
+const recording = Recording.builder()
+  .initData(recordingInitData)
   .build()
 
 export default {
   name: 'Surcouf',
   structure,
+  recording,
 }

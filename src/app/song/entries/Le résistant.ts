@@ -1,7 +1,8 @@
-import stuctureObject from "../../../assets/structures/Le résistant.json";
-import {FretboardData, Pattern} from "../../structure/pattern/pattern";
-import {Structure} from "../../structure/structure";
 import {Key} from "../../notes";
+import recordingInitData from "../../../assets/recordings/LE RESISTANT Pré-Masterbrut_02-01.json";
+import {FretboardData, Pattern} from "../../structure/pattern/pattern";
+import {Recording} from "../../recording/recording";
+import {Structure} from "../../structure/structure";
 import {Section} from "../../structure/section/section";
 
 const key = Key.Cm
@@ -44,11 +45,15 @@ const sections: Section[] = [
 ]
 
 const structure = Structure.builder()
-  .stuctureObject(stuctureObject)
   .sections(sections)
+  .build()
+
+const recording = Recording.builder()
+  .initData(recordingInitData)
   .build()
 
 export default {
   name: 'Le résistant',
   structure,
+  recording,
 }

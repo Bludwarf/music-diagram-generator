@@ -22,7 +22,6 @@ describe('SongComponent', () => {
     .compileComponents();
 
     activatedRoute = injectSpy(ActivatedRoute);
-    // TODO on est obligé de le mettre dans beforeEach, car ça ne marche pas dans it
     activatedRoute.params = of({
       songName: 'Petit Papillon',
     });

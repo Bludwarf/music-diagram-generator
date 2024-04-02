@@ -1,0 +1,54 @@
+#transport-timecode {
+  text-align: right;
+  flex: 3rem;
+  font-family: "Courier New", monospace;
+  color: white;
+  position: absolute;
+  right: 0;
+  text-shadow: 1px 1px 2px black;
+  pointer-events: none;
+}
+
+#structure-map-zones {
+  display: flex;
+  height: 5mm;
+
+  & > * {
+    height: 100%;
+    border: solid 1px transparent;
+
+    &[data-pattern^=B] {
+      background: #1976d2;
+      color: #11508f;
+    }
+
+    &[data-pattern^=C] {
+      background: #3c6400;
+      color: #243b00;
+    }
+
+    &[data-pattern=Cs] {
+      background: #1c6400;
+      color: #163b00;
+    }
+
+    &[data-pattern=Cf] {
+      background: #486400;
+      color: #222f00;
+    }
+
+    &[data-pattern^=R] {
+      background: chocolate;
+      color: #723910;
+    }
+
+    &[data-pattern="R'"] {
+      background: #d5854a;
+      color: #754929;
+    }
+
+    &.active {
+      border: solid 1px #FFF8;
+    }
+  }
+}

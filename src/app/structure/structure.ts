@@ -1,10 +1,6 @@
 import {Time} from "../time";
 import {Pattern} from "./pattern/pattern";
 import {PatternInStructure} from "./pattern/pattern-in-structure";
-import {WarpMarker} from "./warp-marker";
-import * as Tone from "tone";
-import {error} from "../utils";
-import {Section} from "./section/section";
 import {SectionInStructure} from "./section/section-in-structure";
 import {Part} from "./part/part";
 import {PartInStructure} from "./part/part-in-structure";
@@ -97,6 +93,12 @@ export class Structure {
 
   static builder(): StructureBuilder {
     return new StructureBuilder()
+  }
+
+  get patternsInStructure(): PatternInStructure[] {
+    return this.partsInStructure.flatMap(partInStructure =>
+      partInStructure.patternsInStructure
+    )
   }
 
 }

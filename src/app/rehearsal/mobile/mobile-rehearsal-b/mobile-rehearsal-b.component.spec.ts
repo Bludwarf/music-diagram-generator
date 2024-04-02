@@ -1,20 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SongComponent } from './song.component';
+import { MobileRehearsalBComponent } from './mobile-rehearsal-b.component';
+import {injectSpy, PROVIDER_SPIES} from "../../../test/test-utils";
 import {ActivatedRoute} from "@angular/router";
 import SpyObj = jasmine.SpyObj;
-import {injectSpy, PROVIDER_SPIES} from "../test/test-utils";
 import {of} from "rxjs";
 
-describe('SongComponent', () => {
-  let component: SongComponent;
-  let fixture: ComponentFixture<SongComponent>;
-
+describe('MobileRehearsalAComponent', () => {
+  let component: MobileRehearsalBComponent;
+  let fixture: ComponentFixture<MobileRehearsalBComponent>;
   let activatedRoute: SpyObj<ActivatedRoute>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [SongComponent],
+      imports: [MobileRehearsalBComponent],
       providers: [
         PROVIDER_SPIES.ActivatedRoute,
       ]
@@ -25,9 +24,8 @@ describe('SongComponent', () => {
     activatedRoute.params = of({
       songName: 'Petit Papillon',
     });
-    activatedRoute.queryParams = of({});
-
-    fixture = TestBed.createComponent(SongComponent);
+    
+    fixture = TestBed.createComponent(MobileRehearsalBComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

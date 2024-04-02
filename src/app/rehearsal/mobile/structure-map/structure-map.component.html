@@ -1,0 +1,10 @@
+<div id="transport-timecode">{{ timecode }}</div>
+<div id="structure-map-zones">
+
+  <span *ngFor="let patternInStructure of structure.patternsInStructure"
+        [attr.data-pattern]="patternInStructure.initial"
+        [style.flex]="patternInStructure.pattern.duration.toBars()"
+        [class.active]="patternInStructure == currentPatternInStructure"
+        (click)="onClickPatternInStructure(patternInStructure)"
+  ></span>
+</div>

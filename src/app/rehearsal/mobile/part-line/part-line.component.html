@@ -1,0 +1,21 @@
+<div id="sections-line">
+  <div *ngFor="let sectionInStructure of partInStructure.sectionsInStructure" class="part"
+       [style.flex]="sectionInStructure.section.duration.toBars()"
+       [class.active]="sectionInStructure === currentSectionInStructure"
+  (click)="onClickSectionInStructure(sectionInStructure)">
+    {{ sectionInStructure.section.name }}
+  </div>
+</div>
+<div id="patterns-line">
+  <div *ngFor="let patternInStructure of partInStructure.patternsInStructure" class="pattern"
+       [attr.data-pattern]="patternInStructure.initial" [style.flex]="patternInStructure.pattern.duration.toBars()"
+       [class.active]="patternInStructure === currentPatternInStructure"
+       (click)="onClickPatternInStructure(patternInStructure)">
+    {{ patternInStructure.initial }}
+  </div>
+</div>
+<div id="active-section-line">
+  <div *ngFor="let sectionInStructure of partInStructure.sectionsInStructure"
+       [style.flex]="sectionInStructure.section.duration.toBars()"
+       [class.active]="sectionInStructure === currentSectionInStructure"></div>
+</div>

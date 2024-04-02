@@ -1,0 +1,4 @@
+<app-part-tab *ngFor="let partInStructure of structure.partsInStructure"
+              [partInStructure]="partInStructure"
+              [currentPartInStructure]="currentPartInStructure"
+             (click)="onClickPartInStructure(partInStructure)"></app-part-tab>

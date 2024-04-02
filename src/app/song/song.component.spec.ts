@@ -25,6 +25,7 @@ describe('SongComponent', () => {
     activatedRoute.params = of({
       songName: 'Petit Papillon',
     });
+    activatedRoute.queryParams = of({});
 
     fixture = TestBed.createComponent(SongComponent);
     component = fixture.componentInstance;

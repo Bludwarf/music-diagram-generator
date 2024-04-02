@@ -97,9 +97,7 @@ export class Structure {
 
   get patternsInStructure(): PatternInStructure[] {
     return this.partsInStructure.flatMap(partInStructure =>
-      partInStructure.sectionsInStructure.flatMap(sectionInStructure =>
-        sectionInStructure.patternsInStructure
-      )
+      partInStructure.patternsInStructure
     )
   }
 

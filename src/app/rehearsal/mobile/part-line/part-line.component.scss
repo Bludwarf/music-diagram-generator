@@ -1,0 +1,73 @@
+#sections-line {
+  display: flex;
+  background: #616161; // cf. styles.css > *
+  font-size: 5mm;
+  text-indent: 1mm;
+
+  & > * {
+    flex: 1;
+    overflow: clip;
+    text-wrap: nowrap;
+    text-align: left;
+    background: #444; // cf. styles.css > html
+    //box-shadow: -10px 0 10px #444;
+    //clip-path: inset(0 0 0 -100%);
+  }
+
+  & > *:not(:first-child) {
+    border-left: solid 1px #616161;
+  }
+
+  .active {
+    color: white;
+    border-bottom: solid 2px white;
+    //box-shadow: 0 0 10px #0006;
+    //clip-path: inset(-30px -30px 0px -30px);
+  }
+}
+
+#patterns-line {
+  display: flex;
+  gap: 1px;
+
+  & > * {
+    flex: 1;
+    text-wrap: nowrap;
+    overflow: clip;
+  }
+
+  // TODO factorisation avec structure-map.component.scss
+
+  [data-pattern].active {
+    color: white;
+    box-shadow: 0 0 10px #0006;
+    clip-path: inset(0 -30px 0px -30px);
+  }
+
+  [data-pattern^=B] {
+    background: #1976d2;
+    color: #11508f;
+  }
+
+  [data-pattern^=C] {
+    background: #3c6400;
+    color: #243b00;
+  }
+
+  [data-pattern^=R] {
+    background: chocolate;
+    color: #723910;
+  }
+}
+
+#active-section-line {
+  display: flex;
+
+  & > * {
+    border-top: solid 3px #0006;
+  }
+
+  & > .active {
+    border-top-color: transparent;
+  }
+}

@@ -3,9 +3,9 @@ import {Structure} from "../structure";
 import {Part} from "./part";
 import {SectionInStructure} from "../section/section-in-structure";
 import {InStructure} from "../in-structure";
+import {PatternInStructure} from "../pattern/pattern-in-structure";
 
 export class PartInStructure implements InStructure {
-
   constructor(
     readonly part: Part,
     readonly structure: Structure,
@@ -28,6 +28,12 @@ export class PartInStructure implements InStructure {
 
   getSectionInStructureAt(time: Time): SectionInStructure | undefined {
     return Time.getElementAt(time, this.sectionsInStructure)
+  }
+
+  get patternsInStructure(): PatternInStructure[] {
+    return this.sectionsInStructure.flatMap(sectionInStructure =>
+      sectionInStructure.patternsInStructure
+    )
   }
 
   toString(): string {

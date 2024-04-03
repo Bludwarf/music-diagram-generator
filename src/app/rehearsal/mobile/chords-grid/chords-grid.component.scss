@@ -11,7 +11,7 @@
 }
 
 .chord {
-  background: #444; // TODO facto avec styles.css
+  background: var(--background);
   //aspect-ratio: 1; // passe mal quand il y a moins de 4 mesures
 }
 

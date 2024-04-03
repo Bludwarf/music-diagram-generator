@@ -109,6 +109,7 @@ can be found in the LICENSE file at https://angular.io/license
 :root {
   --disabled-color: #111;
   --enabled-color: #CCC;
+  --background: #444;
 
   /* Dégradés verts/bleus */
   --IV-color: #38a1f6;
@@ -151,6 +152,6 @@ can be found in the LICENSE file at https://angular.io/license
 
 html {
   text-align: center;
-  background: #444;
+  background: var(--background);
   font-size: 1cm;
 }

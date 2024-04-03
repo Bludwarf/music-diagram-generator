@@ -1,0 +1,5 @@
+<div *ngFor="let bar of sequence(chords.duration.toBars())" class="chord" [class.current]="isCurrentBar(bar)" (click)="onClickBar(bar)">
+  <ng-container *ngIf="chords.getChordsAtBar(bar); let currentBarChords">
+    {{ currentBarChords.toAsciiWithoutBorders() }}
+  </ng-container>
+</div>

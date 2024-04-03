@@ -12,12 +12,13 @@ import {Title} from "@angular/platform-browser";
 import {PartTabsComponent} from "../part-tabs/part-tabs.component";
 import {PartLineComponent} from "../part-line/part-line.component";
 import {SampleMapComponent} from "../sample-map/sample-map.component";
+import {ChordsGridComponent} from "../chords-grid/chords-grid.component";
 
 @Component({
   selector: 'app-mobile-rehearsal-b',
   standalone: true,
   imports: [
-    RythmBarComponent, JsonPipe, CommonModule, FormsModule, FretboardComponent, PatternComponent, SectionComponent, StructureMapComponent, PartTabsComponent, PartLineComponent, SampleMapComponent
+    RythmBarComponent, JsonPipe, CommonModule, FormsModule, FretboardComponent, PatternComponent, SectionComponent, StructureMapComponent, PartTabsComponent, PartLineComponent, SampleMapComponent, ChordsGridComponent
   ],
   templateUrl: './mobile-rehearsal-b.component.html',
   styleUrl: './mobile-rehearsal-b.component.scss'

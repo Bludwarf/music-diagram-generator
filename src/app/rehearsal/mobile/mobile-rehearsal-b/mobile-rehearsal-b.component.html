@@ -29,15 +29,14 @@
                (clickSectionInStructure)="onClickElementInStructure($event)"></app-part-line>
 
 
-
 <!-- TODO on reprend le composant A en attendant de trouver la bonne manière de faire -->
 <!-- Détail sur le pattern courant -->
-<ng-container *ngIf="currentPatternInStructure">
+<ng-container *ngIf="currentPatternInStructure && currentBar !== undefined">
   <span class="active pattern">{{ currentPatternInStructure.pattern.name }}</span>
 
-  <ng-container *ngIf="currentPatternInStructure.pattern.chords; let chords">
-    {{ chords.toAscii() }}
-  </ng-container>
+  <app-chords-grid *ngIf="currentPatternInStructure.pattern.chords; let chords" [chords]="chords"
+                   [currentBar]="currentBar - currentPatternInStructure.startTime.toBars()"
+  (clickBar)="onClickBar(currentPatternInStructure.startTime.toBars() + $event)"></app-chords-grid>
   <ng-container *ngIf="!currentPatternInStructure.pattern.chords">
     {{ currentPatternInStructure.pattern.duration.toBars() }}m
   </ng-container>

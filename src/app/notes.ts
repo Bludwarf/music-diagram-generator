@@ -1,4 +1,4 @@
-import { ONE_BAR, Time } from "./time";
+import {ONE_BAR, Time} from "./time";
 
 export const NOTE_NAMES = [
   'C',
@@ -121,7 +121,8 @@ export namespace Mode {
 
 /** Tonalité */
 export class Key {
-  constructor(readonly note: Note, readonly mode: Mode = Mode.I) { }
+  constructor(readonly note: Note, readonly mode: Mode = Mode.I) {
+  }
 }
 
 export namespace Key {
@@ -145,6 +146,9 @@ export class Chord {
     readonly name: string, // TODO pour l'instant on fait simple
     root?: Note,
   ) {
+    if (!name) {
+      throw new Error('name must be non empty')
+    }
     this.root = Chord.getRootFromName(name)
   }
 
@@ -177,7 +181,17 @@ export namespace Chord {
   export const Gm: Chord = new Chord("Gm", Note.G)
 }
 
+/**
+ * Exemple : <code>| Gm F | Eb D |</code>
+ */
 export type AsciiChords = string
+
+/**
+ * Exemple : <code>Gm F | Eb D</code>
+ */
+export type AsciiChordsWithoutBorders = string
+
+export type BarNumber0Indexed = number
 
 export class Chords {
 
@@ -185,14 +199,12 @@ export class Chords {
     private readonly asciiChords: AsciiChords,
     readonly duration: Time,
     private readonly chordsByTime: [Time, Chord][] = [], // TODO trier par time asc
-  ) { }
+  ) {
+  }
 
   static fromAsciiChords(asciiChords: AsciiChords): Chords {
 
-    const barGroups = asciiChords.split('|').slice(1, -1).map(x => x.trim())
-    if (barGroups.length === 0) {
-      throw new Error('Cannot find bars in AsciiChords : ' + asciiChords)
-    }
+    const barGroups = this.groupAsciiChordsByBar(asciiChords)
 
     const chordsByTime: [Time, Chord][] = []
 
@@ -214,16 +226,34 @@ export class Chords {
     return new Chords(asciiChords, Time.fromValue(`${barGroups.length}m`), chordsByTime)
   }
 
-  setChordAt(time: Time, chord: Chord) {
-    // TODO trier par time asc
-    this.chordsByTime.push([time, chord])
+  static groupAsciiChordsByBar(asciiChords: AsciiChords): string[] {
+
+    const barGroups = asciiChords.split('|').slice(1, -1).map(x => x.trim())
+    if (barGroups.length === 0) {
+      throw new Error('Cannot find bars in AsciiChords : ' + asciiChords)
+    }
+    return barGroups;
   }
 
   getChordAt(time: Time): Chord | undefined {
     // TODO factoriser avec getCurrentPattern
-    const reversedChordsByTime = [... this.chordsByTime].reverse()
+    const reversedChordsByTime = [...this.chordsByTime].reverse()
     const chordAtTime = reversedChordsByTime.find(([chordTime]) => chordTime.isBeforeOrEquals(time));
     return chordAtTime?.[1]
+  }
+
+  get first(): Chord {
+    return this.chordsByTime[0][1]
+  }
+
+  getChordsAtBar(bar: BarNumber0Indexed): Chords | undefined {
+    // TODO cache
+    const chordGroups = Chords.groupAsciiChordsByBar(this.asciiChords)
+    if (bar > chordGroups.length - 1) {
+      console.warn('No chords at bar ' + bar)
+      return undefined
+    }
+    return Chords.fromAsciiChords(`| ${chordGroups[bar]} |`);
   }
 
   get length(): number {
@@ -234,7 +264,13 @@ export class Chords {
     return this.chordsByTime.map(([chordTime, chord]) => `${chordTime.toBarsBeatsSixteenths()} ${chord}`).join('\n')
   }
 
-  toAscii(): string {
+  toAscii(): AsciiChords {
     return this.asciiChords
+  }
+
+  toAsciiWithoutBorders(): AsciiChordsWithoutBorders {
+    return this.asciiChords
+      .substring(1, this.asciiChords.length - 1)
+      .trim()
   }
 }

@@ -22,34 +22,34 @@ const Sk = Pattern.fromData({
   fretboard,
 })
 
-const C = Pattern.fromData({
+const CData = {
   key,
   name: 'Couplet',
-  chords: '|' +
-    ' Bb | Bb | Eb | Bb | Bb | Bb | F | F |' +
-    ' Bb | Bb | Eb | Bb | Bb | Bb | F | F |' +
-    ' Eb | Eb | Bb | Bb | F | Eb | Bb | Bb |',
+  chords: '| Bb | Bb | Eb | Bb | Bb | Bb | F | F |',
   fretboard,
+}
+
+const C = Pattern.fromData(CData)
+
+const Cp = Pattern.fromData({
+  ...CData,
+  name: 'Couplet\'',
+  initial: 'C\'',
+  chords: '| Eb | Eb | Bb | Bb | F | Eb | Bb | Bb |',
 })
 
 const R = Pattern.fromData({
   key,
   name: 'Refrain',
-  chords: '|' +
-    ' G | G | D | D | Eb | Eb | Bb | Bb |' +
-    ' G | G | D | D | Eb | Eb | Bb | Bb |',
+  chords: '| G | G | D | D | Eb | Eb | Bb | Bb |',
   fretboard,
 })
 
-const sections: Section[] = [
-  new Section('3', [C, Sk, C, C,]),
-]
-
 const soloCornemuse = new Section('Cornemuse (seule)', [Sk]);
-const coupletCornemuse = new Section('Couplet (Cornemuse)', [C], 'Ck');
-const couplet = new Section('Couplet', [C]);
-const refrainCornemuse = new Section('Refrain (Cornemuse)', [R, R], 'Rk');
-const refrain = new Section('Refrain', [R], 'R');
+const coupletCornemuse = new Section('Cornemuse (couplet)', [C, C, Cp], 'Kc');
+const couplet = new Section('Couplet', [C, C, Cp]);
+const refrainCornemuse = new Section('Cornemuse (refrain)', [R, R, R, R], 'Kr');
+const refrain = new Section('Refrain', [R, R], 'R');
 
 const parts: Part[] = [
   new Part('Intro', [soloCornemuse]),

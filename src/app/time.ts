@@ -2,6 +2,7 @@ import * as Tone from "tone";
 import {TimeClass} from "tone";
 import {Transport} from "tone/build/esm/core/clock/Transport";
 import {TimeValue} from "tone/build/esm/core/type/TimeBase";
+import {BarNumber0Indexed} from "./notes";
 
 // TODO Attention valable uniquement en 4/4, sinon il faudra utiliser TimeClass avec un BaseContext
 export class Time {
@@ -33,6 +34,10 @@ export class Time {
     // console.log('wrappedPosition', barsBeatsSixteenth, new Time(Tone.Time(barsBeatsSixteenth)).toBarsBeatsSixteenths())
 
     return new Time(Tone.Time(barsBeatsSixteenth))
+  }
+
+  static fromBar(bar: BarNumber0Indexed): Time {
+    return this.fromValue(`${bar}:0:0`)
   }
 
   private static fromFields(fields: BarsBeatsSixteenthsFields): Time {
@@ -162,9 +167,12 @@ export class Time {
   }
 }
 
-export interface TimedElement {
-  startTime: Time
+export interface TimedElement extends StartTimedElement {
   endTime: Time
+}
+
+export interface StartTimedElement {
+  startTime: Time
 }
 
 export const ONE_BAR = Time.fromValue('1m')

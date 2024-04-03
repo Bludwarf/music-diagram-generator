@@ -23,4 +23,12 @@ describe('Chords', () => {
     expect(chords.duration.toString()).toEqual('2:0:0')
   });
 
+  it('should get chords at bar 1 from | Gm F | Eb D |', () => {
+    const chords = Chords.fromAsciiChords('| Gm F | Eb D |')
+    const barChords = chords.getChordsAtBar(0);
+    expect(barChords).toBeDefined();
+
+    expect(barChords?.toAscii()).toEqual('| Gm F |')
+  });
+
 });

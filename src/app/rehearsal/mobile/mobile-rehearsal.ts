@@ -1,7 +1,7 @@
 import {ChangeDetectorRef} from '@angular/core';
 import {SectionInStructure} from "../../structure/section/section-in-structure";
 import {PatternInStructure} from "../../structure/pattern/pattern-in-structure";
-import {Chord} from "../../notes";
+import {BarNumber0Indexed, Chord} from "../../notes";
 import {Structure} from "../../structure/structure";
 import {SongEntry} from "../../song/song-entry";
 import {ActivatedRoute} from "@angular/router";
@@ -15,11 +15,10 @@ import noyerEntry from "../../song/entries/Souffrance";
 import nuagesEntry from "../../song/entries/Nuages blancs";
 import {RythmBarEvent} from "../../rythm-bar/event";
 import * as Tone from "tone";
-import {Time, TimedElement} from "../../time";
+import {StartTimedElement, Time} from "../../time";
 import {error, sequence} from '../../utils';
 import {Recording} from "../../recording/recording";
 import {PartInStructure} from "../../structure/part/part-in-structure";
-import {InStructure} from "../../structure/in-structure";
 
 export abstract class MobileRehearsal {
 
@@ -32,6 +31,7 @@ export abstract class MobileRehearsal {
 
   progress = 0;
   timecode?: string;
+  currentBar?: BarNumber0Indexed;
   transportPosition?: any;
   transportSeconds?: number
   structure?: Structure;
@@ -169,6 +169,7 @@ export abstract class MobileRehearsal {
         // this.timecode = abletonLiveBarsBeatsSixteenths(Tone.Transport)
         this.transportPosition = Tone.Transport.position
         this.timecode = warpTime.toAbletonLiveBarsBeatsSixteenths()
+        this.currentBar = warpTime.toBars() // TODO faire un utilitaire qui détecte la mesure en fonction d'une structure et de changements de signature
         this.transportBeatTime = +warpTime.toBeatTime().toFixed(0)
 
         const changePatternFasterDelay = Time.fromValue(0) // Time.fromValue('4n') // TODO trop bizarre à l'affichage de la section courante, mais ok pour affichage partoche
@@ -233,7 +234,8 @@ export abstract class MobileRehearsal {
     console.log('stopSong')
     Tone.Transport.stop()
   }
-  onClickElementInStructure(element: TimedElement & InStructure, structure = element.structure): void {
+
+  onClickElementInStructure(element: StartTimedElement): void {
     if (!this.recording) {
       error('Aucun enregistrement (Recording)')
     }
@@ -243,6 +245,12 @@ export abstract class MobileRehearsal {
       Tone.Transport.seconds = wrappedTime.toSeconds() + fixOffset
       this.refresh()
     }
+  }
+
+  onClickBar(bar: BarNumber0Indexed): void {
+    this.onClickElementInStructure({
+      startTime: Time.fromBar(bar), // TODO faire un élément BarInStructure ?
+    })
   }
 
   async loopPattern(pattern: string): Promise<void> {

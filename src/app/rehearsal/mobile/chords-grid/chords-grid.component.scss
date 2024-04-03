@@ -1,0 +1,20 @@
+:host {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border: solid 3px #3c6400; // TODO transmettre la couleur
+  background: black;
+  gap: 1px;
+
+  & > * {
+    flex: 1;
+  }
+}
+
+.chord {
+  background: #444; // TODO facto avec styles.css
+  //aspect-ratio: 1; // passe mal quand il y a moins de 4 mesures
+}
+
+.current {
+  color: white;
+}

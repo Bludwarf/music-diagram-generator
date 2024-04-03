@@ -32,38 +32,47 @@
 <!-- TODO on reprend le composant A en attendant de trouver la bonne manière de faire -->
 <!-- Détail sur le pattern courant -->
 <ng-container *ngIf="currentPatternInStructure && currentBar !== undefined">
-  <span class="active pattern">{{ currentPatternInStructure.pattern.name }}</span>
 
-  <app-chords-grid *ngIf="currentPatternInStructure.pattern.chords; let chords" [chords]="chords"
-                   [currentBar]="currentBar - currentPatternInStructure.startTime.toBars()"
-  (clickBar)="onClickBar(currentPatternInStructure.startTime.toBars() + $event)"></app-chords-grid>
-  <ng-container *ngIf="!currentPatternInStructure.pattern.chords">
-    {{ currentPatternInStructure.pattern.duration.toBars() }}m
-  </ng-container>
+  <div class="chords-and-fretboard">
 
-  <!-- TODO pourquoi ne peut pas envoyer lowestFret et fretsCount undefined ? -->
-  <app-fretboard
-    *ngIf="currentPatternInStructure.pattern.fretboard && currentPatternInStructure.pattern.fretboard.lowestFret != undefined && currentPatternInStructure.pattern.fretboard.fretsCount != undefined"
-    [lowestFret]="currentPatternInStructure.pattern.fretboard.lowestFret"
-    [fretsCount]="currentPatternInStructure.pattern.fretboard.fretsCount"
-    [key]="currentPatternInStructure.pattern.key"
-    [currentNote]="currentChord?.root"
-  ></app-fretboard>
+    <div class="chords-and-staff">
 
-  {{ currentPatternInStructureRelativeTimecode }} / {{ currentPatternInStructure.pattern.duration.toBars() }}
-  <ng-container *ngIf="currentPatternInStructure.eventsStartTime">
-    <ng-container
-      *ngFor="let barNumber of sequence(currentPatternInStructure.eventsDurationInBars, currentPatternInStructure.eventsStartTime.toBars() + 1)">
-      <app-rythm-bar
-        *ngIf="currentPatternInStructure.pattern.events?.length"
-        [number]="barNumber"
-        [events]="currentPatternInStructure.pattern.events"
-        (addEvent)="addEvent($event)"
-        (removeEvent)="removeEvent($event)"
-        [timecode]="rythmBarTimecode"
-      ></app-rythm-bar>
-      <br/>
-    </ng-container>
-  </ng-container>
+      <span class="active pattern">{{ currentPatternInStructure.pattern.name }}</span>
+
+      <app-chords-grid *ngIf="currentPatternInStructure.pattern.chords; let chords" [chords]="chords"
+                       [currentBar]="currentBar - currentPatternInStructure.startTime.toBars()"
+                       (clickBar)="onClickBar(currentPatternInStructure.startTime.toBars() + $event)"></app-chords-grid>
+      <ng-container *ngIf="!currentPatternInStructure.pattern.chords">
+        {{ currentPatternInStructure.pattern.duration.toBars() }}m
+      </ng-container>
+
+      <span class="pattern-timecode">{{ currentPatternInStructureRelativeTimecode }} / {{ currentPatternInStructure.pattern.duration.toBars() }}</span>
+      <ng-container *ngIf="currentPatternInStructure.eventsStartTime">
+        <ng-container
+          *ngFor="let barNumber of sequence(currentPatternInStructure.eventsDurationInBars, (currentPatternInStructure.eventsStartTime?.toBars() ?? 0) + 1)">
+          <app-rythm-bar
+            [number]="barNumber"
+            [events]="currentPatternInStructure.pattern.events ?? []"
+            (addEvent)="addEvent($event)"
+            (removeEvent)="removeEvent($event)"
+            [timecode]="rythmBarTimecode"
+          ></app-rythm-bar>
+        </ng-container>
+      </ng-container>
+
+    </div>
+
+    <div>
+
+      <app-fretboard
+        [lowestFret]="0"
+        [fretsCount]="13"
+        [key]="currentPatternInStructure.pattern.key"
+        [currentNote]="currentChord?.root"
+      ></app-fretboard>
+
+    </div>
+
+  </div>
 
 </ng-container>

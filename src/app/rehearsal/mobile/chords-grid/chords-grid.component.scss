@@ -4,6 +4,7 @@
   border: solid 3px #3c6400; // TODO transmettre la couleur
   background: black;
   gap: 1px;
+  font-size: 6mm;
 
   & > * {
     flex: 1;
@@ -11,8 +12,8 @@
 }
 
 .chord {
-  background: #444; // TODO facto avec styles.css
-  //aspect-ratio: 1; // passe mal quand il y a moins de 4 mesures
+  background: var(--background);
+  aspect-ratio: 1;
 }
 
 .current {

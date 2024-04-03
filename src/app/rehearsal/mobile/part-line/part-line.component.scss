@@ -9,7 +9,7 @@
     overflow: clip;
     text-wrap: nowrap;
     text-align: left;
-    background: #444; // cf. styles.css > html
+    background: var(--background);
     //box-shadow: -10px 0 10px #444;
     //clip-path: inset(0 0 0 -100%);
   }

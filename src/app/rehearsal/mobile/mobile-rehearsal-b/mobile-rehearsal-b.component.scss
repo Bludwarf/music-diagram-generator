@@ -33,40 +33,8 @@
   right: 0;
 }
 
-#structure-map-zones {
-  display: flex;
-  height: 5mm;
-
-  & > * {
-    height: 100%;
-
-    &[data-pattern=B] {
-      background: #1976d2;
-      color: #11508f;
-    }
-
-    &[data-pattern=C] {
-      background: #3c6400;
-      color: #243b00;
-    }
-
-    &[data-pattern=R] {
-      background: chocolate;
-      color: #723910;
-    }
-
-    &.active {
-      border: solid 1px white;
-    }
-  }
-}
-
 input[type=file] {
   display: none;
-}
-
-#range-container {
-  flex: 1;
 }
 
 #transport-buttons {
@@ -95,95 +63,18 @@ app-part-tabs {
   flex: none;
 }
 
-#pattern-row {
+.chords-and-fretboard {
   display: flex;
 
   & > * {
     flex: 1;
   }
-}
 
-#part-line {
-
-  .sections-line {
-    display: flex;
-    background: #616161; // cf. styles.css > *
-    font-size: 5mm;
-    text-indent: 1mm;
-
-    & > * {
-      flex: 1;
-      overflow: clip;
-      text-align: left;
-      background: #444; // cf. styles.css > html
-      //box-shadow: -10px 0 10px #444;
-      //clip-path: inset(0 0 0 -100%);
-    }
-
-    & > *:not(:first-child) {
-      border-left: solid 1px #616161;
-    }
-
-    .active.section {
-      color: white;
-      border-bottom: solid 2px white;
-    }
-  }
-
-  .patterns-line {
-    display: flex;
-    gap: 1px;
-
-    & > * {
-      flex: 1;
-    }
-
-    [data-pattern].current {
-      color: white;
-    }
-
-    [data-pattern=B] {
-      background: #1976d2;
-      color: #11508f;
-    }
-
-    [data-pattern=C] {
-      background: #3c6400;
-      color: #243b00;
-    }
-
-    [data-pattern=R] {
-      background: chocolate;
-      color: #723910;
-    }
-  }
-
-  .active-section-line {
-    display: flex;
-
-    .active {
-      border-top: solid 2px white;
-    }
+  .chords-and-staff {
+    flex: 2;
   }
 }
 
-.chords {
-  display: flex;
-  flex-direction: column;
-
-  .chord-line {
-    display: flex;
-
-    & > * {
-      flex: 1;
-    }
-
-    .chord {
-      border: solid 1px black;
-    }
-  }
-}
-
-#fretboard {
-  background: black;
+.pattern-timecode {
+  font-size: 5mm;
 }

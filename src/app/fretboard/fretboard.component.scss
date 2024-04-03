@@ -7,16 +7,16 @@
   display: grid;
   grid-template-columns: auto repeat(4, 1fr); /* 4 cordes + 1 colonnes pour les points blancs */
   gap: 1mm;
-  padding: 2mm;
+  padding: 2px;
+  font-size: 3mm;
 }
 
 [data-fret] {
   flex: 1 1 auto;
-  /*border: solid 1px #444;*/
   aspect-ratio: 1;
-  line-height: 18mm;
   box-sizing: border-box;
   overflow: clip;
+  padding-top: 1mm;
 }
 
 [data-note] {

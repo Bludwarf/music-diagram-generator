@@ -1,13 +1,10 @@
-import { CommonModule } from '@angular/common';
-import {
-  Component,
-  Input,
-  OnChanges,
-  OnInit,
-  SimpleChanges,
-} from '@angular/core';
-import { Key, Mode, Note } from '../notes';
-import { Fretboard } from './fretboard';
+import {CommonModule} from '@angular/common';
+import {Component, Input, OnChanges, OnInit, SimpleChanges,} from '@angular/core';
+import {Key, Mode, Note} from '../notes';
+import {Fretboard} from './fretboard';
+
+const DEFAULT_LOWEST_FRET = 0;
+const DEFAULT_FRETS_COUNT = 5;
 
 @Component({
   selector: 'app-fretboard',
@@ -18,14 +15,14 @@ import { Fretboard } from './fretboard';
 })
 export class FretboardComponent implements OnInit, OnChanges {
   @Input()
-  lowestFret = 0
+  lowestFret? = DEFAULT_LOWEST_FRET
 
   startingNote = Note.fromName('E')
   stringInterval = new Note(5)
   stringsCount = 4
 
   @Input()
-  fretsCount = 5
+  fretsCount? = DEFAULT_FRETS_COUNT
 
   @Input()
   key? = new Key(Note.fromName('C'), Mode.fromName('I'))
@@ -44,8 +41,8 @@ export class FretboardComponent implements OnInit, OnChanges {
       startingNote: this.startingNote,
       stringInterval: this.stringInterval,
       stringsCount: this.stringsCount,
-      lowestFret: this.lowestFret,
-      fretsCount: this.fretsCount,
+      lowestFret: this.lowestFret ?? DEFAULT_LOWEST_FRET,
+      fretsCount: this.fretsCount ?? DEFAULT_FRETS_COUNT,
     });
   }
 

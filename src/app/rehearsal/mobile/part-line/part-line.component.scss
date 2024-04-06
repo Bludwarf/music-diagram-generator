@@ -44,6 +44,11 @@
     clip-path: inset(0 -30px 0px -30px);
   }
 
+  [data-pattern^=I] {
+    background: #1976d2;
+    color: #11508f;
+  }
+
   [data-pattern^=B] {
     background: #1976d2;
     color: #11508f;
@@ -57,6 +62,11 @@
   [data-pattern^=R] {
     background: chocolate;
     color: #723910;
+  }
+
+  [data-pattern^=F] {
+    background: #1976d2;
+    color: #11508f;
   }
 }
 

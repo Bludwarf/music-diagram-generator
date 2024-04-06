@@ -13,6 +13,7 @@ import leJourEntry from "../../song/entries/Le jour (le phare)";
 import resEntry from "../../song/entries/Le résistant";
 import noyerEntry from "../../song/entries/Souffrance";
 import nuagesEntry from "../../song/entries/Nuages blancs";
+import la4LEntry from "../../song/entries/La 4L";
 import {RythmBarEvent} from "../../rythm-bar/event";
 import * as Tone from "tone";
 import {StartTimedElement, Time} from "../../time";
@@ -61,6 +62,7 @@ export abstract class MobileRehearsal {
     this.songEntries.push(resEntry)
     this.songEntries.push(noyerEntry)
     this.songEntries.push(nuagesEntry)
+    this.songEntries.push(la4LEntry)
 
     // TODO unsubscribe
     activatedRoute.params.subscribe(params => {

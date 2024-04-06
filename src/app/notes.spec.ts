@@ -1,5 +1,17 @@
-import {Chord, Chords} from "./notes";
+import {Chord, Chords, Note} from "./notes";
 import {Time} from "./time";
+
+describe('Chord', () => {
+
+  it('should get root from chord Am', () => {
+    expect(Chord.getRootFromName('Am')).toEqual(Note.A);
+  });
+
+  it('should get root from chord Gb', () => {
+    expect(Chord.getRootFromName('Gb')).toEqual(Note.Gb);
+  });
+
+});
 
 describe('Chords', () => {
 

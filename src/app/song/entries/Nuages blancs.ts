@@ -1,10 +1,10 @@
-import {FretboardData, Pattern} from "../../structure/pattern/pattern";
-import {Structure} from "../../structure/structure";
-import {Key} from "../../notes";
-import {Section} from "../../structure/section/section";
+import { FretboardData, Pattern } from "../../structure/pattern/pattern";
+import { Structure } from "../../structure/structure";
+import { Key } from "../../notes";
+import { Section } from "../../structure/section/section";
 import recordingInitData from "../../../assets/recordings/NUAGES BLANCS PréMaster Brut v2.02 SANS_01.json";
-import {Recording} from "../../recording/recording";
-import {Part} from "../../structure/part/part";
+import { Recording } from "../../recording/recording";
+import { Part } from "../../structure/part/part";
 
 const key = Key.Gm
 const fretboard: FretboardData = {
@@ -14,35 +14,43 @@ const fretboard: FretboardData = {
 
 // Tempo rapide
 
-const i = Pattern.fromData({
+const I = Pattern.fromData({
   key,
   name: 'Intro',
-  chords: '| G | C |',
+  chords: '| G | C | G | C |',
   fretboard,
 })
 
-const fin = Pattern.fromData({
+const Ip = Pattern.fromData({
+  key,
+  name: 'Intro\'',
+  initial: 'I\'',
+  chords: '| G | C | G | G |',
+  fretboard,
+})
+
+const F = Pattern.fromData({
   key,
   name: 'Fin',
   chords: '| G |',
   fretboard,
 })
 
-const c = Pattern.fromData({
+const C = Pattern.fromData({
   key,
   name: 'Couplet',
   chords: '| G | C | Gb | D |',
   fretboard,
 })
 
-const r = Pattern.fromData({
+const R = Pattern.fromData({
   key,
   name: 'Refrain',
   chords: '| Eb | Bb | F | F |',
   fretboard,
 })
 
-const rp = Pattern.fromData({
+const Rp = Pattern.fromData({
   key,
   name: 'Refrain (fin)',
   initial: 'R\'',
@@ -50,15 +58,15 @@ const rp = Pattern.fromData({
   fretboard,
 })
 
-const sB = Pattern.fromData({
+const Sb = Pattern.fromData({
   key,
   name: 'Solo (base)',
   initial: 'Sb',
-  chords: '| G | G |',
+  chords: '| G | G | G | G |',
   fretboard,
 })
 
-const sAData = ({
+const SAData = ({
   key,
   name: 'Solo (accords)',
   fretboard: {
@@ -67,51 +75,55 @@ const sAData = ({
   }
 })
 
-const sAG = Pattern.fromData({
-  ...sAData,
+const SAG = Pattern.fromData({
+  ...SAData,
+  name: 'Solo (Gm)',
   initial: 'Gm',
-  chords: '| Gm | Gm |',
+  chords: '| Gm | Gm | Gm | Gm |',
 })
 
-const sAD = Pattern.fromData({
-  ...sAData,
+const SAD = Pattern.fromData({
+  ...SAData,
+  name: 'Solo (Dm)',
   initial: 'Dm',
-  chords: '| Dm | Dm |',
+  chords: '| Dm | Dm | Dm | Dm |',
 })
 
-const sAC = Pattern.fromData({
-  ...sAData,
+const SAC = Pattern.fromData({
+  ...SAData,
+  name: 'Solo (Cm)',
   initial: 'Cm',
-  chords: '| Cm | Cm |',
+  chords: '| Cm | Cm | Cm | Cm |',
 })
 
-const sADMaj = Pattern.fromData({
-  ...sAData,
+const SADMaj = Pattern.fromData({
+  ...SAData,
+  name: 'Solo (Dm D)',
   initial: 'D*',
-  chords: '| Dm | D |',
+  chords: '| Dm | Dm | D | D |',
 })
 
-const couplet = new Section('Couplet', [c, c, c,]);
-const refrain = new Section('Refrain', [r, r, r, rp,]);
-const bombarde = new Section('Bombarde', [i, i, i, i, i, i, i, i,]);
+const couplet = new Section('Couplet', [C, C, C]);
+const refrain = new Section('Refrain', [R, R, R, Rp]);
+const bombarde = new Section('Bombarde', [I, I, I, I]);
 
-const coupletRap = new Section('Couplet (rap)', [c, c, c,]);
+const coupletRap = new Section('Couplet (rap)', [C, C, C]);
 
 const parts: Part[] = [
   new Part('Intro', [
-    new Section(`D'nB`, [i, i, i, i, i, i, i, i,]) // 8 fois I
+    new Section(`D'nB`, [I, I, I, Ip])
   ]),
-  new Part('1', [couplet, refrain, bombarde,]),
-  new Part('2', [couplet, refrain, bombarde,]),
+  new Part('1', [couplet, refrain, bombarde]),
+  new Part('2', [couplet, refrain, bombarde]),
   new Part('Solo', [
-    new Section(`D'nB`, [sB, sB, sB, sB]),
-    new Section(`Accords`, [sAG, sAG, sAD, sAD, sAC, sAC, sADMaj, sADMaj]),
-    new Section(`D'nB`, [sB, sB, sB, sB]),
+    new Section(`D'nB`, [Sb, Sb]),
+    new Section(`Accords`, [SAG, SAD, SAC, SADMaj]),
+    new Section(`D'nB`, [Sb, Sb]),
   ]),
-  new Part('3', [coupletRap, refrain, bombarde,]),
-  new Part('4', [couplet, refrain, bombarde,]),
+  new Part('3', [coupletRap, refrain, bombarde]),
+  new Part('4', [couplet, refrain, bombarde]),
   new Part('Fin', [
-    new Section('Fin', [i, i, i, i, fin])
+    new Section('Fin', [I, Ip, F])
   ]),
 ]
 

@@ -79,6 +79,13 @@ export class ConvertComponent {
         fretsCount: 5,
     }
     
+    const I = Pattern.fromData({
+        key,
+        name: 'Intro',
+        chords: '| A | C | G | F |',
+        fretboard,
+    })
+    
     const C = Pattern.fromData({
         key,
         name: 'Couplet',
@@ -93,10 +100,12 @@ export class ConvertComponent {
         fretboard,
     })
     
+    const intro = new Section('Intro', [I, I, I, I])
     const couplet = new Section('Couplet', [C, C, C, C])
     const refrain = new Section('Refrain', [R, R])
     
     const parts: Part[] = [
+        new Part('Intro', [intro]),
         new Part('1', [couplet, refrain]),
         new Part('2', [couplet, refrain]),
     ]

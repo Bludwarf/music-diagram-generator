@@ -105,7 +105,7 @@ export class ConvertComponent {
     const refrain = new Section('Refrain', [R, R])
     
     const parts: Part[] = [
-        new Part('Intro', [intro]),
+        new Part('I', [intro]),
         new Part('1', [couplet, refrain]),
         new Part('2', [couplet, refrain]),
     ]

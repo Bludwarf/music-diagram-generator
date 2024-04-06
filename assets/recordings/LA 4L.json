@@ -1,0 +1,231 @@
+{
+    "name": "LA 4L",
+    "sampleDuration": 174.96345833333334,
+    "sampleBeatTimeDuration": 364.08616929945055,
+    "warpMarkers": [
+      {
+        "secTime": 0,
+        "beatTime": -6.7780209373959375
+      },
+      {
+        "secTime": 4.0668125,
+        "beatTime": 0
+      },
+      {
+        "secTime": 5.967604166666667,
+        "beatTime": 4
+      },
+      {
+        "secTime": 9.734375,
+        "beatTime": 12
+      },
+      {
+        "secTime": 13.481166666666667,
+        "beatTime": 20
+      },
+      {
+        "secTime": 17.267166666666665,
+        "beatTime": 28
+      },
+      {
+        "secTime": 22.92383333333333,
+        "beatTime": 40
+      },
+      {
+        "secTime": 28.651125,
+        "beatTime": 52
+      },
+      {
+        "secTime": 32.484854166666665,
+        "beatTime": 60
+      },
+      {
+        "secTime": 36.28514583333333,
+        "beatTime": 68
+      },
+      {
+        "secTime": 38.216520833333334,
+        "beatTime": 72
+      },
+      {
+        "secTime": 42.09229166666667,
+        "beatTime": 80
+      },
+      {
+        "secTime": 47.85510416666666,
+        "beatTime": 92
+      },
+      {
+        "secTime": 51.657,
+        "beatTime": 100
+      },
+      {
+        "secTime": 53.566562499999996,
+        "beatTime": 104
+      },
+      {
+        "secTime": 57.40364583333333,
+        "beatTime": 112
+      },
+      {
+        "secTime": 61.204229166666664,
+        "beatTime": 120
+      },
+      {
+        "secTime": 63.0844375,
+        "beatTime": 124
+      },
+      {
+        "secTime": 64.93879166666666,
+        "beatTime": 128
+      },
+      {
+        "secTime": 66.822125,
+        "beatTime": 132
+      },
+      {
+        "secTime": 68.73645833333333,
+        "beatTime": 136
+      },
+      {
+        "secTime": 72.6061875,
+        "beatTime": 144
+      },
+      {
+        "secTime": 74.552875,
+        "beatTime": 148
+      },
+      {
+        "secTime": 76.46397916666666,
+        "beatTime": 152
+      },
+      {
+        "secTime": 78.3545625,
+        "beatTime": 156
+      },
+      {
+        "secTime": 80.25960416666666,
+        "beatTime": 160
+      },
+      {
+        "secTime": 82.19297916666666,
+        "beatTime": 164
+      },
+      {
+        "secTime": 84.14870833333333,
+        "beatTime": 168
+      },
+      {
+        "secTime": 86.07854166666667,
+        "beatTime": 172
+      },
+      {
+        "secTime": 87.96539583333333,
+        "beatTime": 176
+      },
+      {
+        "secTime": 89.82797916666667,
+        "beatTime": 180
+      },
+      {
+        "secTime": 91.70766666666667,
+        "beatTime": 184
+      },
+      {
+        "secTime": 97.38554166666667,
+        "beatTime": 196
+      },
+      {
+        "secTime": 99.29529166666666,
+        "beatTime": 200
+      },
+      {
+        "secTime": 103.08208333333333,
+        "beatTime": 208
+      },
+      {
+        "secTime": 104.99039583333332,
+        "beatTime": 212
+      },
+      {
+        "secTime": 106.921125,
+        "beatTime": 216
+      },
+      {
+        "secTime": 110.7459375,
+        "beatTime": 224
+      },
+      {
+        "secTime": 114.61666666666666,
+        "beatTime": 232
+      },
+      {
+        "secTime": 118.45220833333333,
+        "beatTime": 240
+      },
+      {
+        "secTime": 122.338625,
+        "beatTime": 248
+      },
+      {
+        "secTime": 124.25441666666666,
+        "beatTime": 252
+      },
+      {
+        "secTime": 126.14949999999999,
+        "beatTime": 256
+      },
+      {
+        "secTime": 131.915,
+        "beatTime": 268
+      },
+      {
+        "secTime": 133.82160416666667,
+        "beatTime": 272
+      },
+      {
+        "secTime": 137.66385416666665,
+        "beatTime": 280
+      },
+      {
+        "secTime": 141.49462499999998,
+        "beatTime": 288
+      },
+      {
+        "secTime": 145.36158333333333,
+        "beatTime": 296
+      },
+      {
+        "secTime": 149.19639583333333,
+        "beatTime": 304
+      },
+      {
+        "secTime": 153.09079166666666,
+        "beatTime": 312
+      },
+      {
+        "secTime": 156.92566666666667,
+        "beatTime": 320
+      },
+      {
+        "secTime": 158.8790625,
+        "beatTime": 324
+      },
+      {
+        "secTime": 160.81708333333333,
+        "beatTime": 328
+      },
+      {
+        "secTime": 164.632,
+        "beatTime": 336
+      },
+      {
+        "secTime": 166.55241666666666,
+        "beatTime": 340
+      },
+      {
+        "secTime": 166.56760286458334,
+        "beatTime": 340.03125
+      }
+    ]
+  }

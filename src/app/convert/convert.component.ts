@@ -65,51 +65,64 @@ export class ConvertComponent {
     this._songName = songName
     const recordingName = this.recordingInitData?.name ?? prompt('recording.name')
     this.songEntry = `
-import {Key} from "../../notes";
-import recordingInitData from "../../../assets/recordings/${recordingName}.json";
-import {Pattern} from "../../structure/pattern/pattern";
-import {Recording} from "../../recording/recording";
-import {Structure} from "../../structure/structure";
-import {Section} from "../../structure/section/section";
-
-const key = Key.Gm
-const fretboard = {
-  lowestFret: 0,
-  fretsCount: 5,
-}
-
-const couplet = Pattern.fromData({
-  key,
-  name: 'Couplet',
-  chords: '| A | C | G | F |',
-  fretboard,
-})
-
-const refrain = Pattern.fromData({
-  key,
-  name: 'Refrain',
-  chords: '| A | E | F | G |',
-  fretboard,
-})
-
-const sections: Section[] = [
-  new Section('1', [couplet, couplet, couplet, couplet, refrain, refrain, ]),
-  new Section('2', [couplet, couplet, couplet, couplet, refrain, refrain, ]),
-]
-
-const structure = Structure.builder()
-  .sections(sections)
-  .build()
-
-const recording = Recording.builder()
-  .initData(recordingInitData)
-  .build()
-
-export default {
-  name: '${songName}',
-  structure,
-  recording,
-}
+    import { Key } from "../../notes";
+    import recordingInitData from "../../../assets/recordings/${recordingName}.json";
+    import { Pattern } from "../../structure/pattern/pattern";
+    import { Recording } from "../../recording/recording";
+    import { Structure } from "../../structure/structure";
+    import { Section } from "../../structure/section/section";
+    import { Part } from "../../structure/part/part";
+    
+    const key = Key.Gm
+    const fretboard = {
+        lowestFret: 0,
+        fretsCount: 5,
+    }
+    
+    const I = Pattern.fromData({
+        key,
+        name: 'Intro',
+        chords: '| A | C | G | F |',
+        fretboard,
+    })
+    
+    const C = Pattern.fromData({
+        key,
+        name: 'Couplet',
+        chords: '| A | C | G | F |',
+        fretboard,
+    })
+    
+    const R = Pattern.fromData({
+        key,
+        name: 'Refrain',
+        chords: '| A | E | F | G |',
+        fretboard,
+    })
+    
+    const intro = new Section('Intro', [I, I, I, I])
+    const couplet = new Section('Couplet', [C, C, C, C])
+    const refrain = new Section('Refrain', [R, R])
+    
+    const parts: Part[] = [
+        new Part('I', [intro]),
+        new Part('1', [couplet, refrain]),
+        new Part('2', [couplet, refrain]),
+    ]
+    
+    const structure = Structure.builder()
+        .parts(parts)
+        .build()
+    
+    const recording = Recording.builder()
+        .initData(recordingInitData)
+        .build()
+    
+    export default {
+        name: '${songName}',
+        structure,
+        recording,
+    }    
 `
   }
 }

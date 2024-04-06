@@ -161,12 +161,10 @@ export class Chord {
     switch (name) {
       case 'Gb':
         return Note.Gb
-      case 'Gm':
-        return Note.G
-      case 'Cm':
-        return Note.C
-      case 'Dm':
-        return Note.D
+    }
+    const groups = /^([A-G][b#]?)/.exec(name)
+    if (groups) {
+      return this.getRootFromName(groups[0])
     }
     throw new Error('Cannot find root from ' + name)
   }

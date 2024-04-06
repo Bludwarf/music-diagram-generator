@@ -15,13 +15,16 @@ import {RouterLink} from "@angular/router";
 export class IndexComponent {
 
   playlist = [
-    'Petit Papillon',
-    'Surcouf',
-    'La femme dragon',
     'Le jour (le phare)',
-    'Le résistant',
+    'La femme dragon',
     'Noyer le silence',
+    'La 4L',
+    'Surcouf',
+    'Le résistant',
+    'Solitude',
+    'Petit Papillon',
     'Nuages blancs',
+    'Elle rêve à quoi',
   ]
 
 }

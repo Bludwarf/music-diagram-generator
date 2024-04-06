@@ -19,6 +19,11 @@
 
     // TODO factorisation avec part-line.component.scss
 
+    &[data-pattern^=I] {
+      background: #1976d2;
+      color: #11508f;
+    }
+
     &[data-pattern^=B] {
       background: #1976d2;
       color: #11508f;
@@ -47,6 +52,11 @@
     &[data-pattern="R'"] {
       background: #d5854a;
       color: #754929;
+    }
+
+    &[data-pattern^=F] {
+      background: #1976d2;
+      color: #11508f;
     }
 
     &.active {

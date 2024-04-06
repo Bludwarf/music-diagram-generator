@@ -27,7 +27,7 @@ Copier le contenu json dans un fichier json dans le dossier [src/assets/structur
 
 Copier le contenu ts dans un fichier du dossier [src/app/song/entries](src/app/song/entries).
 
-Compléter le fichier [src/app/song/song.component.ts](src/app/song/song.component.ts) :
+Compléter le fichier [mobile-rehearsal.ts](src/app/rehearsal/mobile/mobile-rehearsal.ts) :
 
 1. Ajouter un import vers le `SongEntry`
 2. Ajouter le songEntry importé à `songEntries`

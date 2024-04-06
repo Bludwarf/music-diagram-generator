@@ -16,16 +16,20 @@ export class Recording {
     return new RecordingBuilder()
   }
 
+  get sampleEndBeatTime(): number {
+    return this.sampleBeatTimeDuration + this.warpMarkers[0].beatTime
+  }
+
   private normalizeWarpMarker(): void {
     const lastWarpMarker = this.warpMarkers[this.warpMarkers.length - 1]
-    const missingSampleEndWarpMarker = lastWarpMarker.beatTime !== this.sampleBeatTimeDuration
+    const missingSampleEndWarpMarker = lastWarpMarker.beatTime < this.sampleEndBeatTime
     if (missingSampleEndWarpMarker) {
       // Pour simplifier le code de getWarpPosition(), on ajoute systématiquement un WarpMarker à la fin du sample
       if (this.sampleBeatTimeDuration < lastWarpMarker.beatTime) {
         // TODO pour le moment on laisse passer, car certains morceaux n'ont pas de sampleBeatTimeDuration valides ("Noyer le silence"), ce qui est peut-être normal
         console.warn(`La durée du sample en BeatTime (${this.sampleBeatTimeDuration}) doit être supérieure au BeatTime du dernier WarpMarker (${lastWarpMarker.beatTime})`)
       } else {
-        this.warpMarkers.push(new WarpMarker(this.sampleDuration.toSeconds(), this.sampleBeatTimeDuration))
+        this.warpMarkers.push(new WarpMarker(this.sampleDuration.toSeconds(), this.sampleEndBeatTime))
       }
     }
   }

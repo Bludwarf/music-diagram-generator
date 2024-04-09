@@ -17,7 +17,7 @@ const fretboard: FretboardData = {
 const I = Pattern.fromData({
   key,
   name: 'Intro',
-  chords: '| G | C | G | C |',
+  chords: '| Gm | Cm | Gm | Cm |',
   fretboard,
 })
 
@@ -25,21 +25,21 @@ const Ip = Pattern.fromData({
   key,
   name: 'Intro\'',
   initial: 'I\'',
-  chords: '| G | C | G | G |',
+  chords: '| Gm | Cm | Gm | Gm |',
   fretboard,
 })
 
 const F = Pattern.fromData({
   key,
   name: 'Fin',
-  chords: '| G |',
+  chords: '| Gm |',
   fretboard,
 })
 
 const C = Pattern.fromData({
   key,
   name: 'Couplet',
-  chords: '| G | C | Gb | D |',
+  chords: '| Gm | Cm | Gbm | Dm |',
   fretboard,
 })
 
@@ -54,7 +54,7 @@ const Rp = Pattern.fromData({
   key,
   name: 'Refrain (fin)',
   initial: 'R\'',
-  chords: '| Eb | Bb | D | D |',
+  chords: '| Eb | Bb | Dm | Dm |',
   fretboard,
 })
 
@@ -62,7 +62,7 @@ const Sb = Pattern.fromData({
   key,
   name: 'Solo (base)',
   initial: 'Sb',
-  chords: '| G | G | G | G |',
+  chords: '| Gm | Gm | Gm | Gm |',
   fretboard,
 })
 

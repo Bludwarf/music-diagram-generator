@@ -11,9 +11,23 @@
   }
 }
 
-.chord {
+.bar {
   background: var(--background);
   aspect-ratio: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  &.multi-chords {
+    .chord:first-of-type {
+      text-align: left;
+    }
+
+    .chord:last-of-type {
+      text-align: right;
+    }
+  }
+
 }
 
 .current {

@@ -61,7 +61,7 @@
     <span class="active pattern">{{ currentPatternInStructure.pattern.name }}</span><br/>
 
     <ng-container *ngIf="currentPatternInStructure.pattern.chords; let chords">
-      {{ chords.toAscii() }}
+      {{ chords.ascii }}
     </ng-container>
     <ng-container *ngIf="!currentPatternInStructure.pattern.chords">
       {{ currentPatternInStructure.pattern.duration.toBars() }}m

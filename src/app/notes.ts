@@ -191,19 +191,22 @@ export type AsciiChordsWithoutBorders = string
 
 export type BarNumber0Indexed = number
 
-export class Chords {
+export class Chords extends Array<Chord> {
 
   constructor(
-    private readonly asciiChords: AsciiChords,
+    list: Chord[],
+    readonly ascii: AsciiChords,
     readonly duration: Time,
     private readonly chordsByTime: [Time, Chord][] = [], // TODO trier par time asc
   ) {
+    super(...list)
   }
 
   static fromAsciiChords(asciiChords: AsciiChords): Chords {
 
     const barGroups = this.groupAsciiChordsByBar(asciiChords)
 
+    const chordsList: Chord[] = []
     const chordsByTime: [Time, Chord][] = []
 
     let time = Time.fromValue(0)
@@ -214,6 +217,7 @@ export class Chords {
 
       chordGroups.forEach(chordGroup => {
         const chord = new Chord(chordGroup)
+        chordsList.push(chord)
         chordsByTime.push([time, chord])
 
         time = time.add(chordDuration)
@@ -221,7 +225,7 @@ export class Chords {
 
     })
 
-    return new Chords(asciiChords, Time.fromValue(`${barGroups.length}m`), chordsByTime)
+    return new Chords(chordsList, asciiChords, Time.fromValue(`${barGroups.length}m`), chordsByTime)
   }
 
   static groupAsciiChordsByBar(asciiChords: AsciiChords): string[] {
@@ -246,7 +250,7 @@ export class Chords {
 
   getChordsAtBar(bar: BarNumber0Indexed): Chords | undefined {
     // TODO cache
-    const chordGroups = Chords.groupAsciiChordsByBar(this.asciiChords)
+    const chordGroups = Chords.groupAsciiChordsByBar(this.ascii)
     if (bar > chordGroups.length - 1) {
       console.warn('No chords at bar ' + bar)
       return undefined
@@ -254,21 +258,13 @@ export class Chords {
     return Chords.fromAsciiChords(`| ${chordGroups[bar]} |`);
   }
 
-  get length(): number {
-    return this.chordsByTime.length
-  }
-
-  toString(): string {
+  override toString(): string {
     return this.chordsByTime.map(([chordTime, chord]) => `${chordTime.toBarsBeatsSixteenths()} ${chord}`).join('\n')
   }
 
-  toAscii(): AsciiChords {
-    return this.asciiChords
-  }
-
   toAsciiWithoutBorders(): AsciiChordsWithoutBorders {
-    return this.asciiChords
-      .substring(1, this.asciiChords.length - 1)
+    return this.ascii
+      .substring(1, this.ascii.length - 1)
       .trim()
   }
 }

@@ -40,7 +40,16 @@ describe('Chords', () => {
     const barChords = chords.getChordsAtBar(0);
     expect(barChords).toBeDefined();
 
-    expect(barChords?.toAscii()).toEqual('| Gm F |')
+    expect(barChords?.ascii).toEqual('| Gm F |')
+  });
+
+  it('should get chords by indices from | Gm F | Eb D |', () => {
+    const chords = Chords.fromAsciiChords('| Gm F | Eb D |')
+    expect(chords[0].toString()).toEqual('Gm')
+    expect(chords[1].toString()).toEqual('F')
+    expect(chords[2].toString()).toEqual('Eb')
+    expect(chords[3].toString()).toEqual('D')
+    expect(chords).toHaveSize(4)
   });
 
 });

@@ -1,4 +1,4 @@
-import {NgModule} from '@angular/core';
+import {NgModule, isDevMode} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {RouterModule} from '@angular/router';
 import {ReactiveFormsModule} from '@angular/forms';
@@ -8,6 +8,7 @@ import {CommonModule} from '@angular/common';
 import {ConvertComponent} from "./convert/convert.component";
 import {SongComponent} from "./song/song.component";
 import {IndexComponent} from "./index/index.component";
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 @NgModule({
   imports: [
@@ -18,7 +19,13 @@ import {IndexComponent} from "./index/index.component";
       { path: '', component: IndexComponent },
       { path: 'morceaux/:songName', component: SongComponent },
       { path: 'convert', component: ConvertComponent },
-    ])
+    ]),
+    ServiceWorkerModule.register('ngsw-worker.js', {
+      enabled: !isDevMode(),
+      // Register the ServiceWorker as soon as the application is stable
+      // or after 30 seconds (whichever comes first).
+      registrationStrategy: 'registerWhenStable:30000'
+    })
   ],
   declarations: [
     AppComponent

@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {SwUpdate} from "@angular/service-worker";
+import {SwUpdate, VersionEvent} from "@angular/service-worker";
 
 @Component({
   selector: 'app-root',
@@ -15,10 +15,11 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.swUpdate.isEnabled) {
-      this.swUpdate.versionUpdates.subscribe(() => {
-        if (confirm('A new version is available. Load it?')) {
-          window.location.reload();
-        }
+      this.swUpdate.versionUpdates.subscribe((versionEvent: VersionEvent) => {
+        console.log('versionEvent', versionEvent)
+        // if (confirm('A new version is available. Load it?')) {
+        //   window.location.reload();
+        // }
       });
     }
   }

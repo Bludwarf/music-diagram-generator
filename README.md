@@ -36,3 +36,23 @@ Ajuster le fichier dupliqué :
 
 1. `events`
 2. `patterns`
+
+# Test Service Worker
+
+Builder en mode prod :
+
+```shell
+npm run ng -- build --configuration production
+```
+
+Installer `http-serve` :
+
+```shell
+npm install http-server -g
+```
+
+Lancer le serveur :
+
+```shell
+http-server ./dist/browser -c-1 -o
+```

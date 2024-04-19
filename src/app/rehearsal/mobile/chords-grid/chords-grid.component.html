@@ -1,7 +1,8 @@
-<div *ngFor="let bar of sequence(chords.duration.toBars())" class="bar" [class.current]="isCurrentBar(bar)" (click)="onClickBar(bar)">
-  <ng-container *ngIf="chords.getChordsAtBar(bar); let currentBarChords" [class.multi-chords]="currentBarChords.length > 1">
+<ng-container *ngFor="let bar of sequence(chords.duration.toBars())">
+  <div *ngIf="chords.getChordsAtBar(bar); let currentBarChords" class="bar" [class.current]="isCurrentBar(bar)"
+       (click)="onClickBar(bar)" [class.multi-chords]="currentBarChords.length > 1">
     <div *ngFor="let chord of currentBarChords" class="chord">
       {{ chord.toString() }}
     </div>
-  </ng-container>
-</div>
+  </div>
+</ng-container>

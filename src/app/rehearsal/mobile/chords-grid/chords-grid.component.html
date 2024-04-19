@@ -2,7 +2,7 @@
   <div *ngIf="chords.getChordsAtBar(bar); let currentBarChords" class="bar" [class.current]="isCurrentBar(bar)"
        (click)="onClickBar(bar)" [class.multi-chords]="currentBarChords.length > 1">
     <div *ngFor="let chord of currentBarChords" class="chord">
-      {{ chord.toString() }}
+      <span>{{ chord.toString() }}</span>
     </div>
   </div>
 </ng-container>

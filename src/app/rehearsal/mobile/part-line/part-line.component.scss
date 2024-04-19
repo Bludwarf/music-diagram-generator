@@ -6,8 +6,8 @@
 
   & > * {
     flex: 1;
-    overflow: clip;
-    text-wrap: nowrap;
+    overflow: hidden;
+    white-space: nowrap;
     text-align: left;
     background: var(--background);
     //box-shadow: -10px 0 10px #444;
@@ -32,8 +32,8 @@
 
   & > * {
     flex: 1;
-    text-wrap: nowrap;
-    overflow: clip;
+    white-space: nowrap;
+    overflow: hidden;
   }
 
   // TODO factorisation avec structure-map.component.scss

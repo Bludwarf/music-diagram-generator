@@ -17,19 +17,26 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 2px;
 
-  & > * {
+  $padding: 2px;
+  padding: $padding;
+
+  & > .chord {
     flex: 1;
+    display: flex;
+
+    & > span {
+      margin: auto;
+    }
   }
 
   &.multi-chords {
-    .chord:first-of-type {
-      text-align: left;
+    .chord:first-of-type > span {
+      margin-left: $padding;
     }
 
-    .chord:last-of-type {
-      text-align: right;
+    .chord:last-of-type > span {
+      margin-right: $padding;
     }
   }
 

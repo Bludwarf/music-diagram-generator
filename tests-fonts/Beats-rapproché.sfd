@@ -1,0 +1,705 @@
+SplineFontDB: 3.2
+FontName: Beats
+FullName: Beats
+FamilyName: Beats
+Weight: Regular
+Copyright: Copyright (c) 2024, Bludwarf
+UComments: "2024-3-6: Created with FontForge (http://fontforge.org)"
+Version: 001.000
+ItalicAngle: 0
+UnderlinePosition: -100
+UnderlineWidth: 50
+Ascent: 800
+Descent: 200
+InvalidEm: 0
+LayerCount: 2
+Layer: 0 0 "Arri+AOgA-re" 1
+Layer: 1 0 "Avant" 0
+XUID: [1021 381 306189968 27512]
+StyleMap: 0x0000
+FSType: 0
+OS2Version: 0
+OS2_WeightWidthSlopeOnly: 0
+OS2_UseTypoMetrics: 1
+CreationTime: 1709763144
+ModificationTime: 1709768909
+OS2TypoAscent: 0
+OS2TypoAOffset: 1
+OS2TypoDescent: 0
+OS2TypoDOffset: 1
+OS2TypoLinegap: 90
+OS2WinAscent: 0
+OS2WinAOffset: 1
+OS2WinDescent: 0
+OS2WinDOffset: 1
+HheadAscent: 0
+HheadAOffset: 1
+HheadDescent: 0
+HheadDOffset: 1
+Lookup: 4 0 1 "Beats-ligatures" { "Beats-ligatures-1"  } ['liga' ('DFLT' <'dflt' > ) ]
+MarkAttachClasses: 1
+DEI: 91125
+Encoding: Custom
+UnicodeInterp: none
+NameList: AGL For New Fonts
+DisplaySize: -48
+AntiAlias: 1
+FitToEm: 0
+WinInfo: 0 38 14
+BeginPrivate: 0
+EndPrivate
+BeginChars: 264 26
+
+StartChar: one
+Encoding: 49 49 0
+Width: 1000
+Flags: HW
+LayerCount: 2
+Fore
+SplineSet
+402 782 m 25
+ 528 782 l 25
+ 528 782 544 216 546 216 c 8
+ 548 216 434 228 434 228 c 25
+ 402 782 l 25
+EndSplineSet
+Validated: 37
+EndChar
+
+StartChar: NameMe.256
+Encoding: 256 -1 1
+Width: 626
+Flags: HW
+LayerCount: 2
+Fore
+SplineSet
+214 782 m 25
+ 340 782 l 25
+ 340 782 356 216 358 216 c 8
+ 360 216 246 228 246 228 c 25
+ 214 782 l 25
+308 121 m 9
+ -188 603 l 25
+ -64 615 l 25
+ 308 231 l 25
+ 650 623 l 25
+ 812 625 l 0
+ 810 625 308 121 308 121 c 9
+308 121 m 1032
+EndSplineSet
+Validated: 37
+LCarets2: 1 2
+Ligature2: "Beats-ligatures-1" V one
+EndChar
+
+StartChar: NameMe.257
+Encoding: 257 -1 2
+Width: 626
+Flags: HW
+LayerCount: 2
+Fore
+SplineSet
+95 785 m 25
+ 504 782 l 25
+ 498 691 l 25
+ 217 456 l 25
+ 217 456 520 441 520 442 c 8
+ 520 443 498 360 498 360 c 25
+ 498 360 108 378 108 379 c 8
+ 108 380 96 458 96 459 c 8
+ 96 460 384 717 386 716 c 8
+ 388 715 95 717 95 717 c 25
+ 95 785 l 25
+308 121 m 9
+ -188 603 l 25
+ -64 615 l 25
+ 308 231 l 25
+ 650 623 l 25
+ 812 625 l 0
+ 810 625 308 121 308 121 c 9
+308 121 m 1032
+EndSplineSet
+Validated: 37
+LCarets2: 1 0
+Ligature2: "Beats-ligatures-1" V two
+EndChar
+
+StartChar: NameMe.258
+Encoding: 258 -1 3
+Width: 1000
+Flags: HW
+LayerCount: 2
+Fore
+SplineSet
+359 795 m 29
+ 601 793 l 25
+ 610 716 l 25
+ 527 643 l 25
+ 613 569 l 25
+ 561 461 l 25
+ 561 461 396 459 396 460 c 8
+ 396 461 332 538 332 539 c 8
+ 332 540 383 598 383 597 c 8
+ 383 596 450 534 450 534 c 25
+ 498 535 l 25
+ 509 560 l 25
+ 443 648 l 25
+ 443 648 531 730 531 731 c 8
+ 531 732 354 724 354 725 c 0
+ 354 726 357 768 359 795 c 29
+496 0 m 9
+ 0 482 l 25
+ 124 494 l 25
+ 496 110 l 25
+ 838 502 l 25
+ 838 502 1002 504 1000 504 c 0
+ 998 504 496 0 496 0 c 9
+496 0 m 1032
+EndSplineSet
+Validated: 37
+Ligature2: "Beats-ligatures-1" V three
+EndChar
+
+StartChar: NameMe.259
+Encoding: 259 -1 4
+Width: 1000
+Flags: HW
+LayerCount: 2
+Fore
+SplineSet
+304 798 m 29
+ 307 469 l 25
+ 482 441 l 25
+ 484 226 l 25
+ 549 225 l 25
+ 594 800 l 25
+ 514 796 l 25
+ 514 796 489 525 490 524 c 8
+ 491 523 370 539 369 539 c 8
+ 368 539 386 800 386 800 c 25
+ 304 798 l 29
+496 0 m 9
+ 0 482 l 25
+ 124 494 l 25
+ 496 110 l 25
+ 838 502 l 25
+ 838 502 1002 504 1000 504 c 0
+ 998 504 496 0 496 0 c 9
+496 0 m 1032
+EndSplineSet
+Validated: 37
+Ligature2: "Beats-ligatures-1" V four
+EndChar
+
+StartChar: V
+Encoding: 0 86 5
+Width: 626
+Flags: HW
+LayerCount: 2
+Fore
+SplineSet
+308 121 m 9
+ -188 603 l 25
+ -64 615 l 25
+ 308 231 l 25
+ 650 623 l 25
+ 812 625 l 0
+ 810 625 308 121 308 121 c 9
+308 121 m 1032
+EndSplineSet
+Validated: 1
+EndChar
+
+StartChar: two
+Encoding: 50 50 6
+Width: 1000
+Flags: HW
+LayerCount: 2
+Fore
+SplineSet
+287 785 m 25
+ 696 782 l 25
+ 690 691 l 25
+ 409 456 l 25
+ 409 456 712 441 712 442 c 8
+ 712 443 690 360 690 360 c 25
+ 690 360 300 378 300 379 c 8
+ 300 380 288 458 288 459 c 8
+ 288 460 576 717 578 716 c 8
+ 580 715 287 717 287 717 c 25
+ 287 785 l 25
+EndSplineSet
+Validated: 37
+EndChar
+
+StartChar: three
+Encoding: 51 51 7
+Width: 1000
+Flags: HW
+LayerCount: 2
+Fore
+SplineSet
+359 795 m 29
+ 601 793 l 25
+ 610 716 l 25
+ 527 643 l 25
+ 613 569 l 25
+ 561 461 l 25
+ 561 461 396 459 396 460.232438403 c 8
+ 396 461 332 538 332 539.056703473 c 8
+ 332 540 383 598 383 597.068111127 c 8
+ 383 596 450 534 450 534 c 25
+ 498 535 l 25
+ 509 560 l 25
+ 443 648 l 25
+ 443 648 531 730 531 730.827052721 c 8
+ 531 732 354 724 354 725.769615664 c 0
+ 354 726 357 768 359 795 c 29
+496 0 m 9
+ 0 482 l 25
+ 124 494 l 25
+ 496 110 l 25
+ 838 502 l 25
+ 838 502 1002 504 1001.76295605 504 c 0
+ 998 504 496 0 496 0 c 9
+496 0 m 1032
+EndSplineSet
+Validated: 37
+EndChar
+
+StartChar: four
+Encoding: 52 52 8
+Width: 1000
+Flags: HW
+LayerCount: 2
+Fore
+SplineSet
+304 798 m 29
+ 307 469 l 25
+ 482 441 l 25
+ 484 226 l 25
+ 549 225 l 25
+ 594 800 l 25
+ 514 796 l 25
+ 514 796 489 525 490.25345333 523.74654667 c 8
+ 491 523 370 539 369.603085896 539 c 8
+ 368 539 386 800 386 800 c 25
+ 304 798 l 29
+496 0 m 9
+ 0 482 l 25
+ 124 494 l 25
+ 496 110 l 25
+ 838 502 l 25
+ 838 502 1000 504 999.881478025 504 c 0
+ 998 504 496 0 496 0 c 9
+496 0 m 1032
+EndSplineSet
+Validated: 37
+EndChar
+
+StartChar: ampersand
+Encoding: 1 38 9
+Width: 562
+Flags: HW
+LayerCount: 2
+Fore
+SplineSet
+281.991210938 622 m 9
+ -214.008789062 140 l 25
+ -90.0087890625 128 l 25
+ 281.991210938 512 l 25
+ 623.991210938 120 l 25
+ 623.991210938 120 787.991210938 118 785.991210938 118 c 0
+ 783.991210938 118 281.991210938 622 281.991210938 622 c 9
+281.991210938 622 m 1032
+EndSplineSet
+Validated: 37
+EndChar
+
+StartChar: NameMe.260
+Encoding: 260 -1 10
+Width: 1000
+Flags: HW
+LayerCount: 2
+Fore
+SplineSet
+437 584 m 1
+ 563 584 l 1
+ 563 584 565 88 567 88 c 0
+ 569 88 441 96 441 96 c 1
+ 437 584 l 1
+495.162109375 799.247070312 m 9
+ -0.837890625 317.247070312 l 25
+ 123.162109375 305.247070312 l 25
+ 495.162109375 689.247070312 l 25
+ 837.162109375 297.247070312 l 25
+ 837.162109375 297.247070312 1001.16210938 295.247070312 999.162109375 295.247070312 c 0
+ 997.162109375 295.247070312 495.162109375 799.247070312 495.162109375 799.247070312 c 9
+495.162109375 799.247070312 m 1032
+EndSplineSet
+Validated: 37
+Ligature2: "Beats-ligatures-1" ampersand one
+EndChar
+
+StartChar: NameMe.261
+Encoding: 261 -1 11
+Width: 1000
+Flags: HW
+LayerCount: 2
+Fore
+SplineSet
+256 425 m 25
+ 665 422 l 25
+ 659 331 l 25
+ 378 96 l 25
+ 378 96 681 81 681 82 c 8
+ 681 83 659 0 659 0 c 25
+ 659 0 269 18 269 19 c 8
+ 269 20 257 98 257 99 c 8
+ 257 100 545 357 547 356 c 8
+ 549 355 256 357 256 357 c 25
+ 256 425 l 25
+927 333 m 1049
+496 793 m 9
+ 0 311 l 25
+ 124 299 l 25
+ 496 683 l 25
+ 838 291 l 25
+ 838 291 1002 289 1000 289 c 0
+ 998 289 496 793 496 793 c 9
+496 793 m 1032
+EndSplineSet
+Validated: 37
+Ligature2: "Beats-ligatures-1" ampersand two
+EndChar
+
+StartChar: NameMe.262
+Encoding: 262 -1 12
+Width: 1000
+Flags: HW
+LayerCount: 2
+Fore
+SplineSet
+359 475 m 25
+ 601 473 l 25
+ 610 396 l 25
+ 527 323 l 25
+ 613 249 l 25
+ 561 141 l 25
+ 561 141 396 139 396 140 c 8
+ 396 141 332 218 332 219 c 8
+ 332 220 383 278 383 277 c 8
+ 383 276 450 214 450 214 c 25
+ 498 215 l 25
+ 509 240 l 25
+ 443 328 l 25
+ 443 328 531 410 531 411 c 8
+ 531 412 354 404 354 405 c 0
+ 354 406 357 448 359 475 c 25
+496 792 m 9
+ 0 310 l 25
+ 124 298 l 25
+ 496 682 l 25
+ 838 290 l 25
+ 838 290 1002 288 1000 288 c 0
+ 998 288 496 792 496 792 c 9
+496 792 m 1032
+EndSplineSet
+Validated: 37
+Ligature2: "Beats-ligatures-1" ampersand three
+EndChar
+
+StartChar: NameMe.263
+Encoding: 263 -1 13
+Width: 1000
+Flags: HW
+LayerCount: 2
+Fore
+SplineSet
+304 572 m 25
+ 307 243 l 25
+ 482 215 l 25
+ 484 0 l 25
+ 549 -1 l 25
+ 594 574 l 25
+ 514 570 l 25
+ 514 570 489 299 490 298 c 8
+ 491 297 370 313 369 313 c 8
+ 368 313 386 574 386 574 c 25
+ 304 572 l 25
+496 798 m 9
+ 0 316 l 25
+ 124 304 l 25
+ 496 688 l 25
+ 838 296 l 25
+ 838 296 1002 294 1000 294 c 0
+ 998 294 496 798 496 798 c 9
+496 798 m 1032
+EndSplineSet
+Validated: 37
+Ligature2: "Beats-ligatures-1" ampersand four
+EndChar
+
+StartChar: slash
+Encoding: 2 47 14
+Width: 229
+Flags: HW
+LayerCount: 2
+Fore
+SplineSet
+358.991210938 532 m 1
+ -107.008789062 54 l 1
+ -182.008789062 115 l 1
+ 307 590.008789062 l 1
+ 358.991210938 532 l 1
+EndSplineSet
+Validated: 1
+EndChar
+
+StartChar: backslash
+Encoding: 3 92 15
+Width: 200
+Flags: HW
+LayerCount: 2
+Fore
+SplineSet
+-162.991210938 532 m 1
+ 303.008789062 54 l 1
+ 378.008789062 115 l 1
+ -111 590.008789062 l 1
+ -162.991210938 532 l 1
+EndSplineSet
+Validated: 9
+EndChar
+
+StartChar: space
+Encoding: 4 32 16
+Width: 278
+Flags: HW
+LayerCount: 2
+Fore
+SplineSet
+139 400 m 1049
+EndSplineSet
+Validated: 1
+EndChar
+
+StartChar: parenleft
+Encoding: 5 40 17
+Width: 1000
+Flags: H
+LayerCount: 2
+Fore
+SplineSet
+503 704 m 0
+ 365.342153834 668.622050022 302.825646464 514.300642311 321 382 c 0
+ 341.311229961 285.31424826 392.621756325 130.715786698 517 140 c 1024
+EndSplineSet
+Validated: 35
+EndChar
+
+StartChar: parenright
+Encoding: 6 41 18
+Width: 1000
+Flags: H
+LayerCount: 2
+Fore
+SplineSet
+335 710 m 0
+ 449.289261929 643.327164851 559.194631681 535.848442082 559 396 c 0
+ 564.415859444 307.665724548 505.863266884 230.917236313 437 184 c 0
+ 347 144 l 1025
+EndSplineSet
+Validated: 35
+EndChar
+
+StartChar: NameMe.87
+Encoding: 87 -1 19
+Width: 492
+Flags: HW
+LayerCount: 2
+Fore
+SplineSet
+114 195 m 9
+ 114 195 26 59 48 -29 c 8
+ 70 -117 130 -187 174 -175 c 8
+ 218 -163 210 -147 206 -147 c 8
+ 202 -147 80 -111 74 -17 c 8
+ 68 77 68 129 102 149 c 0
+ 136 169 114 195 114 195 c 9
+390 185 m 9
+ 390 185 478 49 456 -39 c 8
+ 434 -127 374 -197 330 -185 c 8
+ 286 -173 294 -157 298 -157 c 8
+ 302 -157 424 -121 430 -27 c 8
+ 436 67 436 119 402 139 c 0
+ 368 159 390 185 390 185 c 9
+211.73046875 118.700195312 m 25
+ 283.549804688 118.700195312 l 25
+ 283.549804688 118.700195312 292.669921875 -79.400390625 293.809570312 -79.400390625 c 8
+ 294.950195312 -79.400390625 229.969726562 -75.2001953125 229.969726562 -75.2001953125 c 25
+ 211.73046875 118.700195312 l 25
+EndSplineSet
+Validated: 37
+LCarets2: 1 0
+Ligature2: "Beats-ligatures-1" parenleft one
+EndChar
+
+StartChar: NameMe.88
+Encoding: 88 -1 20
+Width: 486
+Flags: HW
+LayerCount: 2
+Fore
+SplineSet
+175.25 106.19921875 m 25
+ 285.680664062 105 l 25
+ 284.060546875 68.599609375 l 25
+ 208.190429688 -25.400390625 l 25
+ 208.190429688 -25.400390625 290 -31.400390625 290 -31 c 8
+ 290 -30.6005859375 284.060546875 -63.80078125 284.060546875 -63.80078125 c 25
+ 284.060546875 -63.80078125 178.760742188 -56.6005859375 178.760742188 -56.2001953125 c 8
+ 178.760742188 -55.80078125 175.520507812 -24.6005859375 175.520507812 -24.2001953125 c 8
+ 175.520507812 -23.80078125 253.280273438 79 253.8203125 78.599609375 c 8
+ 254.360351562 78.19921875 175.25 79 175.25 79 c 25
+ 175.25 106.19921875 l 25
+104 195 m 9
+ 104 195 16 59 38 -29 c 8
+ 60 -117 120 -187 164 -175 c 8
+ 208 -163 200 -147 196 -147 c 8
+ 192 -147 70 -111 64 -17 c 8
+ 58 77 58 129 92 149 c 0
+ 126 169 104 195 104 195 c 9
+380 185 m 9
+ 380 185 468 49 446 -39 c 8
+ 424 -127 364 -197 320 -185 c 8
+ 276 -173 284 -157 288 -157 c 8
+ 292 -157 414 -121 420 -27 c 8
+ 426 67 426 119 392 139 c 0
+ 358 159 380 185 380 185 c 9
+EndSplineSet
+Validated: 37
+Ligature2: "Beats-ligatures-1" parenleft two
+LCarets2: 1 0
+EndChar
+
+StartChar: underscore
+Encoding: 7 95 21
+Width: 1000
+Flags: H
+LayerCount: 2
+Fore
+SplineSet
+211 158 m 1
+ 833 100 l 1025
+EndSplineSet
+Validated: 3
+EndChar
+
+StartChar: NameMe.125
+Encoding: 125 -1 22
+Width: 1000
+Flags: H
+LayerCount: 2
+Fore
+SplineSet
+427 -60 m 29
+ 429 -194 l 25
+ 477 -206 l 25
+ 491 -42 l 25
+ 427 -60 l 29
+89 72 m 25
+ 89 72 87 -2 87 0 c 8
+ 87 2 925 -6 925 0 c 8
+ 925 6 929 78 929 78 c 25
+ 89 72 l 25
+EndSplineSet
+Validated: 37
+Ligature2: "Beats-ligatures-1" underscore one
+EndChar
+
+StartChar: NameMe.126
+Encoding: 126 -1 23
+Width: 1000
+Flags: HW
+LayerCount: 2
+Fore
+SplineSet
+287 785 m 25
+ 696 782 l 25
+ 690 691 l 25
+ 409 456 l 25
+ 409 456 712 441 712 442 c 8
+ 712 443 690 360 690 360 c 25
+ 690 360 300 378 300 379 c 8
+ 300 380 288 458 288 459 c 8
+ 288 460 576 717 578 716 c 8
+ 580 715 287 717 287 717 c 25
+ 287 785 l 25
+89 72 m 25
+ 89 72 87 -2 87 0 c 8
+ 87 2 925 -6 925 0 c 8
+ 925 6 929 78 929 78 c 25
+ 89 72 l 25
+EndSplineSet
+Validated: 37
+LCarets2: 1 0
+Ligature2: "Beats-ligatures-1" underscore two
+EndChar
+
+StartChar: NameMe.165
+Encoding: 165 -1 24
+Width: 507
+Flags: HWO
+LayerCount: 2
+Fore
+SplineSet
+367.469726562 66.83984375 m 25
+ 470.924804688 65.87890625 l 25
+ 474.772460938 28.8740234375 l 25
+ 439.2890625 -6.2080078125 l 25
+ 476.0546875 -41.7705078125 l 25
+ 453.82421875 -93.6728515625 l 25
+ 453.82421875 -93.6728515625 383.287109375 -94.6337890625 383.287109375 -94.041015625 c 8
+ 383.287109375 -93.6728515625 355.926757812 -56.66796875 355.926757812 -56.16015625 c 8
+ 355.926757812 -55.70703125 377.729492188 -27.833984375 377.729492188 -28.28125 c 8
+ 377.729492188 -28.794921875 406.372070312 -58.5908203125 406.372070312 -58.5908203125 c 25
+ 426.891601562 -58.1103515625 l 25
+ 431.594726562 -46.095703125 l 25
+ 403.379882812 -3.8046875 l 25
+ 403.379882812 -3.8046875 441 35.6025390625 441 36 c 8
+ 441 36.5634765625 365.33203125 32.71875 365.33203125 33.5693359375 c 0
+ 365.33203125 33.6796875 366.614257812 53.8642578125 367.469726562 66.83984375 c 25
+-162.991210938 532 m 1
+ 303.008789062 54 l 1
+ 378.008789062 115 l 1
+ -111 590.008789062 l 1
+ -162.991210938 532 l 1
+EndSplineSet
+LCarets2: 1 0
+Ligature2: "Beats-ligatures-1" backslash three
+EndChar
+
+StartChar: NameMe.163
+Encoding: 163 -1 25
+Width: 200
+Flags: HW
+LayerCount: 2
+Fore
+SplineSet
+364 59 m 25
+ 364 59 365 -104 365 -103 c 8
+ 365 -102 419 -102 419 -102 c 25
+ 411 70 l 25
+ 364 59 l 25
+-162.991210938 532 m 1
+ 303.008789062 54 l 1
+ 378.008789062 115 l 1
+ -111 590.008789062 l 1
+ -162.991210938 532 l 1
+EndSplineSet
+Validated: 524329
+Ligature2: "Beats-ligatures-1" backslash one
+EndChar
+EndChars
+EndSplineFont

@@ -1,6 +1,6 @@
-import {ActivatedRoute} from "@angular/router";
-import {ProviderToken} from "@angular/core";
-import {TestBed} from "@angular/core/testing";
+import { ActivatedRoute } from "@angular/router";
+import { ProviderToken } from "@angular/core";
+import { TestBed } from "@angular/core/testing";
 import createSpyObj = jasmine.createSpyObj;
 import SpyObj = jasmine.SpyObj;
 
@@ -37,4 +37,10 @@ export const PROVIDER_SPIES = {
 
 export function injectSpy<T>(token: ProviderToken<T>): SpyObj<T> {
   return TestBed.inject(token) as SpyObj<T>;
+}
+
+export function createSpyHTMLElement(): SpyObj<HTMLElement> {
+  return createSpyObj<HTMLElement>('HTMLElement', [
+    'getBoundingClientRect',
+  ])
 }

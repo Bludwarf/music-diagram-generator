@@ -155,3 +155,18 @@ html {
   background: var(--background);
   font-size: 1cm;
 }
+
+@font-face {
+  font-family: "Beats";
+  src:
+    local("Beats"),
+    url("assets/fonts/Beats.woff2") format("woff2");
+}
+
+// Source : https://github.com/vinzentt/jazz-lead-sheet/blob/master/fonts
+@font-face {
+  font-family: "Realbook";
+  src:
+    local("Realbook"),
+    url("assets/fonts/realbook-webfont.woff");
+}

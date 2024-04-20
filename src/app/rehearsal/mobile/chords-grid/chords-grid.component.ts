@@ -3,13 +3,15 @@ import {BarNumber0Indexed, Chords} from "../../../notes";
 import {NgForOf, NgIf} from "@angular/common";
 import {sequence} from "../../../utils";
 import {Time} from "../../../time";
+import { FitFontSizeDirective } from '../../../utils/fit-font-size.directive';
 
 @Component({
   selector: 'app-chords-grid',
   standalone: true,
   imports: [
     NgForOf,
-    NgIf
+    NgIf,
+    FitFontSizeDirective,
   ],
   templateUrl: './chords-grid.component.html',
   styleUrl: './chords-grid.component.scss'

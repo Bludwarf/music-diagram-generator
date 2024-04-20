@@ -56,3 +56,9 @@ Lancer le serveur :
 ```shell
 http-server ./dist/browser -c-1 -o
 ```
+
+# Exécuter certains tests unitaires
+
+```bash
+npm test -- --include='**/css-utils.spec.ts'
+```

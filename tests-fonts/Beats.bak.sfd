@@ -1,0 +1,172 @@
+SplineFontDB: 3.2
+FontName: Beats
+FullName: Beats
+FamilyName: Beats
+Weight: Regular
+Copyright: Copyright (c) 2024, Bludwarf
+UComments: "2024-3-6: Created with FontForge (http://fontforge.org)"
+Version: 001.000
+ItalicAngle: 0
+UnderlinePosition: -100
+UnderlineWidth: 50
+Ascent: 800
+Descent: 200
+InvalidEm: 0
+LayerCount: 2
+Layer: 0 0 "Arri+AOgA-re" 1
+Layer: 1 0 "Avant" 0
+XUID: [1021 381 306189968 27512]
+OS2Version: 0
+OS2_WeightWidthSlopeOnly: 0
+OS2_UseTypoMetrics: 1
+CreationTime: 1709763144
+ModificationTime: 1709763724
+OS2TypoAscent: 0
+OS2TypoAOffset: 1
+OS2TypoDescent: 0
+OS2TypoDOffset: 1
+OS2TypoLinegap: 0
+OS2WinAscent: 0
+OS2WinAOffset: 1
+OS2WinDescent: 0
+OS2WinDOffset: 1
+HheadAscent: 0
+HheadAOffset: 1
+HheadDescent: 0
+HheadDOffset: 1
+OS2Vendor: 'PfEd'
+Lookup: 4 0 1 "Beats-ligatures" { "Beats-ligatures-1"  } ['liga' ('DFLT' <'dflt' > ) ]
+MarkAttachClasses: 1
+DEI: 91125
+Encoding: Custom
+UnicodeInterp: none
+NameList: AGL For New Fonts
+DisplaySize: -48
+AntiAlias: 1
+FitToEm: 0
+WinInfo: 0 38 14
+BeginPrivate: 0
+EndPrivate
+BeginChars: 260 4
+
+StartChar: NameMe.256
+Encoding: 256 -1 0
+Width: 1000
+Flags: H
+LayerCount: 2
+Fore
+SplineSet
+402 782 m 29
+ 528 782 l 25
+ 528 782 544 216 546 216 c 8
+ 548 216 434 228 434 228 c 25
+ 402 782 l 29
+496 0 m 9
+ 0 482 l 25
+ 124 494 l 25
+ 496 110 l 25
+ 838 502 l 25
+ 838 502 1002 504 1000 504 c 0
+ 998 504 496 0 496 0 c 9
+496 0 m 1032
+EndSplineSet
+Ligature2: "Beats-ligatures-1" V one
+EndChar
+
+StartChar: NameMe.257
+Encoding: 257 -1 1
+Width: 1000
+Flags: HW
+LayerCount: 2
+Fore
+SplineSet
+287 785 m 29
+ 696 782 l 25
+ 690 691 l 25
+ 409 456 l 25
+ 409 456 712 441 712 442 c 8
+ 712 443 690 360 690 360 c 25
+ 690 360 300 378 300 379 c 8
+ 300 380 288 458 288 459 c 8
+ 288 460 576 717 578 716 c 8
+ 580 715 287 717 287 717 c 25
+ 287 785 l 29
+927 460 m 1049
+496 0 m 9
+ 0 482 l 25
+ 124 494 l 25
+ 496 110 l 25
+ 838 502 l 25
+ 838 502 1002 504 1000 504 c 0
+ 998 504 496 0 496 0 c 9
+496 0 m 1032
+EndSplineSet
+Ligature2: "Beats-ligatures-1" V two
+EndChar
+
+StartChar: NameMe.258
+Encoding: 258 -1 2
+Width: 1000
+Flags: HW
+LayerCount: 2
+Fore
+SplineSet
+359 795 m 29
+ 601 793 l 25
+ 610 716 l 25
+ 527 643 l 25
+ 613 569 l 25
+ 561 461 l 25
+ 561 461 396 459 396 460 c 8
+ 396 461 332 538 332 539 c 8
+ 332 540 383 598 383 597 c 8
+ 383 596 450 534 450 534 c 25
+ 498 535 l 25
+ 509 560 l 25
+ 443 648 l 25
+ 443 648 531 730 531 731 c 8
+ 531 732 354 724 354 725 c 0
+ 354 726 357 768 359 795 c 29
+496 0 m 9
+ 0 482 l 25
+ 124 494 l 25
+ 496 110 l 25
+ 838 502 l 25
+ 838 502 1002 504 1000 504 c 0
+ 998 504 496 0 496 0 c 9
+496 0 m 1032
+EndSplineSet
+Ligature2: "Beats-ligatures-1" V three
+EndChar
+
+StartChar: NameMe.259
+Encoding: 259 -1 3
+Width: 1000
+Flags: HW
+LayerCount: 2
+Fore
+SplineSet
+304 798 m 29
+ 307 469 l 25
+ 482 441 l 25
+ 484 226 l 25
+ 549 225 l 25
+ 594 800 l 25
+ 514 796 l 25
+ 514 796 489 525 490 524 c 8
+ 491 523 370 539 369 539 c 8
+ 368 539 386 800 386 800 c 25
+ 304 798 l 29
+496 0 m 9
+ 0 482 l 25
+ 124 494 l 25
+ 496 110 l 25
+ 838 502 l 25
+ 838 502 1002 504 1000 504 c 0
+ 998 504 496 0 496 0 c 9
+496 0 m 1032
+EndSplineSet
+Ligature2: "Beats-ligatures-1" V four
+EndChar
+EndChars
+EndSplineFont

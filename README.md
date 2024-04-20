@@ -36,3 +36,10 @@ Ajuster le fichier dupliqué :
 
 1. `events`
 2. `patterns`
+
+
+# Exécuter certains tests unitaires
+
+```bash
+npm test -- --include='**/css-utils.spec.ts'
+```

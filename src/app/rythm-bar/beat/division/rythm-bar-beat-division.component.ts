@@ -11,11 +11,11 @@ import {
   ViewChildren,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { sequence } from '../utils';
-import { RythmBarBeatDivisionLineComponent } from '../rythm-bar-beat-division-line/rythm-bar-beat-division-line.component';
+import { sequence } from '../../../utils';
 import { NoteComponent } from './note/note.component';
-import { RythmBarEvent } from '../rythm-bar/event';
+import { RythmBarEvent } from '../../event';
 import { debounceTime, fromEvent, tap } from 'rxjs';
+import { RythmBarBeatDivisionLineComponent } from './line/rythm-bar-beat-division-line.component';
 
 @Component({
   selector: 'app-rythm-bar-beat-division',
@@ -52,6 +52,8 @@ export class RythmBarBeatDivisionComponent implements AfterViewInit {
 
   @ViewChildren(RythmBarBeatDivisionLineComponent)
   lineComponents?: QueryList<RythmBarBeatDivisionLineComponent>;
+
+  displayNotes = false
 
   @HostBinding('class.active')
   get active(): boolean {
@@ -99,6 +101,7 @@ export class RythmBarBeatDivisionComponent implements AfterViewInit {
       const minLineComponent = this.minLineComponent(line);
       if (minLineComponent?.top !== undefined) {
         const maxLineComponent = this.maxLineComponent(line);
+        console.log(minLineComponent, minLineComponent.top, this.top)
         if (maxLineComponent === minLineComponent) {
           return minLineComponent.top - this.top;
         } else if (maxLineComponent?.top !== undefined) {
@@ -149,8 +152,8 @@ export class RythmBarBeatDivisionComponent implements AfterViewInit {
 
   ngAfterViewInit(): void {
     this.changeDetectorRef.detectChanges();
-
     this.detectChangesOnWindowResize();
+    setTimeout(() => this.displayNotes = true)
   }
 
   private detectChangesOnWindowResize() {

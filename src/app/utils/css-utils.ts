@@ -16,7 +16,7 @@ export function adjustFontSize(textElement: HTMLElement, container: HTMLElement)
     // TODO prendre en compte les padding/margin
 
     const maxFontSize = Math.min(currentFontSize * cw/tw, currentFontSize * ch/th)
-    console.debug('adjustFontSize', {currentFontSize, tw, th, cw, ch, maxFontSize})
+    // console.debug('adjustFontSize', {currentFontSize, tw, th, cw, ch, maxFontSize})
 
     textElement.style.fontSize = `${maxFontSize}px`
 }

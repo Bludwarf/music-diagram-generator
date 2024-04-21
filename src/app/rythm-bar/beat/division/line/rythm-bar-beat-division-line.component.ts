@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, ElementRef, HostBinding, HostListener, Input, Output } from '@angular/core';
-import { RythmBarEvent, abletonLiveTimeCode } from '../rythm-bar/event';
+import { RythmBarEvent, abletonLiveTimeCode } from '../../../event';
 
 @Component({
   selector: 'app-rythm-bar-beat-division-line',
@@ -50,6 +50,10 @@ export class RythmBarBeatDivisionLineComponent {
   get title(): string {
     return this.timeCode
   }
+
+  @Input()
+  @HostBinding('class.active')
+  active = true
 
   get event(): RythmBarEvent | undefined {
     return this.events.find(event => event.bar === this.barNumber && event.beat === this.beatNumber && event.division === this.beatDivisionNumber && event.note === this.note);

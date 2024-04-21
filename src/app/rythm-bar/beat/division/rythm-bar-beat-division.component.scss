@@ -1,0 +1,56 @@
+:host {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  // gap: 1px;
+  // background: #000;
+  position: relative;
+  overflow: clip;
+}
+
+@font-face {
+  font-family: "Beats";
+  src:
+    local("Beats"),
+    url("../../../../assets/fonts/Beats.woff2") format("woff2");
+}
+
+.beat-number {
+  font-family: "Beats";
+  font-size: 2vw;
+}
+
+.above-bar, .below-bar {
+  display: flex;
+  align-items: start;
+  
+  img {
+    width: 100%;
+  }
+}
+
+.above-bar {
+  flex-direction: column-reverse;
+  
+  img {
+    transform: rotate(180deg);
+  }
+}
+
+.below-bar {
+  flex-direction: column;
+}
+
+app-note {
+  position: absolute;
+  width: 24px;
+}
+
+:host:hover, :host(.active) {
+  color: black;
+}
+
+// TODO factor avec rythm-bar-beat-division-line
+:host(.active) {
+  background: rgba(255, 255, 155, 50%);
+}

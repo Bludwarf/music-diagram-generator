@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { RythmBarBeatComponent } from '../rythm-bar-beat/rythm-bar-beat.component';
+import { RythmBarBeatComponent } from './beat/rythm-bar-beat.component';
 import { CommonModule } from '@angular/common';
 import { sequence } from '../utils';
 import { RythmBarEvent } from './event';

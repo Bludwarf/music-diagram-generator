@@ -1,3 +1,7 @@
+<div class="above-bar">
+  <!-- TODO : plutôt que 3, demander le nombre de beat au parent et === 1/2 -->
+  <img [style.visibility]="number === 3 ? 'visible' : 'hidden'" src="assets/images/beat-marker.svg" alt="beat-marker.svg" />
+</div>
 <app-rythm-bar-beat-division-line
   *ngFor="let line of linesArray"
   [barNumber]="barNumber"
@@ -7,12 +11,13 @@
   [note]="note(line + 1)"
   [bottomLine]="line + 1 === linesArray.length"
   [events]="events"
+  [active]="active"
   (clickLine)="onClickLine($event)"
 ></app-rythm-bar-beat-division-line>
-<ng-container *ngIf="number == 1">
-  <div class="beat-number">V{{ beatNumber }}</div>
-</ng-container>
-<ng-container *ngIf="lineComponents">
+<div class="below-bar">
+  <img [style.visibility]="number === 1 ? 'visible' : 'hidden'" src="assets/images/beat-marker.svg" alt="beat-marker.svg" />
+</div>
+<ng-container *ngIf="displayNotes">
   <ng-container *ngFor="let event of eventsOnThisDivision">
     <app-note
       *ngIf="line(event) as line"

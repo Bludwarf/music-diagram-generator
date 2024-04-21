@@ -18,6 +18,10 @@ $whole-note-aspect-ratio: 12/7; // source : https://commons.wikimedia.org/wiki/F
   background: #EEE;
 }
 
+:host:hover, :host(.active) {
+  background: rgba(255, 255, 155, 50%);
+}
+
 :host:hover {
-  background: rgb(255, 255, 155)
+  background: rgb(255, 255, 155);
 }

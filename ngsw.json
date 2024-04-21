@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1713612052726,
+  "timestamp": 1713695645074,
   "index": "/music-diagram-generator/index.html",
   "assetGroups": [
     {
@@ -12,7 +12,7 @@
       },
       "urls": [
         "/music-diagram-generator/index.html",
-        "/music-diagram-generator/main-77I5MILI.js",
+        "/music-diagram-generator/main-7VDKKCX6.js",
         "/music-diagram-generator/manifest.webmanifest",
         "/music-diagram-generator/polyfills-RT5I6R6G.js",
         "/music-diagram-generator/styles-QOKCAC7A.css"
@@ -64,6 +64,7 @@
         "/music-diagram-generator/assets/icons/icon-96x96.png",
         "/music-diagram-generator/assets/images/WholeNote-centered.svg",
         "/music-diagram-generator/assets/images/WholeNote.svg",
+        "/music-diagram-generator/assets/images/beat-marker.svg",
         "/music-diagram-generator/assets/recordings/DIDAFTA PETIT PAPILLON Master Web 24bit 48Khz_02-01.json",
         "/music-diagram-generator/assets/recordings/ELLE REVE preview brut_01.json",
         "/music-diagram-generator/assets/recordings/LA 4L.json",
@@ -131,6 +132,7 @@
     "/music-diagram-generator/assets/icons/icon-96x96.png": "7fb8f59c30ce2ff12c700321a0b39e14b3dc8f95",
     "/music-diagram-generator/assets/images/WholeNote-centered.svg": "2f79539db81d31250014be9547b43961216bad4f",
     "/music-diagram-generator/assets/images/WholeNote.svg": "9af7fdfa41aa8caee06f753cc60a290acfc1839e",
+    "/music-diagram-generator/assets/images/beat-marker.svg": "b64a350053fdf2b2d76ab05f20b4176153b35979",
     "/music-diagram-generator/assets/recordings/DIDAFTA PETIT PAPILLON Master Web 24bit 48Khz_02-01.json": "4890e1b50b1d07f37c95c128aa2abc3dc38e1042",
     "/music-diagram-generator/assets/recordings/ELLE REVE preview brut_01.json": "ab1761a44633c5f042e8dda830ee184531b1ac90",
     "/music-diagram-generator/assets/recordings/LA 4L.json": "8711512fc6527a1e2a3d6d9651a1e344cba51a83",
@@ -153,8 +155,8 @@
     "/music-diagram-generator/assets/structures/Solitude.json": "ac241e0d818be56f8cda0e15e07de80ba8792316",
     "/music-diagram-generator/assets/structures/Souffrance.json": "f8a368bfdf424506e0b2e7560d856b92053895ac",
     "/music-diagram-generator/assets/structures/Surcouf.json": "cb3e62f45bc29c6fdd7e027e5398d59b4c6baadc",
-    "/music-diagram-generator/index.html": "7e98a34ee3c936aa7fa8f0332ec58e3d9afd5d9e",
-    "/music-diagram-generator/main-77I5MILI.js": "be5af48748c4f2a5fac840c070c8b31d26ee08b0",
+    "/music-diagram-generator/index.html": "bc60bdf9ebaf25ceb68a213a59364088e8e5d1ab",
+    "/music-diagram-generator/main-7VDKKCX6.js": "12c84e31041de63564936ed9efca4c1ee03ce3a9",
     "/music-diagram-generator/manifest.webmanifest": "6b8b3c692f3e448d195d8e68390df5760775d9a0",
     "/music-diagram-generator/media/Beats-JVHCVOT7.woff2": "7eefac0d91d94dd75857af00f09c1ceb0833d906",
     "/music-diagram-generator/media/realbook-webfont-IIPLEHXN.woff": "74586d16b87fee05fdee4be295c3295ccee599e9",

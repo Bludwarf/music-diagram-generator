@@ -1,6 +1,5 @@
-import { AfterViewInit, Directive, ElementRef, Input, OnChanges } from '@angular/core';
+import { AfterViewInit, Directive, ElementRef, HostListener, Input, NgZone } from '@angular/core';
 import { adjustFontSize } from './css-utils';
-import { fromEvent, tap, debounceTime } from 'rxjs';
 
 @Directive({
   selector: '[appFitFontSize]',
@@ -13,29 +12,31 @@ export class FitFontSizeDirective implements AfterViewInit {
 
   constructor(
     private readonly elementRef: ElementRef,
+    private ngZone: NgZone,
   ) {
   }
 
   ngAfterViewInit(): void {
     this.adjustFontSize()
-    this.detectChangesOnWindowResize();
   }
 
-  // TODO à factoriser avec rythm-bar-beat-division
-  private detectChangesOnWindowResize() {
-    // TODO il suffit de souscrire pour déclencher une détection de changement ? : https://stackoverflow.com/questions/35527456/angular-window-resize-event
-    fromEvent(window, 'resize').pipe(
-      tap(() => console.log('window resize')),
-      debounceTime(1000),
-      tap(() => console.log('debounced window resize'))
-    ).subscribe(() => {
-      this.adjustFontSize()
-    });
-  }
+  // Source : https://stackoverflow.com/a/35527852/1655155
+  // Voir si l'autre solution est plus simple ou plus efficace
+  // Le but est d'éviter de tomber dans une boucle de détection de changement, comme avec setTimeout ou fromEvent
+  // TODO pour des raisons de perfs, on désactive pour le moment
+  // @HostListener('window:resize')
+  // onResize() {
+  //   console.log('resize')
+  //   this.adjustFontSize()
+  // }
 
   private adjustFontSize() {
     if (this.container) {
-      adjustFontSize(this.elementRef.nativeElement, this.container)
+      this.ngZone.run(() => {
+        if (this.container) {
+          adjustFontSize(this.elementRef.nativeElement, this.container)
+        }
+      })
     }
   }
 }

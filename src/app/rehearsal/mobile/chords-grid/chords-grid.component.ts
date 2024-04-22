@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {ChangeDetectionStrategy, Component, EventEmitter, Input, Output} from '@angular/core';
 import {BarNumber0Indexed, Chords} from "../../../notes";
 import {NgForOf, NgIf} from "@angular/common";
 import {sequence} from "../../../utils";
@@ -14,7 +14,8 @@ import { FitFontSizeDirective } from '../../../utils/fit-font-size.directive';
     FitFontSizeDirective,
   ],
   templateUrl: './chords-grid.component.html',
-  styleUrl: './chords-grid.component.scss'
+  styleUrl: './chords-grid.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ChordsGridComponent {
   @Input() chords!: Chords;
@@ -27,6 +28,7 @@ export class ChordsGridComponent {
   }
 
   onClickBar(bar: BarNumber0Indexed) {
+    this.currentBar = bar
     this.clickBar.emit(bar)
   }
 }

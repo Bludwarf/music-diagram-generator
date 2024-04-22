@@ -1,3 +1,5 @@
+import { Observable, fromEvent, tap, debounceTime } from "rxjs"
+
 export function sequence(size: number, offset = 0): number[] {
   return Array.from(new Array(size).keys()).map(val => val + offset)
 }
@@ -20,4 +22,16 @@ export function warn(...data: any[]): void {
 
 export interface Builder<T> {
   build(): T
+}
+
+/**
+ * @deprecated Pour l'instant pose des problèmes de boucle infinie de détection de changement (comme les setTimeout)
+ */
+export function fromWindowResize(): Observable<Event> {
+  // TODO il suffit de souscrire pour déclencher une détection de changement ? : https://stackoverflow.com/questions/35527456/angular-window-resize-event
+  return fromEvent(window, 'resize').pipe(
+    tap(() => console.log('window resize')),
+    debounceTime(1000),
+    tap(() => console.log('debounced window resize'))
+  )
 }

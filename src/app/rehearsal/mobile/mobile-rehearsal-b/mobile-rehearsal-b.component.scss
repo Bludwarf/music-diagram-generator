@@ -65,6 +65,7 @@ app-part-tabs {
 
 .chords-and-fretboard {
   display: flex;
+  overflow: clip;
 
   & > * {
     flex: 1;

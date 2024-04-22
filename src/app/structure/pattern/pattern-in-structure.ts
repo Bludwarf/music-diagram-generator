@@ -1,4 +1,4 @@
-import { Chord } from "../../notes";
+import { Chord, Key } from "../../notes";
 import { Time } from "../../time";
 import { Structure } from "../structure";
 import { Pattern } from "./pattern";
@@ -26,6 +26,10 @@ export class PatternInStructure {
         const relativeTime = time.relativeTo(this.startTime)
         // console.log('getChordAt', time.toBarsBeatsSixteenths(), relativeTime.toString(), '\n' + this.pattern.chords?.toString())
         return this.pattern.chords?.getChordAt(relativeTime)
+    }
+
+    getKeyAt(time: Time): Key | undefined {
+        return this.pattern.key
     }
 
 }

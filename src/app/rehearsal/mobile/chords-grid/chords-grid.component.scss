@@ -8,7 +8,7 @@
   gap: 1px;
   font-size: 6mm;
 
-  & > * {
+  &>* {
     flex: 1;
   }
 }
@@ -19,25 +19,70 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  color: black;
+  border: solid 1px transparent;
 
   $padding: 2px;
   padding: $padding;
 
-  & > .chord {
+  &>.chord {
     flex: 1;
     display: flex;
 
-    & > span {
+    &>span {
       margin: auto;
     }
+
+    &[data-mode='vi'] {
+      // background: var(--vi-color);
+      color: var(--vi-color);
+      // border-color: var(--vi-color);
+    }
+
+    &[data-mode='ii'] {
+      // background: var(--ii-color);
+      color: var(--ii-color);
+      // border-color: var(--ii-color);
+    }
+
+    &[data-mode='iii'] {
+      // background: var(--iii-color);
+      color: var(--iii-color);
+      // border-color: var(--iii-color);
+    }
+
+    &[data-mode='vii'] {
+      // background: var(--vii-color);
+      color: var(--vii-color);
+      // border-color: var(--vii-color);
+    }
+
+    &[data-mode='IV'] {
+      // background: var(--IV-color);
+      color: var(--IV-color);
+      // border-color: var(--IV-color);
+    }
+
+    &[data-mode='V'] {
+      // background: var(--V-color);
+      color: var(--V-color);
+      // border-color: var(--V-color);
+    }
+
+    &[data-mode='I'] {
+      // background: var(--I-color);
+      color: var(--I-color);
+      // border-color: var(--I-color);
+    }
+
   }
 
   &.multi-chords {
-    .chord:first-of-type > span {
+    .chord:first-of-type>span {
       margin-left: $padding;
     }
 
-    .chord:last-of-type > span {
+    .chord:last-of-type>span {
       margin-right: $padding;
     }
   }
@@ -46,4 +91,8 @@
 
 .current {
   color: white;
+}
+
+.current.bar {
+  border-color: white;
 }

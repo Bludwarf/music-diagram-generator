@@ -37,16 +37,18 @@
 
     <div class="chords-and-staff">
 
-      <span class="active pattern">{{ currentPatternInStructure.pattern.name }}</span>
+      <div class="pattern-name-container">
+        <span class="active pattern">{{ currentPatternInStructure.pattern.name }}</span>
+      </div>
 
-      <app-chords-grid *ngIf="currentPatternInStructure.pattern.chords; let chords" [chords]="chords"
+      <app-chords-grid *ngIf="currentPatternInStructure.pattern.chords; let chords" [chords]="chords" [key]="currentKey"
                        [currentBar]="currentBar - currentPatternInStructure.startTime.toBars()"
                        (clickBar)="onClickBar(currentPatternInStructure.startTime.toBars() + $event)"></app-chords-grid>
       <ng-container *ngIf="!currentPatternInStructure.pattern.chords">
         {{ currentPatternInStructure.pattern.duration.toBars() }}m
       </ng-container>
 
-      <span class="pattern-timecode">{{ currentPatternInStructureRelativeTimecode }} / {{ currentPatternInStructure.pattern.duration.toBars() }}</span>
+      <!-- <span class="pattern-timecode">{{ currentPatternInStructureRelativeTimecode }} / {{ currentPatternInStructure.pattern.duration.toBars() }}</span> -->
       <ng-container *ngIf="currentPatternInStructure.eventsStartTime">
         <ng-container
           *ngFor="let barNumber of sequence(currentPatternInStructure.eventsDurationInBars, (currentPatternInStructure.eventsStartTime?.toBars() ?? 0) + 1)">
@@ -62,7 +64,7 @@
 
     </div>
 
-    <div>
+    <div class="fretboard-container">
 
       <app-fretboard
         [lowestFret]="0"

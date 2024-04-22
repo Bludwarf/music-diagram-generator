@@ -101,7 +101,6 @@ export class RythmBarBeatDivisionComponent implements AfterViewInit {
       const minLineComponent = this.minLineComponent(line);
       if (minLineComponent?.top !== undefined) {
         const maxLineComponent = this.maxLineComponent(line);
-        console.log(minLineComponent, minLineComponent.top, this.top)
         if (maxLineComponent === minLineComponent) {
           return minLineComponent.top - this.top;
         } else if (maxLineComponent?.top !== undefined) {

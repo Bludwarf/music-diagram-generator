@@ -2,7 +2,7 @@
   width: 100vw;
   height: 100vh;
   display: flex;
-  gap: 2mm;
+  // gap: 2mm;
   flex-direction: column;
 
   & > * {
@@ -72,6 +72,20 @@ app-part-tabs {
 
   .chords-and-staff {
     flex: 2;
+
+    .pattern-name-container {
+      background: #3c6400;
+      display: flex;
+      text-align: center;
+
+      span {
+        margin: 2px auto;
+      }
+    }
+  }
+
+  .fretboard-container {
+    background: black;
   }
 }
 

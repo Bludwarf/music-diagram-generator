@@ -1,7 +1,8 @@
 <ng-container *ngFor="let bar of sequence(chords.duration.toBars())">
   <div *ngIf="chords.getChordsAtBar(bar); let currentBarChords" class="bar" [class.current]="isCurrentBar(bar)"
-       (click)="onClickBar(bar)" [class.multi-chords]="currentBarChords.length > 1">
-    <div *ngFor="let chord of currentBarChords" class="chord" #chordElement>
+    (click)="onClickBar(bar)" [class.multi-chords]="currentBarChords.length > 1">
+    <div *ngFor="let chord of currentBarChords" class="chord" #chordElement
+      [attr.data-mode]="key && chord.root.modeIn(key).name">
       <span [appFitFontSize]="chordElement">{{ chord.toString() }}</span>
     </div>
   </div>

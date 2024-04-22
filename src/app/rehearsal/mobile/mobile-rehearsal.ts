@@ -1,7 +1,7 @@
 import {ChangeDetectorRef} from '@angular/core';
 import {SectionInStructure} from "../../structure/section/section-in-structure";
 import {PatternInStructure} from "../../structure/pattern/pattern-in-structure";
-import {BarNumber0Indexed, Chord} from "../../notes";
+import {BarNumber0Indexed, Chord, Key} from "../../notes";
 import {Structure} from "../../structure/structure";
 import {SongEntry} from "../../song/song-entry";
 import {ActivatedRoute} from "@angular/router";
@@ -31,6 +31,7 @@ export abstract class MobileRehearsal {
   currentSectionInStructure?: SectionInStructure;
   currentPatternInStructure?: PatternInStructure;
   currentChord?: Chord;
+  currentKey?: Key;
 
   progress = 0;
   timecode?: string;
@@ -198,6 +199,7 @@ export abstract class MobileRehearsal {
           delete this.currentSectionInStructureRelativeTimecode
         }
         this.currentChord = this.currentPatternInStructure?.getChordAt(delayedWrappedTime)
+        this.currentKey = this.currentPatternInStructure?.getKeyAt(delayedWrappedTime)
 
         if (this.currentPatternInStructure) {
           if (this.currentPatternInStructure.eventsStartTime) {

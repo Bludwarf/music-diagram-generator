@@ -9,6 +9,7 @@ import {ConvertComponent} from "./convert/convert.component";
 import {SongComponent} from "./song/song.component";
 import {IndexComponent} from "./index/index.component";
 import { ServiceWorkerModule } from '@angular/service-worker';
+import { ChordsGridComponent } from './test/chords-grid/chords-grid.component';
 
 @NgModule({
   imports: [
@@ -19,6 +20,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
       { path: '', component: IndexComponent },
       { path: 'morceaux/:songName', component: SongComponent },
       { path: 'convert', component: ConvertComponent },
+      { path: 'test/chords-grid', component: ChordsGridComponent },
     ]),
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: !isDevMode(),

@@ -1,7 +1,9 @@
 :host {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  border: solid 3px #3c6400; // TODO transmettre la couleur
+  border: solid 1px #3c6400; // TODO transmettre la couleur
+  border-color: #0006; // TODO idem part-line active-section-line
+  margin: 2px;
   background: black;
   gap: 1px;
   font-size: 6mm;

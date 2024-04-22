@@ -15,7 +15,7 @@
   </div>
 </div>
 <div id="active-section-line">
-  <div *ngFor="let sectionInStructure of partInStructure.sectionsInStructure"
-       [style.flex]="sectionInStructure.section.duration.toBars()"
-       [class.active]="sectionInStructure === currentSectionInStructure"></div>
+  <div *ngFor="let patternInStructure of partInStructure.patternsInStructure"
+       [style.flex]="patternInStructure.pattern.duration.toBars()"
+       [class.active]="patternInStructure === currentPatternInStructure"></div>
 </div>

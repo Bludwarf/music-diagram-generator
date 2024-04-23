@@ -1,0 +1,14 @@
+{
+	"image": "mcr.microsoft.com/devcontainers/universal:2",
+	"features": {
+		"ghcr.io/kreemer/features/chrometesting:1": {}
+	},
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"lucono.karma-test-explorer"
+			]
+		}
+	},
+	"postStartCommand": "npm install && export PATH=\"./node_modules/.bin:$PATH\" && export CHROME_BIN=/opt/chrome/chrome"
+}

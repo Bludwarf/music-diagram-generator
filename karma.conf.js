@@ -12,7 +12,7 @@ module.exports = function(config) {
       require('karma-coverage'),
       require('@angular-devkit/build-angular/plugins/karma'),
     ],
-    browsers: ['Chrome'],
+    browsers: ['ChromeHeadless'],
     files: [
       {pattern: 'src/assets/als/*.als', included: false, watched: false, served: true},
       {pattern: 'src/assets/als/*.als.xml', included: false, watched: false, served: true},

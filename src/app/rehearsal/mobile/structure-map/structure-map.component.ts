@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {ChangeDetectionStrategy, Component, EventEmitter, Input, Output} from '@angular/core';
 import {Structure} from "../../../structure/structure";
 import {NgForOf} from "@angular/common";
 import {PatternInStructure} from "../../../structure/pattern/pattern-in-structure";
@@ -10,7 +10,8 @@ import {PatternInStructure} from "../../../structure/pattern/pattern-in-structur
     NgForOf
   ],
   templateUrl: './structure-map.component.html',
-  styleUrl: './structure-map.component.scss'
+  styleUrl: './structure-map.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class StructureMapComponent {
   @Input() structure!: Structure;

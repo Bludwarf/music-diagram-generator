@@ -1,11 +1,12 @@
-import {Component, Input} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
 
 @Component({
   selector: 'app-sample-map',
   standalone: true,
   imports: [],
   templateUrl: './sample-map.component.html',
-  styleUrl: './sample-map.component.scss'
+  styleUrl: './sample-map.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SampleMapComponent {
   @Input() transportSeconds?: number

@@ -177,7 +177,7 @@ export abstract class MobileRehearsal {
         this.transportPosition = Tone.Transport.position
         this.timecode = warpTime.toAbletonLiveBarsBeatsSixteenths()
         this.currentBar = warpTime.toBars() // TODO faire un utilitaire qui détecte la mesure en fonction d'une structure et de changements de signature
-        this.transportBeatTime = +warpTime.toBeatTime().toFixed(0)
+        this.transportBeatTime = +warpTime.toBeatTime()
 
         const changePatternFasterDelay = Time.fromValue(0) // Time.fromValue('4n') // TODO trop bizarre à l'affichage de la section courante, mais ok pour affichage partoche
         const delayedWrappedTime = warpTime.add(changePatternFasterDelay);

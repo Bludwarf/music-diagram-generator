@@ -1,4 +1,4 @@
-import {Component, HostBinding, Input} from '@angular/core';
+import {ChangeDetectionStrategy, Component, HostBinding, Input} from '@angular/core';
 import {PartInStructure} from "../../../structure/part/part-in-structure";
 
 @Component({
@@ -6,7 +6,8 @@ import {PartInStructure} from "../../../structure/part/part-in-structure";
   standalone: true,
   imports: [],
   templateUrl: './part-tab.component.html',
-  styleUrl: './part-tab.component.scss'
+  styleUrl: './part-tab.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PartTabComponent {
   @Input() partInStructure!: PartInStructure;

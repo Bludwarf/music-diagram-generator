@@ -1,4 +1,4 @@
-import {Component, EventEmitter, HostBinding, Input, Output} from '@angular/core';
+import {ChangeDetectionStrategy, Component, EventEmitter, HostBinding, Input, Output} from '@angular/core';
 import {Structure} from "../../../structure/structure";
 import {PartInStructure} from "../../../structure/part/part-in-structure";
 import {SectionComponent} from "../../../structure/section/section.component";
@@ -14,7 +14,8 @@ import {PartTabComponent} from "../part-tab/part-tab.component";
     PartTabComponent
   ],
   templateUrl: './part-tabs.component.html',
-  styleUrl: './part-tabs.component.scss'
+  styleUrl: './part-tabs.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PartTabsComponent {
   @Input() structure!: Structure;

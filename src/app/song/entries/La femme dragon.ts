@@ -5,6 +5,7 @@ import {Section} from "../../structure/section/section";
 import recordingInitData from "../../../assets/recordings/LA FEMME DRAGON MasterBrut_01.json";
 import {Recording} from "../../recording/recording";
 import {Part} from "../../structure/part/part";
+import { GREEN_CF, GREEN_CS } from "../../color";
 
 
 const fretboard = {
@@ -17,6 +18,7 @@ const coupletSansBasse = Pattern.fromData({
   name: 'Couplet (sans basse)',
   initial: 'Cs',
   duration: '4m',
+  color: GREEN_CS,
 })
 
 const couplet = Pattern.fromData({
@@ -69,6 +71,7 @@ const coupletFinal = Pattern.fromData({
   initial: 'Cf',
   chords: '| C | Eb | Bb | Ab |',
   fretboard: fretboardFinal,
+  color: GREEN_CF,
 })
 
 const refrainFinalData = {

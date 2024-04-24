@@ -13,6 +13,7 @@ import { PartLineComponent } from "../part-line/part-line.component";
 import { PartTabsComponent } from "../part-tabs/part-tabs.component";
 import { SampleMapComponent } from "../sample-map/sample-map.component";
 import { StructureMapComponent } from "../structure-map/structure-map.component";
+import { PatternInStructure } from "../../../structure/pattern/pattern-in-structure";
 
 @Component({
   selector: 'app-mobile-rehearsal-b',
@@ -54,5 +55,9 @@ export class MobileRehearsalBComponent extends MobileRehearsal implements OnInit
       return;
     }
     await super.playSong();
+  }
+
+  getPatternColor(patternInStructure: PatternInStructure): string {
+    return patternInStructure.structure.getPatternColor(patternInStructure).toString()
   }
 }

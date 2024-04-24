@@ -6,6 +6,7 @@ import { Recording } from "../../recording/recording";
 import { Structure } from "../../structure/structure";
 import { Section } from "../../structure/section/section";
 import { Part } from "../../structure/part/part";
+import { GREEN_CS } from "../../color";
 
 const key = Key.Am
 const fretboard = {
@@ -39,6 +40,7 @@ const Cs = Pattern.fromData({
     ...CData,
     name: 'Couplet sautillant',
     initial: 'Cs',
+    color: GREEN_CS,
 })
 
 const Csp = Pattern.fromData({

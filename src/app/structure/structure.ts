@@ -1,12 +1,16 @@
-import {Time} from "../time";
-import {Pattern} from "./pattern/pattern";
-import {PatternInStructure} from "./pattern/pattern-in-structure";
-import {SectionInStructure} from "./section/section-in-structure";
-import {Part} from "./part/part";
-import {PartInStructure} from "./part/part-in-structure";
+import { Time } from "../time";
+import { Pattern } from "./pattern/pattern";
+import { PatternInStructure } from "./pattern/pattern-in-structure";
+import { SectionInStructure } from "./section/section-in-structure";
+import { Part } from "./part/part";
+import { PartInStructure } from "./part/part-in-structure";
+import { ColorResolver, BaseColor as Color } from "../color";
+import { Section } from "./section/section";
 
 class StructureBuilder {
   private _parts?: Part[];
+  private defaultPart?: Part
+  private defaultSection?: Section
   private _getEventsStartTime?: (pattern: Pattern) => (Time) | undefined;
   private _getEventsDurationInBars?: (pattern: Pattern) => number | undefined
 
@@ -23,6 +27,38 @@ class StructureBuilder {
   getEventsDurationInBars(getEventsDurationInBars: typeof this._getEventsDurationInBars) {
     this._getEventsDurationInBars = getEventsDurationInBars
     return this
+  }
+
+  add(pattern: Pattern): this {
+    this.addPattern(pattern)
+    return this
+  }
+
+  addPattern(pattern: Pattern): this {
+    const part = this.getOrCreateDefaultPart()
+    part.sections[0].patterns.push(pattern)
+    return this
+  }
+
+  private getOrCreateDefaultPart(): Part {
+    if (!this.defaultPart) {
+      const section = this.getOrCreateDefaultSection()
+      this.defaultPart = new Part('DefaultPart', [
+        section,
+      ])
+      if (!this._parts) {
+        this._parts = []
+      }
+      this._parts.push(this.defaultPart)
+    }
+    return this.defaultPart
+  }
+
+  private getOrCreateDefaultSection(): Section {
+    if (!this.defaultSection) {
+      this.defaultSection = new Section('DefaultSection', [])
+    }
+    return this.defaultSection
   }
 
   build(): Structure {
@@ -46,6 +82,7 @@ export class Structure {
 
   key = 'Gm (mock)'; // TODO
   readonly partsInStructure: PartInStructure[];
+  private readonly colorResolver = new ColorResolver(this)
 
   constructor(
     parts: Part[],
@@ -99,6 +136,10 @@ export class Structure {
     return this.partsInStructure.flatMap(partInStructure =>
       partInStructure.patternsInStructure
     )
+  }
+
+  getPatternColor(patternInStructure: PatternInStructure): Color {
+    return this.colorResolver.getPatternColor(patternInStructure)
   }
 
 }

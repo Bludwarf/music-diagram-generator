@@ -17,53 +17,6 @@
     height: 100%;
     border: solid 1px transparent;
 
-    // TODO factorisation avec part-line.component.scss
-
-    &[data-pattern] {
-      background: #d21e1e;
-      color: #640d0d;
-    }
-
-    &[data-pattern^=I] {
-      background: #1976d2;
-      color: #11508f;
-    }
-
-    &[data-pattern^=B] {
-      background: #1976d2;
-      color: #11508f;
-    }
-
-    &[data-pattern^=C] {
-      background: #3c6400;
-      color: #243b00;
-    }
-
-    &[data-pattern=Cs] {
-      background: #1c6400;
-      color: #163b00;
-    }
-
-    &[data-pattern=Cf] {
-      background: #486400;
-      color: #222f00;
-    }
-
-    &[data-pattern^=R] {
-      background: chocolate;
-      color: #723910;
-    }
-
-    &[data-pattern="R'"] {
-      background: #d5854a;
-      color: #754929;
-    }
-
-    &[data-pattern^=F] {
-      background: #1976d2;
-      color: #11508f;
-    }
-
     &.active {
       border: solid 1px #FFF8;
     }

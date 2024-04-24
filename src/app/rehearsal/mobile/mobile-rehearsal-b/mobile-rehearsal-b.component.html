@@ -37,12 +37,13 @@
 
     <div class="chords-and-staff">
 
-      <div class="pattern-name-container">
+      <div class="pattern-name-container" [style.backgroundColor]="getPatternColor(currentPatternInStructure)">
         <span class="active pattern">{{ currentPatternInStructure.pattern.name }}</span>
       </div>
 
       <app-chords-grid *ngIf="currentPatternInStructure.pattern.chords; let chords" [chords]="chords" [key]="currentKey"
                        [currentBar]="currentBar - currentPatternInStructure.startTime.toBars()"
+                       [style.border-color]="getPatternColor(currentPatternInStructure)"
                        (clickBar)="onClickBar(currentPatternInStructure.startTime.toBars() + $event)"></app-chords-grid>
       <ng-container *ngIf="!currentPatternInStructure.pattern.chords">
         {{ currentPatternInStructure.pattern.duration.toBars() }}m

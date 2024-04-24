@@ -1,8 +1,8 @@
-import {ChangeDetectionStrategy, Component, EventEmitter, Input, Output} from '@angular/core';
-import {PartInStructure} from "../../../structure/part/part-in-structure";
-import {NgForOf} from "@angular/common";
-import {PatternInStructure} from "../../../structure/pattern/pattern-in-structure";
-import {SectionInStructure} from "../../../structure/section/section-in-structure";
+import { NgForOf } from "@angular/common";
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { PartInStructure } from "../../../structure/part/part-in-structure";
+import { PatternInStructure } from "../../../structure/pattern/pattern-in-structure";
+import { SectionInStructure } from "../../../structure/section/section-in-structure";
 
 @Component({
   selector: 'app-part-line',
@@ -27,5 +27,9 @@ export class PartLineComponent {
 
   onClickPatternInStructure(patternInStructure: PatternInStructure) {
     this.clickPatternInStructure.emit(patternInStructure)
+  }
+
+  getPatternColor(patternInStructure: PatternInStructure): string {
+    return patternInStructure.structure.getPatternColor(patternInStructure).toString()
   }
 }

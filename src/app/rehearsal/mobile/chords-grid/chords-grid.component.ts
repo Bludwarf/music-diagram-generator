@@ -1,8 +1,8 @@
-import {ChangeDetectionStrategy, Component, EventEmitter, Input, Output} from '@angular/core';
-import {BarNumber0Indexed, Chords, Key} from "../../../notes";
-import {NgForOf, NgIf} from "@angular/common";
-import {sequence} from "../../../utils";
-import {Time} from "../../../time";
+import { NgForOf, NgIf } from "@angular/common";
+import { ChangeDetectionStrategy, Component, EventEmitter, HostBinding, Input, Output } from '@angular/core';
+import { BaseColor as Color } from '../../../color';
+import { BarNumber0Indexed, Chords, Key } from "../../../notes";
+import { sequence } from "../../../utils";
 import { FitFontSizeDirective } from '../../../utils/fit-font-size.directive';
 
 @Component({
@@ -21,6 +21,11 @@ export class ChordsGridComponent {
   @Input() chords!: Chords;
   @Input() currentBar?: BarNumber0Indexed;
   @Input() key?: Key
+
+  @HostBinding('style.border-color')
+  @Input()
+  borderColor?: Color
+
   @Output() clickBar = new EventEmitter<BarNumber0Indexed>();
   protected readonly sequence = sequence;
 

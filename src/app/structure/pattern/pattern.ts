@@ -1,7 +1,8 @@
-import * as Tone from 'tone'
-import {Time} from '../../time';
-import {AsciiChords, Chords, Key} from '../../notes';
-import {TimeValue} from 'tone/build/esm/core/type/TimeBase';
+import * as Tone from 'tone';
+import { TimeValue } from 'tone/build/esm/core/type/TimeBase';
+import { BaseColor as Color } from '../../color';
+import { AsciiChords, Chords, Key } from '../../notes';
+import { Time } from '../../time';
 
 export class Pattern {
 
@@ -13,6 +14,7 @@ export class Pattern {
     readonly chords?: Chords,
     readonly events?: any,
     readonly fretboard?: FretboardData,
+    readonly color?: Color,
   ) {
   }
 
@@ -32,6 +34,7 @@ export class Pattern {
       chords,
       data.events,
       data.fretboard,
+      data.color,
     );
   }
 
@@ -47,6 +50,7 @@ export interface PatternInitData {
   chords?: AsciiChords
   events?: any
   fretboard?: FretboardData
+  color?: Color
 }
 
 export interface FretboardData {

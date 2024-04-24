@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { sequence } from '../../utils';
 import { CommonModule } from '@angular/common';
 import { RythmBarBeatDivisionComponent } from './division/rythm-bar-beat-division.component';
@@ -12,7 +12,8 @@ import { RythmBarEvent } from '../event';
     RythmBarBeatDivisionComponent,
   ],
   templateUrl: './rythm-bar-beat.component.html',
-  styleUrl: './rythm-bar-beat.component.scss'
+  styleUrl: './rythm-bar-beat.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RythmBarBeatComponent {
 

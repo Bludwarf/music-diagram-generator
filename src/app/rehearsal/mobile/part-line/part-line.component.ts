@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {ChangeDetectionStrategy, Component, EventEmitter, Input, Output} from '@angular/core';
 import {PartInStructure} from "../../../structure/part/part-in-structure";
 import {NgForOf} from "@angular/common";
 import {PatternInStructure} from "../../../structure/pattern/pattern-in-structure";
@@ -11,7 +11,8 @@ import {SectionInStructure} from "../../../structure/section/section-in-structur
     NgForOf
   ],
   templateUrl: './part-line.component.html',
-  styleUrl: './part-line.component.scss'
+  styleUrl: './part-line.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PartLineComponent {
   @Input() partInStructure!: PartInStructure;

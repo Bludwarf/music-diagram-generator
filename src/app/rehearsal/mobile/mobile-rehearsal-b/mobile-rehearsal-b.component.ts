@@ -1,5 +1,5 @@
 import { CommonModule, JsonPipe } from "@angular/common";
-import { ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormsModule } from "@angular/forms";
 import { Title } from "@angular/platform-browser";
 import { ActivatedRoute } from "@angular/router";
@@ -21,7 +21,8 @@ import { StructureMapComponent } from "../structure-map/structure-map.component"
     RythmBarComponent, JsonPipe, CommonModule, FormsModule, FretboardComponent, PatternComponent, SectionComponent, StructureMapComponent, PartTabsComponent, PartLineComponent, SampleMapComponent, ChordsGridComponent,
   ],
   templateUrl: './mobile-rehearsal-b.component.html',
-  styleUrl: './mobile-rehearsal-b.component.scss'
+  styleUrl: './mobile-rehearsal-b.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MobileRehearsalBComponent extends MobileRehearsal implements OnInit {
 

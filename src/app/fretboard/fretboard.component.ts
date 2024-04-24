@@ -1,5 +1,5 @@
 import {CommonModule} from '@angular/common';
-import {Component, Input, OnChanges, OnInit, SimpleChanges,} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Input, OnChanges, OnInit, SimpleChanges,} from '@angular/core';
 import {Key, Mode, Note} from '../notes';
 import {Fretboard} from './fretboard';
 
@@ -12,6 +12,7 @@ const DEFAULT_FRETS_COUNT = 5;
   imports: [CommonModule],
   templateUrl: './fretboard.component.html',
   styleUrl: './fretboard.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FretboardComponent implements OnInit, OnChanges {
   @Input()

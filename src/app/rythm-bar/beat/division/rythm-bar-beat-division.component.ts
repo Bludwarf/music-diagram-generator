@@ -1,5 +1,6 @@
 import {
   AfterViewInit,
+  ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
   ElementRef,
@@ -23,6 +24,7 @@ import { RythmBarBeatDivisionLineComponent } from './line/rythm-bar-beat-divisio
   imports: [CommonModule, RythmBarBeatDivisionLineComponent, NoteComponent],
   templateUrl: './rythm-bar-beat-division.component.html',
   styleUrl: './rythm-bar-beat-division.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RythmBarBeatDivisionComponent implements AfterViewInit {
   @Input()

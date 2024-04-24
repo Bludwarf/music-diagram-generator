@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, ElementRef, HostBinding, HostListener, Input, Output } from '@angular/core';
+import { Component, EventEmitter, ElementRef, HostBinding, HostListener, Input, Output, ChangeDetectionStrategy } from '@angular/core';
 import { RythmBarEvent, abletonLiveTimeCode } from '../../../event';
 
 @Component({
@@ -7,7 +7,8 @@ import { RythmBarEvent, abletonLiveTimeCode } from '../../../event';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './rythm-bar-beat-division-line.component.html',
-  styleUrl: './rythm-bar-beat-division-line.component.scss'
+  styleUrl: './rythm-bar-beat-division-line.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RythmBarBeatDivisionLineComponent {
 

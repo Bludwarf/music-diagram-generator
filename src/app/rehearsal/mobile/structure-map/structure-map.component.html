@@ -5,6 +5,7 @@
         [attr.data-pattern]="patternInStructure.initial"
         [style.flex]="patternInStructure.pattern.duration.toBars()"
         [class.active]="patternInStructure == currentPatternInStructure"
+        [style.background-color]="getPatternColor(patternInStructure)"
         (click)="onClickPatternInStructure(patternInStructure)"
   ></span>
 </div>

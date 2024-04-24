@@ -22,4 +22,8 @@ export class StructureMapComponent {
   onClickPatternInStructure(patternInStructure: PatternInStructure) {
     this.clickPatternInStructure.emit(patternInStructure);
   }
+
+  getPatternColor(patternInStructure: PatternInStructure): string {
+    return patternInStructure.structure.getPatternColor(patternInStructure).toString()
+  }
 }

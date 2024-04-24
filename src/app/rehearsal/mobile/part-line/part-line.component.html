@@ -10,6 +10,7 @@
   <div *ngFor="let patternInStructure of partInStructure.patternsInStructure" class="pattern"
        [attr.data-pattern]="patternInStructure.initial" [style.flex]="patternInStructure.pattern.duration.toBars()"
        [class.active]="patternInStructure === currentPatternInStructure"
+       [style.backgroundColor]="getPatternColor(patternInStructure)"
        (click)="onClickPatternInStructure(patternInStructure)">
     {{ patternInStructure.initial }}
   </div>
@@ -17,5 +18,5 @@
 <div id="active-section-line">
   <div *ngFor="let patternInStructure of partInStructure.patternsInStructure"
        [style.flex]="patternInStructure.pattern.duration.toBars()"
-       [class.active]="patternInStructure === currentPatternInStructure"></div>
+       [style.border-color]="patternInStructure === currentPatternInStructure ? getPatternColor(patternInStructure) : undefined"></div>
 </div>

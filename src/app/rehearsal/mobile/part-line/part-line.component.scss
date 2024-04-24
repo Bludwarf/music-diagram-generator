@@ -45,34 +45,9 @@
   }
 
   [data-pattern] {
-    background: #d21e1e;
-    color: #640d0d;
+    color: #0006; // TODO idem part-line active-section-line
   }
 
-  [data-pattern^=I] {
-    background: #1976d2;
-    color: #11508f;
-  }
-
-  [data-pattern^=B] {
-    background: #1976d2;
-    color: #11508f;
-  }
-
-  [data-pattern^=C] {
-    background: #3c6400;
-    color: #243b00;
-  }
-
-  [data-pattern^=R] {
-    background: chocolate;
-    color: #723910;
-  }
-
-  [data-pattern^=F] {
-    background: #1976d2;
-    color: #11508f;
-  }
 }
 
 #active-section-line {
@@ -82,7 +57,4 @@
     border-top: solid 3px #0006;
   }
 
-  & > .active {
-    border-top-color: #3c6400;
-  }
 }

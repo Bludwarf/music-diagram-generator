@@ -1,11 +1,11 @@
-import {ChangeDetectorRef} from '@angular/core';
-import {SectionInStructure} from "../../structure/section/section-in-structure";
-import {PatternInStructure} from "../../structure/pattern/pattern-in-structure";
-import {BarNumber0Indexed, Chord, Key} from "../../notes";
-import {Structure} from "../../structure/structure";
-import {SongEntry} from "../../song/song-entry";
-import {ActivatedRoute} from "@angular/router";
-import {Title} from "@angular/platform-browser";
+import { ChangeDetectorRef } from '@angular/core';
+import { SectionInStructure } from "../../structure/section/section-in-structure";
+import { PatternInStructure } from "../../structure/pattern/pattern-in-structure";
+import { BarNumber0Indexed, Chord, Key } from "../../notes";
+import { Structure } from "../../structure/structure";
+import { SongEntry } from "../../song/song-entry";
+import { ActivatedRoute } from "@angular/router";
+import { Title } from "@angular/platform-browser";
 import petitPapillonEntry from "../../song/entries/Petit Papillon";
 import laFemmeDragonEntry from "../../song/entries/La femme dragon";
 import surcoufEntry from "../../song/entries/Surcouf";
@@ -16,12 +16,12 @@ import nuagesEntry from "../../song/entries/Nuages blancs";
 import la4LEntry from "../../song/entries/La 4L";
 import solEntry from "../../song/entries/Solitude";
 import elleReveEntry from "../../song/entries/Elle reve a quoi";
-import {RythmBarEvent} from "../../rythm-bar/event";
+import { RythmBarEvent } from "../../rythm-bar/event";
 import * as Tone from "tone";
-import {StartTimedElement, Time} from "../../time";
-import {error, sequence, stripExtension} from '../../utils';
-import {Recording} from "../../recording/recording";
-import {PartInStructure} from "../../structure/part/part-in-structure";
+import { StartTimedElement, Time, TimedElement } from "../../time";
+import { error, sequence, stripExtension } from '../../utils';
+import { Recording } from "../../recording/recording";
+import { PartInStructure } from "../../structure/part/part-in-structure";
 import { SampleCacheService } from '../../sample/samples-cache.service';
 
 export abstract class MobileRehearsal {
@@ -55,6 +55,7 @@ export abstract class MobileRehearsal {
   sampleIsLoaded = false
 
   songName?: string
+  loopedElement?: TimedElement;
 
   constructor(
     private readonly changeDetectorRef: ChangeDetectorRef,
@@ -153,9 +154,9 @@ export abstract class MobileRehearsal {
 
     // cf. https://github.com/Tonejs/Tone.js/blob/dev/examples/daw.html
     Tone.Transport.bpm.value = 120;
-    Tone.Transport.loop = true;
-    Tone.Transport.loopStart = 0;
-    Tone.Transport.loopEnd = this.recording.sampleDuration.toSeconds() // structure.duration.toBarsBeatsSixteenths();
+    if (!this.loopedElement) {
+      this.loopOnRecording()
+    }
 
     player.sync().start(0)
     this.player = player
@@ -180,6 +181,16 @@ export abstract class MobileRehearsal {
     this.sampleIsLoaded = true
 
     await this.playSong();
+  }
+
+  loopOnRecording(): void {
+    if (!this.recording) {
+      error('Aucun enregistrement (Recording)')
+    }
+    Tone.Transport.loop = true
+    Tone.Transport.loopStart = 0
+    Tone.Transport.loopEnd = this.recording.sampleDuration.toSeconds() // structure.duration.toBarsBeatsSixteenths()
+    delete this.loopedElement
   }
 
   refresh(time?: number): void {
@@ -275,6 +286,34 @@ export abstract class MobileRehearsal {
       const fixOffset = 0.05 // On corrige la sélection qui arrive souvent sur l'élément précédent
       Tone.Transport.seconds = wrappedTime.toSeconds() + fixOffset
       this.refresh()
+    }
+  }
+
+  onSwipeDownElementInStructure(element: TimedElement): void {
+    let looped = false
+
+    if (this.loopedElement !== element) {
+      if (!this.recording) {
+        error('Aucun enregistrement (Recording)')
+      }
+
+      const wrappedStartTime = this.recording.getWrappedTime(element.startTime)
+      if (wrappedStartTime !== undefined) {
+        const wrappedEndTime = this.recording.getWrappedTime(element.endTime)
+        if (wrappedEndTime !== undefined) {
+          Tone.Transport.loop = true
+          Tone.Transport.loopStart = wrappedStartTime.toSeconds()
+          Tone.Transport.loopEnd = wrappedEndTime.toSeconds()
+          looped = true
+        }
+      }
+    }
+
+    Tone.Transport.loop = looped
+    if (looped) {
+      this.loopedElement = element
+    } else {
+      this.loopOnRecording()
     }
   }
 

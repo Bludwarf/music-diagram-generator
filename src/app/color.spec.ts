@@ -1,4 +1,4 @@
-import { BLUE, BaseColor as Color, ColorResolver, GREEN, RED } from "./color";
+import { BLUE, BaseColor as Color, ColorResolver, GREEN, GREEN_CS, RED } from "./color";
 import { Key } from "./notes";
 import { Pattern, PatternInitData } from "./structure/pattern/pattern";
 import { Structure } from "./structure/structure";
@@ -87,8 +87,7 @@ describe('ColorResolver', () => {
             .build()
         const colorResolver = new ColorResolver(structure)
         const pattern = structure.patternsInStructure[1]
-        // TODO on devrait avoir un vert différent
-        expect(colorResolver.getPatternColor(pattern)).toEqual(GREEN);
+        expect(colorResolver.getPatternColor(pattern)).toEqual(GREEN_CS);
     });
 
 });

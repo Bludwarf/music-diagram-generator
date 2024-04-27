@@ -5,6 +5,8 @@ import * as Tone from "tone";
 
 export class Recording {
   constructor(
+    /** Nom du fichier sans extension */
+    readonly name: string,
     readonly sampleDuration: Time,
     readonly sampleBeatTimeDuration: number,
     readonly warpMarkers: WarpMarker[],
@@ -101,6 +103,7 @@ class RecordingBuilder implements Builder<Recording> {
       throw new Error('Missing DTO')
     }
     return new Recording(
+      this._initData.name,
       Time.fromValue(this._initData.sampleDuration),
       this._initData.sampleBeatTimeDuration,
       this._initData.warpMarkers,

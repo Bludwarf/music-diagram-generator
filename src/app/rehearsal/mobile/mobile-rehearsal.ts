@@ -19,9 +19,10 @@ import elleReveEntry from "../../song/entries/Elle reve a quoi";
 import {RythmBarEvent} from "../../rythm-bar/event";
 import * as Tone from "tone";
 import {StartTimedElement, Time} from "../../time";
-import {error, sequence} from '../../utils';
+import {error, sequence, stripExtension} from '../../utils';
 import {Recording} from "../../recording/recording";
 import {PartInStructure} from "../../structure/part/part-in-structure";
+import { SampleCacheService } from '../../sample/samples-cache.service';
 
 export abstract class MobileRehearsal {
 
@@ -49,6 +50,8 @@ export abstract class MobileRehearsal {
 
   protected sequence = sequence
 
+  player?: Tone.Player
+  transportProgressLoop?: Tone.Loop<Tone.LoopOptions>;
   sampleIsLoaded = false
 
   songName?: string
@@ -57,6 +60,7 @@ export abstract class MobileRehearsal {
     private readonly changeDetectorRef: ChangeDetectorRef,
     activatedRoute: ActivatedRoute,
     title: Title,
+    protected readonly sampleCacheService: SampleCacheService,
   ) {
     this.songEntries.push(petitPapillonEntry)
     this.songEntries.push(laFemmeDragonEntry)
@@ -121,7 +125,21 @@ export abstract class MobileRehearsal {
     }
 
     const audioFile = fileList[0]
-    console.log("audioFile", audioFile);
+    if (audioFile) {
+      const nameWithoutExtension = stripExtension(audioFile.name)
+      if (nameWithoutExtension !== this.recording.name) {
+        alert(`Le nom du fichier chargé "${audioFile.name}" ne correspond pas à celui de l'enregistrement "${this.recording.name}"`)
+      }
+      this.sampleCacheService.set(this.recording.name, audioFile)
+    }
+
+    this.playAudioFile(audioFile)
+  }
+
+  async playAudioFile(audioFile: File): Promise<void> {
+    if (!this.recording) {
+      error('Aucun enregistrement (Recording)')
+    }
 
     const audioFileURL = URL.createObjectURL(audioFile);
 
@@ -140,13 +158,18 @@ export abstract class MobileRehearsal {
     Tone.Transport.loopEnd = this.recording.sampleDuration.toSeconds() // structure.duration.toBarsBeatsSixteenths();
 
     player.sync().start(0)
+    this.player = player
 
-    const transportProgressLoop = new Tone.Loop((time) => {
+    this.transportProgressLoop = new Tone.Loop((time) => {
       // console.log('t1', time)
       // console.log('t1BBS', Tone.Time(time).toBarsBeatsSixteenths())
       // console.log('P1', Tone.Transport.position)
       Tone.Draw.schedule(() => {
-        this.refresh(time)
+        try {
+          this.refresh(time)
+        } catch (e) {
+          console.error('Erreur lors du refresh', e)
+        }
       }, time);
 
     }, "16n").start(0);
@@ -333,5 +356,19 @@ export abstract class MobileRehearsal {
       error('SongEntry inconnu pour ' + this.songName)
     }
     return entry;
+  }
+
+  destroy(): void {
+    if (this.transportProgressLoop) {
+      this.transportProgressLoop.cancel()
+      this.transportProgressLoop.dispose()
+      delete this.transportProgressLoop
+    }
+    if (this.player) {
+      this.player.unsync()
+      this.player.dispose()
+      delete this.player
+    }
+    this.stopSong()
   }
 }

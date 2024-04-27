@@ -154,7 +154,10 @@ export class RythmBarBeatDivisionComponent implements AfterViewInit {
   ngAfterViewInit(): void {
     this.changeDetectorRef.detectChanges();
     this.detectChangesOnWindowResize();
-    setTimeout(() => this.displayNotes = true)
+    setTimeout(() => {
+      this.displayNotes = true
+      this.changeDetectorRef.detectChanges()
+    }, 20)
   }
 
   private detectChangesOnWindowResize() {

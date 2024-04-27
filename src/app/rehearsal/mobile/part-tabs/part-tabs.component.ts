@@ -1,9 +1,11 @@
-import {ChangeDetectionStrategy, Component, EventEmitter, HostBinding, Input, Output} from '@angular/core';
-import {Structure} from "../../../structure/structure";
-import {PartInStructure} from "../../../structure/part/part-in-structure";
-import {SectionComponent} from "../../../structure/section/section.component";
-import {NgForOf} from "@angular/common";
-import {PartTabComponent} from "../part-tab/part-tab.component";
+import { NgForOf } from "@angular/common";
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { PartInStructure } from "../../../structure/part/part-in-structure";
+import { SectionComponent } from "../../../structure/section/section.component";
+import { Structure } from "../../../structure/structure";
+import { SwipeDirective } from '../../../swipe.directive';
+import { TimedElement } from '../../../time';
+import { PartTabComponent } from "../part-tab/part-tab.component";
 
 @Component({
   selector: 'app-part-tabs',
@@ -11,7 +13,8 @@ import {PartTabComponent} from "../part-tab/part-tab.component";
   imports: [
     SectionComponent,
     NgForOf,
-    PartTabComponent
+    PartTabComponent,
+    SwipeDirective,
   ],
   templateUrl: './part-tabs.component.html',
   styleUrl: './part-tabs.component.scss',
@@ -20,10 +23,16 @@ import {PartTabComponent} from "../part-tab/part-tab.component";
 export class PartTabsComponent {
   @Input() structure!: Structure;
   @Input() currentPartInStructure?: PartInStructure;
+  @Input() loopedElement?: TimedElement;
 
   @Output() clickPartInStructure = new EventEmitter<PartInStructure>();
+  @Output() swipeDownPartInStructure = new EventEmitter<PartInStructure>();
 
   onClickPartInStructure(partInStructure: PartInStructure) {
     this.clickPartInStructure.emit(partInStructure);
+  }
+
+  onSwipeDownPartInStructure(partInStructure: PartInStructure): void {
+    this.swipeDownPartInStructure.emit(partInStructure);
   }
 }

@@ -16,12 +16,14 @@ import { StructureMapComponent } from "../structure-map/structure-map.component"
 import { PatternInStructure } from "../../../structure/pattern/pattern-in-structure";
 import { SampleCacheService } from "../../../sample/samples-cache.service";
 import { error } from "../../../utils";
+import { SwipeDirective } from "../../../swipe.directive";
 
 @Component({
   selector: 'app-mobile-rehearsal-b',
   standalone: true,
   imports: [
     RythmBarComponent, JsonPipe, CommonModule, FormsModule, FretboardComponent, PatternComponent, SectionComponent, StructureMapComponent, PartTabsComponent, PartLineComponent, SampleMapComponent, ChordsGridComponent,
+    SwipeDirective,
   ],
   templateUrl: './mobile-rehearsal-b.component.html',
   styleUrl: './mobile-rehearsal-b.component.scss',

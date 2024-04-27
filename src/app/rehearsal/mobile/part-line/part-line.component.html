@@ -2,7 +2,9 @@
   <div *ngFor="let sectionInStructure of partInStructure.sectionsInStructure" class="part"
        [style.flex]="sectionInStructure.section.duration.toBars()"
        [class.active]="sectionInStructure === currentSectionInStructure"
-  (click)="onClickSectionInStructure(sectionInStructure)">
+       [class.looped]="sectionInStructure === loopedElement"
+       (click)="onClickSectionInStructure(sectionInStructure)"
+       (swipeDown)="onSwipeDownSectionInStructure(sectionInStructure)">
     {{ sectionInStructure.section.name }}
   </div>
 </div>
@@ -10,8 +12,11 @@
   <div *ngFor="let patternInStructure of partInStructure.patternsInStructure" class="pattern"
        [attr.data-pattern]="patternInStructure.initial" [style.flex]="patternInStructure.pattern.duration.toBars()"
        [class.active]="patternInStructure === currentPatternInStructure"
+       [class.looped]="patternInStructure === loopedElement"
        [style.backgroundColor]="getPatternColor(patternInStructure)"
-       (click)="onClickPatternInStructure(patternInStructure)">
+       (click)="onClickPatternInStructure(patternInStructure)"
+       (swipeDown)="onSwipeDownPatternInStructure(patternInStructure)"
+       >
     {{ patternInStructure.initial }}
   </div>
 </div>

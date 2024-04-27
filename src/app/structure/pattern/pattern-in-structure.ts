@@ -1,9 +1,9 @@
 import { Chord, Key } from "../../notes";
-import { Time } from "../../time";
+import { Time, TimedElement } from "../../time";
 import { Structure } from "../structure";
 import { Pattern } from "./pattern";
 
-export class PatternInStructure {
+export class PatternInStructure implements TimedElement {
 
     readonly endTime: Time
 

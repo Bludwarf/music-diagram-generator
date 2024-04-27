@@ -13,6 +13,8 @@ export class PartTabComponent {
   @Input() partInStructure!: PartInStructure;
   @Input() currentPartInStructure?: PartInStructure;
 
+  @Input() @HostBinding('class.looped') looped = false
+
   @HostBinding('class.active')
   get active(): boolean {
     return this.partInStructure === this.currentPartInStructure

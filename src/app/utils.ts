@@ -35,3 +35,12 @@ export function fromWindowResize(): Observable<Event> {
     tap(() => console.log('debounced window resize'))
   )
 }
+
+export function stripExtension(fileName: string): string {
+  const m = /^(.+?)(\.[a-z]{2,4})+$/.exec(fileName)
+  if (m) {
+    return m[1]
+  } else {
+    return fileName
+  }
+}

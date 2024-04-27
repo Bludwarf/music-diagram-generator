@@ -8,6 +8,7 @@ import {FretboardComponent} from "../../../fretboard/fretboard.component";
 import {PatternComponent} from "../../../structure/pattern/pattern.component";
 import {SectionComponent} from "../../../structure/section/section.component";
 import {MobileRehearsal} from "../mobile-rehearsal";
+import { SampleCacheService } from '../../../sample/samples-cache.service';
 
 @Component({
   selector: 'app-mobile-rehearsal-a',
@@ -24,8 +25,9 @@ export class MobileRehearsalAComponent extends MobileRehearsal implements OnInit
     changeDetectorRef: ChangeDetectorRef,
     activatedRoute: ActivatedRoute,
     title: Title,
+    sampleCacheService: SampleCacheService,
   ) {
-    super(changeDetectorRef, activatedRoute, title)
+    super(changeDetectorRef, activatedRoute, title, sampleCacheService)
   }
 
   ngOnInit() {

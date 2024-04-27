@@ -56,8 +56,8 @@ export class ColorResolver {
                 return BLUE
             }
             if (initial.startsWith('C')) {
-                const patternsInStructureWithSamePrefix = patternInStructure.structure.patternsInStructure.filter(p => p.initial.startsWith('C'))
-                console.log(patternsInStructureWithSamePrefix.map(p => p.pattern.name))
+                // const patternsInStructureWithSamePrefix = patternInStructure.structure.patternsInStructure.filter(p => p.initial.startsWith('C'))
+                // console.log(patternsInStructureWithSamePrefix.map(p => p.pattern.name))
                 return GREEN
             }
             if (initial.startsWith('R')) {

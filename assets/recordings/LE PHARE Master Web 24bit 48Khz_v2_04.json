@@ -85,59 +85,59 @@
     },
     {
       "secTime": 114.64177083333333,
-      "beatTime": 208
-    },
-    {
-      "secTime": 130.38116666666667,
       "beatTime": 224
     },
     {
-      "secTime": 145.69397916666665,
+      "secTime": 130.38116666666667,
       "beatTime": 256
     },
     {
-      "secTime": 160.9465625,
+      "secTime": 145.69397916666665,
       "beatTime": 288
     },
     {
-      "secTime": 191.22304166666666,
-      "beatTime": 352
+      "secTime": 160.9465625,
+      "beatTime": 320
     },
     {
-      "secTime": 222.56958333333333,
+      "secTime": 191.22304166666666,
       "beatTime": 384
     },
     {
+      "secTime": 222.56958333333333,
+      "beatTime": 448
+    },
+    {
       "secTime": 238.12291666666667,
-      "beatTime": 416
+      "beatTime": 480
     },
     {
       "secTime": 241.330625,
-      "beatTime": 420
+      "beatTime": 484
     },
     {
       "secTime": 243.34139583333334,
-      "beatTime": 424
-    },
-    {
-      "secTime": 251.14045833333333,
-      "beatTime": 440
-    },
-    {
-      "secTime": 258.7989166666667,
-      "beatTime": 456
-    },
-    {
-      "secTime": 266.45824999999996,
-      "beatTime": 472
-    },
-    {
-      "secTime": 274.1059583333333,
       "beatTime": 488
     },
     {
-      "secTime": 274.1134959310165,
-      "beatTime": 488.03125
+      "secTime": 251.14045833333333,
+      "beatTime": 504
+    },
+    {
+      "secTime": 258.7989166666667,
+      "beatTime": 520
+    },
+    {
+      "secTime": 266.45824999999996,
+      "beatTime": 536
+    },
+    {
+      "secTime": 274.1059583333333,
+      "beatTime": 552
+    },
+    {
+      "secTime": 280,
+      "beatTime": 564
     }
   ]
 }

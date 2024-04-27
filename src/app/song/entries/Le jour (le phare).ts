@@ -32,7 +32,7 @@ const Ceb = Pattern.fromData({
 const R = Pattern.fromData({
   key,
   name: 'Refrain',
-  chords: '| C | G | Bb | F |',
+  chords: '| C | C | G | G | Bb | Bb | F | F |',
   fretboard,
 })
 
@@ -51,7 +51,7 @@ const breakBatterie = Pattern.fromData({
 const fin = Pattern.fromData({
   key,
   name: 'Fin',
-  chords: '| G |',
+  chords: '| G | G | G |',
   fretboard,
 })
 

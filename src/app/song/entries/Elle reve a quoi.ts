@@ -1,11 +1,11 @@
 
-import { Key } from "../../notes";
 import recordingInitData from "../../../assets/recordings/ELLE REVE preview brut_01.json";
-import { Pattern } from "../../structure/pattern/pattern";
+import { Key } from "../../notes";
 import { Recording } from "../../recording/recording";
-import { Structure } from "../../structure/structure";
-import { Section } from "../../structure/section/section";
 import { Part } from "../../structure/part/part";
+import { Pattern } from "../../structure/pattern/pattern";
+import { Section } from "../../structure/section/section";
+import { Structure } from "../../structure/structure";
 
 const key = Key.Cm
 const fretboard = {

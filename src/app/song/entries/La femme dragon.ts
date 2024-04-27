@@ -1,11 +1,10 @@
-import {Key} from "../../notes";
-import {Pattern} from "../../structure/pattern/pattern";
-import {Structure} from "../../structure/structure";
-import {Section} from "../../structure/section/section";
 import recordingInitData from "../../../assets/recordings/LA FEMME DRAGON MasterBrut_01.json";
-import {Recording} from "../../recording/recording";
-import {Part} from "../../structure/part/part";
-import { GREEN_CF, GREEN_CS } from "../../color";
+import { Key } from "../../notes";
+import { Recording } from "../../recording/recording";
+import { Part } from "../../structure/part/part";
+import { Pattern } from "../../structure/pattern/pattern";
+import { Section } from "../../structure/section/section";
+import { Structure } from "../../structure/structure";
 
 
 const fretboard = {
@@ -18,7 +17,6 @@ const coupletSansBasse = Pattern.fromData({
   name: 'Couplet (sans basse)',
   initial: 'Cs',
   duration: '4m',
-  color: GREEN_CS,
 })
 
 const couplet = Pattern.fromData({
@@ -71,7 +69,6 @@ const coupletFinal = Pattern.fromData({
   initial: 'Cf',
   chords: '| C | Eb | Bb | Ab |',
   fretboard: fretboardFinal,
-  color: GREEN_CF,
 })
 
 const refrainFinalData = {
@@ -88,6 +85,12 @@ const refrainPFinal = Pattern.fromData({
   name: 'Refrain\' final',
   initial: 'R\'',
   chords: '| C | G | Ab | Ab |',
+})
+
+const fin = Pattern.fromData({
+  ...refrainFinalData,
+  name: 'Fin',
+  chords: '| C | C | C | C |',
 })
 
 const parts: Part[] = [
@@ -117,6 +120,7 @@ const parts: Part[] = [
     new Section('Couplet', [coupletFinal, coupletFinal]),
     new Section('Refrain', [refrainFinal, refrainPFinal]),
     new Section('Bombarde', [coupletFinal, coupletFinal]),
+    new Section('Fin', [fin]),
   ]),
 ]
 

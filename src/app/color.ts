@@ -21,6 +21,7 @@ export const GREEN = new BaseColor('#3c6400')
 export const GREEN_CS = new BaseColor('#1c6400')
 export const GREEN_CF = new BaseColor('#486400')
 export const ORANGE = new BaseColor('chocolate')
+export const ORANGE_R_P = new BaseColor('#d5854a')
 export const RED = new BaseColor('#d21e1e')
 
 export class ColorResolver {
@@ -58,9 +59,18 @@ export class ColorResolver {
             if (initial.startsWith('C')) {
                 // const patternsInStructureWithSamePrefix = patternInStructure.structure.patternsInStructure.filter(p => p.initial.startsWith('C'))
                 // console.log(patternsInStructureWithSamePrefix.map(p => p.pattern.name))
+                if (initial.startsWith('Cs')) {
+                    return GREEN_CS
+                }
+                if (initial.startsWith('Cf')) {
+                    return GREEN_CF
+                }
                 return GREEN
             }
             if (initial.startsWith('R')) {
+                if (initial.startsWith('R\'')) {
+                    return ORANGE_R_P
+                }
                 return ORANGE
             }
         }

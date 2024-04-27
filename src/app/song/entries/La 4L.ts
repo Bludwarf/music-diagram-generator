@@ -1,12 +1,11 @@
 
-import { Key } from "../../notes";
 import recordingInitData from "../../../assets/recordings/LA 4L.json";
-import { Pattern } from "../../structure/pattern/pattern";
+import { Key } from "../../notes";
 import { Recording } from "../../recording/recording";
-import { Structure } from "../../structure/structure";
-import { Section } from "../../structure/section/section";
 import { Part } from "../../structure/part/part";
-import { GREEN_CS } from "../../color";
+import { Pattern } from "../../structure/pattern/pattern";
+import { Section } from "../../structure/section/section";
+import { Structure } from "../../structure/structure";
 
 const key = Key.Am
 const fretboard = {
@@ -40,7 +39,6 @@ const Cs = Pattern.fromData({
     ...CData,
     name: 'Couplet sautillant',
     initial: 'Cs',
-    color: GREEN_CS,
 })
 
 const Csp = Pattern.fromData({

@@ -22,14 +22,8 @@ const couplet = Pattern.fromData({
 const refrain = Pattern.fromData({
   key,
   name: 'Refrain',
-  chords: '| C | C | G | G | C | C | D |',
+  chords: '| C | C | G | G | C | C | D | D |',
   fretboard,
-})
-
-const silence = Pattern.fromData({
-  key,
-  name: 'Silence',
-  duration: '1m',
 })
 
 const fin = Pattern.fromData({
@@ -47,16 +41,16 @@ const parts: Part[] = [
     new Section(`Bombarde`, [couplet]),
     new Section(`Couplet`, [couplet, couplet]),
     new Section(`Bombarde`, [couplet]),
-    new Section(`Refrain`, [refrain, silence]),
+    new Section(`Refrain`, [refrain]),
   ]),
   new Part('2', [
     new Section(`Bombarde`, [couplet]),
     new Section(`Couplet`, [couplet, couplet]),
     new Section(`Bombarde`, [couplet]),
-    new Section(`Refrain`, [refrain, silence]),
+    new Section(`Refrain`, [refrain]),
   ]),
   new Part('Final', [
-    new Section(`Bombarde`, [couplet]),
+    new Section(`Bombarde`, [couplet]), // TODO notation pour marquer que le dernier F est sec (point en bas de la note en solfège)
     new Section(`Fin`, [fin]),
   ]),
 ]

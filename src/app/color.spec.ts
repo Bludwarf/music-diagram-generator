@@ -91,10 +91,4 @@ describe('ColorResolver', () => {
         expect(colorResolver.getPatternColor(pattern)).toEqual(GREEN);
     });
 
-    /*
-     * TODO reprise des anciens styles de structure-map :
-     * Cf: #486400
-     * R': #d5854a
-     */
-
 });

@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1714228574644,
+  "timestamp": 1719861764975,
   "index": "/music-diagram-generator/index.html",
   "assetGroups": [
     {
@@ -12,7 +12,7 @@
       },
       "urls": [
         "/music-diagram-generator/index.html",
-        "/music-diagram-generator/main-QXQP4XHQ.js",
+        "/music-diagram-generator/main-LAJCBDLV.js",
         "/music-diagram-generator/manifest.webmanifest",
         "/music-diagram-generator/polyfills-RT5I6R6G.js",
         "/music-diagram-generator/styles-QOKCAC7A.css"
@@ -51,6 +51,9 @@
         "/music-diagram-generator/assets/als/Souffrance.als.xml",
         "/music-diagram-generator/assets/als/Surcouf.als",
         "/music-diagram-generator/assets/als/Surcouf.als.xml",
+        "/music-diagram-generator/assets/als/Tout foufou.als",
+        "/music-diagram-generator/assets/als/Tout foufou.als.xml",
+        "/music-diagram-generator/assets/als/Tout foufou.json",
         "/music-diagram-generator/assets/events/Petit Papillon/events.json",
         "/music-diagram-generator/assets/fonts/Beats.woff2",
         "/music-diagram-generator/assets/fonts/realbook-webfont.woff",
@@ -75,6 +78,7 @@
         "/music-diagram-generator/assets/recordings/NUAGES BLANCS PréMaster Brut v2.02 SANS_01.json",
         "/music-diagram-generator/assets/recordings/SOLITUDE preview.json",
         "/music-diagram-generator/assets/recordings/SURCOUF Preview voix_02.json",
+        "/music-diagram-generator/assets/recordings/Tout foufou.json",
         "/music-diagram-generator/assets/song/entries/(modèle).ts.j2",
         "/music-diagram-generator/assets/structures/Elle rêve à quoi.json",
         "/music-diagram-generator/assets/structures/La 4L.json",
@@ -119,6 +123,9 @@
     "/music-diagram-generator/assets/als/Souffrance.als.xml": "6caa2241f57dc54b36016bb7eb4091f49f33da04",
     "/music-diagram-generator/assets/als/Surcouf.als": "c410af11b26bd4a21f9fedeb25a438ab4acfc25a",
     "/music-diagram-generator/assets/als/Surcouf.als.xml": "b712339c1dad93982d872ab5d4e4119db4c3b725",
+    "/music-diagram-generator/assets/als/Tout foufou.als": "e4d9f03efb31721eb73b1784ea49b87797d0bc4e",
+    "/music-diagram-generator/assets/als/Tout foufou.als.xml": "851bb4cf8a63cb405e3dce83b66af783bb24ea5e",
+    "/music-diagram-generator/assets/als/Tout foufou.json": "33f74d8965906715b081f3f52c8284585b6f2b84",
     "/music-diagram-generator/assets/events/Petit Papillon/events.json": "35356980c03149e7853fc58313a21b54d3b96530",
     "/music-diagram-generator/assets/fonts/Beats.woff2": "7eefac0d91d94dd75857af00f09c1ceb0833d906",
     "/music-diagram-generator/assets/fonts/realbook-webfont.woff": "74586d16b87fee05fdee4be295c3295ccee599e9",
@@ -143,6 +150,7 @@
     "/music-diagram-generator/assets/recordings/NUAGES BLANCS PréMaster Brut v2.02 SANS_01.json": "97eaf0303907fafd00c1105550a704e7a57b0393",
     "/music-diagram-generator/assets/recordings/SOLITUDE preview.json": "d8240b2f6c4214ef4b5691240cc0eeb5b0cc8b4b",
     "/music-diagram-generator/assets/recordings/SURCOUF Preview voix_02.json": "045faf9290debcfc51d026f4abc38374fbd7269c",
+    "/music-diagram-generator/assets/recordings/Tout foufou.json": "b71b5f9893a740e99ae005ca0a4243eda6506970",
     "/music-diagram-generator/assets/song/entries/(modèle).ts.j2": "29c527884eff11bb6654a092f4650a088543422b",
     "/music-diagram-generator/assets/structures/Elle rêve à quoi.json": "5910464efd4e5b1d30d7c268a7c93c1554464a18",
     "/music-diagram-generator/assets/structures/La 4L.json": "50d4f67a430ddbe6e209e1d570a5149e28d58df7",
@@ -155,8 +163,8 @@
     "/music-diagram-generator/assets/structures/Solitude.json": "ac241e0d818be56f8cda0e15e07de80ba8792316",
     "/music-diagram-generator/assets/structures/Souffrance.json": "f8a368bfdf424506e0b2e7560d856b92053895ac",
     "/music-diagram-generator/assets/structures/Surcouf.json": "cb3e62f45bc29c6fdd7e027e5398d59b4c6baadc",
-    "/music-diagram-generator/index.html": "faf8b0c2f5c510f4a085c5e671e9d8137fff8b0f",
-    "/music-diagram-generator/main-QXQP4XHQ.js": "d3c833937d59d00291223897f8b0d48d3fbec1db",
+    "/music-diagram-generator/index.html": "9af920706055b031cda2bf1492149b6622d761e4",
+    "/music-diagram-generator/main-LAJCBDLV.js": "69ce3872f632792c824f4742223259ba5e7efa8d",
     "/music-diagram-generator/manifest.webmanifest": "6b8b3c692f3e448d195d8e68390df5760775d9a0",
     "/music-diagram-generator/media/Beats-JVHCVOT7.woff2": "7eefac0d91d94dd75857af00f09c1ceb0833d906",
     "/music-diagram-generator/media/realbook-webfont-IIPLEHXN.woff": "74586d16b87fee05fdee4be295c3295ccee599e9",

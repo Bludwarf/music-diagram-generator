@@ -7,7 +7,7 @@ import { Structure } from "../../structure/structure";
 import { Section } from "../../structure/section/section";
 import { Part } from "../../structure/part/part";
 
-const key = Key.Gm
+const key = Key.G
 const fretboard = {
     lowestFret: 0,
     fretsCount: 5,

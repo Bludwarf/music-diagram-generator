@@ -126,10 +126,14 @@ export class Key {
 }
 
 export namespace Key {
+  export const A = new Key(Note.A)
+  export const Bb = new Key(Note.Bb)
+  export const C = new Key(Note.C)
+  export const G = new Key(Note.G)
+
+  export const Am = new Key(Note.A, Mode.vi)
   export const Cm = new Key(Note.C, Mode.vi)
   export const Gm = new Key(Note.G, Mode.vi)
-  export const Am = new Key(Note.A, Mode.vi)
-  export const Bb = new Key(Note.Bb)
 }
 
 export class Degree extends Mod12Value {

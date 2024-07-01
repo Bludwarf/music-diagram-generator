@@ -5,7 +5,9 @@ export class AlsProject {
 
   }
   get audioTracks(): AudioTrack[] {
-    return this.parsedXml.Ableton.LiveSet.Tracks.AudioTrack.map((audioTrack: any) => new AudioTrack(audioTrack))
+    const audioTrackElementOrArray = this.parsedXml.Ableton.LiveSet.Tracks.AudioTrack
+    const audioTracks = audioTrackElementOrArray.map ? audioTrackElementOrArray : [audioTrackElementOrArray]
+    return audioTracks.map((audioTrack: any) => new AudioTrack(audioTrack))
   }
 
 }

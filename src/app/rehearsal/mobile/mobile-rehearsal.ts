@@ -6,16 +6,6 @@ import { Structure } from "../../structure/structure";
 import { SongEntry } from "../../song/song-entry";
 import { ActivatedRoute } from "@angular/router";
 import { Title } from "@angular/platform-browser";
-import petitPapillonEntry from "../../song/entries/Petit Papillon";
-import laFemmeDragonEntry from "../../song/entries/La femme dragon";
-import surcoufEntry from "../../song/entries/Surcouf";
-import leJourEntry from "../../song/entries/Le jour (le phare)";
-import resEntry from "../../song/entries/Le résistant";
-import noyerEntry from "../../song/entries/Souffrance";
-import nuagesEntry from "../../song/entries/Nuages blancs";
-import la4LEntry from "../../song/entries/La 4L";
-import solEntry from "../../song/entries/Solitude";
-import elleReveEntry from "../../song/entries/Elle reve a quoi";
 import { RythmBarEvent } from "../../rythm-bar/event";
 import * as Tone from "tone";
 import { StartTimedElement, Time, TimedElement } from "../../time";
@@ -23,6 +13,7 @@ import { error, sequence, stripExtension } from '../../utils';
 import { Recording } from "../../recording/recording";
 import { PartInStructure } from "../../structure/part/part-in-structure";
 import { SampleCacheService } from '../../sample/samples-cache.service';
+import { SongRepository } from '../../song/song-repository';
 
 export abstract class MobileRehearsal {
 
@@ -46,8 +37,6 @@ export abstract class MobileRehearsal {
   currentSectionInStructureRelativeTimecode?: string;
   currentPatternInStructureRelativeTimecode?: string;
 
-  songEntries: SongEntry[] = []
-
   protected sequence = sequence
 
   player?: Tone.Player
@@ -62,17 +51,8 @@ export abstract class MobileRehearsal {
     activatedRoute: ActivatedRoute,
     title: Title,
     protected readonly sampleCacheService: SampleCacheService,
+    private readonly songRepository: SongRepository,
   ) {
-    this.songEntries.push(petitPapillonEntry)
-    this.songEntries.push(laFemmeDragonEntry)
-    this.songEntries.push(surcoufEntry)
-    this.songEntries.push(leJourEntry)
-    this.songEntries.push(resEntry)
-    this.songEntries.push(noyerEntry)
-    this.songEntries.push(nuagesEntry)
-    this.songEntries.push(la4LEntry)
-    this.songEntries.push(solEntry)
-    this.songEntries.push(elleReveEntry)
 
     // TODO unsubscribe
     activatedRoute.params.subscribe(params => {
@@ -89,14 +69,6 @@ export abstract class MobileRehearsal {
     // Tone.Transport.schedule(function (time) {
     //   console.log('Première mesure')
     // }, "1m");
-  }
-
-  private songNameEquals(songName: string) {
-    if (!this.songName) {
-      return false
-    }
-    const format = (string: string) => string.toLowerCase().trim()
-    return format(songName) === format(this.songName);
   }
 
   addEvent(event: RythmBarEvent): void {
@@ -390,11 +362,7 @@ export abstract class MobileRehearsal {
   }
 
   protected requireSongEntry() {
-    const entry = this.songEntries.find(entry => this.songNameEquals(entry.name));
-    if (!entry) {
-      error('SongEntry inconnu pour ' + this.songName)
-    }
-    return entry;
+    return this.songRepository.requireSongEntry(this.songName)
   }
 
   destroy(): void {

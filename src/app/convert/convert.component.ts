@@ -6,8 +6,6 @@ import {AlsExtractor} from "../als/als-extractor";
 import {JsonPipe, NgIf} from "@angular/common";
 import {RecordingInitData} from "../recording/recording";
 
-const songEntryTemplate = ''
-
 @Component({
   selector: 'app-convert',
   standalone: true,
@@ -51,7 +49,7 @@ export class ConvertComponent {
 
     const alsProject = this.alsImporter.loadJsonContent(jsonContent);
     const structureExtractor = new AlsExtractor(alsProject);
-    this.jsonStructure = JSON.stringify(structureExtractor.extractStructureObject(), undefined, 4)
+    // this.jsonStructure = JSON.stringify(structureExtractor.extractStructureObject(), undefined, 4)
     this.recordingInitData = structureExtractor.extractRecordingInitData()
 
     this.songName = xmlFile.name.substring(0, xmlFile.name.indexOf('.'))
@@ -65,13 +63,13 @@ export class ConvertComponent {
     this._songName = songName
     const recordingName = this.recordingInitData?.name ?? prompt('recording.name')
     this.songEntry = `
-    import { Key } from "../../notes";
-    import recordingInitData from "../../../assets/recordings/${recordingName}.json";
-    import { Pattern } from "../../structure/pattern/pattern";
-    import { Recording } from "../../recording/recording";
-    import { Structure } from "../../structure/structure";
-    import { Section } from "../../structure/section/section";
-    import { Part } from "../../structure/part/part";
+    import { Key } from '../../notes';
+    import recordingInitData from '../../../assets/recordings/${recordingName}.json';
+    import { Pattern } from '../../structure/pattern/pattern';
+    import { Recording } from '../../recording/recording';
+    import { Structure } from '../../structure/structure';
+    import { Section } from '../../structure/section/section';
+    import { Part } from '../../structure/part/part';
     
     const key = Key.Gm
     const fretboard = {
@@ -81,32 +79,31 @@ export class ConvertComponent {
     
     const I = Pattern.fromData({
         key,
-        name: 'Intro',
+        name: \`Intro\`,
         chords: '| A | C | G | F |',
         fretboard,
     })
     
     const C = Pattern.fromData({
         key,
-        name: 'Couplet',
+        name: \`Couplet\`,
         chords: '| A | C | G | F |',
         fretboard,
     })
     
     const R = Pattern.fromData({
         key,
-        name: 'Refrain',
+        name: \`Refrain\`,
         chords: '| A | E | F | G |',
         fretboard,
     })
     
-    const intro = new Section('Intro', [I, I, I, I])
-    const couplet = new Section('Couplet', [C, C, C, C])
-    const refrain = new Section('Refrain', [R, R])
+    const intro = new Section(\`Intro\`, [I, I, I, I])
+    const couplet = new Section(\`Couplet\`, [C, C, C, C])
+    const refrain = new Section(\`Refrain\`, [R, R])
     
     const parts: Part[] = [
-        new Part('I', [intro]),
-        new Part('1', [couplet, refrain]),
+        new Part('1', [intro, couplet, refrain]),
         new Part('2', [couplet, refrain]),
     ]
     

@@ -37,14 +37,14 @@ const If = Pattern.fromData({
 const C = Pattern.fromData({
     key,
     name: 'Couplet',
-    chords: '| G | G | G | G | G | F#m | Em |',
+    chords: '| G | G | G | G | G | F# | E |',
     fretboard,
 })
 
 const Cp = Pattern.fromData({
     key,
     name: 'Couplet+',
-    chords: '| G | G | G | G | G | G | F#m | Em |',
+    chords: '| G | G | G | G | G | G | F# | E |',
     fretboard,
 })
 

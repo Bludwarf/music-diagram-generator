@@ -1,5 +1,6 @@
 import {Injectable} from "@angular/core";
 import {SongEntry} from "./song-entry";
+import {error} from "../utils";
 import petitPapillonEntry from "../song/entries/Petit Papillon";
 import laFemmeDragonEntry from "../song/entries/La femme dragon";
 import surcoufEntry from "../song/entries/Surcouf";
@@ -12,7 +13,7 @@ import solEntry from "../song/entries/Solitude";
 import elleReveEntry from "../song/entries/Elle reve a quoi";
 import toutFoufou from "../song/entries/Tout foufou";
 import happy from "../song/entries/Happy";
-import {error} from "../utils";
+import rockollection from "../song/entries/Rockollection";
 
 @Injectable({
   providedIn: 'root'
@@ -34,6 +35,7 @@ export class SongRepository {
       elleReveEntry,
       toutFoufou,
       happy,
+      rockollection,
     )
   }
 

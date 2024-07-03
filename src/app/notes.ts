@@ -126,14 +126,29 @@ export class Key {
 }
 
 export namespace Key {
+  export const C = new Key(Note.C)
+  export const Cs = new Key(Note.Cs)
+  export const D = new Key(Note.D)
+  export const Eb = new Key(Note.Eb)
+  export const E = new Key(Note.E)
+  export const F = new Key(Note.F)
+  export const Fs = new Key(Note.Fs)
+  export const G = new Key(Note.G)
+  export const Ab = new Key(Note.Ab)
   export const A = new Key(Note.A)
   export const Bb = new Key(Note.Bb)
-  export const C = new Key(Note.C)
-  export const G = new Key(Note.G)
 
-  export const Am = new Key(Note.A, Mode.vi)
   export const Cm = new Key(Note.C, Mode.vi)
+  export const Csm = new Key(Note.Cs, Mode.vi)
+  export const Dm = new Key(Note.D, Mode.vi)
+  export const Ebm = new Key(Note.Eb, Mode.vi)
+  export const Em = new Key(Note.E, Mode.vi)
+  export const Fm = new Key(Note.F, Mode.vi)
+  export const Fsm = new Key(Note.Fs, Mode.vi)
   export const Gm = new Key(Note.G, Mode.vi)
+  export const Abm = new Key(Note.Ab, Mode.vi)
+  export const Am = new Key(Note.A, Mode.vi)
+  export const Bbm = new Key(Note.Bb, Mode.vi)
 }
 
 export class Degree extends Mod12Value {

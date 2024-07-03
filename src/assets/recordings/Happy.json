@@ -1,0 +1,19 @@
+{
+  "name": "Happy.mp3",
+  "sampleDuration": 240.778231292517,
+  "sampleBeatTimeDuration": 639.6199300699301,
+  "warpMarkers": [
+    {
+      "secTime": 0,
+      "beatTime": -12.760986409423909
+    },
+    {
+      "secTime": 5.5311111111111115,
+      "beatTime": 0
+    },
+    {
+      "secTime": 5.5428385858989015,
+      "beatTime": 0.03125
+    }
+  ]
+}

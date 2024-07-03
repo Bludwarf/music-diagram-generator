@@ -26,6 +26,7 @@ export class IndexComponent {
     'Nuages blancs',
     'Elle rêve à quoi',
     'Tout foufou',
+    'Happy',
   ]
 
 }

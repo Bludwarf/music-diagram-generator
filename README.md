@@ -72,3 +72,23 @@ npm install
 export PATH="./node_modules/.bin:$PATH"
 export CHROME_BIN=/opt/chrome/chrome
 ```
+
+# Déploiement poru tester une branche
+
+Aller sur la branche dans GitHub.
+
+Cliquer sur le bouton Code. Puis onglet "Codespaces".
+
+Cliquer sur le bouton Create Codespace.
+
+Attendre la fin de la création du Codespace et de l'installation.
+
+Dans l'onglet "Terminal", lancer la commande :
+
+```shell
+npm start
+```
+
+Dans l'onglet Ports, attendre qu'une "Adresse transférée" soit créée.
+
+La copier, et l'ouvrir sur un téléphone.

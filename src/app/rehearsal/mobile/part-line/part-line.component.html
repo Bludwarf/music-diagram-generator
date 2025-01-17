@@ -4,7 +4,7 @@
        [class.active]="sectionInStructure === currentSectionInStructure"
        [class.looped]="sectionInStructure === loopedElement"
        (click)="onClickSectionInStructure(sectionInStructure)"
-       (swipeDown)="onSwipeDownSectionInStructure(sectionInStructure)">
+  >
     {{ sectionInStructure.section.name }}
   </div>
 </div>
@@ -15,8 +15,7 @@
        [class.looped]="patternInStructure === loopedElement"
        [style.backgroundColor]="getPatternColor(patternInStructure)"
        (click)="onClickPatternInStructure(patternInStructure)"
-       (swipeDown)="onSwipeDownPatternInStructure(patternInStructure)"
-       >
+  >
     {{ patternInStructure.initial }}
   </div>
 </div>

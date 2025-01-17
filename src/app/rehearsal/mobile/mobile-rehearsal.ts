@@ -1,19 +1,18 @@
-import { ChangeDetectorRef } from '@angular/core';
-import { SectionInStructure } from "../../structure/section/section-in-structure";
-import { PatternInStructure } from "../../structure/pattern/pattern-in-structure";
-import { BarNumber0Indexed, Chord, Key } from "../../notes";
-import { Structure } from "../../structure/structure";
-import { SongEntry } from "../../song/song-entry";
-import { ActivatedRoute } from "@angular/router";
-import { Title } from "@angular/platform-browser";
-import { RythmBarEvent } from "../../rythm-bar/event";
+import {ChangeDetectorRef} from '@angular/core';
+import {SectionInStructure} from "../../structure/section/section-in-structure";
+import {PatternInStructure} from "../../structure/pattern/pattern-in-structure";
+import {BarNumber0Indexed, Chord, Key} from "../../notes";
+import {Structure} from "../../structure/structure";
+import {ActivatedRoute} from "@angular/router";
+import {Title} from "@angular/platform-browser";
+import {RythmBarEvent} from "../../rythm-bar/event";
 import * as Tone from "tone";
-import { StartTimedElement, Time, TimedElement } from "../../time";
-import { error, sequence, stripExtension } from '../../utils';
-import { Recording } from "../../recording/recording";
-import { PartInStructure } from "../../structure/part/part-in-structure";
-import { SampleCacheService } from '../../sample/samples-cache.service';
-import { SongRepository } from '../../song/song-repository';
+import {Time, TimedElement} from "../../time";
+import {error, sequence, stripExtension} from '../../utils';
+import {Recording} from "../../recording/recording";
+import {PartInStructure} from "../../structure/part/part-in-structure";
+import {SampleCacheService} from '../../sample/samples-cache.service';
+import {SongRepository} from '../../song/song-repository';
 
 export abstract class MobileRehearsal {
 
@@ -46,7 +45,7 @@ export abstract class MobileRehearsal {
   songName?: string
   loopedElement?: TimedElement;
 
-  constructor(
+  protected constructor(
     private readonly changeDetectorRef: ChangeDetectorRef,
     activatedRoute: ActivatedRoute,
     title: Title,
@@ -249,19 +248,36 @@ export abstract class MobileRehearsal {
     Tone.Transport.stop()
   }
 
-  onClickElementInStructure(element: StartTimedElement): void {
+  onClickElementInStructure(element: TimedElement): void {
     if (!this.recording) {
       error('Aucun enregistrement (Recording)')
     }
-    const wrappedTime = this.recording.getWrappedTime(element.startTime);
-    if (wrappedTime) {
-      const fixOffset = 0.05 // On corrige la sélection qui arrive souvent sur l'élément précédent
-      Tone.Transport.seconds = wrappedTime.toSeconds() + fixOffset
-      this.refresh()
+
+    // TODO gérer la boucle sur une mesure (quand on vient de onClickBar)
+    const isCurrentInStructure = this.isCurrentInStructure(element);
+    let elementToLoop: TimedElement | undefined;
+    if (isCurrentInStructure) {
+      elementToLoop = element === this.loopedElement ? undefined : element
+    } else {
+      elementToLoop = undefined
+    }
+    elementToLoop ? this.loopOn(elementToLoop) : this.loopOnRecording();
+
+    if (!isCurrentInStructure) {
+      const wrappedTime = this.recording.getWrappedTime(element.startTime);
+      if (wrappedTime) {
+        const fixOffset = 0.05 // On corrige la sélection qui arrive souvent sur l'élément précédent
+        Tone.Transport.seconds = wrappedTime.toSeconds() + fixOffset
+        this.refresh()
+      }
     }
   }
 
-  onSwipeDownElementInStructure(element: TimedElement): void {
+  isCurrentInStructure(element: any): boolean {
+    return element && (element === this.currentPartInStructure ||  element === this.currentSectionInStructure || element === this.currentPatternInStructure)
+  }
+
+  private loopOn(element: TimedElement) {
     let looped = false
 
     if (this.loopedElement !== element) {
@@ -290,60 +306,11 @@ export abstract class MobileRehearsal {
   }
 
   onClickBar(bar: BarNumber0Indexed): void {
+    let startTime = Time.fromBar(bar)
     this.onClickElementInStructure({
-      startTime: Time.fromBar(bar), // TODO faire un élément BarInStructure ?
+      startTime, // TODO faire un élément BarInStructure ?
+      endTime: startTime.add(Time.fromBar(1)),
     })
-  }
-
-  async loopPattern(pattern: string): Promise<void> {
-    // this.currentPattern = pattern;
-
-    // await this.stop();
-
-    const getAudioFileURL = (pattern: string) => {
-      const patternIndex = ['C', 'B', 'R'].indexOf(pattern);
-      if (patternIndex === -1) {
-        return undefined;
-      }
-
-      const inputElement = document.getElementsByTagName('input');
-      const file = inputElement?.[patternIndex].files?.[0]
-      if (!file) {
-        return undefined;
-      }
-
-      console.log('file', file)
-      return URL.createObjectURL(file);
-    };
-
-    // const bView = "https://drive.google.com/file/d/1DktZf_rGRaoRxoJEbo3NVWd9yYFX39aj/view?usp=sharing";
-    // const bDownload = "https://drive.usercontent.google.com/u/0/uc?id=1DktZf_rGRaoRxoJEbo3NVWd9yYFX39aj&export=download";
-    // const audioFiles: Record<string, string> = {
-    //   'B': "assets/audio/Petit Papillon/Partie bombarde [2024-01-31 233921].wav",
-    //   'C': 'assets/audio/Petit Papillon/PetitPapillon_couplet [2024-01-20 122633].wav',
-    //   'R': 'assets/audio/Petit Papillon/Refrain [2024-01-31 233926].wav',
-    // }
-    // const audioFile = audioFiles[this.currentPattern];
-
-    // const audioFile = getAudioFileURL(this.currentPattern);
-    // if (!audioFile) {
-    //   delete this.patternToPlay
-    //   return
-    // } else {
-    //   this.patternToPlay = this.currentPattern;
-    // }
-
-    // const player = new Tone.Player({
-    //   url: audioFile,
-    //   loop: true,
-    //   // autostart: true,
-    // }).toDestination();
-    // this.player = player;
-
-    // await Tone.loaded() // évite les erreurs de buffer
-
-    // await this.play();
-
   }
 
   setProgress(event: Event): void {

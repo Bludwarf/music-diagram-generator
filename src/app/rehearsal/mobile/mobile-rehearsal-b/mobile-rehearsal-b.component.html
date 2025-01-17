@@ -22,7 +22,7 @@
                [currentPartInStructure]="currentPartInStructure"
                [loopedElement]="loopedElement"
                (clickPartInStructure)="onClickElementInStructure($event)"
-               (swipeDownPartInStructure)="onSwipeDownElementInStructure($event)"></app-part-tabs>
+></app-part-tabs>
 
 <app-part-line *ngIf="currentPartInStructure" [partInStructure]="currentPartInStructure"
                [currentSectionInStructure]="currentSectionInStructure"
@@ -30,9 +30,7 @@
                [loopedElement]="loopedElement"
                (clickPatternInStructure)="onClickElementInStructure($event)"
                (clickSectionInStructure)="onClickElementInStructure($event)"
-               (swipeDownPatternInStructure)="onSwipeDownElementInStructure($event)"
-               (swipeDownSectionInStructure)="onSwipeDownElementInStructure($event)"
-               ></app-part-line>
+></app-part-line>
 
 
 <!-- TODO on reprend le composant A en attendant de trouver la bonne manière de faire -->
@@ -44,8 +42,7 @@
     <div class="chords-and-staff">
 
       <div class="pattern-name-container" [style.backgroundColor]="getPatternColor(currentPatternInStructure)">
-        <span class="active pattern" [class.looped]="currentPatternInStructure === loopedElement"
-          (swipeDown)="onSwipeDownElementInStructure(currentPatternInStructure)">
+        <span class="active pattern" [class.looped]="currentPatternInStructure === loopedElement">
           {{ currentPatternInStructure.pattern.name }}
         </span>
       </div>

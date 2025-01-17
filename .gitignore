@@ -2,5 +2,6 @@ node_modules
 .angular
 /coverage/
 /reports/
+/.idea/deployment.xml
 /.idea/sonarlint/
 /dist/

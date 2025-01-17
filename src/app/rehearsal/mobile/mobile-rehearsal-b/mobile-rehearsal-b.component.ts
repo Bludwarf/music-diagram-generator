@@ -1,30 +1,42 @@
-import { CommonModule, JsonPipe } from "@angular/common";
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { FormsModule } from "@angular/forms";
-import { Title } from "@angular/platform-browser";
-import { ActivatedRoute } from "@angular/router";
-import { FretboardComponent } from "../../../fretboard/fretboard.component";
-import { RythmBarComponent } from "../../../rythm-bar/rythm-bar.component";
-import { PatternComponent } from "../../../structure/pattern/pattern.component";
-import { SectionComponent } from "../../../structure/section/section.component";
-import { ChordsGridComponent } from "../chords-grid/chords-grid.component";
-import { MobileRehearsal } from "../mobile-rehearsal";
-import { PartLineComponent } from "../part-line/part-line.component";
-import { PartTabsComponent } from "../part-tabs/part-tabs.component";
-import { SampleMapComponent } from "../sample-map/sample-map.component";
-import { StructureMapComponent } from "../structure-map/structure-map.component";
-import { PatternInStructure } from "../../../structure/pattern/pattern-in-structure";
-import { SampleCacheService } from "../../../sample/samples-cache.service";
-import { error } from "../../../utils";
-import { SwipeDirective } from "../../../swipe.directive";
-import { SongRepository } from "../../../song/song-repository";
+import {CommonModule} from "@angular/common";
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  OnDestroy,
+  OnInit,
+  ViewChild
+} from '@angular/core';
+import {FormsModule} from "@angular/forms";
+import {Title} from "@angular/platform-browser";
+import {ActivatedRoute} from "@angular/router";
+import {FretboardComponent} from "../../../fretboard/fretboard.component";
+import {RythmBarComponent} from "../../../rythm-bar/rythm-bar.component";
+import {ChordsGridComponent} from "../chords-grid/chords-grid.component";
+import {MobileRehearsal} from "../mobile-rehearsal";
+import {PartLineComponent} from "../part-line/part-line.component";
+import {PartTabsComponent} from "../part-tabs/part-tabs.component";
+import {SampleMapComponent} from "../sample-map/sample-map.component";
+import {StructureMapComponent} from "../structure-map/structure-map.component";
+import {PatternInStructure} from "../../../structure/pattern/pattern-in-structure";
+import {SampleCacheService} from "../../../sample/samples-cache.service";
+import {error} from "../../../utils";
+import {SongRepository} from "../../../song/song-repository";
 
 @Component({
   selector: 'app-mobile-rehearsal-b',
   standalone: true,
   imports: [
-    RythmBarComponent, JsonPipe, CommonModule, FormsModule, FretboardComponent, PatternComponent, SectionComponent, StructureMapComponent, PartTabsComponent, PartLineComponent, SampleMapComponent, ChordsGridComponent,
-    SwipeDirective,
+    RythmBarComponent,
+    CommonModule,
+    FormsModule,
+    FretboardComponent,
+    StructureMapComponent,
+    PartTabsComponent,
+    PartLineComponent,
+    SampleMapComponent,
+    ChordsGridComponent,
   ],
   templateUrl: './mobile-rehearsal-b.component.html',
   styleUrl: './mobile-rehearsal-b.component.scss',

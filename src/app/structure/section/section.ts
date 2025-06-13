@@ -1,5 +1,6 @@
 import {Pattern} from "../pattern/pattern";
 import {Time} from "../../time";
+import {BaseColor as Color} from "../../color";
 
 export class Section {
 
@@ -9,6 +10,7 @@ export class Section {
     readonly name: string,
     readonly patterns: Pattern[],
     readonly initial?: string,
+    readonly color?: Color,
   ) {
   }
 

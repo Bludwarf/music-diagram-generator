@@ -6,6 +6,7 @@ import { Recording } from "../../recording/recording";
 import { Structure } from "../../structure/structure";
 import { Section } from "../../structure/section/section";
 import { Part } from "../../structure/part/part";
+import {BLUE} from "../../color";
 
 const key = Key.Gm
 const fretboard = {
@@ -35,24 +36,26 @@ const B = Pattern.fromData({
     fretboard,
 })
 
-const F = Pattern.fromData({
+const Cf = Pattern.fromData({
     ...CData,
-    name: 'Final', // TODO notation pour indiquer que les pêches de la fin : 1 2 3 o)))
+    initial: 'Cf',
+    name: 'Couplet final', // TODO notation pour indiquer que les pêches de la fin : 1 2 3 o)))
 })
 
 const intro = new Section('Intro guitare', [C])
-const bombarde = new Section('Bombarde', [C, C])
+const bombarde = new Section('Bombarde', [C, C], undefined, BLUE)
 const couplet = new Section('Couplet', [C, C])
 const refrain = new Section('Refrain', [R, R])
 const breakSection = new Section('Break', [B, B, B, B])
-const bombardeFinal = new Section('Bombarde', [C, F])
+const breakSonneurs = new Section('+ sonneurs', [B, B, B, B])
+const bombardeFinal = new Section('Bombarde', [C, C, C, C, C, C, C, Cf])
 
 const parts: Part[] = [
     new Part('I', [intro]),
     new Part('1', [bombarde, couplet, bombarde, couplet, refrain]),
     new Part('2', [bombarde, couplet, bombarde, couplet, refrain]),
-    new Part('Bk', [breakSection]),
-    new Part('F', [bombarde, bombarde, bombarde, bombardeFinal]),
+    new Part('Break', [breakSection, breakSonneurs]),
+    new Part('F', [bombardeFinal]),
 ]
 
 const structure = Structure.builder()
@@ -65,6 +68,7 @@ const recording = Recording.builder()
 
 export default {
     name: 'Solitude',
+    version: '30/05/2025',
     structure,
     recording,
 }    

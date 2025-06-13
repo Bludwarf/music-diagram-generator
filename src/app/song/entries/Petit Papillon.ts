@@ -8,6 +8,7 @@ import {Recording} from "../../recording/recording";
 import {Structure} from "../../structure/structure";
 import {Section} from "../../structure/section/section";
 import {Part} from "../../structure/part/part";
+import {BLUE, GREEN, RED} from "../../color";
 
 
 // On utilise pour l'instant le fichier DIDAFTA PETIT PAPILLON Master Web 24bit 48Khz_02-01.wav
@@ -33,6 +34,7 @@ const bombarde = Pattern.fromData({
   chords: '| Gm F | Eb D | Gm F | Eb D Gm Gm |',
   fretboard,
   events: events.filter((event: any) => event.bar >= 1 || event.bar <= 2),
+  color: GREEN,
 })
 const bombardeSeuleM1 = Pattern.fromData({
   name: 'Bombarde seule',
@@ -40,6 +42,7 @@ const bombardeSeuleM1 = Pattern.fromData({
   duration: '1m', // TODO on devrait pouvoir faire plutôt : chords: '|  | Eb D |'
   key,
   fretboard,
+  color: RED,
 })
 const bombardeSeuleM2 = Pattern.fromData({
   name: 'Retour groupe',
@@ -48,6 +51,7 @@ const bombardeSeuleM2 = Pattern.fromData({
   key,
   fretboard,
   events: events.filter((event: any) => event.bar == 2),
+  color: bombarde.color,
 })
 const bombardeM3et4 = Pattern.fromData({
   name: '1/2 Partie bombarde',
@@ -56,6 +60,7 @@ const bombardeM3et4 = Pattern.fromData({
   chords: '| Gm F | Eb D Gm Gm |',
   fretboard,
   events: events.filter((event: any) => event.bar >= 1 || event.bar <= 2),
+  color: bombarde.color,
 })
 const couplet = Pattern.fromData({
   name: 'Couplet',
@@ -82,8 +87,8 @@ const refrain = Pattern.fromData({
 })
 
 const intro = new Section('Intro', [bombardeSeuleIntro, bombarde, bombarde])
-const bombardePassage = new Section('Bombarde', [bombarde, bombarde])
-const bombardePassageApresRefrain = new Section('Bombarde après refrain', [bombardeSeuleM1, bombardeSeuleM2, bombardeM3et4, bombarde], 'Ba')
+const bombardePassage = new Section('Bombarde', [bombarde, bombarde], undefined, BLUE)
+const bombardePassageApresRefrain = new Section('Bombarde', [bombardeSeuleM1, bombardeSeuleM2, bombardeM3et4, bombarde], 'Ba')
 const coupletPassage = new Section('Couplet', [couplet, coupletBb])
 const refrainPassage = new Section('Refrain', [refrain, refrain])
 
@@ -128,9 +133,6 @@ const structure = Structure.builder()
     return undefined
   })
   .build()
-// console.log(couplet.duration.toAbletonLiveBarsBeatsSixteenths())
-// console.log(new Structure(coupletBlock).duration.toAbletonLiveBarsBeatsSixteenths())
-// console.log(structure.duration.toBarsBeatsSixteenths())
 
 const recording = Recording.builder()
   .initData(recordingInitData)
@@ -138,6 +140,7 @@ const recording = Recording.builder()
 
 export default {
   name: 'Petit Papillon',
+  version: 'Album',
   structure,
   recording,
 }

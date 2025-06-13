@@ -92,4 +92,52 @@ describe('Recording', () => {
     expect(recording.getWarpPosition(lastChordSecTime)?.toAbletonLiveBarsBeatsSixteenths()).toBe('142.1.1') // En utilisant sampleBeatTimeDuration au lieu de sampleEndBeatTime on trouve '142.3.2'
   });
 
+  it('should get tempo from simple recording', async () => {
+    const recording = Recording.builder()
+      .initData({
+          name: "Simple recording",
+          sampleDuration: 236.669375,
+          sampleBeatTimeDuration: 608.7926032301033,
+          warpMarkers: [
+            {
+              secTime: 0,
+              beatTime: 0,
+            },
+            {
+              secTime: 60, // 1 min
+              beatTime: 120, // 120 BPM
+            }
+          ]
+        }
+      )
+      .build()
+    expect(recording.meanTempo).toBe(120)
+  });
+
+  it('should get tempo from two regioned recording', async () => {
+    const recording = Recording.builder()
+      .initData({
+          name: "Simple recording",
+          sampleDuration: 236.669375,
+          sampleBeatTimeDuration: 608.7926032301033,
+          warpMarkers: [
+            {
+              secTime: 0,
+              beatTime: 0,
+            },
+            {
+              secTime: 60, // 1 min
+              beatTime: 120, // 120 BPM
+            },
+            {
+              secTime: 60 + 30, // + 30 s
+              beatTime: 120 + 120, // 240 BPM
+            }
+          ]
+        }
+      )
+      .build()
+    expect(recording.meanTempo).toBe(160)
+  });
+
 });

@@ -1,6 +1,6 @@
 import {Time} from "../time";
 import {WarpMarker} from "../structure/warp-marker";
-import {Builder, error, warn} from "../utils";
+import {Builder, error, sum} from "../utils";
 import * as Tone from "tone";
 
 export class Recording {
@@ -10,6 +10,7 @@ export class Recording {
     readonly sampleDuration: Time,
     readonly sampleBeatTimeDuration: number,
     readonly warpMarkers: WarpMarker[],
+    private readonly originalWarpMarkersLength = warpMarkers.length, // à cause de normalizeWarpMarker
   ) {
     this.normalizeWarpMarker()
   }
@@ -88,6 +89,29 @@ export class Recording {
     return new Time(Tone.Time(secTime))
   }
 
+  /**
+   * On ignore tout ce qu'il y a avant le premier warpMarker et après le dernier.
+   * On calcule la moyenne pondérée par le temps (secTime) des tempos entre chaque warpMarker.
+   * @return le tempo moyen en BPM
+   */
+  get meanTempo(): number {
+    const weightedBps = this.regions
+      .map(region => region.bps * region.secDuration)
+      .reduce(sum, 0)
+    const start = this.warpMarkers[0];
+    const end = this.warpMarkers[this.originalWarpMarkersLength - 1];
+    return weightedBps / (end.secTime - start.secTime) * 60
+  }
+
+  get regions() {
+    const regions: Region[] = []
+    for (let endIndex = 1; endIndex < this.originalWarpMarkersLength; ++endIndex) {
+      const start = this.warpMarkers[endIndex - 1];
+      const end = this.warpMarkers[endIndex];
+      regions.push(new Region(start, end))
+    }
+    return regions;
+  }
 }
 
 class RecordingBuilder implements Builder<Recording> {
@@ -128,4 +152,34 @@ export interface RecordingInitData {
   sampleBeatTimeDuration: number
 
   warpMarkers: WarpMarker[]
+}
+
+class Region {
+  constructor(
+    readonly start: WarpMarker,
+    readonly end: WarpMarker,
+  ) {
+  }
+
+  get beatDuration(): number {
+    return this.end.beatTime - this.start.beatTime
+  }
+
+  get secDuration(): number {
+    return this.end.secTime - this.start.secTime
+  }
+
+  /**
+   * @return Beats Per Second
+   */
+  get bps(): number {
+    return this.beatDuration / this.secDuration
+  }
+
+  /**
+   * @return Beats Per Minute
+   */
+  get bpm(): number {
+    return this.bps * 60
+  }
 }

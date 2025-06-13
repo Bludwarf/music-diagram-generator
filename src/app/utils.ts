@@ -1,7 +1,11 @@
-import { Observable, fromEvent, tap, debounceTime } from "rxjs"
+import {Observable, fromEvent, tap, debounceTime} from "rxjs"
 
 export function sequence(size: number, offset = 0): number[] {
   return Array.from(new Array(size).keys()).map(val => val + offset)
+}
+
+export function sum(a: number, b: number): number {
+  return a + b
 }
 
 /**

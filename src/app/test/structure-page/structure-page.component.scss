@@ -1,0 +1,26 @@
+.information {
+  display: flex;
+
+  > * {
+    flex: 1;
+  }
+}
+
+.pattern-list {
+  text-align: left;
+
+  .pattern-initial {
+    color: rgba(255, 255, 255, 0.2);
+    font-weight: bold;
+    display: inline-block;
+    padding: 0.2ex;
+  }
+
+  .pattern-name {
+    text-decoration: underline;
+  }
+
+  .pattern-chords {
+    font-family: monospace;
+  }
+}

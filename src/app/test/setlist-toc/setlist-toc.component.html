@@ -1,0 +1,7 @@
+<app-page [title]="title.getTitle()">
+  <ol>
+    @for (song of setlist.songs; track song) {
+      <li>{{ song.songEntry.name }}</li>
+    }
+  </ol>
+</app-page>

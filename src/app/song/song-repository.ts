@@ -1,19 +1,24 @@
 import {Injectable} from "@angular/core";
-import {SongEntry} from "./song-entry";
+import {EMPTY, SongEntry} from "./song-entry";
 import {error} from "../utils";
-import petitPapillonEntry from "../song/entries/Petit Papillon";
+import aucunRespect from "../song/entries/Aucun respect";
+import auSonDesBars from "../song/entries/Au son des bars";
+import elleReveEntry from "../song/entries/Elle reve a quoi";
+import happy from "../song/entries/Happy";
+import kasABarh from "../song/entries/Kas a-barh";
+import la4LEntry from "../song/entries/La 4L";
+import introEntry from "../song/entries/Intro";
 import laFemmeDragonEntry from "../song/entries/La femme dragon";
-import surcoufEntry from "../song/entries/Surcouf";
 import leJourEntry from "../song/entries/Le jour (le phare)";
-import resEntry from "../song/entries/Le résistant";
+import mirages from "../song/entries/Mirages";
 import noyerEntry from "../song/entries/Souffrance";
 import nuagesEntry from "../song/entries/Nuages blancs";
-import la4LEntry from "../song/entries/La 4L";
-import solEntry from "../song/entries/Solitude";
-import elleReveEntry from "../song/entries/Elle reve a quoi";
-import toutFoufou from "../song/entries/Tout foufou";
-import happy from "../song/entries/Happy";
+import petitPapillonEntry from "../song/entries/Petit Papillon";
+import resEntry from "../song/entries/Le résistant";
 import rockollection from "../song/entries/Rockollection";
+import solEntry from "../song/entries/Solitude";
+import surcoufEntry from "../song/entries/Surcouf";
+import toutFoufou from "../song/entries/Tout foufou";
 
 @Injectable({
   providedIn: 'root'
@@ -23,19 +28,24 @@ export class SongRepository {
 
   constructor() {
     this.pushAll(
-      petitPapillonEntry,
+      aucunRespect,
+      auSonDesBars,
+      elleReveEntry,
+      happy,
+      la4LEntry,
+      introEntry,
+      kasABarh,
       laFemmeDragonEntry,
-      surcoufEntry,
       leJourEntry,
-      resEntry,
+      mirages,
       noyerEntry,
       nuagesEntry,
-      la4LEntry,
-      solEntry,
-      elleReveEntry,
-      toutFoufou,
-      happy,
+      petitPapillonEntry,
+      resEntry,
       rockollection,
+      solEntry,
+      surcoufEntry,
+      toutFoufou,
     )
   }
 
@@ -45,12 +55,26 @@ export class SongRepository {
     }
   }
 
-  requireSongEntry(songName: string | undefined) {
-    const entry = this.songEntries.find(entry => this.songNameEquals(songName, entry.name));
+  private findSongEntry(songName: string, defaultSongEntry?: SongEntry | undefined): SongEntry | undefined {
+    switch (songName.toLocaleLowerCase()) {
+      case 'le phare': return leJourEntry;
+    }
+    return this.songEntries.find(entry => this.songNameEquals(songName, entry.name)) || defaultSongEntry;
+  }
+
+  requireSongEntry(songName: string) {
+    const entry = this.findSongEntry(songName);
     if (!entry) {
       error('SongEntry inconnu pour ' + songName)
     }
     return entry;
+  }
+
+  findSongEntryOrEmpty(songName: string): SongEntry {
+    return this.findSongEntry(songName, {
+      ... EMPTY,
+      name: songName,
+    })!!;
   }
 
   private songNameEquals(expectedSongName: string | undefined, songName: string) {

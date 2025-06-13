@@ -329,7 +329,7 @@ export abstract class MobileRehearsal {
   }
 
   protected requireSongEntry() {
-    return this.songRepository.requireSongEntry(this.songName)
+    return this.songRepository.requireSongEntry(this.songName!!)
   }
 
   destroy(): void {

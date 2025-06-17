@@ -5,6 +5,7 @@ import { Part } from "../../structure/part/part";
 import { FretboardData, Pattern } from "../../structure/pattern/pattern";
 import { Section } from "../../structure/section/section";
 import { Structure } from "../../structure/structure";
+import {RED} from "../../color";
 
 const key = Key.Gm
 const fretboard: FretboardData = {
@@ -72,35 +73,13 @@ const SAData = ({
   fretboard: {
     lowestFret: 8,
     fretsCount: 8,
-  }
+  },
+  color: RED,
 })
 
-const SAG = Pattern.fromData({
+const SA = Pattern.fromData({
   ...SAData,
-  name: 'Solo (Gm)',
-  initial: 'Gm',
-  chords: '| Gm | Gm | Gm | Gm |',
-})
-
-const SAD = Pattern.fromData({
-  ...SAData,
-  name: 'Solo (Dm)',
-  initial: 'Dm',
-  chords: '| Dm | Dm | Dm | Dm |',
-})
-
-const SAC = Pattern.fromData({
-  ...SAData,
-  name: 'Solo (Cm)',
-  initial: 'Cm',
-  chords: '| Cm | Cm | Cm | Cm |',
-})
-
-const SADMaj = Pattern.fromData({
-  ...SAData,
-  name: 'Solo (Dm D)',
-  initial: 'D*',
-  chords: '| Dm | Dm | D | D |',
+  chords: '| Gm | Gm | Gm | Gm | Dm | Dm | Dm | Dm | Cm | Cm | Cm | Cm | Dm | Dm | D | D |',
 })
 
 const couplet = new Section('Couplet', [C, C, C]);
@@ -117,7 +96,7 @@ const parts: Part[] = [
   new Part('2', [couplet, refrain, bombarde]),
   new Part('Solo', [
     new Section(`D'nB`, [Sb, Sb]),
-    new Section(`Accords`, [SAG, SAD, SAC, SADMaj]),
+    new Section(`Solo basse`, [SA]),
     new Section(`D'nB`, [Sb, Sb]),
   ]),
   new Part('3', [coupletRap, refrain, bombarde]),
@@ -137,6 +116,7 @@ const recording = Recording.builder()
 
 export default {
   name: 'Nuages blancs',
+  version: 'Album',
   structure,
   recording,
 }

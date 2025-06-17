@@ -5,6 +5,7 @@ import recordingInitData from "../../../assets/recordings/LE PHARE Master Web 24
 import {Section} from "../../structure/section/section";
 import {Recording} from "../../recording/recording";
 import {Part} from "../../structure/part/part";
+import {BLUE} from "../../color";
 
 const key = Key.Cm
 const fretboard: FretboardData = {
@@ -55,12 +56,13 @@ const fin = Pattern.fromData({
   fretboard,
 })
 
-const bombarde = new Section('Bombarde', [C, C, Ceb, Ceb,]);
+const bombarde = new Section('Bombarde', [C, C, Ceb, Ceb,], undefined, BLUE);
+const bombardeDoublee = new Section(bombarde.name, [...bombarde.patterns, ...bombarde.patterns], undefined, BLUE);
 const couplet = new Section('Couplet', [C, C, C, C,]);
 const refrain = new Section('Refrain', [R, R,]);
 const parts: Part[] = [
   new Part('Intro', [
-    new Section('Bombarde + guitare', [C, C, Ceb, Ceb,]),
+    new Section('Bombarde + guitare', [C, C, Ceb, Ceb,], undefined, BLUE),
   ]),
   new Part('1', [
     bombarde, // Groupe
@@ -73,12 +75,11 @@ const parts: Part[] = [
     refrain,
   ]),
   new Part('3', [
-    new Section('Bombarde', [C, C,]),
+    new Section('Bombarde', [C, C,], undefined, BLUE),
     new Section('Break', [bloquee, breakBatterie,], 'Bk'),
   ]),
   new Part('Final', [
-    bombarde,
-// bombarde, // Pas dans l'album
+    bombardeDoublee, // Doublé par rapport à l'album
     new Section('Fin', [fin,])
   ]),
 ]
@@ -93,6 +94,7 @@ const recording = Recording.builder()
 
 export default {
   name: 'Le jour (le phare)',
+  version: '30/05/2025',
   structure,
   recording,
 }

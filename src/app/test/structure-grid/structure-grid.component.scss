@@ -1,0 +1,56 @@
+@use "sass:math";
+
+:host {
+  flex: 1;
+  //box-sizing: content-box; // Aucun changement entre border-box et content-box
+}
+
+.wrapper {
+  display: grid;
+  //grid-template-columns: repeat(12, 1fr);
+  --gap: 0.7mm;
+  --section-gap: calc(var(--gap) * 1/2);
+  gap: var(--gap);
+  //grid-auto-rows: minmax(100px, auto);
+  grid-auto-rows: auto;
+
+  > {
+
+    .cell-part,
+    .cell-section {
+      text-align: left;
+    }
+
+    .cell-section {
+      margin-top: 1em;
+      //align-content: end; // TODO se comporte très mal en impression
+      overflow: hidden;
+    }
+
+    .cell-section-bar {
+      min-height: 3pt;
+    }
+
+    .cell-section,
+    .cell-section-bar {
+      margin-left: var(--section-gap);
+      margin-right: var(--section-gap);
+    }
+
+    .cell-pattern {
+      $height: 1cm;
+      height: $height;
+      line-height: $height;
+      font-size: math.div($height, 2);
+      color: rgba(255, 255, 255, 0.2);
+
+      &.first-pattern-in-section {
+        margin-left: var(--section-gap);
+      }
+
+      &.last-pattern-in-section {
+        margin-right: var(--section-gap);
+      }
+    }
+  }
+}

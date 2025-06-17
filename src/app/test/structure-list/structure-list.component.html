@@ -1,0 +1,17 @@
+<ul>
+  <li *ngFor="let partInStructure of structure.partsInStructure">
+    {{ partInStructure.part.name }} :
+    <ul>
+      <li *ngFor="let sectionInStructure of partInStructure.sectionsInStructure" class="section">
+        {{ sectionInStructure.section.name }} :
+        <ul>
+          <li>
+            <span *ngFor="let patternInStructure of sectionInStructure.patternsInStructure" [style.background-color]="patternInStructure.structure.getPatternColor(patternInStructure).toString()">
+              {{ patternInStructure.initial }}
+            </span>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>

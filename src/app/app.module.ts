@@ -1,27 +1,19 @@
-import {NgModule, isDevMode} from '@angular/core';
+import {isDevMode, NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {RouterModule} from '@angular/router';
 import {ReactiveFormsModule} from '@angular/forms';
 
 import {AppComponent} from './app.component';
 import {CommonModule} from '@angular/common';
-import {ConvertComponent} from "./convert/convert.component";
-import {SongComponent} from "./song/song.component";
-import {IndexComponent} from "./index/index.component";
-import { ServiceWorkerModule } from '@angular/service-worker';
-import { ChordsGridComponent } from './test/chords-grid/chords-grid.component';
+import {ServiceWorkerModule} from '@angular/service-worker';
+import routes from "./routes";
 
 @NgModule({
   imports: [
     CommonModule,
     BrowserModule,
     ReactiveFormsModule,
-    RouterModule.forRoot([
-      { path: '', component: IndexComponent },
-      { path: 'morceaux/:songName', component: SongComponent },
-      { path: 'convert', component: ConvertComponent },
-      { path: 'test/chords-grid', component: ChordsGridComponent },
-    ]),
+    RouterModule.forRoot(routes),
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: !isDevMode(),
       // Register the ServiceWorker as soon as the application is stable

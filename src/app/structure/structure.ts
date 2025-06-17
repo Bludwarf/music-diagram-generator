@@ -84,6 +84,9 @@ export class Structure {
   readonly partsInStructure: PartInStructure[];
   private readonly colorResolver = new ColorResolver(this)
 
+  // TODO info pour savoir qui commence (ou quel instrument ou quelle piste)
+  // TODO info pour marquer le type de fin (sur le 1, brutal, normal, fondu, ralenti)
+
   constructor(
     parts: Part[],
     getEventsStartTime?: (pattern: Pattern) => Time | undefined, // TODO en attendant de savoir comment faire les events
@@ -120,8 +123,6 @@ export class Structure {
     // if (currentTime.toAbletonLiveBarsBeatsSixteenths() !== sampleDuration.toAbletonLiveBarsBeatsSixteenths()) {
     //   console.warn('currentTime != duration', currentTime.toAbletonLiveBarsBeatsSixteenths(), sampleDuration.toAbletonLiveBarsBeatsSixteenths())
     // }
-
-    console.log('Structure created')
   }
 
   getPartInStructureAt(time: Time): PartInStructure | undefined {

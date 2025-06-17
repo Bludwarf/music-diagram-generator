@@ -5,6 +5,7 @@ import { Part } from "../../structure/part/part";
 import { Pattern } from "../../structure/pattern/pattern";
 import { Section } from "../../structure/section/section";
 import { Structure } from "../../structure/structure";
+import {BLUE} from "../../color";
 
 
 const fretboard = {
@@ -93,33 +94,35 @@ const fin = Pattern.fromData({
   chords: '| C | C | C | C |',
 })
 
+const flute = new Section('Flute', [couplet, couplet], undefined, BLUE);
+
 const parts: Part[] = [
   new Part('1', [
-    new Section('Intro', [coupletSansBasse]),
+    new Section('Intro', [coupletSansBasse], undefined, BLUE),
     new Section('Couplet', [coupletSansBasse, coupletSansBasse]),
     new Section('Refrain', [refrainCalme, refrainPCalme]),
   ]),
   new Part('2', [
-    new Section('Flute', [couplet, couplet]),
+    flute,
     new Section('Couplet', [couplet, couplet]),
     new Section('Refrain', [refrain, refrainP]),
   ]),
   new Part('3', [
-    new Section('Flute', [couplet, couplet]),
+    flute,
     new Section('Couplet', [couplet, couplet]),
     new Section('Refrain', [refrain, refrainP]),
-    new Section('Guitare', [couplet, couplet]),
+    new Section('Guitare', [couplet, couplet], undefined, BLUE),
   ]),
   new Part('Calme', [
-    new Section('Guitare', [coupletSansBasse, coupletSansBasse]),
-    new Section('Couplet', [coupletSansBasse, coupletSansBasse]),
-    new Section('Refrain', [refrainCalme, refrainPCalme]),
+    new Section('Guitare calme', [coupletSansBasse, coupletSansBasse], undefined, BLUE),
+    new Section('Couplet calme', [coupletSansBasse, coupletSansBasse]),
+    new Section('Refrain calme', [refrainCalme, refrainPCalme]),
   ]),
   new Part('Final', [
-    new Section('Bombarde', [coupletFinal, coupletFinal]),
+    new Section('Bombarde (en DO)', [coupletFinal, coupletFinal], undefined, BLUE),
     new Section('Couplet', [coupletFinal, coupletFinal]),
     new Section('Refrain', [refrainFinal, refrainPFinal]),
-    new Section('Bombarde', [coupletFinal, coupletFinal]),
+    new Section('Bombarde', [coupletFinal, coupletFinal], undefined, BLUE),
     new Section('Fin', [fin]),
   ]),
 ]
@@ -134,6 +137,7 @@ const recording = Recording.builder()
 
 export default {
   name: 'La femme dragon',
+  version: 'Album',
   structure,
   recording,
 }

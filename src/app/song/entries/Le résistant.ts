@@ -5,6 +5,7 @@ import {Recording} from "../../recording/recording";
 import {Structure} from "../../structure/structure";
 import {Section} from "../../structure/section/section";
 import {Part} from "../../structure/part/part";
+import {BLUE} from "../../color";
 
 const key = Key.Cm
 const fretboard: FretboardData = {
@@ -33,24 +34,26 @@ const fin = Pattern.fromData({
   fretboard,
 })
 
+const bombarde = new Section(`Bombarde`, [couplet], undefined, BLUE);
+
 const parts: Part[] = [
   new Part('Intro', [
-    new Section(`D'nB`, [couplet]),
+    new Section(`D'nB`, [couplet], undefined, BLUE),
   ]),
   new Part('1', [
-    new Section(`Bombarde`, [couplet]),
+    bombarde,
     new Section(`Couplet`, [couplet, couplet]),
-    new Section(`Bombarde`, [couplet]),
+    bombarde,
     new Section(`Refrain`, [refrain]),
   ]),
   new Part('2', [
-    new Section(`Bombarde`, [couplet]),
+    bombarde,
     new Section(`Couplet`, [couplet, couplet]),
-    new Section(`Bombarde`, [couplet]),
+    bombarde,
     new Section(`Refrain`, [refrain]),
   ]),
   new Part('Final', [
-    new Section(`Bombarde`, [couplet]), // TODO notation pour marquer que le dernier F est sec (point en bas de la note en solfège)
+    bombarde, // TODO notation pour marquer que le dernier F est sec (point en bas de la note en solfège)
     new Section(`Fin`, [fin]),
   ]),
 ]
@@ -65,6 +68,7 @@ const recording = Recording.builder()
 
 export default {
   name: 'Le résistant',
+  version: 'Album',
   structure,
   recording,
 }

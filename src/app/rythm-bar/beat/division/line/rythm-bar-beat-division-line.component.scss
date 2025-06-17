@@ -1,4 +1,6 @@
-$whole-note-aspect-ratio: 12/7; // source : https://commons.wikimedia.org/wiki/File:WholeNote.svg
+@use "sass:math";
+
+$whole-note-aspect-ratio: math.div(12, 7); // source : https://commons.wikimedia.org/wiki/File:WholeNote.svg
 
 :host {
   // border: solid 1px white;

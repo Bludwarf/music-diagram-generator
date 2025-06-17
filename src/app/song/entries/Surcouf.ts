@@ -5,6 +5,7 @@ import {Key} from "../../notes";
 import {Recording} from "../../recording/recording";
 import {Section} from "../../structure/section/section";
 import {Part} from "../../structure/part/part";
+import {BLUE} from "../../color";
 
 const key = Key.Bb
 const fretboard: FretboardData = {
@@ -13,14 +14,6 @@ const fretboard: FretboardData = {
 }
 
 // Morceau en 3/4 très rapide
-
-const Sk = Pattern.fromData({
-  key,
-  name: 'Solo bombarde',
-  initial: 'B',
-  duration: '4m',
-  fretboard,
-})
 
 const CData = {
   key,
@@ -45,14 +38,15 @@ const R = Pattern.fromData({
   fretboard,
 })
 
-const soloCornemuse = new Section('Cornemuse (seule)', [Sk]);
-const coupletCornemuse = new Section('Cornemuse (couplet)', [C, C, Cp], 'Kc');
+const soloCornemuse = new Section('Solo Corn.', [C, C, Cp], undefined, BLUE);
+const soloCornemusePlusBatt = new Section('+ batt.', [C, C, Cp], undefined, BLUE);
+const coupletCornemuse = new Section('Cornemuse', [C, C, Cp], 'Kc', BLUE);
 const couplet = new Section('Couplet', [C, C, Cp]);
-const refrainCornemuse = new Section('Cornemuse (refrain)', [R, R, R, R], 'Kr');
+const refrainCornemuse = new Section('Cornemuse', [R, R, R, R], 'Kr', BLUE);
 const refrain = new Section('Refrain', [R, R], 'R');
 
 const parts: Part[] = [
-  new Part('Intro', [soloCornemuse]),
+  new Part('Intro', [soloCornemuse, soloCornemusePlusBatt]),
   new Part('1', [coupletCornemuse, couplet, coupletCornemuse, couplet, refrainCornemuse, refrain]),
   new Part('2', [coupletCornemuse, couplet, coupletCornemuse, couplet, refrainCornemuse, refrain]),
   new Part('3', [coupletCornemuse, soloCornemuse, coupletCornemuse, coupletCornemuse]),
@@ -68,6 +62,7 @@ const recording = Recording.builder()
 
 export default {
   name: 'Surcouf',
+  version: 'Album',
   structure,
   recording,
 }

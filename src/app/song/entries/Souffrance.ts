@@ -84,6 +84,7 @@ const recording = Recording.builder()
 
 export default {
   name: 'Noyer le silence', // TODO faire des alias
+  version: 'Album',
   structure,
   recording,
 }

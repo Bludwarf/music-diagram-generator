@@ -1,6 +1,5 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
 import {Setlist} from "../setlist-pages/setlist";
-import {SongRepository} from "../../song/song-repository";
 import {Title} from "@angular/platform-browser";
 import {PageComponent} from "../page/page.component";
 
@@ -15,14 +14,21 @@ import {PageComponent} from "../page/page.component";
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SetlistTocComponent {
-  protected setlist: Setlist;
+  get setlist(): Setlist {
+    return this._setlist;
+  }
+
+  @Input({required: true})
+  set setlist(value: Setlist) {
+    this._setlist = value;
+    this.title.setTitle(this._setlist.title);
+  }
+
+  private _setlist!: Setlist;
 
   constructor(
-    readonly songRepository: SongRepository,
     readonly title: Title,
   ) {
-    title.setTitle('Setlist Didaf\'ta'); // TODO facto avec SetlistPagesComponent
-    this.setlist = Setlist.getSetlist30_05_2025(songRepository); // TODO facto avec SetlistPagesComponent
   }
 
 }

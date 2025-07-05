@@ -23,8 +23,7 @@ export class SetlistPagesComponent {
     readonly songRepository: SongRepository,
     readonly title: Title,
   ) {
-    title.setTitle('Setlist Didaf\'ta'); // cf. SetlistTocComponent
-    this.setlist = Setlist.getSetlist30_05_2025(songRepository); // cf. SetlistTocComponent
+    this.setlist = Setlist.getSetlist30_05_2025(songRepository);
   }
 
 }

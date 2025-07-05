@@ -3,9 +3,11 @@ import {SongRepository} from "../../song/song-repository";
 import {SongEntry} from "../../song/song-entry";
 
 export class Setlist {
-  songs!: SongInSetlist[];
+  readonly title: string;
+  readonly songs!: SongInSetlist[];
 
-  constructor(songs: SongInSetlist[]) {
+  constructor(title: string, songs: SongInSetlist[]) {
+    this.title = title;
     this.songs = songs;
   }
 
@@ -14,7 +16,7 @@ export class Setlist {
       const songEntry = songRepository.findSongEntryOrEmpty(songName);
       return SongInSetlist.from(songEntry);
     });
-    return new Setlist(songs);
+    return new Setlist('Setlist Didaf\'ta', songs);
   }
 
   /**

@@ -1,4 +1,4 @@
-<app-setlist-toc></app-setlist-toc>
+<app-setlist-toc [setlist]="setlist"></app-setlist-toc>
 @for (song of setlist.songs; track song; let i = $index) {
   <app-structure-page
     [song]="song"

@@ -111,6 +111,33 @@ export class Setlist {
       // 'Rappel : Solitude',
     ]);
   }
+
+  /**
+   * Setlist après concert du 20/06/2025 à Saint Martin de Landelle
+   */
+  static getSetlist20_06_2025(songRepository: SongRepository) {
+    return Setlist.from(songRepository, [
+      'Intro',
+      'La femme dragon',
+      'Petit papillon',
+      'Solitude',
+      'La 4L',
+      'Le résistant',
+      'Nuages blancs',
+      'Kas a-barh',
+      // (Medley cornemuse)
+      //   Roak an roll
+      //   Scotland the Brave
+      //   When The Saints Go Marching In
+      'Elle rêve à quoi',
+      'Noyer le silence',
+      'Le phare',
+      'Aucun respect',
+      'Au son des bars',
+      'Surcouf',
+      // Rappel(s) non enregistré(s)
+    ]);
+  }
 }
 
 export class SongInSetlist {

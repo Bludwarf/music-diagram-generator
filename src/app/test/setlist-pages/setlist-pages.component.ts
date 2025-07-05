@@ -23,7 +23,7 @@ export class SetlistPagesComponent {
     readonly songRepository: SongRepository,
     readonly title: Title,
   ) {
-    this.setlist = Setlist.getSetlist30_05_2025(songRepository);
+    this.setlist = Setlist.getSetlist20_06_2025(songRepository);
   }
 
 }

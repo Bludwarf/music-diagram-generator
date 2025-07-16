@@ -54,18 +54,21 @@
                        (clickBar)="onClickBar(currentPatternInStructure.startPosition.bars + $event)"></app-chords-grid>
 
       <!-- <span class="pattern-timecode">{{ currentPatternInStructureRelativeTimecode }} / {{ currentPatternInStructure.pattern.duration.toBars() }}</span> -->
-      <ng-container *ngIf="currentPatternInStructure.eventsStartPosition">
-        <ng-container
-          *ngFor="let barNumber of sequence(currentPatternInStructure.eventsDurationInBars, (currentPatternInStructure.eventsStartPosition?.bars ?? 0) + 1)">
-          <app-rythm-bar
-            [number]="barNumber"
-            [events]="currentPatternInStructure.pattern.events ?? []"
-            (addEvent)="addEvent($event)"
-            (removeEvent)="removeEvent($event)"
-            [timecode]="rythmBarTimecode"
-          ></app-rythm-bar>
-        </ng-container>
-      </ng-container>
+<!--      <ng-container *ngIf="currentPatternInStructure.eventsStartPosition">-->
+<!--        <ng-container-->
+<!--          *ngFor="let barNumber of sequence(currentPatternInStructure.eventsDurationInBars, (currentPatternInStructure.eventsStartPosition?.bars ?? 0) + 1)">-->
+<!--          <app-rythm-bar-->
+<!--            [number]="barNumber"-->
+<!--            [events]="currentPatternInStructure.pattern.events ?? []"-->
+<!--            (addEvent)="addEvent($event)"-->
+<!--            (removeEvent)="removeEvent($event)"-->
+<!--            [timecode]="rythmBarTimecode"-->
+<!--          ></app-rythm-bar>-->
+<!--        </ng-container>-->
+<!--      </ng-container>-->
+
+      <app-stave [voices]="voicesByTrackNumber[0]" [jianpuMode]="jianpuMode" (init)="onStaveInit()"></app-stave>
+      <app-stave [voices]="voicesByTrackNumber[1]" [jianpuMode]="jianpuMode" (init)="onStaveInit()"></app-stave>
 
     </div>
 

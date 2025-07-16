@@ -4,7 +4,8 @@
     "compilerOptions": {
       "outDir": "./out-tsc/spec",
       "types": [
-        "jasmine"
+        "jasmine",
+        "vexflow"
       ]
     },
     "files": [
@@ -16,4 +17,3 @@
       "src/**/*.d.ts"
     ]
   }
-  

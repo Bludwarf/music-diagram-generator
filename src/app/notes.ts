@@ -86,6 +86,15 @@ export class Note extends Mod12Value {
   override toString(): string {
     return NOTE_NAMES[this.value]
   }
+
+  relativeTo(root: Note): Note {
+    // TODO facto avec degreeIn
+    return new Note(this.value - root.value);
+  }
+
+  transpose(semitones: number): Note {
+    return new Note(this.value + semitones);
+  }
 }
 
 export namespace Note {

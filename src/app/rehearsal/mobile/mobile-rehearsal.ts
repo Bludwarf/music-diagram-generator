@@ -194,6 +194,7 @@ export abstract class MobileRehearsal {
         // this.timecode = abletonLiveBarsBeatsSixteenths(Tone.Transport)
         this.transportPosition = Tone.Transport.position
         this.timecode = PositionFormatter.ABLETON_GLOBAL_TIMECODE.format(position);
+        const previousCurrentBar = this.currentBar;
         this.currentBar = position.bars
         this.transportBeatTime = beatTime.value
 
@@ -205,7 +206,11 @@ export abstract class MobileRehearsal {
         } else {
           delete this.currentPatternInStructure
         }
+        const previousCurrentChord = this.currentChord;
         this.currentChord = this.currentPatternInStructure?.getChordAt(position)
+        if (this.currentBar !== previousCurrentBar || this.currentChord !== previousCurrentChord) {
+          this.onBarChange(this.currentBar, this.currentChord);
+        }
         this.currentKey = this.currentPatternInStructure?.getKeyAt(position)
 
         if (this.currentPatternInStructure) {
@@ -269,6 +274,7 @@ export abstract class MobileRehearsal {
       Tone.Transport.seconds = secTime.value + fixOffset
       this.resetStates(position);
       this.refresh()
+      this.onPositionChange(position);
     }
   }
 
@@ -336,6 +342,12 @@ export abstract class MobileRehearsal {
 
   getPatternChords(patternInStructure: PatternInStructure): Chords {
     return patternInStructure.pattern.chords || Chords.repeatNoChord(patternInStructure.pattern.durationInBars);
+  }
+
+  onBarChange(currentBar: BarNumber0Indexed, currentChord: Chord|undefined) {
+  }
+
+  onPositionChange(position: Position) {
   }
 
   destroy(): void {

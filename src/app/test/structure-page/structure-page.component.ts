@@ -7,13 +7,15 @@ import {PatternInStructure} from "../../structure/pattern/pattern-in-structure";
 import {SongInSetlist} from "../setlist-pages/setlist";
 import {SongEntry} from "../../song/song-entry";
 import {PageComponent} from "../page/page.component";
+import {TestVexflowComponent} from "../test-vex-flow/test-vex-flow.component";
 
 @Component({
   selector: 'app-structure-page',
   standalone: true,
   imports: [
     StructureGridComponent,
-    PageComponent
+    PageComponent,
+    TestVexflowComponent
   ],
   templateUrl: './structure-page.component.html',
   styleUrl: './structure-page.component.scss',

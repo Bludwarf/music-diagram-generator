@@ -11,7 +11,6 @@ import {
 import {FormsModule} from "@angular/forms";
 import {Title} from "@angular/platform-browser";
 import {ActivatedRoute} from "@angular/router";
-import {RythmBarComponent} from "../../../rythm-bar/rythm-bar.component";
 import {ChordsGridComponent} from "../chords-grid/chords-grid.component";
 import {MobileRehearsal} from "../mobile-rehearsal";
 import {PartLineComponent} from "../part-line/part-line.component";
@@ -24,16 +23,18 @@ import {error} from "../../../utils";
 import {SongRepository} from "../../../song/song-repository";
 import {KeyboardComponent} from "../../../keyboard/keyboard.component";
 import * as Tone from "tone";
-import {BeatTime, Position} from "../../../time";
+import {BeatTime, Position, SecTime} from "../../../time";
 import keyboardReducer from "../../../keyboard/reducer";
 import {KeyboardRange, KeyboardState} from "../../../keyboard/type";
-import {OctavedNote} from "../../../notes";
+import {BarNumber0Indexed, Chord, OctavedNote} from "../../../notes";
+import {StaveComponent} from "../../../vexflow/stave/stave.component";
+import {MidiToVoicesAdapter} from "../../../vexflow/midi-to-voices-adapter";
+import {Voice} from "vexflow";
 
 @Component({
   selector: 'app-mobile-rehearsal-p',
   standalone: true,
   imports: [
-    RythmBarComponent,
     CommonModule,
     FormsModule,
     StructureMapComponent,
@@ -42,6 +43,7 @@ import {OctavedNote} from "../../../notes";
     SampleMapComponent,
     ChordsGridComponent,
     KeyboardComponent,
+    StaveComponent,
   ],
   templateUrl: './mobile-rehearsal-p.component.html',
   styleUrl: './mobile-rehearsal-p.component.scss',
@@ -54,6 +56,12 @@ export class MobileRehearsalPComponent extends MobileRehearsal implements OnInit
 
   keyboardStatesByTrackIndex: (KeyboardState | undefined)[] = [];
   keyboardRangeByTrackIndex: KeyboardRange[] = [];
+  voicesByTrackNumber: Voice[][] = [];
+
+  // TODO à renommer en onActiveMidiNoteTicksChange ou qqch du genre
+  onTicksChangeListeners?: ((ticks: number) => any)[] = []
+
+  jianpuMode = false
 
   constructor(
     changeDetectorRef: ChangeDetectorRef,
@@ -61,6 +69,7 @@ export class MobileRehearsalPComponent extends MobileRehearsal implements OnInit
     title: Title,
     sampleCacheService: SampleCacheService,
     songRepository: SongRepository,
+    private readonly midiToVoicesAdapter: MidiToVoicesAdapter,
   ) {
     super(changeDetectorRef, activatedRoute, title, sampleCacheService, songRepository)
   }
@@ -119,6 +128,7 @@ export class MobileRehearsalPComponent extends MobileRehearsal implements OnInit
                   type: 'ACTIVE_KEY',
                   key: note.name,
                 })
+                this.onTicksChange(note.ticks); // TODO doit-on passer par Tone.Draw.schedule ?
               }, secTime.value);
               const endBeatTime = BeatTime.fromMidiTicks(note.ticks + note.durationTicks, midi.header.ppq);
               const endSecTime = recording.getSecTime(endBeatTime);
@@ -133,6 +143,7 @@ export class MobileRehearsalPComponent extends MobileRehearsal implements OnInit
                   type: 'DEACTIVE_KEY',
                   key: note.name,
                 })
+                this.onTicksChange(note.ticks); // TODO doit-on passer par Tone.Draw.schedule ?
               }, endSecTime.value);
             } else {
               console.error('WarpTime inconnu pour la note MIDI', note);
@@ -229,4 +240,72 @@ export class MobileRehearsalPComponent extends MobileRehearsal implements OnInit
     return on.toString();
   }
 
+  override onBarChange(currentBar: BarNumber0Indexed, currentChord: Chord | undefined) {
+    super.onBarChange(currentBar, currentChord);
+
+    const recording = this.recording;
+    if (recording) {
+      const beatTime = recording.getBeatTimeAt(new Position(currentBar)); // TODO passer beatTime plutôt que currentBar
+      const beatTimeEnd = recording.getBeatTimeAt(new Position(currentBar + 1));
+      const midi = recording.midi;
+      if (beatTime && beatTimeEnd && midi) {
+        const startTicks = beatTime.toMidiTicks(midi.header.ppq);
+        const endTicks = beatTimeEnd.toMidiTicks(midi.header.ppq);
+        const onClickTicksListener = (ticks: number) => {
+          const clickedBeatTime = BeatTime.fromMidiTicks(ticks, midi.header.ppq)
+          const position = recording.getPosition(clickedBeatTime);
+          this.setPosition(position);
+        };
+        const onTicksChangeListeners: ((ticks: number) => any)[] = []
+        const trackNumbers = [0, 1];
+        trackNumbers.forEach(trackNumber => {
+          const trackListeners: MobileRehearsalPListeners = {
+            onTicksChangeListeners: [],
+          };
+          this.voicesByTrackNumber[trackNumber] = this.midiToVoicesAdapter.getVoices(
+            midi.tracks[trackNumber].notes.filter(note => startTicks <= note.ticks && note.ticks < endTicks),
+            midi.header.ppq, currentChord, this.jianpuMode, onClickTicksListener, trackListeners);
+          trackListeners.onTicksChangeListeners.forEach(onTicksChangeListener => onTicksChangeListeners.push(onTicksChangeListener))
+        })
+        this.onTicksChangeListeners = onTicksChangeListeners;
+        return;
+      }
+    }
+    this.voicesByTrackNumber = [];
+  }
+
+  override onPositionChange(position: Position) {
+    super.onPositionChange(position);
+    const recording = this.recording;
+    if (recording) {
+      const beatTime = recording.getBeatTimeAt(position);
+      const midi = recording.midi;
+      if (beatTime && midi) {
+        const ticks = beatTime.toMidiTicks(midi.header.ppq);
+        this.onTicksChange(ticks);
+      }
+    }
+  }
+
+  private onTicksChange(ticks: number) {
+    this.onTicksChangeListeners?.forEach(onTicksChangeListener => onTicksChangeListener(ticks));
+  }
+
+  onStaveInit() {
+    const recording = this.recording;
+    const midi = recording?.midi;
+    if (midi) {
+      // TODO à remonter / factoriser
+      const secTime = SecTime.fromToneTransportSeconds(Tone.Transport.seconds);
+      const beatTime = recording.getBeatTime(secTime);
+      if (beatTime) {
+        const ticks = beatTime.toMidiTicks(midi.header.ppq);
+        this.onTicksChange(ticks);
+      }
+    }
+  }
+}
+
+export type MobileRehearsalPListeners = {
+  onTicksChangeListeners: ((ticks: number) => any)[];
 }

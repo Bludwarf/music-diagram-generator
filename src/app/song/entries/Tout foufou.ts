@@ -37,28 +37,28 @@ const If = Pattern.fromData({
 const C = Pattern.fromData({
     key,
     name: 'Couplet',
-    chords: '| G | G | G | G | G | F# | E |',
+    chords: '| G | G | G | G | G | F | E |',
     fretboard,
 })
 
 const Cp = Pattern.fromData({
     key,
     name: 'Couplet+',
-    chords: '| G | G | G | G | G | G | F# | E |',
+    chords: '| G | G | G | G | G | G | F | E |',
     fretboard,
 })
 
 const R1 = Pattern.fromData({
     key,
     name: 'Refrain (1/2)',
-    chords: '| B Bb | A D |',
+    chords: '| G/B G°/Bb | Am7\' D4 |',
     fretboard,
 })
 
 const R2 = Pattern.fromData({
     key,
     name: 'Refrain (2/2)',
-    chords: '| B | Bb | A | D |',
+    chords: '| G/B | G°/Bb | Am7\' | D4 |',
     fretboard,
 })
 

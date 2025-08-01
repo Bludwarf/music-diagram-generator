@@ -37,9 +37,6 @@ export class StructurePageComponent implements OnChanges {
   }
 
   @Input()
-  songNumber?: number;
-
-  @Input()
   songTotalCount?: number;
 
   get structureInGrid(): StructureInGrid {
@@ -69,20 +66,7 @@ export class StructurePageComponent implements OnChanges {
   }
 
   get title(): string {
-    let title = '';
-
-    if (this.songNumber) {
-      title += this.songNumber
-
-      if (this.songTotalCount) {
-        title += `/${this.songTotalCount}`
-      }
-
-      title += '. '
-    }
-
-    title += this.songName;
-    return title;
+    return this.songName;
   }
 
   getPatternColor(pattern: Pattern) {

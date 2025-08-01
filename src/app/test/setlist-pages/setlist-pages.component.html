@@ -1,7 +1,6 @@
 <app-setlist-toc [setlist]="setlist"></app-setlist-toc>
-@for (song of setlist.songs; track song; let i = $index) {
+@for (song of setlist.songs; track song; ) {
   <app-structure-page
     [song]="song"
-    [songNumber]="i+1"
     [songTotalCount]="setlist.songs.length"></app-structure-page>
 }

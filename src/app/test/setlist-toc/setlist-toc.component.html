@@ -1,4 +1,9 @@
 <app-page [title]="title.getTitle()">
+  <div class="information">
+    <div>
+      Version : {{ setlist.version || '(inconnue)' }}
+    </div>
+  </div>
   <ol>
     @for (song of setlist.songs; track song) {
       <li>{{ song.songEntry.name }}</li>

@@ -1,8 +1,13 @@
-:host {
+.information {
+  display: flex;
+
+  > * {
+    flex: 1;
+  }
+}
+
+ol {
   text-align: left;
   font-size: xx-large;
-
-  ol {
-    margin-left: 1em;
-  }
+  margin-left: 1em;
 }

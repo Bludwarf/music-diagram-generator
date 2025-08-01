@@ -3,27 +3,26 @@ import {SongRepository} from "../../song/song-repository";
 import {SongEntry} from "../../song/song-entry";
 
 export class Setlist {
-  readonly title: string;
   readonly songs!: SongInSetlist[];
 
-  constructor(title: string, songs: SongInSetlist[]) {
-    this.title = title;
+  constructor(
+    readonly title: string,
+    songs: SongInSetlist[],
+    readonly version: string,
+  ) {
     this.songs = songs;
   }
 
-  static from(songRepository: SongRepository, songNames: string[]) {
+  static from(version: string, songRepository: SongRepository, songNames: string[]) {
     const songs = songNames.map(songName => {
       const songEntry = songRepository.findSongEntryOrEmpty(songName);
       return SongInSetlist.from(songEntry);
     });
-    return new Setlist('Setlist Didaf\'ta', songs);
+    return new Setlist('Setlist Didaf\'ta', songs, version);
   }
 
-  /**
-   * Setlist de la fiche technique au 19/04/2025
-   */
   static getSetlistFicheTechnique(songRepository: SongRepository) {
-    return Setlist.from(songRepository, [
+    return Setlist.from('Fiche technique au 19/04/2025', songRepository, [
       'Intro',
       'Surcouf',
       'Nuages blancs',
@@ -42,11 +41,8 @@ export class Setlist {
     ]);
   }
 
-  /**
-   * Setlist imprimée du concert 2024 avec Youenn et Simon
-   */
   static getSetlist2024YouennSimon(songRepository: SongRepository) {
-    return Setlist.from(songRepository, [
+    return Setlist.from('Imprimée du concert 2024 avec Youenn et Simon', songRepository, [
       'Intro',
       'La femme dragon',
       'Petit papillon',
@@ -65,11 +61,8 @@ export class Setlist {
     ]);
   }
 
-  /**
-   * Setlist après répète du 19/04/2025
-   */
   static getSetlist19_04_2025(songRepository: SongRepository) {
-    return Setlist.from(songRepository, [
+    return Setlist.from('Après répète du 19/04/2025', songRepository, [
       'Intro',
       'La femme dragon',
       'Petit papillon',
@@ -89,11 +82,8 @@ export class Setlist {
     ]);
   }
 
-  /**
-   * Setlist après répète du 30/05/2025
-   */
   static getSetlist30_05_2025(songRepository: SongRepository) {
-    return Setlist.from(songRepository, [
+    return Setlist.from('Après répète du 30/05/2025', songRepository, [
       'Intro',
       'Noyer le silence',
       'Petit papillon',
@@ -112,11 +102,8 @@ export class Setlist {
     ]);
   }
 
-  /**
-   * Setlist après concert du 20/06/2025 à Saint Martin de Landelle
-   */
   static getSetlist20_06_2025(songRepository: SongRepository) {
-    return Setlist.from(songRepository, [
+    return Setlist.from('20/06/2025 (Saint Martin de Landelle)', songRepository, [
       'Intro',
       'La femme dragon',
       'Petit papillon',

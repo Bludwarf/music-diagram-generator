@@ -31,4 +31,6 @@ export class SetlistTocComponent {
   ) {
   }
 
+  round = Math.round
+
 }

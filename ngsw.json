@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1754216532713,
+  "timestamp": 1754740441598,
   "index": "/music-diagram-generator/index.html",
   "assetGroups": [
     {
@@ -12,7 +12,7 @@
       },
       "urls": [
         "/music-diagram-generator/index.html",
-        "/music-diagram-generator/main-2EM7RGWC.js",
+        "/music-diagram-generator/main-C3CUWCUH.js",
         "/music-diagram-generator/manifest.webmanifest",
         "/music-diagram-generator/polyfills-RT5I6R6G.js",
         "/music-diagram-generator/styles-BBJWMLTX.css"
@@ -27,6 +27,8 @@
         "ignoreVary": true
       },
       "urls": [
+        "/music-diagram-generator/assets/ableton-live-10-colors-color-picker.json",
+        "/music-diagram-generator/assets/ableton-live-10-colors-github.json",
         "/music-diagram-generator/assets/als/Elle rêve à quoi.als",
         "/music-diagram-generator/assets/als/Elle rêve à quoi.als.xml",
         "/music-diagram-generator/assets/als/Elle rêve à quoi.als.xml.json",
@@ -53,6 +55,9 @@
         "/music-diagram-generator/assets/als/Souffrance.als.xml",
         "/music-diagram-generator/assets/als/Surcouf.als",
         "/music-diagram-generator/assets/als/Surcouf.als.xml",
+        "/music-diagram-generator/assets/als/The Sims - 07 - If You Really See Eurydice.als",
+        "/music-diagram-generator/assets/als/The Sims - 07 - If You Really See Eurydice.als.xml",
+        "/music-diagram-generator/assets/als/The Sims - 07 - If You Really See Eurydice.als.xml.json",
         "/music-diagram-generator/assets/als/Tout foufou.als",
         "/music-diagram-generator/assets/als/Tout foufou.als.xml",
         "/music-diagram-generator/assets/als/Tout foufou.json",
@@ -70,6 +75,7 @@
         "/music-diagram-generator/assets/images/WholeNote-centered.svg",
         "/music-diagram-generator/assets/images/WholeNote.svg",
         "/music-diagram-generator/assets/images/beat-marker.svg",
+        "/music-diagram-generator/assets/recordings/07 - If You Really See Eurydice.json",
         "/music-diagram-generator/assets/recordings/DIDAFTA PETIT PAPILLON Master Web 24bit 48Khz_02-01.json",
         "/music-diagram-generator/assets/recordings/ELLE REVE preview brut_01.json",
         "/music-diagram-generator/assets/recordings/Happy.json",
@@ -103,6 +109,8 @@
   ],
   "dataGroups": [],
   "hashTable": {
+    "/music-diagram-generator/assets/ableton-live-10-colors-color-picker.json": "6cef1156ca31ad211db945958cab1b4e052615d1",
+    "/music-diagram-generator/assets/ableton-live-10-colors-github.json": "ca2875c7e28532ec68c1e6428c7ec5a6a0721c70",
     "/music-diagram-generator/assets/als/Elle rêve à quoi.als": "d31f9269d4dffe6284d68100e759f55ce4c5f5b9",
     "/music-diagram-generator/assets/als/Elle rêve à quoi.als.xml": "269c51d0fd42bd3fd19441102f512ab3f24f1912",
     "/music-diagram-generator/assets/als/Elle rêve à quoi.als.xml.json": "5c89df3cef0f8fb0c333ada9627c9dadbcf794af",
@@ -129,6 +137,9 @@
     "/music-diagram-generator/assets/als/Souffrance.als.xml": "6caa2241f57dc54b36016bb7eb4091f49f33da04",
     "/music-diagram-generator/assets/als/Surcouf.als": "c410af11b26bd4a21f9fedeb25a438ab4acfc25a",
     "/music-diagram-generator/assets/als/Surcouf.als.xml": "b712339c1dad93982d872ab5d4e4119db4c3b725",
+    "/music-diagram-generator/assets/als/The Sims - 07 - If You Really See Eurydice.als": "5eaa0f4991972ea0eee2762946ef84536c0e7377",
+    "/music-diagram-generator/assets/als/The Sims - 07 - If You Really See Eurydice.als.xml": "4f0a2c49e91ba76955b777ce44824571e1575450",
+    "/music-diagram-generator/assets/als/The Sims - 07 - If You Really See Eurydice.als.xml.json": "5e14d817b33393a461f39361437e0d6faae069f3",
     "/music-diagram-generator/assets/als/Tout foufou.als": "e4d9f03efb31721eb73b1784ea49b87797d0bc4e",
     "/music-diagram-generator/assets/als/Tout foufou.als.xml": "851bb4cf8a63cb405e3dce83b66af783bb24ea5e",
     "/music-diagram-generator/assets/als/Tout foufou.json": "33f74d8965906715b081f3f52c8284585b6f2b84",
@@ -146,6 +157,7 @@
     "/music-diagram-generator/assets/images/WholeNote-centered.svg": "2f79539db81d31250014be9547b43961216bad4f",
     "/music-diagram-generator/assets/images/WholeNote.svg": "9af7fdfa41aa8caee06f753cc60a290acfc1839e",
     "/music-diagram-generator/assets/images/beat-marker.svg": "b64a350053fdf2b2d76ab05f20b4176153b35979",
+    "/music-diagram-generator/assets/recordings/07 - If You Really See Eurydice.json": "719fa3aaa9f71d0b8702ebee11ad9dca92b1653c",
     "/music-diagram-generator/assets/recordings/DIDAFTA PETIT PAPILLON Master Web 24bit 48Khz_02-01.json": "4890e1b50b1d07f37c95c128aa2abc3dc38e1042",
     "/music-diagram-generator/assets/recordings/ELLE REVE preview brut_01.json": "ab1761a44633c5f042e8dda830ee184531b1ac90",
     "/music-diagram-generator/assets/recordings/Happy.json": "3e66beee3e56decdd85c3b392366819365a077fa",
@@ -171,8 +183,8 @@
     "/music-diagram-generator/assets/structures/Solitude.json": "ac241e0d818be56f8cda0e15e07de80ba8792316",
     "/music-diagram-generator/assets/structures/Souffrance.json": "f8a368bfdf424506e0b2e7560d856b92053895ac",
     "/music-diagram-generator/assets/structures/Surcouf.json": "cb3e62f45bc29c6fdd7e027e5398d59b4c6baadc",
-    "/music-diagram-generator/index.html": "3ecf03e3c93ae141b67fcbda5c29934326da9e39",
-    "/music-diagram-generator/main-2EM7RGWC.js": "64d2239cd7572c8088299185d0e607931f077787",
+    "/music-diagram-generator/index.html": "aee90ace5ee06d3f059a928453e9d9747548afbb",
+    "/music-diagram-generator/main-C3CUWCUH.js": "950116307bc9b67af90955a7624626cb73b24941",
     "/music-diagram-generator/manifest.webmanifest": "6b8b3c692f3e448d195d8e68390df5760775d9a0",
     "/music-diagram-generator/media/Beats-JVHCVOT7.woff2": "7eefac0d91d94dd75857af00f09c1ceb0833d906",
     "/music-diagram-generator/media/realbook-webfont-IIPLEHXN.woff": "74586d16b87fee05fdee4be295c3295ccee599e9",

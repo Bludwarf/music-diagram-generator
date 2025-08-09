@@ -41,7 +41,7 @@ export function fromWindowResize(): Observable<Event> {
 }
 
 export function stripExtension(fileName: string): string {
-  const m = /^(.+?)(\.[a-z]{2,4})+$/.exec(fileName)
+  const m = /^(.+?)(\.[a-z0-9]{2,4})+$/.exec(fileName)
   if (m) {
     return m[1]
   } else {

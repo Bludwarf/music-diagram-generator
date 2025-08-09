@@ -100,7 +100,7 @@ export abstract class MobileRehearsal {
     if (audioFile) {
       const nameWithoutExtension = stripExtension(audioFile.name)
       if (nameWithoutExtension !== this.recording.name) {
-        alert(`Le nom du fichier chargé "${audioFile.name}" ne correspond pas à celui de l'enregistrement "${this.recording.name}"`)
+        alert(`Le nom du fichier chargé "${audioFile.name}" ("${nameWithoutExtension}" sans extension) ne correspond pas à celui de l'enregistrement "${this.recording.name}"`)
       }
       this.sampleCacheService.set(this.recording.name, audioFile)
     }

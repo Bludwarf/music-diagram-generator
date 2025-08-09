@@ -21,9 +21,7 @@ export class Section {
   }
 
   get duration(): Time {
-    if (!this._duration) {
-      this._duration = Time.sum(this.patterns.map(p => p.duration))
-    }
+    this._duration ??= Time.sum(this.patterns.map(p => p.duration));
     return this._duration
   }
 

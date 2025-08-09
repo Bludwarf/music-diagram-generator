@@ -1,8 +1,8 @@
 import * as Tone from 'tone';
-import { TimeValue } from 'tone/build/esm/core/type/TimeBase';
-import { BaseColor as Color } from '../../color';
-import { AsciiChords, Chords, Key } from '../../notes';
-import { Time } from '../../time';
+import {TimeValue} from 'tone/build/esm/core/type/TimeBase';
+import {BaseColor as Color} from '../../color';
+import {AsciiChords, Chords, Key} from '../../notes';
+import {Time} from '../../time';
 
 export class Pattern {
 
@@ -38,8 +38,11 @@ export class Pattern {
     );
   }
 
-  // TODO constructeur de copie / clone pour éviter de tout dupliquer dans les entries
+  times(n: number) {
+    return new Array(n).fill(this);
+  }
 
+  // TODO constructeur de copie / clone pour éviter de tout dupliquer dans les entries
 }
 
 export interface PatternInitData {

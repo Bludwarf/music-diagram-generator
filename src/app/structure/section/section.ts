@@ -12,6 +12,12 @@ export class Section {
     readonly initial?: string,
     readonly color?: Color,
   ) {
+    for (let i = 0; i < patterns.length; i++){
+      const pattern = patterns[i];
+      if (!pattern) {
+        throw new Error(`Pattern [${i}] non défini pour la section ${name}`);
+      }
+    }
   }
 
   get duration(): Time {

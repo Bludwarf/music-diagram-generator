@@ -19,12 +19,13 @@ import rockollection from "../song/entries/Rockollection";
 import solEntry from "../song/entries/Solitude";
 import surcoufEntry from "../song/entries/Surcouf";
 import toutFoufou from "../song/entries/Tout foufou";
+import theSimsIfYouReallySeeEurydice from "./entries/The Sims - If You Really See Eurydice";
 
 @Injectable({
   providedIn: 'root'
 })
 export class SongRepository {
-  private songEntries: SongEntry[] = []
+  private readonly songEntries: SongEntry[] = []
 
   constructor() {
     this.pushAll(
@@ -46,6 +47,7 @@ export class SongRepository {
       solEntry,
       surcoufEntry,
       toutFoufou,
+      theSimsIfYouReallySeeEurydice,
     )
   }
 
@@ -74,7 +76,7 @@ export class SongRepository {
     return this.findSongEntry(songName, {
       ... EMPTY,
       name: songName,
-    })!!;
+    })!;
   }
 
   private songNameEquals(expectedSongName: string | undefined, songName: string) {

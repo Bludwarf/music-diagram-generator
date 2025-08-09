@@ -1,5 +1,7 @@
 import Color from 'color';
 import {PatternInStructure} from './structure/pattern/pattern-in-structure';
+import abletonLive10ColorsColorPicker from "../assets/ableton-live-10-colors-color-picker.json"; // Source : Ableton Live 10 avec un Color Picker
+import abletonLive10ColorsGitHub from "../assets/ableton-live-10-colors-github.json"; // Source : https://github.com/danhemerlein/ableton-colors/blob/main/colors.json
 import {Structure} from './structure/structure';
 
 const LIGHTEN_RATIO = 0.5;
@@ -104,5 +106,35 @@ export class ColorResolver {
       }
     }
     return RED
+  }
+}
+
+/**
+ * Convertisseur des couleurs de https://github.com/danhemerlein/ableton-colors/blob/main/colors.json
+ */
+// TODO la source ne correspond pas à ce qu'on peut capturer sur l'écran DELL (ex : 127EBE au lieu de 007DC0) (même valeur avec ou sans "Éclairage nocturne")
+class AbletonLive10ColorFromGitHubMapper {
+  private static readonly SOURCE = abletonLive10ColorsGitHub;
+
+  orderByAbletonIndex<T extends { col: number, row: number }>(colors: T[]): T[] {
+    const orderedColors = [...colors];
+    orderedColors.sort((color1, color2) => this.getColorIndex(color1) - this.getColorIndex(color2));
+    return orderedColors;
+  }
+
+  private getColorIndex<T extends { col: number, row: number }>(color: T): number {
+    return (color.row - 1) * 14 + color.row - 1
+  }
+}
+
+export class AbletonLive10Color extends BaseColor {
+  private static readonly HEX_CODES_BY_INDEX = abletonLive10ColorsColorPicker;
+
+  static fromIndex(index: number): AbletonLive10Color {
+    if (index < 0 || index >= this.HEX_CODES_BY_INDEX.length) {
+      throw new Error(`Index de couleur Ableton Live 10 invalide : ${index}`)
+    }
+    const hexCode = this.HEX_CODES_BY_INDEX[index];
+    return new AbletonLive10Color(hexCode);
   }
 }

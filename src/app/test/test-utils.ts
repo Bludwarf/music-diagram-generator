@@ -5,6 +5,9 @@ import createSpyObj = jasmine.createSpyObj;
 import SpyObj = jasmine.SpyObj;
 
 // Source : https://stackoverflow.com/a/57331494/1655155
+/**
+ * @param filePath Doit être déclaré dans "files" du fichier karma.conf.js
+ */
 export function getKarmaFile(filePath: string): Promise<Blob> {
   return new Promise((resolve) => {
     const request: XMLHttpRequest = createGetKarmaFileRequest(filePath);

@@ -14,8 +14,7 @@ module.exports = function(config) {
     ],
     browsers: ['ChromeHeadless'],
     files: [
-      {pattern: 'src/assets/als/*.als', included: false, watched: false, served: true},
-      {pattern: 'src/assets/als/*.als.xml', included: false, watched: false, served: true},
+      {pattern: 'src/test/assets/als/*.als', included: false, watched: false, served: true},
     ],
   });
 };

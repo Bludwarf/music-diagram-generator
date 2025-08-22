@@ -1,5 +1,4 @@
 import {Component} from '@angular/core';
-import convert from "xml-js";
 import {FormsModule} from "@angular/forms";
 import {AlsImporter} from "../als/als-importer";
 import {AlsExtractor} from "../als/als-extractor";
@@ -19,8 +18,6 @@ import {RecordingInitData} from "../recording/recording";
 })
 export class ConvertComponent {
 
-  jsonContent?: string
-  jsonStructure?: string;
   recordingInitData?: RecordingInitData;
   songEntry?: string;
 
@@ -39,20 +36,14 @@ export class ConvertComponent {
       return;
     }
 
-    const xmlFile = fileList[0]
-    const xmlContent = await xmlFile.text()
-    const jsonContent = convert.xml2json(xmlContent, {
-      compact: true,
-    })
+    const alsFile = fileList[0]
+    const alsProject = await this.alsImporter.load(alsFile);
 
-    this.jsonContent = jsonContent
-
-    const alsProject = this.alsImporter.loadJsonContent(jsonContent);
     const structureExtractor = new AlsExtractor(alsProject);
     // this.jsonStructure = JSON.stringify(structureExtractor.extractStructureObject(), undefined, 4)
     this.recordingInitData = structureExtractor.extractRecordingInitData()
 
-    this.songName = xmlFile.name.substring(0, xmlFile.name.indexOf('.'))
+    this.songName = alsFile.name.substring(0, alsFile.name.indexOf('.'))
   }
 
   get songName(): string | undefined {

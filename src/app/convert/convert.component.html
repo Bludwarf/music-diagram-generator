@@ -1,15 +1,5 @@
-<input type="file" accept=".xml" (change)="uploadFile($event)"/>
+<input type="file" accept=".als" (change)="uploadFile($event)"/>
 <input type="text" [(ngModel)]="songName" placeholder="Titre du morceau"/>
-
-<ng-container *ngIf="jsonContent">
-  src/assets/als/{{songName}}.als.xml.json
-  <textarea [ngModel]="jsonContent" rows="10"></textarea>
-</ng-container>
-
-<ng-container *ngIf="jsonStructure">
-  src/assets/structures/{{songName}}.json
-  <textarea [ngModel]="jsonStructure" rows="10"></textarea>
-</ng-container>
 
 <ng-container *ngIf="recordingInitData">
   src/assets/recordings/{{recordingInitData.name}}.json

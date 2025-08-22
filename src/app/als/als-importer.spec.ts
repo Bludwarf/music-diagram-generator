@@ -1,33 +1,17 @@
 import {AlsImporter} from "./als-importer";
 import {getKarmaFile} from "../test/test-utils";
 
+export async function importAlsProject(projectName: string) {
+  const filePath = `src/test/assets/als/${projectName}.als`;
+  const alsImporter = new AlsImporter();
+  const blob = await getKarmaFile(filePath)
+  return await alsImporter.load(blob);
+}
+
 describe('AlsImporter', () => {
 
-  // it('should load Petit papillon.als', (done) => {
-  //   const alsImporter = new AlsImporter();
-  //
-  //
-  //   // Source : https://stackoverflow.com/a/57331494/1655155
-  //   const filePath = 'src/assets/als/Petit papillon.als';
-  //   const request: XMLHttpRequest = createRequest(filePath );
-  //
-  //   request.onload = async r => {
-  //     let blob = new Blob([request.response]);
-  //     const url = URL.createObjectURL(blob);
-  //     await alsImporter.load(blob)
-  //     // expect(data).toBe('expected data');
-  //     done();
-  //   };
-  //
-  //   // trigger
-  //   request.send(null);
-  // });
-
-  it('should load Petit papillon.als.xml', async () => {
-    const alsImporter = new AlsImporter();
-    const filePath = 'src/assets/als/Petit papillon.als.xml';
-    const blob = await getKarmaFile(filePath)
-    const alsProject = await alsImporter.loadUnzipped(blob)
+  it('should load Petit papillon', async () => {
+    const alsProject = await importAlsProject('Petit papillon')
     expect(alsProject).toBeTruthy();
   });
 

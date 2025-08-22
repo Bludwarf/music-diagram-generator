@@ -20,6 +20,7 @@ import { FitFontSizeDirective } from '../../../utils/fit-font-size.directive';
 export class ChordsGridComponent {
   @Input() chords!: Chords;
   @Input() currentBar?: BarNumber0Indexed;
+  @Input() currentBarIsLooped = false;
   @Input() key?: Key
 
   @HostBinding('style.border-color')

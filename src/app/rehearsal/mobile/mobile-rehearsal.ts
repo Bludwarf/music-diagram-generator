@@ -248,13 +248,11 @@ export abstract class MobileRehearsal {
     Tone.Transport.stop()
   }
 
-  onClickElementInStructure(element: TimedElement): void {
+  onClickElementInStructure(element: TimedElement, isCurrentInStructure = this.isCurrentInStructure(element)): void {
     if (!this.recording) {
       error('Aucun enregistrement (Recording)')
     }
 
-    // TODO gérer la boucle sur une mesure (quand on vient de onClickBar)
-    const isCurrentInStructure = this.isCurrentInStructure(element);
     let elementToLoop: TimedElement | undefined;
     if (isCurrentInStructure) {
       elementToLoop = element === this.loopedElement ? undefined : element
@@ -308,9 +306,9 @@ export abstract class MobileRehearsal {
   onClickBar(bar: BarNumber0Indexed): void {
     let startTime = Time.fromBar(bar)
     this.onClickElementInStructure({
-      startTime, // TODO faire un élément BarInStructure ?
+      startTime,
       endTime: startTime.add(Time.fromBar(1)),
-    })
+    }, bar === this.currentBar)
   }
 
   setProgress(event: Event): void {

@@ -49,6 +49,7 @@
 
       <app-chords-grid [chords]="getPatternChords(currentPatternInStructure)" [key]="currentKey"
                        [currentBar]="currentBar - currentPatternInStructure.startTime.toBars()"
+                       [currentBarIsLooped]="!!currentBar && (loopedElement?.startTime?.toBars() === currentBar && loopedElement?.endTime?.toBars() === currentBar + 1)"
                        [style.border-color]="getPatternColor(currentPatternInStructure)"
                        (clickBar)="onClickBar(currentPatternInStructure.startTime.toBars() + $event)"></app-chords-grid>
 

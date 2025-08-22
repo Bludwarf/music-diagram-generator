@@ -93,4 +93,8 @@
 
 .current.bar {
   border-color: white;
+
+  &.looped {
+    border-color: yellow;
+  }
 }

@@ -47,13 +47,10 @@
         </span>
       </div>
 
-      <app-chords-grid *ngIf="currentPatternInStructure.pattern.chords; let chords" [chords]="chords" [key]="currentKey"
+      <app-chords-grid [chords]="getPatternChords(currentPatternInStructure)" [key]="currentKey"
                        [currentBar]="currentBar - currentPatternInStructure.startTime.toBars()"
                        [style.border-color]="getPatternColor(currentPatternInStructure)"
                        (clickBar)="onClickBar(currentPatternInStructure.startTime.toBars() + $event)"></app-chords-grid>
-      <ng-container *ngIf="!currentPatternInStructure.pattern.chords">
-        {{ currentPatternInStructure.pattern.duration.toBars() }}m
-      </ng-container>
 
       <!-- <span class="pattern-timecode">{{ currentPatternInStructureRelativeTimecode }} / {{ currentPatternInStructure.pattern.duration.toBars() }}</span> -->
       <ng-container *ngIf="currentPatternInStructure.eventsStartTime">

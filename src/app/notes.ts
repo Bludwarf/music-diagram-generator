@@ -1,4 +1,5 @@
 import {ONE_BAR, Time} from "./time";
+import {sequence} from "./utils";
 
 export const NOTE_NAMES = [
   'C',
@@ -213,10 +214,10 @@ export type BarNumber0Indexed = number
 export class Chords extends Array<Chord> {
 
   constructor(
-    list: Chord[],
+    list: (Chord)[],
     readonly ascii: AsciiChords,
     readonly duration: Time,
-    private readonly chordsByTime: [Time, Chord][] = [], // TODO trier par time asc
+    private readonly chordsByTime: [Time, Chord|undefined][] = [], // TODO trier par time asc
   ) {
     super(...list)
   }
@@ -226,7 +227,7 @@ export class Chords extends Array<Chord> {
     const barGroups = this.groupAsciiChordsByBar(asciiChords)
 
     const chordsList: Chord[] = []
-    const chordsByTime: [Time, Chord][] = []
+    const chordsByTime: [Time, Chord | undefined][] = []
 
     let time = Time.fromValue(0)
     barGroups.forEach(barAsciiChords => {
@@ -235,8 +236,10 @@ export class Chords extends Array<Chord> {
       const chordDuration = ONE_BAR.dividedIn(chordGroups.length)
 
       chordGroups.forEach(chordGroup => {
-        const chord = new Chord(chordGroup)
-        chordsList.push(chord)
+        const chord = chordGroup ? new Chord(chordGroup) : undefined;
+        if (chord) {
+          chordsList.push(chord)
+        }
         chordsByTime.push([time, chord])
 
         time = time.add(chordDuration)
@@ -256,15 +259,16 @@ export class Chords extends Array<Chord> {
     return barGroups;
   }
 
+  static repeatNoChord(duration: Time) {
+    const asciiChords = new Array(duration.toBars() + 1).fill('|').join(' ')
+    return new Chords([], asciiChords, duration);
+  }
+
   getChordAt(time: Time): Chord | undefined {
     // TODO factoriser avec getCurrentPattern
     const reversedChordsByTime = [...this.chordsByTime].reverse()
     const chordAtTime = reversedChordsByTime.find(([chordTime]) => chordTime.isBeforeOrEquals(time));
     return chordAtTime?.[1]
-  }
-
-  get first(): Chord {
-    return this.chordsByTime[0][1]
   }
 
   getChordsAtBar(bar: BarNumber0Indexed): Chords | undefined {

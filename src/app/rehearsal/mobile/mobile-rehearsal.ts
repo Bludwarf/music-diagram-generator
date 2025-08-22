@@ -1,7 +1,7 @@
 import {ChangeDetectorRef} from '@angular/core';
 import {SectionInStructure} from "../../structure/section/section-in-structure";
 import {PatternInStructure} from "../../structure/pattern/pattern-in-structure";
-import {BarNumber0Indexed, Chord, Key} from "../../notes";
+import {BarNumber0Indexed, Chord, Chords, Key} from "../../notes";
 import {Structure} from "../../structure/structure";
 import {ActivatedRoute} from "@angular/router";
 import {Title} from "@angular/platform-browser";
@@ -330,6 +330,10 @@ export abstract class MobileRehearsal {
 
   protected requireSongEntry() {
     return this.songRepository.requireSongEntry(this.songName!!)
+  }
+
+  getPatternChords(patternInStructure: PatternInStructure): Chords {
+    return patternInStructure.pattern.chords || Chords.repeatNoChord(patternInStructure.pattern.duration);
   }
 
   destroy(): void {

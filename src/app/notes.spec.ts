@@ -52,4 +52,23 @@ describe('Chords', () => {
     expect(chords).toHaveSize(4)
   });
 
+  it('should create from | Gm | | Eb |', () => {
+    const chords = Chords.fromAsciiChords('| Gm | | Eb |')
+    expect(chords.length).toBe(2)
+    expect(chords.getChordAt(Time.fromValue('0:0'))).toEqual(new Chord('Gm'))
+    expect(chords.getChordAt(Time.fromValue('1:0'))).toBeUndefined();
+    expect(chords.getChordAt(Time.fromValue('2:0'))).toEqual(new Chord('Eb'))
+    expect(chords.duration.toString()).toEqual('3:0:0')
+  });
+
+  it('should create 4 bars without chord', () => {
+    const chords = Chords.repeatNoChord(Time.fromBar(4))
+    expect(chords.length).toBe(0)
+    expect(chords.getChordAt(Time.fromValue('0:0'))).toBeUndefined();
+    expect(chords.getChordAt(Time.fromValue('1:0'))).toBeUndefined();
+    expect(chords.getChordAt(Time.fromValue('2:0'))).toBeUndefined();
+    expect(chords.getChordAt(Time.fromValue('3:0'))).toBeUndefined();
+    expect(chords.duration.toString()).toEqual('4:0:0')
+  });
+
 });

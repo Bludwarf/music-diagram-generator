@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SetlistTocComponent } from './setlist-toc.component';
+import {Setlist} from "../setlist-pages/setlist";
 
 describe('SetlistTocComponent', () => {
   let component: SetlistTocComponent;
@@ -14,6 +15,7 @@ describe('SetlistTocComponent', () => {
     
     fixture = TestBed.createComponent(SetlistTocComponent);
     component = fixture.componentInstance;
+    fixture.componentRef.setInput('setlist', new Setlist('Setlist de test', [], 'test'));
     fixture.detectChanges();
   });
 

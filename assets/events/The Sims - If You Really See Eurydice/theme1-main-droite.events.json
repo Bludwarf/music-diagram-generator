@@ -1,0 +1,170 @@
+[
+  {
+    "bar": 2,
+    "beat": 3,
+    "division": 3,
+    "note": "snare"
+  },
+  {
+    "bar": 3,
+    "beat": 3,
+    "division": 3,
+    "note": "snare"
+  },
+  {
+    "bar": 4,
+    "beat": 2,
+    "division": 3,
+    "note": "snare"
+  },
+  {
+    "bar": 5,
+    "beat": 1,
+    "division": 1,
+    "note": "snare"
+  },
+  {
+    "bar": 5,
+    "beat": 1,
+    "division": 3,
+    "note": "snare"
+  },
+  {
+    "bar": 5,
+    "beat": 4,
+    "division": 1,
+    "note": "snare"
+  },
+  {
+    "bar": 6,
+    "beat": 2,
+    "division": 3,
+    "note": "snare"
+  },
+  {
+    "bar": 7,
+    "beat": 1,
+    "division": 3,
+    "note": "snare"
+  },
+  {
+    "bar": 7,
+    "beat": 2,
+    "division": 3,
+    "note": "snare"
+  },
+  {
+    "bar": 8,
+    "beat": 1,
+    "division": 3,
+    "note": "snare"
+  },
+  {
+    "bar": 8,
+    "beat": 2,
+    "division": 3,
+    "note": "snare"
+  },
+  {
+    "bar": 9,
+    "beat": 2,
+    "division": 3,
+    "note": "snare"
+  },
+  {
+    "bar": 9,
+    "beat": 2,
+    "division": 4,
+    "note": "snare"
+  },
+  {
+    "bar": 9,
+    "beat": 3,
+    "division": 1,
+    "note": "snare"
+  },
+  {
+    "bar": 9,
+    "beat": 3,
+    "division": 3,
+    "note": "snare"
+  },
+  {
+    "bar": 9,
+    "beat": 4,
+    "division": 1,
+    "note": "snare"
+  },
+  {
+    "bar": 9,
+    "beat": 4,
+    "division": 3,
+    "note": "snare"
+  },
+  {
+    "bar": 10,
+    "beat": 3,
+    "division": 3,
+    "note": "snare"
+  },
+  {
+    "bar": 10,
+    "beat": 4,
+    "division": 3,
+    "note": "snare"
+  },
+  {
+    "bar": 11,
+    "beat": 1,
+    "division": 3,
+    "note": "snare"
+  },
+  {
+    "bar": 11,
+    "beat": 1,
+    "division": 4,
+    "note": "snare"
+  },
+  {
+    "bar": 11,
+    "beat": 2,
+    "division": 1,
+    "note": "snare"
+  },
+  {
+    "bar": 11,
+    "beat": 2,
+    "division": 3,
+    "note": "snare"
+  },
+  {
+    "bar": 11,
+    "beat": 3,
+    "division": 1,
+    "note": "snare"
+  },
+  {
+    "bar": 11,
+    "beat": 3,
+    "division": 3,
+    "note": "snare"
+  },
+  {
+    "bar": 12,
+    "beat": 2,
+    "division": 3,
+    "note": "snare"
+  },
+  {
+    "bar": 12,
+    "beat": 4,
+    "division": 3,
+    "note": "snare"
+  },
+  {
+    "bar": 12,
+    "beat": 4,
+    "division": 4,
+    "note": "snare"
+  }
+]

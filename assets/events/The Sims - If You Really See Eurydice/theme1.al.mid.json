@@ -1,0 +1,115 @@
+{
+  "header": {
+    "keySignatures": [],
+    "meta": [],
+    "name": "Thème 1\u0000",
+    "ppq": 96,
+    "tempos": [],
+    "timeSignatures": [
+      {
+        "ticks": 0,
+        "timeSignature": [
+          4,
+          4
+        ],
+        "measures": 0
+      },
+      {
+        "ticks": 0,
+        "timeSignature": [
+          4,
+          4
+        ],
+        "measures": 0
+      }
+    ]
+  },
+  "tracks": [
+    {
+      "channel": 0,
+      "controlChanges": {},
+      "pitchBends": [],
+      "instrument": {
+        "family": "piano",
+        "number": 0,
+        "name": "acoustic grand piano"
+      },
+      "name": "Thème 1\u0000",
+      "notes": [
+        {
+          "duration": 0.25,
+          "durationTicks": 48,
+          "midi": 72,
+          "name": "C5",
+          "ticks": 0,
+          "time": 0,
+          "velocity": 0.7874015748031497
+        },
+        {
+          "duration": 0.5,
+          "durationTicks": 96,
+          "midi": 79,
+          "name": "G5",
+          "ticks": 48,
+          "time": 0.25,
+          "velocity": 0.7874015748031497
+        },
+        {
+          "duration": 0.5,
+          "durationTicks": 96,
+          "midi": 79,
+          "name": "G5",
+          "ticks": 144,
+          "time": 0.75,
+          "velocity": 0.7874015748031497
+        },
+        {
+          "duration": 0.5,
+          "durationTicks": 96,
+          "midi": 79,
+          "name": "G5",
+          "ticks": 240,
+          "time": 1.25,
+          "velocity": 0.7874015748031497
+        },
+        {
+          "duration": 0.25,
+          "durationTicks": 48,
+          "midi": 79,
+          "name": "G5",
+          "ticks": 336,
+          "time": 1.75,
+          "velocity": 0.7874015748031497
+        },
+        {
+          "duration": 0.25,
+          "durationTicks": 48,
+          "midi": 72,
+          "name": "C5",
+          "ticks": 384,
+          "time": 2,
+          "velocity": 0.7874015748031497
+        },
+        {
+          "duration": 0.5,
+          "durationTicks": 96,
+          "midi": 79,
+          "name": "G5",
+          "ticks": 432,
+          "time": 2.25,
+          "velocity": 0.7874015748031497
+        },
+        {
+          "duration": 0.5,
+          "durationTicks": 96,
+          "midi": 79,
+          "name": "G5",
+          "ticks": 528,
+          "time": 2.75,
+          "velocity": 0.7874015748031497
+        }
+      ],
+      "endOfTrackTicks": 624
+    }
+  ]
+}

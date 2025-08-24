@@ -33,7 +33,7 @@ const bombarde = Pattern.fromData({
   key,
   chords: '| Gm F | Eb D | Gm F | Eb D Gm Gm |',
   fretboard,
-  events: events.filter((event: any) => event.bar >= 1 || event.bar <= 2),
+  events: events.filter((event: any) => event.bar >= 1 && event.bar <= 2),
   color: GREEN,
 })
 const bombardeSeuleM1 = Pattern.fromData({
@@ -59,7 +59,7 @@ const bombardeM3et4 = Pattern.fromData({
   key,
   chords: '| Gm F | Eb D Gm Gm |',
   fretboard,
-  events: events.filter((event: any) => event.bar >= 1 || event.bar <= 2),
+  events: events.filter((event: any) => event.bar >= 1 && event.bar <= 2),
   color: bombarde.color,
 })
 const couplet = Pattern.fromData({
@@ -67,7 +67,7 @@ const couplet = Pattern.fromData({
   key,
   chords: '| Gm F | Eb D | Gm F | Eb D Gm Gm |',
   fretboard,
-  events: events.filter((event: any) => event.bar >= 3 || event.bar <= 4),
+  events: events.filter((event: any) => event.bar >= 3 && event.bar <= 4),
 })
 const coupletBb = Pattern.fromData({
   name: 'Couplet (Bb)',
@@ -75,7 +75,7 @@ const coupletBb = Pattern.fromData({
   key,
   chords: '| Gm F | Eb Bb | Gm F | Eb D Gm Gm |',
   fretboard,
-  events: events.filter((event: any) => event.bar >= 3 || event.bar <= 4),
+  events: events.filter((event: any) => event.bar >= 3 && event.bar <= 4),
 })
 const refrain = Pattern.fromData({
   name: 'Refrain',

@@ -96,6 +96,9 @@ export class Time {
     return this.toBarsBeatsSixteenthsFields().bars
   }
 
+  /**
+   * Les champs commencent à 0.
+   */
   private toBarsBeatsSixteenthsFields(): BarsBeatsSixteenthsFields {
     const fields = this._toneTime.toBarsBeatsSixteenths().split(':');
     return {
@@ -105,12 +108,20 @@ export class Time {
     }
   }
 
-  toAbletonLiveBarsBeatsSixteenths(): string {
+  /**
+   * {@link toBarsBeatsSixteenthsFields toBarsBeatsSixteenthsFields()} dont les champs commencent à 1 au lieu de 0.
+   */
+  toBarsBeatsSixteenthsOneBasedFields(): BarsBeatsSixteenthsFields {
     const fields = this.toBarsBeatsSixteenthsFields();
     ++fields.bars
     ++fields.beats
     // TODO pour être plus précis, il faudrait utiliser time, puis le convertir en relatif à transport.position
     fields.sixteenths = Math.floor(fields.sixteenths) + 1
+    return fields;
+  }
+
+  toAbletonLiveBarsBeatsSixteenths(): string {
+    const fields = this.toBarsBeatsSixteenthsOneBasedFields();
     return fieldsToString(fields, '.')
   }
 
@@ -186,4 +197,3 @@ interface BarsBeatsSixteenthsFields {
 function fieldsToString(fields: BarsBeatsSixteenthsFields, separator = ':'): string {
   return `${fields.bars}${separator}${fields.beats}${separator}${fields.sixteenths}`
 }
-

@@ -6,7 +6,7 @@ export type NoteType = {
   type: string,
 }
 
-export const notes : NoteType[] = [
+export const allNotes : NoteType[] = [
   {midi: 21, ansi: 'A0', type: 'white'},
   {midi: 22, ansi: 'A#0', type: 'black'},
   {midi: 23, ansi: 'B0', type: 'white'},
@@ -104,7 +104,7 @@ export type NotePositions = {
   blackWidth: number
 };
 
-export function CalcNotePositions(): NotePositions {
+export function CalcNotePositions(notes: NoteType[] = allNotes): NotePositions {
   let whiteKeys = notes.filter(note => note.type === 'white');
   let whiteWidth = 100 / whiteKeys.length;
   let blackWidth = whiteWidth * 2/3;

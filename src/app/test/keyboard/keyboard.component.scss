@@ -1,16 +1,17 @@
 .keyboard-container {
-  width: 96%;
-  height: 180px;
   margin: 0 auto;
   box-shadow: 2px 2px 10px 2px #acacac;
 
   background-color: rgb(56, 53, 53);
+  height: 100%;
+  overflow: auto;
 }
 
 .key-wrap {
   position: relative;
-  width: 100%;
   height: 100%;
+  //inline-size: max-content; // La ligne magique pour conserver l'aspect-ratio des keys
+  margin: 0 auto;
   overflow: hidden;
 }
 
@@ -18,8 +19,9 @@
   display: inline-block;
   position: relative;
   height: 100%;
+  aspect-ratio: 23.5/165; // https://instrumentinsight.com/how-wide-are-piano-keys/ => Length: 150 – 165
   margin: 0 auto;
-  background: linear-gradient(white 10%, rgb(251, 251, 251) 92%, rgb(220, 220, 220) 93%,white 97%);
+  background: linear-gradient(white 10%, rgb(251, 251, 251) 92%, rgb(220, 220, 220) 93%, white 97%);
   border: solid 1px rgb(39, 38, 38);
   border-radius: 0 0 5px 5px;
   box-sizing: border-box;
@@ -39,7 +41,7 @@
   display: inline-block;
   position: absolute;
   top: 0;
-  height: 70%;
+  height: 105/165*100%; // https://instrumentinsight.com/how-wide-are-piano-keys/ => Length: 100 – 105
   background: linear-gradient(#000 10%, rgb(86, 86, 86) 85%, #000 90%);
   border-radius: 0 0 3px 3px;
 }

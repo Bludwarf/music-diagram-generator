@@ -1,5 +1,5 @@
 <div class="keyboard-container">
-  <div class="key-wrap">
+  <div class="key-wrap" [ngStyle]="{'inline-size': fitContent ? 'max-content' : undefined}">
     @for (key of whiteKeys; track key.ansi; ) {
       <div key={key.midi} [ngClass]="getKeyNgClass(key)" [style]="whiteKeyStyle"
            onPointerDown="pressKey(key)" onPointerUp="releaseKey(key)">

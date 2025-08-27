@@ -95,3 +95,11 @@ app-part-tabs {
 .pattern-timecode {
   font-size: 5mm;
 }
+
+.keyboards {
+  display: flex;
+
+  .keyboard {
+    flex: 1;
+  }
+}

@@ -23,6 +23,7 @@ import {PatternInStructure} from "../../../structure/pattern/pattern-in-structur
 import {SampleCacheService} from "../../../sample/samples-cache.service";
 import {error} from "../../../utils";
 import {SongRepository} from "../../../song/song-repository";
+import {KeyboardComponent} from "../../../test/keyboard/keyboard.component";
 
 @Component({
   selector: 'app-mobile-rehearsal-b',
@@ -37,6 +38,7 @@ import {SongRepository} from "../../../song/song-repository";
     PartLineComponent,
     SampleMapComponent,
     ChordsGridComponent,
+    KeyboardComponent,
   ],
   templateUrl: './mobile-rehearsal-b.component.html',
   styleUrl: './mobile-rehearsal-b.component.scss',

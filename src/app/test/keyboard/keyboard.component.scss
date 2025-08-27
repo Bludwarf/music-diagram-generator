@@ -10,7 +10,7 @@
 .key-wrap {
   position: relative;
   height: 100%;
-  //inline-size: max-content; // La ligne magique pour conserver l'aspect-ratio des keys
+  inline-size: max-content; // La ligne magique pour conserver l'aspect-ratio des keys
   margin: 0 auto;
   overflow: hidden;
 }

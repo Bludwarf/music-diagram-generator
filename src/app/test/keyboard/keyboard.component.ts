@@ -26,9 +26,6 @@ export class KeyboardComponent implements OnInit {
   @Input()
   higherKey: string = 'C8';
 
-  @Input()
-  fitContent = true;
-
   whiteKeys: NoteType[];
   blackKeys: NoteType[];
   private notePositions: NotePositions;

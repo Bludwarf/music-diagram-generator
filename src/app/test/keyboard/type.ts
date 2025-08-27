@@ -6,3 +6,8 @@ export type ActiveKey = {
 export type KeyboardState = {
   activeKeys: ActiveKey[],
 }
+
+export type ActionType = {
+  type: 'ACTIVE_KEY' | 'DEACTIVE_KEY',
+  key: string
+}

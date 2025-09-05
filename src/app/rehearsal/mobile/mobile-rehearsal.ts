@@ -13,7 +13,6 @@ import {Recording} from "../../recording/recording";
 import {PartInStructure} from "../../structure/part/part-in-structure";
 import {SampleCacheService} from '../../sample/samples-cache.service';
 import {SongRepository} from '../../song/song-repository';
-import midi from "../../../assets/events/The Sims - If You Really See Eurydice/theme1.gp.mid.json";
 import {type KeyboardState} from "../../test/keyboard/type";
 import keyboardReducer from "../../test/keyboard/reducer";
 
@@ -153,7 +152,7 @@ export abstract class MobileRehearsal {
     }, "32n").start(0);
 
     // Source : https://github.com/imagicbell/piano-app/blob/a22138d05361e1ebf2571eed2949b0e4544c2781/src/features/midiplayer/index.js
-    midi.tracks.forEach((track, trackIndex) => {
+    this.recording.midi?.tracks.forEach((track, trackIndex) => {
       track.notes.forEach((note, noteIndex) => {
         console.log(`note`, note.name);
         const warpTime = this.recording?.getWrappedTime(Time.fromValue(note.time))

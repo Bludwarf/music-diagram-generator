@@ -11,6 +11,7 @@ export class Recording {
     readonly sampleBeatTimeDuration: number,
     readonly warpMarkers: WarpMarker[],
     private readonly originalWarpMarkersLength = warpMarkers.length, // à cause de normalizeWarpMarker
+    readonly midi?: Midi,
   ) {
     this.normalizeWarpMarker()
   }
@@ -114,11 +115,31 @@ export class Recording {
   }
 }
 
+// TODO type pour le MIDI
+export type Midi = {
+  tracks: MidiTrack[]
+};
+export type MidiTrack = {
+  notes: MidiNote[];
+}
+export type MidiNote = {
+  name: string;
+  time: number;
+  duration: number;
+}
+
 class RecordingBuilder implements Builder<Recording> {
   private _initData?: RecordingInitData;
+  private _midi?: Midi;
 
   initData(dto: typeof this._initData): this {
     this._initData = dto
+    return this
+  }
+
+  // TODO type pour le MIDI
+  midi(midi: Midi): this {
+    this._midi = midi
     return this
   }
 
@@ -131,6 +152,8 @@ class RecordingBuilder implements Builder<Recording> {
       Time.fromValue(this._initData.sampleDuration),
       this._initData.sampleBeatTimeDuration,
       this._initData.warpMarkers,
+      undefined,
+      this._midi,
     )
   }
 }

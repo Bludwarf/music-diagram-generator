@@ -164,5 +164,6 @@ export default {
     .build(),
   recording: Recording.builder()
     .initData(recordingInitData)
+    .midi(eventsMidiJson)
     .build(),
 } as SongEntry

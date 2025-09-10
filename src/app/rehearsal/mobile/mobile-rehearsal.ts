@@ -150,7 +150,7 @@ export abstract class MobileRehearsal {
         }
       }, time);
 
-    }, "16n").start(0);
+    }, "32n").start(0);
 
     // Source : https://github.com/imagicbell/piano-app/blob/a22138d05361e1ebf2571eed2949b0e4544c2781/src/features/midiplayer/index.js
     midi.tracks.forEach((track, trackIndex) => {

@@ -41,7 +41,7 @@
   display: inline-block;
   position: absolute;
   top: 0;
-  height: 105/165*100%; // https://instrumentinsight.com/how-wide-are-piano-keys/ => Length: 100 – 105
+  height: calc(105/165*100%); // https://instrumentinsight.com/how-wide-are-piano-keys/ => Length: 100 – 105
   background: linear-gradient(#000 10%, rgb(86, 86, 86) 85%, #000 90%);
   border-radius: 0 0 3px 3px;
 }

@@ -22,11 +22,11 @@ import {PatternInStructure} from "../../../structure/pattern/pattern-in-structur
 import {SampleCacheService} from "../../../sample/samples-cache.service";
 import {error} from "../../../utils";
 import {SongRepository} from "../../../song/song-repository";
-import {KeyboardComponent} from "../../../test/keyboard/keyboard.component";
+import {KeyboardComponent} from "../../../keyboard/keyboard.component";
 import * as Tone from "tone";
 import {Time} from "../../../time";
-import keyboardReducer from "../../../test/keyboard/reducer";
-import {KeyboardState} from "../../../test/keyboard/type";
+import keyboardReducer from "../../../keyboard/reducer";
+import {KeyboardState} from "../../../keyboard/type";
 
 @Component({
   selector: 'app-mobile-rehearsal-p',
@@ -51,9 +51,7 @@ export class MobileRehearsalPComponent extends MobileRehearsal implements OnInit
   @ViewChild('fileInput')
   fileInput?: ElementRef<HTMLInputElement>;
 
-  keyboardState: KeyboardState = {
-    activeKeys: [],
-  };
+  keyboardStatesByTrackIndex: KeyboardState[] = [];
 
   constructor(
     changeDetectorRef: ChangeDetectorRef,
@@ -105,11 +103,11 @@ export class MobileRehearsalPComponent extends MobileRehearsal implements OnInit
         const warpTime = this.recording?.getWrappedTime(Time.fromValue(note.time))
         if (warpTime) {
           Tone.Transport.schedule(time => {
-            this.keyboardState = keyboardReducer(this.keyboardState, {
+            this.keyboardStatesByTrackIndex[trackIndex] = keyboardReducer(this.keyboardStatesByTrackIndex[trackIndex], {
               type: 'ACTIVE_KEY',
               key: note.name,
             })
-            console.log('keyboardState after ACTIVE_KEY', this.keyboardState);
+            console.log('keyboardState after ACTIVE_KEY', this.keyboardStatesByTrackIndex[trackIndex]);
           }, warpTime.toSeconds());
 
 
@@ -118,11 +116,11 @@ export class MobileRehearsalPComponent extends MobileRehearsal implements OnInit
             throw new Error(`WarpTime end inconnu pour la note MIDI ${note.name} de time=${note.time} et de duration=${note.duration}`);
           }
           Tone.Transport.schedule(time => {
-            this.keyboardState = keyboardReducer(this.keyboardState, {
+            this.keyboardStatesByTrackIndex[trackIndex] = keyboardReducer(this.keyboardStatesByTrackIndex[trackIndex], {
               type: 'DEACTIVE_KEY',
               key: note.name,
             })
-            console.log('keyboardState after DEACTIVE_KEY', this.keyboardState);
+            console.log('keyboardState after DEACTIVE_KEY', this.keyboardStatesByTrackIndex[trackIndex]);
           }, endWarpTime.toSeconds());
 
         } else {
@@ -134,7 +132,11 @@ export class MobileRehearsalPComponent extends MobileRehearsal implements OnInit
 
   protected override resetStates() {
     super.resetStates();
-    this.keyboardState.activeKeys = [];
+    this.resetKeyboardStates();
+  }
+
+  private resetKeyboardStates() {
+    this.keyboardStatesByTrackIndex.forEach(keyboardState => keyboardState.activeKeys = []);
   }
 
 }

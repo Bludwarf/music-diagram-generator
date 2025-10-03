@@ -93,8 +93,10 @@ app-part-tabs {
 }
 
 .keyboards {
-  flex:1;
+  //flex:1; // TODO trouver un bon affichage mobile
   display: flex;
+  flex-direction: column;
+  height: 4cm; // TODO trouver un bon affichage mobile
 
   .keyboard {
     flex: 1;

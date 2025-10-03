@@ -44,6 +44,10 @@ export class Time {
     return Time.fromValue(fieldsToString(fields))
   }
 
+  static fromMidiTicks(ticks: number, ppq: number): Time {
+    return this.fromValue(ticks / ppq / 2); // TODO pourquoi devoir diviser par 2 ?
+  }
+
   add(time: Time): Time {
     const thisFields = this.toBarsBeatsSixteenthsFields()
     const timeFields = time.toBarsBeatsSixteenthsFields()

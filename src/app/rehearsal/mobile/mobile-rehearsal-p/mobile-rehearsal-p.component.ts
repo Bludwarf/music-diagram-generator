@@ -97,37 +97,45 @@ export class MobileRehearsalPComponent extends MobileRehearsal implements OnInit
 
   private scheduleKeyboardNotes() {
     // Source : https://github.com/imagicbell/piano-app/blob/a22138d05361e1ebf2571eed2949b0e4544c2781/src/features/midiplayer/index.js
-    this.recording?.midi?.tracks.forEach((track, trackIndex) => {
-      track.notes.forEach((note, noteIndex) => {
-        console.log(`note`, note.name);
-        const warpTime = this.recording?.getWrappedTime(Time.fromValue(note.time))
-        if (warpTime) {
-          Tone.Transport.schedule(time => {
-            this.keyboardStatesByTrackIndex[trackIndex] = keyboardReducer(this.keyboardStatesByTrackIndex[trackIndex], {
-              type: 'ACTIVE_KEY',
-              key: note.name,
-            })
-            console.log('keyboardState after ACTIVE_KEY', this.keyboardStatesByTrackIndex[trackIndex]);
-          }, warpTime.toSeconds());
+    const recording = this.recording;
+    if (recording) {
+      const midi = recording.midi;
+      if (midi) {
+        midi.tracks.forEach((track, trackIndex) => {
+          track.notes.forEach((note, noteIndex) => {
+            const noteTime = Time.fromMidiTicks(note.ticks, midi.header.ppq);
+            const noteDuration = Time.fromMidiTicks(note.durationTicks, midi.header.ppq);
+            console.log(`note`, noteTime.toAbletonLiveBeatTime(), note.name);
+            const warpTime = recording.getWrappedTime(noteTime)
+            if (warpTime) {
+              Tone.Transport.schedule(time => {
+                this.keyboardStatesByTrackIndex[trackIndex] = keyboardReducer(this.keyboardStatesByTrackIndex[trackIndex], {
+                  type: 'ACTIVE_KEY',
+                  key: note.name,
+                })
+                console.log('keyboardState after ACTIVE_KEY', this.keyboardStatesByTrackIndex[trackIndex]);
+              }, warpTime.toSeconds());
 
 
-          const endWarpTime = this.recording?.getWrappedTime(Time.fromValue(note.time + note.duration))
-          if (!endWarpTime) {
-            throw new Error(`WarpTime end inconnu pour la note MIDI ${note.name} de time=${note.time} et de duration=${note.duration}`);
-          }
-          Tone.Transport.schedule(time => {
-            this.keyboardStatesByTrackIndex[trackIndex] = keyboardReducer(this.keyboardStatesByTrackIndex[trackIndex], {
-              type: 'DEACTIVE_KEY',
-              key: note.name,
-            })
-            console.log('keyboardState after DEACTIVE_KEY', this.keyboardStatesByTrackIndex[trackIndex]);
-          }, endWarpTime.toSeconds());
+              const endWarpTime = this.recording?.getWrappedTime(noteTime.add(noteDuration))
+              if (!endWarpTime) {
+                throw new Error(`WarpTime end inconnu pour la note MIDI ${note.name} de time=${noteTime} et de duration=${noteDuration}`);
+              }
+              Tone.Transport.schedule(time => {
+                this.keyboardStatesByTrackIndex[trackIndex] = keyboardReducer(this.keyboardStatesByTrackIndex[trackIndex], {
+                  type: 'DEACTIVE_KEY',
+                  key: note.name,
+                })
+                console.log('keyboardState after DEACTIVE_KEY', this.keyboardStatesByTrackIndex[trackIndex]);
+              }, endWarpTime.toSeconds());
 
-        } else {
-          console.error('WarpTime inconnu pour la note MIDI', note);
-        }
-      });
-    });
+            } else {
+              console.error('WarpTime inconnu pour la note MIDI', note);
+            }
+          });
+        });
+      }
+    }
   }
 
   protected override resetStates() {

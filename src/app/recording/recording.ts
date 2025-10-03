@@ -115,17 +115,25 @@ export class Recording {
   }
 }
 
-// TODO type pour le MIDI
+// TODO type pour le MIDI : https://github.com/Tonejs/Midi
 export type Midi = {
+  header: MidiHeader;
   tracks: MidiTrack[]
 };
+export type MidiHeader = {
+  ppq: number;
+}
 export type MidiTrack = {
   notes: MidiNote[];
 }
 export type MidiNote = {
-  name: string;
-  time: number;
   duration: number;
+  durationTicks: number;
+  midi: number;
+  name: string;
+  ticks: number;
+  time: number;
+  velocity: number;
 }
 
 class RecordingBuilder implements Builder<Recording> {

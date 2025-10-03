@@ -1,6 +1,6 @@
 import {Structure} from "../../structure/structure";
 import {Part} from "../../structure/part/part";
-import {Recording} from "../../recording/recording";
+import {Midi, Recording} from "../../recording/recording";
 import recordingInitData from "../../../assets/recordings/07 - If You Really See Eurydice.json";
 import {Section} from "../../structure/section/section";
 import {Pattern, PatternInitData} from "../../structure/pattern/pattern";
@@ -9,11 +9,14 @@ import {AbletonLive10Color} from "../../color";
 import {RythmBarEvent} from "../../rythm-bar/event";
 import eventsMDJson from "../../../assets/events/The Sims - If You Really See Eurydice/theme1-main-droite.events.json";
 import eventsMidiJson from "../../../assets/events/The Sims - If You Really See Eurydice/theme1.gp.mid.json";
+import eventsMuseScoreJson from "../../../assets/events/The Sims - If You Really See Eurydice/MuseScore.json";
 import {Time} from "../../time";
 import {Key} from "../../notes";
 
-const eventsMG = RythmBarEvent.fromEach(getEventsFromMidiNotes("kick", eventsMidiJson.tracks[1].notes))
-const eventsMD = RythmBarEvent.fromEach(eventsMDJson)
+// const eventsMG = RythmBarEvent.fromEach(getEventsFromMidiNotes("kick", eventsMidiJson.tracks[1].notes))
+// const eventsMD = RythmBarEvent.fromEach(eventsMDJson)
+const eventsMG = RythmBarEvent.fromEach(getEventsFromMidiNotes("kick", eventsMuseScoreJson.tracks[1].notes, eventsMuseScoreJson.header.ppq))
+const eventsMD = RythmBarEvent.fromEach(getEventsFromMidiNotes("snare", eventsMuseScoreJson.tracks[0].notes, eventsMuseScoreJson.header.ppq))
 
 /////////////////////////////////////////////////////////
 // Patterns /////////////////////////////////////////////
@@ -43,9 +46,9 @@ function getEvents(offset: number) {
     );
 }
 
-function getEventsFromMidiNotes(eventNote: string, notes: any) {
+function getEventsFromMidiNotes(eventNote: string, notes: any, ppq: number) {
   return notes.map((note: any) => {
-    const timeFields = Time.fromValue(note.time).toBarsBeatsSixteenthsOneBasedFields()
+    const timeFields = Time.fromMidiTicks(note.ticks, ppq).toBarsBeatsSixteenthsOneBasedFields()
     return {
       "bar": timeFields.bars,
       "beat": timeFields.beats,
@@ -164,6 +167,7 @@ export default {
     .build(),
   recording: Recording.builder()
     .initData(recordingInitData)
-    .midi(eventsMidiJson)
+    // .midi(eventsMidiJson)
+    .midi(eventsMuseScoreJson)
     .build(),
 } as SongEntry

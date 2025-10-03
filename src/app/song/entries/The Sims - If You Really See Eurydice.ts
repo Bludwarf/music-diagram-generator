@@ -118,7 +118,7 @@ const F = Pattern.fromData({
   // key: Key.Cm,
   name: 'Fin',
   // chords: '| Cm | Gm | Bb | F |',
-  duration: '11m',
+  duration: '6m', // On avait identifié 7m sur Live, programmé 11 dans le ts, mais Jack Long sur MuseScore en transcrit 6
   color: AbletonLive10Color.fromIndex(23),
 })
 

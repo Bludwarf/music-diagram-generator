@@ -69,17 +69,12 @@
 
     </div>
 
-    <div class="fretboard-container">
-
-      <app-fretboard
-        [lowestFret]="0"
-        [fretsCount]="13"
-        [key]="currentPatternInStructure.pattern.key"
-        [currentNote]="currentChord?.root"
-      ></app-fretboard>
-
-    </div>
-
   </div>
 
 </ng-container>
+
+<div class="keyboards">
+  <div class="keyboard">
+    <app-keyboard [lowerKey]="'C4'" [higherKey]="'C6'" [activeKeys]="keyboardState.activeKeys"></app-keyboard>
+  </div>
+</div>

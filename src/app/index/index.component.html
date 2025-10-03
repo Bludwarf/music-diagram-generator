@@ -2,8 +2,10 @@
   <li><a routerLink="setlist">Setlist</a></li>
   <li *ngFor="let songName of playlist">
     {{ songName }}
-    <a [routerLink]="'morceaux/' + songName" [queryParams]="{view: 'A'}" target="_blank">A</a>
+    <a [routerLink]="'morceaux/' + songName" [queryParams]="{view: 'A'}">A</a>
     |
     <a [routerLink]="'morceaux/' + songName" [queryParams]="{view: 'B'}">B</a>
+    |
+    <a [routerLink]="'morceaux/' + songName" [queryParams]="{view: 'P'}">P</a>
   </li>
 </ol>

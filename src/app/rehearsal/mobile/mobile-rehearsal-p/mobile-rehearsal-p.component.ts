@@ -11,7 +11,6 @@ import {
 import {FormsModule} from "@angular/forms";
 import {Title} from "@angular/platform-browser";
 import {ActivatedRoute} from "@angular/router";
-import {FretboardComponent} from "../../../fretboard/fretboard.component";
 import {RythmBarComponent} from "../../../rythm-bar/rythm-bar.component";
 import {ChordsGridComponent} from "../chords-grid/chords-grid.component";
 import {MobileRehearsal} from "../mobile-rehearsal";
@@ -23,29 +22,38 @@ import {PatternInStructure} from "../../../structure/pattern/pattern-in-structur
 import {SampleCacheService} from "../../../sample/samples-cache.service";
 import {error} from "../../../utils";
 import {SongRepository} from "../../../song/song-repository";
+import {KeyboardComponent} from "../../../test/keyboard/keyboard.component";
+import * as Tone from "tone";
+import {Time} from "../../../time";
+import keyboardReducer from "../../../test/keyboard/reducer";
+import {KeyboardState} from "../../../test/keyboard/type";
 
 @Component({
-  selector: 'app-mobile-rehearsal-b',
+  selector: 'app-mobile-rehearsal-p',
   standalone: true,
   imports: [
     RythmBarComponent,
     CommonModule,
     FormsModule,
-    FretboardComponent,
     StructureMapComponent,
     PartTabsComponent,
     PartLineComponent,
     SampleMapComponent,
     ChordsGridComponent,
+    KeyboardComponent,
   ],
-  templateUrl: './mobile-rehearsal-b.component.html',
-  styleUrl: './mobile-rehearsal-b.component.scss',
+  templateUrl: './mobile-rehearsal-p.component.html',
+  styleUrl: './mobile-rehearsal-p.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MobileRehearsalBComponent extends MobileRehearsal implements OnInit, OnDestroy {
+export class MobileRehearsalPComponent extends MobileRehearsal implements OnInit, OnDestroy {
 
   @ViewChild('fileInput')
   fileInput?: ElementRef<HTMLInputElement>;
+
+  keyboardState: KeyboardState = {
+    activeKeys: [],
+  };
 
   constructor(
     changeDetectorRef: ChangeDetectorRef,
@@ -61,15 +69,11 @@ export class MobileRehearsalBComponent extends MobileRehearsal implements OnInit
     const entry = this.requireSongEntry();
     this.structure = entry.structure
     this.recording = entry.recording
-
-    this.mockInit();
+    this.scheduleKeyboardNotes();
   }
 
   ngOnDestroy(): void {
     this.destroy()
-  }
-
-  private mockInit() {
   }
 
   override async playSong(): Promise<void> {
@@ -92,4 +96,45 @@ export class MobileRehearsalBComponent extends MobileRehearsal implements OnInit
   getPatternColor(patternInStructure: PatternInStructure): string {
     return patternInStructure.structure.getPatternColor(patternInStructure).toString()
   }
+
+  private scheduleKeyboardNotes() {
+    // Source : https://github.com/imagicbell/piano-app/blob/a22138d05361e1ebf2571eed2949b0e4544c2781/src/features/midiplayer/index.js
+    this.recording?.midi?.tracks.forEach((track, trackIndex) => {
+      track.notes.forEach((note, noteIndex) => {
+        console.log(`note`, note.name);
+        const warpTime = this.recording?.getWrappedTime(Time.fromValue(note.time))
+        if (warpTime) {
+          Tone.Transport.schedule(time => {
+            this.keyboardState = keyboardReducer(this.keyboardState, {
+              type: 'ACTIVE_KEY',
+              key: note.name,
+            })
+            console.log('keyboardState after ACTIVE_KEY', this.keyboardState);
+          }, warpTime.toSeconds());
+
+
+          const endWarpTime = this.recording?.getWrappedTime(Time.fromValue(note.time + note.duration))
+          if (!endWarpTime) {
+            throw new Error(`WarpTime end inconnu pour la note MIDI ${note.name} de time=${note.time} et de duration=${note.duration}`);
+          }
+          Tone.Transport.schedule(time => {
+            this.keyboardState = keyboardReducer(this.keyboardState, {
+              type: 'DEACTIVE_KEY',
+              key: note.name,
+            })
+            console.log('keyboardState after DEACTIVE_KEY', this.keyboardState);
+          }, endWarpTime.toSeconds());
+
+        } else {
+          console.error('WarpTime inconnu pour la note MIDI', note);
+        }
+      });
+    });
+  }
+
+  protected override resetStates() {
+    super.resetStates();
+    this.keyboardState.activeKeys = [];
+  }
+
 }

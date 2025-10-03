@@ -86,12 +86,17 @@ app-part-tabs {
       }
     }
   }
-
-  .fretboard-container {
-    background: black;
-  }
 }
 
 .pattern-timecode {
   font-size: 5mm;
+}
+
+.keyboards {
+  flex:1;
+  display: flex;
+
+  .keyboard {
+    flex: 1;
+  }
 }

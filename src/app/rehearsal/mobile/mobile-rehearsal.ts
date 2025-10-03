@@ -13,8 +13,6 @@ import {Recording} from "../../recording/recording";
 import {PartInStructure} from "../../structure/part/part-in-structure";
 import {SampleCacheService} from '../../sample/samples-cache.service';
 import {SongRepository} from '../../song/song-repository';
-import {type KeyboardState} from "../../test/keyboard/type";
-import keyboardReducer from "../../test/keyboard/reducer";
 
 export abstract class MobileRehearsal {
 
@@ -37,9 +35,6 @@ export abstract class MobileRehearsal {
   transportBeatTime?: number
   currentSectionInStructureRelativeTimecode?: string;
   currentPatternInStructureRelativeTimecode?: string;
-  keyboardState: KeyboardState = {
-    activeKeys: [],
-  };
 
   protected sequence = sequence
 
@@ -151,39 +146,6 @@ export abstract class MobileRehearsal {
 
     }, "32n").start(0);
 
-    // Source : https://github.com/imagicbell/piano-app/blob/a22138d05361e1ebf2571eed2949b0e4544c2781/src/features/midiplayer/index.js
-    this.recording.midi?.tracks.forEach((track, trackIndex) => {
-      track.notes.forEach((note, noteIndex) => {
-        console.log(`note`, note.name);
-        const warpTime = this.recording?.getWrappedTime(Time.fromValue(note.time))
-        if (warpTime) {
-          Tone.Transport.schedule(time => {
-            this.keyboardState = keyboardReducer(this.keyboardState, {
-              type: 'ACTIVE_KEY',
-              key: note.name,
-            })
-            console.log('keyboardState after ACTIVE_KEY', this.keyboardState);
-          }, warpTime.toSeconds());
-
-
-          const endWarpTime = this.recording?.getWrappedTime(Time.fromValue(note.time + note.duration))
-          if (!endWarpTime) {
-            throw new Error(`WarpTime end inconnu pour la note MIDI ${note.name} de time=${note.time} et de duration=${note.duration}`);
-          }
-          Tone.Transport.schedule(time => {
-            this.keyboardState = keyboardReducer(this.keyboardState, {
-              type: 'DEACTIVE_KEY',
-              key: note.name,
-            })
-            console.log('keyboardState after DEACTIVE_KEY', this.keyboardState);
-          }, endWarpTime.toSeconds());
-
-        } else {
-          console.error('WarpTime inconnu pour la note MIDI', note);
-        }
-      });
-    });
-
     await Tone.loaded() // évite les erreurs de buffer
     await Tone.start()
 
@@ -200,6 +162,10 @@ export abstract class MobileRehearsal {
     Tone.Transport.loopStart = 0
     Tone.Transport.loopEnd = this.recording.sampleDuration.toSeconds() // structure.duration.toBarsBeatsSixteenths()
     delete this.loopedElement
+  }
+
+  protected resetStates() {
+    // Si besoin, dans les composants enfants
   }
 
   refresh(time?: number): void {
@@ -279,13 +245,13 @@ export abstract class MobileRehearsal {
   async pauseSong(): Promise<void> {
     console.log('pauseSong')
     Tone.Transport.pause()
-    this.keyboardState.activeKeys = [];
+    this.resetStates();
   }
 
   stopSong(): void {
     console.log('stopSong')
     Tone.Transport.stop()
-    this.keyboardState.activeKeys = [];
+    this.resetStates();
   }
 
   onClickElementInStructure(element: TimedElement, isCurrentInStructure = this.isCurrentInStructure(element)): void {
@@ -306,14 +272,14 @@ export abstract class MobileRehearsal {
       if (wrappedTime) {
         const fixOffset = 0.05 // On corrige la sélection qui arrive souvent sur l'élément précédent
         Tone.Transport.seconds = wrappedTime.toSeconds() + fixOffset
-        this.keyboardState.activeKeys = [];
+        this.resetStates();
         this.refresh()
       }
     }
   }
 
   isCurrentInStructure(element: any): boolean {
-    return element && (element === this.currentPartInStructure ||  element === this.currentSectionInStructure || element === this.currentPatternInStructure)
+    return element && (element === this.currentPartInStructure || element === this.currentSectionInStructure || element === this.currentPatternInStructure)
   }
 
   private loopOn(element: TimedElement) {
@@ -360,7 +326,7 @@ export abstract class MobileRehearsal {
 
   setProgressPercent(progress: number): void {
     Tone.Transport.position = progress / 100 * Time.fromValue(Tone.Transport.loopEnd).toSeconds()
-    this.keyboardState.activeKeys = [];
+    this.resetStates();
     this.refresh()
   }
 

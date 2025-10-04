@@ -1,5 +1,5 @@
 import {ONE_BAR, Time} from "./time";
-import {sequence} from "./utils";
+import {Comparable} from "./utils/comparator";
 
 export const NOTE_NAMES = [
   'C',
@@ -16,7 +16,19 @@ export const NOTE_NAMES = [
   'B',
 ];
 
-class Mod12Value {
+const NOTE_ALIASES: Record<string, string> = {
+  'Cb': 'B',
+  'Db': 'C#',
+  'D#': 'Eb',
+  'E#': 'F',
+  'Fb': 'E',
+  'Gb': 'F#',
+  'G#': 'Ab',
+  'A#': 'Bb',
+  'B#': 'C',
+}
+
+class Mod12Value implements Comparable<Mod12Value> {
   readonly value: number;
 
   constructor(value: number) {
@@ -33,6 +45,10 @@ class Mod12Value {
   equals(note: Note): boolean {
     return this.value === note.value;
   }
+
+  compareTo(other: Mod12Value): number {
+    return this.value - other.value;
+  }
 }
 
 export class Note extends Mod12Value {
@@ -42,7 +58,8 @@ export class Note extends Mod12Value {
   }
 
   static fromName(name: string): Note {
-    return new Note(Mod12Value.getValueFromName(name, NOTE_NAMES));
+    const unaliasedName = NOTE_ALIASES[name] || name;
+    return new Note(Mod12Value.getValueFromName(unaliasedName, NOTE_NAMES));
   }
 
   next(halfsteps: number): Note {
@@ -217,7 +234,7 @@ export class Chords extends Array<Chord> {
     list: (Chord)[],
     readonly ascii: AsciiChords,
     readonly duration: Time,
-    private readonly chordsByTime: [Time, Chord|undefined][] = [], // TODO trier par time asc
+    private readonly chordsByTime: [Time, Chord | undefined][] = [], // TODO trier par time asc
   ) {
     super(...list)
   }
@@ -289,5 +306,49 @@ export class Chords extends Array<Chord> {
     return this.ascii
       .substring(1, this.ascii.length - 1)
       .trim()
+  }
+}
+
+export class OctavedNote implements Comparable<OctavedNote> {
+  constructor(
+    readonly note: Note,
+    readonly octave: number,
+  ) {
+  }
+
+  get midi(): number {
+    return this.note.value + (this.octave + 1) * 12;
+  }
+
+  static fromMidiName(midiNoteName: string): OctavedNote {
+    const m = /\d$/.exec(midiNoteName);
+    if (!m) {
+      throw new Error('Nom de note MIDI non reconnu : ' + midiNoteName);
+    }
+    const octaveString = m[0];
+    const noteName = midiNoteName.slice(0, -octaveString.length);
+    return new OctavedNote(Note.fromName(noteName), +octaveString);
+  }
+
+  static fromMidi(midiNoteValue: number): OctavedNote {
+    const octave = Math.floor(midiNoteValue / 12) - 1;
+    const noteValue = midiNoteValue % 12;
+    return new OctavedNote(new Note(noteValue), octave);
+  }
+
+  transpose(semitones: number): OctavedNote {
+    return OctavedNote.fromMidi(this.midi + semitones);
+  }
+
+  compareTo(other: OctavedNote): number {
+    const octaveComparison = this.octave - other.octave;
+    if (octaveComparison !== 0) {
+      return octaveComparison;
+    }
+    return this.note.compareTo(other.note);
+  }
+
+  toString(): string {
+    return this.note.toString() + this.octave;
   }
 }

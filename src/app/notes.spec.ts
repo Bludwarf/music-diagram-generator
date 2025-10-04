@@ -1,4 +1,4 @@
-import {Chord, Chords, Note} from "./notes";
+import {Chord, Chords, Note, OctavedNote} from "./notes";
 import {Time} from "./time";
 
 describe('Chord', () => {
@@ -69,6 +69,34 @@ describe('Chords', () => {
     expect(chords.getChordAt(Time.fromValue('2:0'))).toBeUndefined();
     expect(chords.getChordAt(Time.fromValue('3:0'))).toBeUndefined();
     expect(chords.duration.toString()).toEqual('4:0:0')
+  });
+
+});
+
+describe('OctavedNote', () => {
+
+  it('should get OctavedNote from MidiNoteName', () => {
+    expect(OctavedNote.fromMidiName('A0')).toEqual(new OctavedNote(Note.fromName('A'), 0));
+    expect(OctavedNote.fromMidiName('C8')).toEqual(new OctavedNote(Note.fromName('C'), 8));
+    expect(OctavedNote.fromMidiName('A#4')).toEqual(new OctavedNote(Note.fromName('A#'), 4));
+    expect(OctavedNote.fromMidiName('Ab4')).toEqual(new OctavedNote(Note.fromName('Ab'), 4));
+  });
+
+  it('should get OctavedNote from MidiNoteValue', () => {
+    expect(OctavedNote.fromMidi(21)).toEqual(new OctavedNote(Note.fromName('A'), 0));
+    expect(OctavedNote.fromMidi(108)).toEqual(new OctavedNote(Note.fromName('C'), 8));
+  });
+
+  it('should get midi', () => {
+    expect(OctavedNote.fromMidi(21).midi).toEqual(21);
+    expect(OctavedNote.fromMidi(108).midi).toEqual(108);
+  });
+
+  it('should transpose', () => {
+    expect(OctavedNote.fromMidiName('A1').transpose(12)).toEqual(OctavedNote.fromMidiName('A2'));
+    expect(OctavedNote.fromMidiName('A1').transpose(48)).toEqual(OctavedNote.fromMidiName('A5'));
+    expect(OctavedNote.fromMidiName('C2').transpose(-1)).toEqual(OctavedNote.fromMidiName('B1'));
+    expect(OctavedNote.fromMidiName('C2').transpose(-13)).toEqual(OctavedNote.fromMidiName('B0'));
   });
 
 });

@@ -26,7 +26,8 @@ import {KeyboardComponent} from "../../../keyboard/keyboard.component";
 import * as Tone from "tone";
 import {Time} from "../../../time";
 import keyboardReducer from "../../../keyboard/reducer";
-import {KeyboardState} from "../../../keyboard/type";
+import {KeyboardRange, KeyboardState} from "../../../keyboard/type";
+import {OctavedNote} from "../../../notes";
 
 @Component({
   selector: 'app-mobile-rehearsal-p',
@@ -52,6 +53,7 @@ export class MobileRehearsalPComponent extends MobileRehearsal implements OnInit
   fileInput?: ElementRef<HTMLInputElement>;
 
   keyboardStatesByTrackIndex: KeyboardState[] = [];
+  keyboardRangeByTrackIndex: KeyboardRange[] = [];
 
   constructor(
     changeDetectorRef: ChangeDetectorRef,
@@ -133,6 +135,11 @@ export class MobileRehearsalPComponent extends MobileRehearsal implements OnInit
               console.error('WarpTime inconnu pour la note MIDI', note);
             }
           });
+
+          this.keyboardRangeByTrackIndex[trackIndex] = {
+            lowerKey: this.getLowerKey(trackIndex),
+            higherKey: this.getHigherKey(trackIndex),
+          }
         });
       }
     }
@@ -145,6 +152,45 @@ export class MobileRehearsalPComponent extends MobileRehearsal implements OnInit
 
   private resetKeyboardStates() {
     this.keyboardStatesByTrackIndex.forEach(keyboardState => keyboardState.activeKeys = []);
+  }
+
+  getLowerKey(trackIndex: number): string {
+    return this.getExtremeKey(trackIndex, 'down', 'A0');
+  }
+
+  getHigherKey(trackIndex: number): string {
+    return this.getExtremeKey(trackIndex, 'up', 'C8');
+  }
+
+  private getExtremeKey(trackIndex: number, direction: 'down' | 'up', defaultKey: string) {
+    const midi = this.recording?.midi;
+    if (midi) {
+      const midiTrack = midi.tracks[trackIndex];
+      if (midiTrack) {
+        const method = direction === 'down' ? Math.min : Math.max;
+        const minMidi = method(...midiTrack.notes.map(note => note.midi));
+        const octavedNote = OctavedNote.fromMidi(minMidi);
+        return this.adaptNoteNameForKeyboardState(octavedNote, direction);
+      }
+    }
+    return defaultKey;
+  }
+
+  // TODO fix keyboard lib
+  private adaptNoteNameForKeyboardState(octavedNote: OctavedNote, direction: 'down' | 'up'): string {
+    const sign = direction === 'down' ? -1 : 1;
+    let on = octavedNote;
+    if (octavedNote.toString().includes('b')) {
+      on = on.transpose(sign);
+    }
+    if (on.note.name === 'E' || on.note.name === 'B') {
+      const value = direction === 'down' ? 2 : 1;
+      on = on.transpose(sign * value);
+    }
+    if (octavedNote.compareTo(on) !== 0) {
+      console.warn('adaptNoteNameForKeyboardState', octavedNote.toString(), on.toString());
+    }
+    return on.toString();
   }
 
 }

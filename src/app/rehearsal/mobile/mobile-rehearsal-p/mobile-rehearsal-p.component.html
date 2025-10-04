@@ -75,9 +75,9 @@
 
 <div class="keyboards">
   <div class="keyboard">
-    <app-keyboard [lowerKey]="'C4'" [higherKey]="'C6'" [activeKeys]="keyboardStatesByTrackIndex[0]?.activeKeys || []"></app-keyboard>
+    <app-keyboard [lowerKey]="keyboardRangeByTrackIndex[0].lowerKey" [higherKey]="keyboardRangeByTrackIndex[0].higherKey" [activeKeys]="keyboardStatesByTrackIndex[0]?.activeKeys || []"></app-keyboard>
   </div>
   <div class="keyboard">
-    <app-keyboard [lowerKey]="'C2'" [higherKey]="'C4'" [activeKeys]="keyboardStatesByTrackIndex[1]?.activeKeys || []"></app-keyboard>
+    <app-keyboard [lowerKey]="keyboardRangeByTrackIndex[1].lowerKey" [higherKey]="keyboardRangeByTrackIndex[1].higherKey" [activeKeys]="keyboardStatesByTrackIndex[1]?.activeKeys || []"></app-keyboard>
   </div>
 </div>

@@ -11,3 +11,8 @@ export type ActionType = {
   type: 'ACTIVE_KEY' | 'DEACTIVE_KEY',
   key: string
 }
+
+export type KeyboardRange = {
+  lowerKey: string,
+  higherKey: string,
+}

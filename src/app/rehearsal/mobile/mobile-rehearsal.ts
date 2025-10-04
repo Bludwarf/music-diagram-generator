@@ -268,7 +268,7 @@ export abstract class MobileRehearsal {
     elementToLoop ? this.loopOn(elementToLoop) : this.loopOnRecording();
 
     if (!isCurrentInStructure) {
-      const wrappedTime = this.recording.getWrappedTime(element.startTime);
+      const wrappedTime = this.recording.getWarpedTime(element.startTime);
       if (wrappedTime) {
         const fixOffset = 0.05 // On corrige la sélection qui arrive souvent sur l'élément précédent
         Tone.Transport.seconds = wrappedTime.toSeconds() + fixOffset
@@ -290,9 +290,9 @@ export abstract class MobileRehearsal {
         error('Aucun enregistrement (Recording)')
       }
 
-      const wrappedStartTime = this.recording.getWrappedTime(element.startTime)
+      const wrappedStartTime = this.recording.getWarpedTime(element.startTime)
       if (wrappedStartTime !== undefined) {
-        const wrappedEndTime = this.recording.getWrappedTime(element.endTime)
+        const wrappedEndTime = this.recording.getWarpedTime(element.endTime)
         if (wrappedEndTime !== undefined) {
           Tone.Transport.loop = true
           Tone.Transport.loopStart = wrappedStartTime.toSeconds()

@@ -48,6 +48,11 @@ export class Time {
     return this.fromValue(ticks / ppq / 2); // TODO pourquoi devoir diviser par 2 ?
   }
 
+  static fromTicks(ticks: number, ppq?: number) {
+    const correctedTicks = ppq ? ticks / ppq * Tone.Transport.PPQ : ticks;
+    return this.fromValue(`${correctedTicks}i`);
+  }
+
   add(time: Time): Time {
     const thisFields = this.toBarsBeatsSixteenthsFields()
     const timeFields = time.toBarsBeatsSixteenthsFields()
@@ -100,6 +105,10 @@ export class Time {
     return this.toBarsBeatsSixteenthsFields().bars
   }
 
+  toTicks(): number {
+    return this._toneTime.toTicks();
+  }
+
   /**
    * Les champs commencent à 0.
    */
@@ -133,9 +142,8 @@ export class Time {
     const fields = this.toBarsBeatsSixteenthsFields();
     const bars = fields.bars
     const beats = fields.beats
-    // TODO pour être plus précis, il faudrait utiliser time, puis le convertir en relatif à transport.position
-    const sixteenths = Math.floor(fields.sixteenths)
-    return bars * 4 + beats + sixteenths / 4 // TODO uniquement en 4/4
+    const sixteenths = fields.sixteenths
+    return bars * 4 + beats + sixteenths / 4 // TODO uniquement en 4/4 FIXME et s'il n'y a pas de changement de signature rythmique !!!
   }
 
   toSeconds(): number {

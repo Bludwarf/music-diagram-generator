@@ -65,7 +65,7 @@ export class Recording {
     return Time.fromBeatTime(beatTime)
   }
 
-  getWrappedTime(position: Time): Time | undefined {
+  getWarpedTime(position: Time): Time | undefined {
 
     const warpMarkers = this.warpMarkers
 

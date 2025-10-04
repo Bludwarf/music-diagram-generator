@@ -28,6 +28,7 @@ import {Time} from "../../../time";
 import keyboardReducer from "../../../keyboard/reducer";
 import {KeyboardRange, KeyboardState} from "../../../keyboard/type";
 import {OctavedNote} from "../../../notes";
+import {time} from "jasmine-marbles";
 
 @Component({
   selector: 'app-mobile-rehearsal-p',
@@ -103,33 +104,43 @@ export class MobileRehearsalPComponent extends MobileRehearsal implements OnInit
     if (recording) {
       const midi = recording.midi;
       if (midi) {
+        // Tone.Transport.PPQ = midi.header.ppq; // TODO cf. https://github.com/tonejs/tone.js/wiki/Time#ticks
         midi.tracks.forEach((track, trackIndex) => {
           track.notes.forEach((note, noteIndex) => {
+            if (note.durationTicks <= 0) {
+              console.warn(`On ignore cette note car sa durée est invalide`, note)
+              return;
+            }
+
             const noteTime = Time.fromMidiTicks(note.ticks, midi.header.ppq);
             const noteDuration = Time.fromMidiTicks(note.durationTicks, midi.header.ppq);
-            console.log(`note`, noteTime.toAbletonLiveBeatTime(), note.name);
-            const warpTime = recording.getWrappedTime(noteTime)
+            const warpTime = recording.getWarpedTime(noteTime)
             if (warpTime) {
+              const activeTime = warpTime.toSeconds();
               Tone.Transport.schedule(time => {
                 this.keyboardStatesByTrackIndex[trackIndex] = keyboardReducer(this.keyboardStatesByTrackIndex[trackIndex], {
                   type: 'ACTIVE_KEY',
                   key: note.name,
                 })
-                console.log('keyboardState after ACTIVE_KEY', this.keyboardStatesByTrackIndex[trackIndex]);
-              }, warpTime.toSeconds());
+              }, activeTime);
 
 
-              const endWarpTime = this.recording?.getWrappedTime(noteTime.add(noteDuration))
+              const endWarpTime = recording.getWarpedTime(noteTime.add(noteDuration))
               if (!endWarpTime) {
                 throw new Error(`WarpTime end inconnu pour la note MIDI ${note.name} de time=${noteTime} et de duration=${noteDuration}`);
+              }
+              const deactiveTime = endWarpTime.toSeconds();
+              if (deactiveTime === activeTime) {
+                console.error(`noteTime`, noteTime.toSeconds(), noteTime.add(noteDuration).toSeconds())
+                console.error(`endWarpTime`, activeTime, deactiveTime)
+                throw new Error(`La note ${note.name} devrait durer un minimum de temps (cf. log ticks=${note.ticks})`);
               }
               Tone.Transport.schedule(time => {
                 this.keyboardStatesByTrackIndex[trackIndex] = keyboardReducer(this.keyboardStatesByTrackIndex[trackIndex], {
                   type: 'DEACTIVE_KEY',
                   key: note.name,
                 })
-                console.log('keyboardState after DEACTIVE_KEY', this.keyboardStatesByTrackIndex[trackIndex]);
-              }, endWarpTime.toSeconds());
+              }, deactiveTime);
 
             } else {
               console.error('WarpTime inconnu pour la note MIDI', note);
@@ -191,6 +202,10 @@ export class MobileRehearsalPComponent extends MobileRehearsal implements OnInit
       console.warn('adaptNoteNameForKeyboardState', octavedNote.toString(), on.toString());
     }
     return on.toString();
+  }
+
+  override refresh(time?: number) {
+    super.refresh(time);
   }
 
 }

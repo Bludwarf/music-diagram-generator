@@ -44,6 +44,9 @@ export class Time {
     return Time.fromValue(fieldsToString(fields))
   }
 
+  /**
+   * @deprecated Utiliser BeatTime et SecTime
+   */
   static fromMidiTicks(ticks: number, ppq: number): Time {
     return this.fromValue(ticks / ppq / 2); // TODO pourquoi devoir diviser par 2 ?
   }
@@ -123,6 +126,7 @@ export class Time {
 
   /**
    * {@link toBarsBeatsSixteenthsFields toBarsBeatsSixteenthsFields()} dont les champs commencent à 1 au lieu de 0.
+   * @deprecated Utiliser SecTime
    */
   toBarsBeatsSixteenthsOneBasedFields(): BarsBeatsSixteenthsFields {
     const fields = this.toBarsBeatsSixteenthsFields();
@@ -133,11 +137,17 @@ export class Time {
     return fields;
   }
 
+  /**
+   * @deprecated Utiliser SecTime
+   */
   toAbletonLiveBarsBeatsSixteenths(): string {
     const fields = this.toBarsBeatsSixteenthsOneBasedFields();
     return fieldsToString(fields, '.')
   }
 
+  /**
+   * @deprecated Utiliser SecTime
+   */
   toAbletonLiveBeatTime(): number {
     const fields = this.toBarsBeatsSixteenthsFields();
     const bars = fields.bars
@@ -160,6 +170,9 @@ export class Time {
     return Time.fromFields(fields)
   }
 
+  /**
+   * @deprecated Utiliser SecTime
+   */
   toBeatTime() {
     const fields = this.toBarsBeatsSixteenthsFields()
     // TODO uniquement en 4/4
@@ -206,6 +219,40 @@ interface BarsBeatsSixteenthsFields {
   sixteenths: number
 }
 
+interface BarsBeatsSixteenthsOneBasedFields extends BarsBeatsSixteenthsFields {
+}
+
 function fieldsToString(fields: BarsBeatsSixteenthsFields, separator = ':'): string {
   return `${fields.bars}${separator}${fields.beats}${separator}${fields.sixteenths}`
+}
+
+/** Temps en comptant par battement (pulse)  */
+export class BeatTime {
+  constructor(
+    readonly value: number,
+  ) {
+  }
+
+  static fromMidiTicks(ticks: number, ppq: number): BeatTime {
+    // TODO cache pour chaque ticks, pour perfs
+    return new BeatTime(ticks / ppq);
+  }
+}
+
+export class Position {
+  constructor(
+    readonly fields: BarsBeatsSixteenthsOneBasedFields,
+  ) {
+  }
+
+  toString(): string {
+    return fieldsToString(this.fields, '.');
+  }
+}
+
+export class SecTime {
+  constructor(
+    readonly value: number,
+  ) {
+  }
 }

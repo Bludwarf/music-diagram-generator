@@ -1,4 +1,4 @@
-import {Time} from "../time";
+import {BeatTime, Position, SecTime, Time} from "../time";
 import {WarpMarker} from "../structure/warp-marker";
 import {Builder, error, sum} from "../utils";
 import * as Tone from "tone";
@@ -65,6 +65,9 @@ export class Recording {
     return Time.fromBeatTime(beatTime)
   }
 
+  /**
+   * @deprecated Utiliser #getSecTime
+   */
   getWarpedTime(position: Time): Time | undefined {
 
     const warpMarkers = this.warpMarkers
@@ -112,6 +115,39 @@ export class Recording {
       regions.push(new Region(start, end))
     }
     return regions;
+  }
+
+  getSecTime(beatTime: BeatTime): SecTime | undefined {
+    const beatTimeValue = beatTime.value;
+    const warpMarkers = this.warpMarkers
+
+    if (beatTimeValue < warpMarkers[0].beatTime) {
+      return undefined // TODO quelle position si on est avant "1:1:1" ? Impossible dans Ableton Live
+    }
+
+    if (beatTimeValue > warpMarkers[warpMarkers.length - 1].beatTime) {
+      // TODO quelle position si on est après le dernier WrapMarker ?
+      error(`beatTime après le dernier WrapMarker : ${beatTimeValue} > ${warpMarkers[warpMarkers.length - 1].beatTime}`)
+    }
+
+    const nextWrapMarkerIndex = warpMarkers.findIndex(wrapMarker => beatTimeValue < wrapMarker.beatTime)
+
+    const previousWrapMarker = warpMarkers[nextWrapMarkerIndex - 1]
+    const nextWrapMarker = warpMarkers[nextWrapMarkerIndex]
+    const beatTimeRatio = (beatTimeValue - previousWrapMarker.beatTime) / (nextWrapMarker.beatTime - previousWrapMarker.beatTime)
+    const secTime = previousWrapMarker.secTime + beatTimeRatio * (nextWrapMarker.secTime - previousWrapMarker.secTime)
+
+    return new SecTime(secTime);
+  }
+
+  getPosition(beatTime: BeatTime): Position {
+    // TODO uniquement en 4/4
+    const bars = Math.floor(beatTime.value / 4)
+    return new Position({
+      bars,
+      beats: Math.floor(beatTime.value) - bars * 4,
+      sixteenths: beatTime.value % 1 * 4,
+    });
   }
 }
 

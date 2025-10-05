@@ -1,229 +1,11 @@
-import * as Tone from "tone";
-import {TimeClass} from "tone";
-import {Transport} from "tone/build/esm/core/clock/Transport";
-import {TimeValue} from "tone/build/esm/core/type/TimeBase";
-import {BarNumber0Indexed} from "./notes";
-
-// TODO Attention valable uniquement en 4/4, sinon il faudra utiliser TimeClass avec un BaseContext
-export class Time {
-
-  constructor(
-    protected readonly _toneTime: TimeClass = Tone.Time(0),
-  ) {
-  }
-
-  static fromValue(value?: TimeValue): Time {
-    return new this(Tone.Time(value))
-  }
-
-  static fromTransport(transport: Transport): Time {
-    // TODO utiliser time pour être plus précis ?
-    return new this(Tone.Time(transport.position)) // TODO OK ?
-  }
-
-  /**
-   * @param beatTime Cf. Ableton Live WarpMarker.BeatTime
-   */
-  static fromBeatTime(beatTime: number): Time {
-    // TODO uniquement pour une signature 4/4
-    const bars = Math.floor(beatTime / 4)
-    const beats = Math.floor(beatTime) - bars * 4
-    const sixteenths = beatTime % 1 * 4
-
-    const barsBeatsSixteenth = `${bars}:${beats}:${sixteenths}`;
-    // console.log('wrappedPosition', barsBeatsSixteenth, new Time(Tone.Time(barsBeatsSixteenth)).toBarsBeatsSixteenths())
-
-    return new Time(Tone.Time(barsBeatsSixteenth))
-  }
-
-  static fromBar(bar: BarNumber0Indexed): Time {
-    return this.fromValue(`${bar}:0:0`)
-  }
-
-  private static fromFields(fields: BarsBeatsSixteenthsFields): Time {
-    return Time.fromValue(fieldsToString(fields))
-  }
-
-  /**
-   * @deprecated Utiliser BeatTime et SecTime
-   */
-  static fromMidiTicks(ticks: number, ppq: number): Time {
-    return this.fromValue(ticks / ppq / 2); // TODO pourquoi devoir diviser par 2 ?
-  }
-
-  static fromTicks(ticks: number, ppq?: number) {
-    const correctedTicks = ppq ? ticks / ppq * Tone.Transport.PPQ : ticks;
-    return this.fromValue(`${correctedTicks}i`);
-  }
-
-  add(time: Time): Time {
-    const thisFields = this.toBarsBeatsSixteenthsFields()
-    const timeFields = time.toBarsBeatsSixteenthsFields()
-    const sumFields: BarsBeatsSixteenthsFields = {
-      bars: thisFields.bars + timeFields.bars,
-      beats: thisFields.beats + timeFields.beats,
-      sixteenths: thisFields.sixteenths + timeFields.sixteenths,
-    }
-    return Time.fromFields(sumFields)
-  }
-
-  dividedIn(divider: number): Time {
-    const fields = this.toBarsBeatsSixteenthsFields()
-    const dividedFields: BarsBeatsSixteenthsFields = {
-      bars: fields.bars / divider,
-      beats: fields.beats / divider,
-      sixteenths: fields.sixteenths / divider,
-    }
-    return Time.fromFields(dividedFields)
-  }
-
-  relativeTo(startTime: Time): Time {
-    // TODO à tester
-    // console.log('relativeTime', startTime.toBarsBeatsSixteenths(), this.toBarsBeatsSixteenths(), new Time(Tone.Time(this.toSeconds() - startTime.toSeconds(), 's')).toBarsBeatsSixteenths())
-    return new Time(Tone.Time(this.toSeconds() - startTime.toSeconds(), 's'))
-  }
-
-  compareTo(time: Time): number {
-    return this.toSeconds() - time.toSeconds()
-  }
-
-  isBefore(time: Time): boolean {
-    return this.compareTo(time) < 0
-  }
-
-  isBeforeOrEquals(time: Time): boolean {
-    return this.compareTo(time) <= 0
-  }
-
-  isAfterOrEquals(time: Time): boolean {
-    return this.compareTo(time) >= 0
-  }
-
-  toBarsBeatsSixteenths(): string {
-    return this._toneTime.toBarsBeatsSixteenths()
-  }
-
-  toBars(): number {
-    // TODO arrondi OK ?
-    return this.toBarsBeatsSixteenthsFields().bars
-  }
-
-  toTicks(): number {
-    return this._toneTime.toTicks();
-  }
-
-  /**
-   * Les champs commencent à 0.
-   */
-  private toBarsBeatsSixteenthsFields(): BarsBeatsSixteenthsFields {
-    const fields = this._toneTime.toBarsBeatsSixteenths().split(':');
-    return {
-      bars: +fields[0],
-      beats: +fields[1],
-      sixteenths: +fields[2],
-    }
-  }
-
-  /**
-   * {@link toBarsBeatsSixteenthsFields toBarsBeatsSixteenthsFields()} dont les champs commencent à 1 au lieu de 0.
-   * @deprecated Utiliser SecTime
-   */
-  toBarsBeatsSixteenthsOneBasedFields(): BarsBeatsSixteenthsFields {
-    const fields = this.toBarsBeatsSixteenthsFields();
-    ++fields.bars
-    ++fields.beats
-    // TODO pour être plus précis, il faudrait utiliser time, puis le convertir en relatif à transport.position
-    fields.sixteenths = Math.floor(fields.sixteenths) + 1
-    return fields;
-  }
-
-  /**
-   * @deprecated Utiliser SecTime
-   */
-  toAbletonLiveBarsBeatsSixteenths(): string {
-    const fields = this.toBarsBeatsSixteenthsOneBasedFields();
-    return fieldsToString(fields, '.')
-  }
-
-  /**
-   * @deprecated Utiliser SecTime
-   */
-  toAbletonLiveBeatTime(): number {
-    const fields = this.toBarsBeatsSixteenthsFields();
-    const bars = fields.bars
-    const beats = fields.beats
-    const sixteenths = fields.sixteenths
-    return bars * 4 + beats + sixteenths / 4 // TODO uniquement en 4/4 FIXME et s'il n'y a pas de changement de signature rythmique !!!
-  }
-
-  toSeconds(): number {
-    return this._toneTime.toSeconds();
-  }
-
-  toString(): string {
-    return this.toBarsBeatsSixteenths()
-  }
-
-  mod(bars: number): Time {
-    const fields = this.toBarsBeatsSixteenthsFields()
-    fields.bars = fields.bars % bars
-    return Time.fromFields(fields)
-  }
-
-  /**
-   * @deprecated Utiliser SecTime
-   */
-  toBeatTime() {
-    const fields = this.toBarsBeatsSixteenthsFields()
-    // TODO uniquement en 4/4
-    return fields.bars * 4 + fields.beats
-  }
-
-  static sum(times: Time[]) {
-    return times.reduce((s, t) => s.add(t));
-  }
-
-  static getElementAt<E extends TimedElement>(time: Time, elements: E[], overflow = false): E | undefined {
-
-    // TODO Attention : cette méthode n'est valable pour des time en seconds que si l'enregistrement est pile poil calé sur le tempo, sinon il faut convertir
-
-    const firstElement = elements[0];
-    if (time.isBefore(firstElement.startTime)) {
-      return overflow ? firstElement : undefined
-    }
-
-    for (const element of elements) {
-      if (time.isBeforeOrEquals(element.endTime)) {
-        // console.log('getElementAt', time.toSeconds(), (element as any).section?.name, elements.indexOf(element))
-        return element
-      }
-    }
-
-    return overflow ? elements[elements.length - 1] : undefined
-  }
-}
-
-export interface TimedElement extends StartTimedElement {
-  endTime: Time
-}
-
-export interface StartTimedElement {
-  startTime: Time
-}
-
-export const ONE_BAR = Time.fromValue('1m')
+import {Seconds} from "tone/build/esm/core/type/Units";
+import {checkIsInteger, checkIsPositive, checkIsStrictlyPositive} from "./utils/validators";
 
 interface BarsBeatsSixteenthsFields {
+  /** 0-indexée */
   bars: number
   beats: number
   sixteenths: number
-}
-
-interface BarsBeatsSixteenthsOneBasedFields extends BarsBeatsSixteenthsFields {
-}
-
-function fieldsToString(fields: BarsBeatsSixteenthsFields, separator = ':'): string {
-  return `${fields.bars}${separator}${fields.beats}${separator}${fields.sixteenths}`
 }
 
 /** Temps en comptant par battement (pulse)  */
@@ -237,22 +19,164 @@ export class BeatTime {
     // TODO cache pour chaque ticks, pour perfs
     return new BeatTime(ticks / ppq);
   }
+
+  toMidiTicks(ppq: number): number {
+    // TODO cache pour chaque ticks, pour perfs
+    return this.value * ppq;
+  }
 }
 
-export class Position {
+export class Position implements BarsBeatsSixteenthsFields {
+  /**
+   * @param bars integer 0-indexed
+   * @param beats positive integer 0-indexed
+   * @param sixteenths positive float 0-indexed
+   */
   constructor(
-    readonly fields: BarsBeatsSixteenthsOneBasedFields,
+    readonly bars = 0,
+    readonly beats = 0,
+    readonly sixteenths = 0,
+  ) {
+    checkIsInteger('bars', this.bars);
+    checkIsPositive('beats', this.beats);
+    checkIsInteger('beats', this.beats);
+    checkIsPositive('sixteenths', this.sixteenths);
+  }
+
+  addBars(bars: number): Position {
+    return new Position(
+      this.bars + bars,
+      this.beats,
+      this.sixteenths,
+    )
+  }
+
+  addBeats(beats: number, beatsPerBar: number) {
+    const rawBeats = this.beats + beats;
+    return new Position(
+      this.bars + Math.floor(rawBeats / beatsPerBar),
+      rawBeats % beatsPerBar,
+    )
+  }
+
+  private static checkOnlyBars(fields: BarsBeatsSixteenthsFields) {
+    if (fields.beats !== 0 || fields.sixteenths !== 0) {
+      throw new Error('Not implemented for position with more than bars only');
+    }
+  }
+
+  isBefore(other: Position): boolean {
+    return this.compareTo(other) < 0
+  }
+
+  isBeforeOrEquals(other: Position): boolean {
+    return this.compareTo(other) <= 0
+  }
+
+  compareTo(other: Position): number {
+    if (this.bars !== other.bars) {
+      return this.bars - other.bars;
+    }
+    if (this.beats !== other.beats) {
+      return this.beats - other.beats;
+    }
+    if (this.sixteenths !== other.sixteenths) {
+      return this.sixteenths - other.sixteenths;
+    }
+    return 0;
+  }
+
+  /**
+   * @param position
+   * @param elements
+   * @param overflow Doit-on renvoyer le 1er élément ou le dernier élément si la position dépasse les éléments (sinon undefined) ?
+   */
+  static getElementAt<E extends PositionedElement>(position: Position, elements: E[], overflow: boolean): E | undefined {
+    const firstElement = elements[0];
+    if (position.isBefore(firstElement.startPosition)) {
+      return overflow ? firstElement : undefined
+    }
+
+    for (const element of elements) {
+      if (position.isBefore(element.endPosition)) {
+        return element
+      }
+    }
+
+    return overflow ? elements[elements.length - 1] : undefined
+  }
+
+  /**
+   * @see getElementAt
+   */
+  static getElementAtWithOverflow<E extends PositionedElement>(position: Position, elements: E[]): E {
+    return this.getElementAt(position, elements, true) as E
+  }
+
+  relativeTo(startPosition: Position): Position {
+    Position.checkOnlyBars(startPosition);
+    return new Position(this.bars - startPosition.bars, this.beats, this.sixteenths)
+  }
+
+  modBars(bars: number): Position {
+    checkIsStrictlyPositive('bars', bars);
+    checkIsInteger('bars', bars);
+    return new Position(this.bars % bars, this.beats, this.sixteenths)
+  }
+}
+
+export class PositionFormatter {
+  static DEBUG = new PositionFormatter(':', 0, false);
+  static ABLETON_GLOBAL_TIMECODE = new PositionFormatter('.', 1, true);
+
+  /**
+   * @param separator
+   * @param offset Décalage des valeurs par rapport à 0
+   * @param roundedSixteenths Arrondir sixteenths vers le bas (floor) ?
+   */
+  constructor(
+    protected readonly separator: string,
+    protected readonly offset: number,
+    protected readonly roundedSixteenths: boolean,
   ) {
   }
 
-  toString(): string {
-    return fieldsToString(this.fields, '.');
+  format(position: Position): string {
+    const sixteenths = this.roundedSixteenths ? Math.floor(position.sixteenths) : position.sixteenths;
+    return `${position.bars + this.offset}${this.separator}${position.beats + this.offset}${this.separator}${sixteenths + this.offset}`
   }
+
+  parse(string: string): Position {
+    const fields = string.split(this.separator);
+    return new Position(
+      this.parseField(fields[0]),
+      this.parseField(fields[1]),
+      this.parseField(fields[2]),
+    );
+  }
+
+  private parseField(fieldStringValue: string | undefined) {
+    if (fieldStringValue === undefined || fieldStringValue === '') {
+      return 0;
+    }
+    return +fieldStringValue - this.offset;
+  }
+}
+
+export interface PositionedElement {
+  /** inclusif */
+  startPosition: Position;
+  /** exclusif */
+  endPosition: Position;
 }
 
 export class SecTime {
   constructor(
     readonly value: number,
   ) {
+  }
+
+  static fromToneTransportSeconds(seconds: Seconds): SecTime {
+    return new SecTime(seconds)
   }
 }

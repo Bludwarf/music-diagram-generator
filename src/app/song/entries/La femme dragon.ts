@@ -17,7 +17,7 @@ const coupletSansBasse = Pattern.fromData({
   key: Key.Am,
   name: 'Couplet (sans basse)',
   initial: 'Cs',
-  duration: '4m',
+  durationInBars: 4,
 })
 
 const couplet = Pattern.fromData({

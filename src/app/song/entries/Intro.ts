@@ -13,7 +13,7 @@ import {SongEntry} from "../song-entry";
 const batt = Pattern.fromData({
   name: 'Intro batterie',
   initial: 'I',
-  duration: '8m',
+  durationInBars: 8,
 })
 
 const AAData = {
@@ -36,7 +36,7 @@ const M = Pattern.fromData({
   name: 'Montée',
   initial: 'M',
   chords: undefined,
-  duration: '7m',
+  durationInBars: 7,
 })
 
 

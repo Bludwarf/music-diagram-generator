@@ -1,7 +1,7 @@
 {
   "name": "07 - If You Really See Eurydice",
   "sampleDuration": 222.4272335600907,
-  "sampleBeatTimeDuration": 328.4358253725441,
+  "sampleBeatTimeDuration": 331.4358253725441,
   "warpMarkers": [
     {
       "secTime": 0,
@@ -132,120 +132,116 @@
       "beatTime": 184
     },
     {
-      "secTime": 126.49065759637189,
-      "beatTime": 187
+      "secTime": 127.16165532879819,
+      "beatTime": 188
     },
     {
-      "secTime": 129.13321995464852,
-      "beatTime": 191
+      "secTime": 132.40517006802722,
+      "beatTime": 196
     },
     {
-      "secTime": 131.07825396825396,
-      "beatTime": 194
-    },
-    {
-      "secTime": 133.76451247165534,
-      "beatTime": 198
+      "secTime": 135.0669387755102,
+      "beatTime": 200
     },
     {
       "secTime": 137.68659863945578,
-      "beatTime": 201
+      "beatTime": 204
     },
     {
       "secTime": 142.8931746031746,
-      "beatTime": 209
+      "beatTime": 212
     },
     {
       "secTime": 148.05943310657597,
-      "beatTime": 217
+      "beatTime": 220
     },
     {
       "secTime": 150.65990929705217,
-      "beatTime": 221
+      "beatTime": 224
     },
     {
       "secTime": 153.3161678004535,
-      "beatTime": 225
+      "beatTime": 228
     },
     {
       "secTime": 155.93814058956917,
-      "beatTime": 229
+      "beatTime": 232
     },
     {
       "secTime": 158.5469387755102,
-      "beatTime": 233
+      "beatTime": 236
     },
     {
       "secTime": 161.10684807256237,
-      "beatTime": 237
+      "beatTime": 240
     },
     {
       "secTime": 163.69117913832198,
-      "beatTime": 241
+      "beatTime": 244
     },
     {
       "secTime": 168.93798185941043,
-      "beatTime": 249
+      "beatTime": 252
     },
     {
       "secTime": 171.5318140589569,
-      "beatTime": 253
+      "beatTime": 256
     },
     {
       "secTime": 176.76183673469387,
-      "beatTime": 261
+      "beatTime": 264
     },
     {
       "secTime": 179.34848072562357,
-      "beatTime": 265
+      "beatTime": 268
     },
     {
       "secTime": 184.5658276643991,
-      "beatTime": 273
+      "beatTime": 276
     },
     {
       "secTime": 187.1950566893424,
-      "beatTime": 277
+      "beatTime": 280
     },
     {
       "secTime": 189.88179138321996,
-      "beatTime": 281
+      "beatTime": 284
     },
     {
       "secTime": 192.62827664399094,
-      "beatTime": 285
+      "beatTime": 288
     },
     {
       "secTime": 195.43439909297052,
-      "beatTime": 289
+      "beatTime": 292
     },
     {
       "secTime": 198.33802721088435,
-      "beatTime": 293
+      "beatTime": 296
     },
     {
       "secTime": 201.43566893424037,
-      "beatTime": 297
+      "beatTime": 300
     },
     {
       "secTime": 204.26278911564626,
-      "beatTime": 301
+      "beatTime": 304
     },
     {
       "secTime": 206.66845804988662,
-      "beatTime": 305
+      "beatTime": 308
     },
     {
       "secTime": 209.07473922902494,
-      "beatTime": 309
+      "beatTime": 312
     },
     {
       "secTime": 212.60727891156463,
-      "beatTime": 313
+      "beatTime": 316
     },
     {
       "secTime": 212.6301635133696,
-      "beatTime": 313.03125
+      "beatTime": 316.03125
     }
   ]
 }

@@ -24,7 +24,7 @@
         >
         <span class="pattern-initial"
               [style.background-color]="getPatternColor(pattern)">{{ getFirstPatternInStructure(pattern).initial }}</span>&nbsp;<span
-          class="pattern-name">{{ pattern.name }}</span> ({{ pattern.duration.toBars() }}m)
+          class="pattern-name">{{ pattern.name }}</span> ({{ pattern.durationInBars }}m)
           @if (pattern.chords) {
             : <span class="pattern-chords">{{ pattern.chords.ascii }}</span>
           }

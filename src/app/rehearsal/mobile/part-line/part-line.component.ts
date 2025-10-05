@@ -3,7 +3,7 @@ import {ChangeDetectionStrategy, Component, EventEmitter, Input, Output} from '@
 import {PartInStructure} from "../../../structure/part/part-in-structure";
 import {PatternInStructure} from "../../../structure/pattern/pattern-in-structure";
 import {SectionInStructure} from "../../../structure/section/section-in-structure";
-import {TimedElement} from "../../../time";
+import {PositionedElement} from "../../../time";
 
 @Component({
   selector: 'app-part-line',
@@ -19,7 +19,7 @@ export class PartLineComponent {
   @Input() partInStructure!: PartInStructure;
   @Input() currentPatternInStructure?: PatternInStructure;
   @Input() currentSectionInStructure?: SectionInStructure
-  @Input() loopedElement?: TimedElement;
+  @Input() loopedElement?: PositionedElement;
   @Output() clickSectionInStructure = new EventEmitter<SectionInStructure>()
   @Output() clickPatternInStructure = new EventEmitter<PatternInStructure>()
 

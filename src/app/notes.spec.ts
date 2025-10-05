@@ -1,5 +1,5 @@
 import {Chord, Chords, Note, OctavedNote} from "./notes";
-import {Time} from "./time";
+import {Position} from "./time";
 
 describe('Chord', () => {
 
@@ -18,21 +18,23 @@ describe('Chords', () => {
   it('should create from | Gm | F | Eb | D |', () => {
     const chords = Chords.fromAsciiChords('| Gm | F | Eb | D |')
     expect(chords.length).toBe(4)
-    expect(chords.getChordAt(Time.fromValue('0:0'))).toEqual(new Chord('Gm'))
-    expect(chords.getChordAt(Time.fromValue('1:0'))).toEqual(new Chord('F'))
-    expect(chords.getChordAt(Time.fromValue('2:0'))).toEqual(new Chord('Eb'))
-    expect(chords.getChordAt(Time.fromValue('3:0'))).toEqual(new Chord('D'))
-    expect(chords.duration.toString()).toEqual('4:0:0')
+    expect(chords.getChordAt2(new Position(0))).toEqual(new Chord('Gm'))
+    expect(chords.getChordAt2(new Position(1))).toEqual(new Chord('F'))
+    expect(chords.getChordAt2(new Position(2))).toEqual(new Chord('Eb'))
+    expect(chords.getChordAt2(new Position(3))).toEqual(new Chord('D'))
+    expect(chords.durationInBars).toEqual(4)
   });
+
+  // TODO TU Position pour avoir '0:0:0' == '0:0' == '0'
 
   it('should create from | Gm F | Eb D |', () => {
     const chords = Chords.fromAsciiChords('| Gm F | Eb D |')
     expect(chords.length).toBe(4)
-    expect(chords.getChordAt(Time.fromValue('0:0'))).toEqual(new Chord('Gm'))
-    expect(chords.getChordAt(Time.fromValue('0:2'))).toEqual(new Chord('F'))
-    expect(chords.getChordAt(Time.fromValue('1:0'))).toEqual(new Chord('Eb'))
-    expect(chords.getChordAt(Time.fromValue('1:2'))).toEqual(new Chord('D'))
-    expect(chords.duration.toString()).toEqual('2:0:0')
+    expect(chords.getChordAt2(new Position(0))).toEqual(new Chord('Gm'))
+    expect(chords.getChordAt2(new Position(0, 2))).toEqual(new Chord('F'))
+    expect(chords.getChordAt2(new Position(1))).toEqual(new Chord('Eb'))
+    expect(chords.getChordAt2(new Position(1, 2))).toEqual(new Chord('D'))
+    expect(chords.durationInBars).toEqual(2)
   });
 
   it('should get chords at bar 1 from | Gm F | Eb D |', () => {
@@ -55,20 +57,20 @@ describe('Chords', () => {
   it('should create from | Gm | | Eb |', () => {
     const chords = Chords.fromAsciiChords('| Gm | | Eb |')
     expect(chords.length).toBe(2)
-    expect(chords.getChordAt(Time.fromValue('0:0'))).toEqual(new Chord('Gm'))
-    expect(chords.getChordAt(Time.fromValue('1:0'))).toBeUndefined();
-    expect(chords.getChordAt(Time.fromValue('2:0'))).toEqual(new Chord('Eb'))
-    expect(chords.duration.toString()).toEqual('3:0:0')
+    expect(chords.getChordAt2(new Position(0))).toEqual(new Chord('Gm'))
+    expect(chords.getChordAt2(new Position(1))).toBeUndefined();
+    expect(chords.getChordAt2(new Position(2))).toEqual(new Chord('Eb'))
+    expect(chords.durationInBars).toEqual(3)
   });
 
   it('should create 4 bars without chord', () => {
-    const chords = Chords.repeatNoChord(Time.fromBar(4))
+    const chords = Chords.repeatNoChord(4)
     expect(chords.length).toBe(0)
-    expect(chords.getChordAt(Time.fromValue('0:0'))).toBeUndefined();
-    expect(chords.getChordAt(Time.fromValue('1:0'))).toBeUndefined();
-    expect(chords.getChordAt(Time.fromValue('2:0'))).toBeUndefined();
-    expect(chords.getChordAt(Time.fromValue('3:0'))).toBeUndefined();
-    expect(chords.duration.toString()).toEqual('4:0:0')
+    expect(chords.getChordAt2(new Position(0))).toBeUndefined();
+    expect(chords.getChordAt2(new Position(1))).toBeUndefined();
+    expect(chords.getChordAt2(new Position(2))).toBeUndefined();
+    expect(chords.getChordAt2(new Position(3))).toBeUndefined();
+    expect(chords.durationInBars).toEqual(4)
   });
 
 });

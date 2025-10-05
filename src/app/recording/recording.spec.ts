@@ -1,5 +1,5 @@
 import {Recording} from "./recording";
-import {Time} from "../time";
+import {BeatTime, SecTime} from "../time";
 import * as Tone from "tone";
 
 const ORIGINAL_PPQ = Tone.Transport.PPQ;
@@ -11,6 +11,11 @@ describe('Recording', () => {
     Tone.Transport.PPQ = ORIGINAL_PPQ;
     Tone.Transport.bpm.value = ORIGINAL_BPM_VALUE;
   });
+
+  function testGetWarpPosition(recording: Recording, secTimeValue: number, expectedBeatTimeValue: number) {
+    const beatTime = recording.getBeatTime(new SecTime(secTimeValue));
+    expect(beatTime).toEqual(new BeatTime(expectedBeatTimeValue));
+  }
 
   it('should get first warp position', async () => {
     const recording = Recording.builder()
@@ -31,7 +36,7 @@ describe('Recording', () => {
         }
       )
       .build()
-    expect(recording.getWarpPosition(0)?.toAbletonLiveBarsBeatsSixteenths()).toBe('0.-1.1')
+    testGetWarpPosition(recording, 0, -1.1762159715284715);
   });
 
   it('should get last warp position', async () => {
@@ -53,7 +58,7 @@ describe('Recording', () => {
         }
       )
       .build()
-    expect(recording.getWarpPosition(197.84312565104167)?.toAbletonLiveBarsBeatsSixteenths()).toBe('91.1.2')
+    testGetWarpPosition(recording, 197.84312565104167, 360.35486076423575);
   });
 
   it('should get sample duration warp position', async () => {
@@ -76,7 +81,7 @@ describe('Recording', () => {
         }
       )
       .build()
-    expect(recording.getWarpPosition(sampleDuration)?.toAbletonLiveBarsBeatsSixteenths()).toBe('95.3.2') // En utilisant sampleBeatTimeDuration au lieu de sampleEndBeatTime on trouve '95.4.3'
+    testGetWarpPosition(recording, sampleDuration, 378.3628382034632);
   });
 
   it('should get last chord position in Elle rêve à quoi', async () => {
@@ -99,7 +104,7 @@ describe('Recording', () => {
       )
       .build()
     const lastChordSecTime = 3 * 60 + 44.275
-    expect(recording.getWarpPosition(lastChordSecTime)?.toAbletonLiveBarsBeatsSixteenths()).toBe('142.1.1') // En utilisant sampleBeatTimeDuration au lieu de sampleEndBeatTime on trouve '142.3.2'
+    testGetWarpPosition(recording, lastChordSecTime, 564.0723150488286);
   });
 
   it('should get tempo from simple recording', async () => {
@@ -150,7 +155,7 @@ describe('Recording', () => {
     expect(recording.meanTempo).toBe(160)
   });
 
-  it('should get warpTime', async () => {
+  it('getSecTime', async () => {
     const recording = Recording.builder()
       .initData({
           name: "07 - If You Really See Eurydice",
@@ -169,11 +174,14 @@ describe('Recording', () => {
         }
       )
       .build()
-    Tone.Transport.PPQ = 480;
+    const ppq = 480;
     const ticks = 16080;
     const durationTicks = 119;
-    expect(recording.getWarpedTime(Time.fromTicks(ticks))?.toTicks()).toEqual(22491)
-    expect(recording.getWarpedTime(Time.fromTicks(ticks + durationTicks))?.toTicks()).toEqual(22650)
+    expect(recording.getSecTime(BeatTime.fromMidiTicks(ticks, ppq))).toEqual(new SecTime(23.428611111111113))
+    expect(recording.getSecTime(BeatTime.fromMidiTicks(ticks + durationTicks, ppq))).toEqual(new SecTime(23.59389169973545))
   });
+
+  // TODO getSecTime avec changements de signature rythmique
+  // TODO getSecTimeAt
 
 });

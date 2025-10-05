@@ -1,10 +1,10 @@
 import {Pattern} from "../pattern/pattern";
-import {Time} from "../../time";
 import {BaseColor as Color} from "../../color";
+import {arraySum} from "../../utils";
 
 export class Section {
 
-  private _duration?: Time
+  private _durationInBars?: number
 
   constructor(
     readonly name: string,
@@ -20,9 +20,9 @@ export class Section {
     }
   }
 
-  get duration(): Time {
-    this._duration ??= Time.sum(this.patterns.map(p => p.duration));
-    return this._duration
+  get durationInBars(): number {
+    this._durationInBars ??= arraySum(this.patterns.map(p => p.durationInBars));
+    return this._durationInBars
   }
 
 }

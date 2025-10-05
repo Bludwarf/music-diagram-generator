@@ -3,8 +3,8 @@ import {ChangeDetectionStrategy, Component, EventEmitter, Input, Output} from '@
 import {PartInStructure} from "../../../structure/part/part-in-structure";
 import {Structure} from "../../../structure/structure";
 import {SwipeDirective} from '../../../swipe.directive';
-import {TimedElement} from '../../../time';
 import {PartTabComponent} from "../part-tab/part-tab.component";
+import {PositionedElement} from "../../../time";
 
 @Component({
   selector: 'app-part-tabs',
@@ -21,7 +21,7 @@ import {PartTabComponent} from "../part-tab/part-tab.component";
 export class PartTabsComponent {
   @Input() structure!: Structure;
   @Input() currentPartInStructure?: PartInStructure;
-  @Input() loopedElement?: TimedElement;
+  @Input() loopedElement?: PositionedElement;
 
   @Output() clickPartInStructure = new EventEmitter<PartInStructure>();
 

@@ -1,9 +1,9 @@
-import {Time} from "../../time";
+import {Position, PositionedElement, PositionFormatter} from "../../time";
 import {Structure} from "../structure";
 import {Section} from "./section";
 import {PatternInStructure} from "../pattern/pattern-in-structure";
 
-export class SectionInStructure {
+export class SectionInStructure implements PositionedElement {
 
   constructor(
     readonly section: Section,
@@ -17,19 +17,19 @@ export class SectionInStructure {
     return this.section.initial ?? this.section.name.charAt(0)
   }
 
-  get startTime(): Time {
-    return this.patternsInStructure[0].startTime
+  get startPosition(): Position {
+    return this.patternsInStructure[0].startPosition
   }
 
-  get endTime(): Time {
-    return this.patternsInStructure[this.patternsInStructure.length - 1].endTime
+  get endPosition(): Position {
+    return this.patternsInStructure[this.patternsInStructure.length - 1].endPosition
   }
 
-  getPatternInStructureAt(time: Time): PatternInStructure | undefined {
-    return Time.getElementAt(time, this.patternsInStructure)
+  getPatternInStructureAt(position: Position): PatternInStructure | undefined {
+    return Position.getElementAt(position, this.patternsInStructure, false)
   }
 
   toString(): string {
-    return `${this.startTime.toAbletonLiveBarsBeatsSixteenths()} @${this.startTime.toSeconds()}: ${this.section.name} :@${this.endTime.toSeconds()}`
+    return `${PositionFormatter.ABLETON_GLOBAL_TIMECODE.format(this.startPosition)}: ${this.section.name}`
   }
 }

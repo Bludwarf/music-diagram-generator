@@ -1,6 +1,6 @@
 import {Key} from "../../notes";
 import recordingInitData from "../../../assets/recordings/DIDAFTA PETIT PAPILLON Master Web 24bit 48Khz_02-01.json";
-import {Time} from "../../time";
+import {Position} from "../../time";
 import {RythmBarEvent} from "../../rythm-bar/event";
 import eventsJson from '../../../assets/events/Petit Papillon/events.json';
 import {Pattern} from "../../structure/pattern/pattern";
@@ -24,7 +24,7 @@ const bombardeSeuleIntro = Pattern.fromData({
   name: 'Début bombarde (G à 4.4)',
   initial: 'B0',
   key,
-  duration: '4m',
+  durationInBars: 4,
   fretboard,
 })
 const bombarde = Pattern.fromData({
@@ -39,7 +39,7 @@ const bombarde = Pattern.fromData({
 const bombardeSeuleM1 = Pattern.fromData({
   name: 'Bombarde seule',
   initial: 'B*1',
-  duration: '1m', // TODO on devrait pouvoir faire plutôt : chords: '|  | Eb D |'
+  durationInBars: 1, // TODO on devrait pouvoir faire plutôt : chords: '|  | Eb D |'
   key,
   fretboard,
   color: RED,
@@ -79,7 +79,7 @@ const coupletBb = Pattern.fromData({
 })
 const refrain = Pattern.fromData({
   name: 'Refrain',
-  duration: '4m',
+  durationInBars: 4,
   key,
   chords: '| Bb | F | C | Gm |',
   fretboard,
@@ -114,13 +114,13 @@ const parts: Part[] = [
 
 const structure = Structure.builder()
   .parts(parts)
-  .getEventsStartTime((pattern: Pattern) => {
-    if (pattern === bombarde) return Time.fromValue("0:0")
-    if (pattern === bombardeM3et4) return Time.fromValue("0:0")
-    if (pattern === bombardeSeuleM2) return Time.fromValue("1:0")
-    if (pattern === couplet) return Time.fromValue("2:0")
-    if (pattern === coupletBb) return Time.fromValue("2:0")
-    if (pattern === refrain) return Time.fromValue("4:0")
+  .getEventsStartPosition((pattern: Pattern) => {
+    if (pattern === bombarde) return new Position(0)
+    if (pattern === bombardeM3et4) return new Position(0)
+    if (pattern === bombardeSeuleM2) return new Position(1)
+    if (pattern === couplet) return new Position(2)
+    if (pattern === coupletBb) return new Position(2)
+    if (pattern === refrain) return new Position(4)
     return undefined
   })
   .getEventsDurationInBars((pattern: Pattern) => {

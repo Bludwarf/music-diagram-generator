@@ -37,7 +37,7 @@ const r = Pattern.fromData({
 const silence = Pattern.fromData({
   key,
   name: 'Silence',
-  duration: '2m',
+  durationInBars: 2,
 })
 
 const fin = Pattern.fromData({

@@ -1,14 +1,11 @@
-import * as Tone from 'tone';
-import {TimeValue} from 'tone/build/esm/core/type/TimeBase';
 import {BaseColor as Color} from '../../color';
 import {AsciiChords, Chords, Key} from '../../notes';
-import {Time} from '../../time';
 
 export class Pattern {
 
   constructor(
     readonly name: string,
-    readonly duration: Time,
+    readonly durationInBars: number,
     readonly initial?: string,
     readonly key?: Key,
     readonly chords?: Chords,
@@ -24,11 +21,11 @@ export class Pattern {
       if (!chords) {
         throw new Error('Missing duration')
       }
-      return chords.duration
+      return chords.durationInBars
     }
     return new Pattern(
       data.name,
-      data.duration ? new Time(Tone.Time(data.duration)) : getDurationFrom(chords),
+      data.durationInBars ? data.durationInBars : getDurationFrom(chords),
       data.initial,
       data.key,
       chords,
@@ -47,7 +44,7 @@ export class Pattern {
 
 export interface PatternInitData {
   name: string
-  duration?: TimeValue
+  durationInBars?: number
   initial?: string
   key?: Key
   chords?: AsciiChords

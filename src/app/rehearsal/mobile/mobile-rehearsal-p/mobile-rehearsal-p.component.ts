@@ -196,8 +196,8 @@ export class MobileRehearsalPComponent extends MobileRehearsal implements OnInit
     return on.toString();
   }
 
-  override refresh(time?: number) {
-    super.refresh(time);
+  override refresh() {
+    super.refresh();
   }
 
 }

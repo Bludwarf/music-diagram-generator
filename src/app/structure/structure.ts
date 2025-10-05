@@ -1,17 +1,17 @@
-import { Time } from "../time";
-import { Pattern } from "./pattern/pattern";
-import { PatternInStructure } from "./pattern/pattern-in-structure";
-import { SectionInStructure } from "./section/section-in-structure";
-import { Part } from "./part/part";
-import { PartInStructure } from "./part/part-in-structure";
-import { ColorResolver, BaseColor as Color } from "../color";
-import { Section } from "./section/section";
+import {Position} from "../time";
+import {Pattern} from "./pattern/pattern";
+import {PatternInStructure} from "./pattern/pattern-in-structure";
+import {SectionInStructure} from "./section/section-in-structure";
+import {Part} from "./part/part";
+import {PartInStructure} from "./part/part-in-structure";
+import {BaseColor as Color, ColorResolver} from "../color";
+import {Section} from "./section/section";
 
 class StructureBuilder {
   private _parts?: Part[];
   private defaultPart?: Part
   private defaultSection?: Section
-  private _getEventsStartTime?: (pattern: Pattern) => (Time) | undefined;
+  private _getEventsStartPosition?: (pattern: Pattern) => (Position) | undefined;
   private _getEventsDurationInBars?: (pattern: Pattern) => number | undefined
 
   parts(parts: typeof this._parts) {
@@ -19,8 +19,8 @@ class StructureBuilder {
     return this
   }
 
-  getEventsStartTime(getEventsStartTime: typeof this._getEventsStartTime) {
-    this._getEventsStartTime = getEventsStartTime
+  getEventsStartPosition(getEventsStartTime: typeof this._getEventsStartPosition) {
+    this._getEventsStartPosition = getEventsStartTime
     return this
   }
 
@@ -72,7 +72,7 @@ class StructureBuilder {
 
     return new Structure(
       parts,
-      this._getEventsStartTime,
+      this._getEventsStartPosition,
       this._getEventsDurationInBars
     )
   }
@@ -89,11 +89,11 @@ export class Structure {
 
   constructor(
     parts: Part[],
-    getEventsStartTime?: (pattern: Pattern) => Time | undefined, // TODO en attendant de savoir comment faire les events
+    getEventsStartPosition?: (pattern: Pattern) => Position | undefined, // TODO en attendant de savoir comment faire les events
     getEventsDurationInBars?: (pattern: Pattern) => number | undefined, // TODO en attendant de savoir comment faire les events
   ) {
 
-    let currentTime = new Time()
+    let currentPosition = new Position();
 
     const partsInStructure: PartInStructure[] = []
     for (const part of parts) {
@@ -103,8 +103,8 @@ export class Structure {
 
         const patternsInStructure: PatternInStructure[] = []
         for (const pattern of section.patterns) {
-          patternsInStructure.push(new PatternInStructure(pattern, this, currentTime, getEventsStartTime?.(pattern), getEventsDurationInBars?.(pattern)))
-          currentTime = currentTime.add(pattern.duration)
+          patternsInStructure.push(new PatternInStructure(pattern, this, currentPosition, getEventsStartPosition?.(pattern), getEventsDurationInBars?.(pattern)))
+          currentPosition = currentPosition.addBars(pattern.durationInBars)
         }
 
         const sectionInStructure = new SectionInStructure(section, this, patternsInStructure)
@@ -124,9 +124,8 @@ export class Structure {
     //   console.warn('currentTime != duration', currentTime.toAbletonLiveBarsBeatsSixteenths(), sampleDuration.toAbletonLiveBarsBeatsSixteenths())
     // }
   }
-
-  getPartInStructureAt(time: Time): PartInStructure | undefined {
-    return Time.getElementAt(time, this.partsInStructure, true)
+  getPartInStructureAt(position: Position): PartInStructure {
+    return Position.getElementAtWithOverflow(position, this.partsInStructure)
   }
 
   static builder(): StructureBuilder {

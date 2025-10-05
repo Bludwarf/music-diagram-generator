@@ -1,5 +1,6 @@
-import {ONE_BAR, Time} from "./time";
+import {Position, PositionFormatter} from "./time";
 import {Comparable} from "./utils/comparator";
+import {checkIsInteger} from "./utils/validators";
 
 export const NOTE_NAMES = [
   'C',
@@ -233,8 +234,8 @@ export class Chords extends Array<Chord> {
   constructor(
     list: (Chord)[],
     readonly ascii: AsciiChords,
-    readonly duration: Time,
-    private readonly chordsByTime: [Time, Chord | undefined][] = [], // TODO trier par time asc
+    readonly durationInBars: number,
+    private readonly chordsByPosition: [Position, Chord | undefined][] = [], // TODO trier par asc
   ) {
     super(...list)
   }
@@ -244,27 +245,27 @@ export class Chords extends Array<Chord> {
     const barGroups = this.groupAsciiChordsByBar(asciiChords)
 
     const chordsList: Chord[] = []
-    const chordsByTime: [Time, Chord | undefined][] = []
+    const chordsByPosition: [Position, Chord | undefined][] = []
 
-    let time = Time.fromValue(0)
+    let position = new Position()
     barGroups.forEach(barAsciiChords => {
 
       const chordGroups = barAsciiChords.split(' ')
-      const chordDuration = ONE_BAR.dividedIn(chordGroups.length)
+      const chordBeatDuration = this.getChordBeatDuration(chordGroups.length);
 
       chordGroups.forEach(chordGroup => {
         const chord = chordGroup ? new Chord(chordGroup) : undefined;
         if (chord) {
           chordsList.push(chord)
         }
-        chordsByTime.push([time, chord])
+        chordsByPosition.push([position, chord])
 
-        time = time.add(chordDuration)
+        position = position.addBeats(chordBeatDuration, 4) // TODO 4/4 pour l'instant
       })
 
     })
 
-    return new Chords(chordsList, asciiChords, Time.fromValue(`${barGroups.length}m`), chordsByTime)
+    return new Chords(chordsList, asciiChords, barGroups.length, chordsByPosition)
   }
 
   static groupAsciiChordsByBar(asciiChords: AsciiChords): string[] {
@@ -276,16 +277,17 @@ export class Chords extends Array<Chord> {
     return barGroups;
   }
 
-  static repeatNoChord(duration: Time) {
-    const asciiChords = new Array(duration.toBars() + 1).fill('|').join(' ')
-    return new Chords([], asciiChords, duration);
+  static repeatNoChord(barsDuration: number) {
+    checkIsInteger('barsDuration', barsDuration);
+    const asciiChords = new Array(barsDuration + 1).fill('|').join(' ')
+    return new Chords([], asciiChords, barsDuration);
   }
 
-  getChordAt(time: Time): Chord | undefined {
-    // TODO factoriser avec getCurrentPattern
-    const reversedChordsByTime = [...this.chordsByTime].reverse()
-    const chordAtTime = reversedChordsByTime.find(([chordTime]) => chordTime.isBeforeOrEquals(time));
-    return chordAtTime?.[1]
+  getChordAt2(position: Position): Chord | undefined {
+    // TODO factoriser avec getCurrentPattern et Position.getElementAt
+    const reversedChordsByPosition = [...this.chordsByPosition].reverse()
+    const chordAtPosition = reversedChordsByPosition.find(([chordTime]) => chordTime.isBeforeOrEquals(position));
+    return chordAtPosition?.[1]
   }
 
   getChordsAtBar(bar: BarNumber0Indexed): Chords | undefined {
@@ -299,13 +301,18 @@ export class Chords extends Array<Chord> {
   }
 
   override toString(): string {
-    return this.chordsByTime.map(([chordTime, chord]) => `${chordTime.toBarsBeatsSixteenths()} ${chord}`).join('\n')
+    return this.chordsByPosition.map(([position, chord]) => `${PositionFormatter.DEBUG.format(position)} ${chord}`).join('\n')
   }
 
   toAsciiWithoutBorders(): AsciiChordsWithoutBorders {
     return this.ascii
       .substring(1, this.ascii.length - 1)
       .trim()
+  }
+
+  private static getChordBeatDuration(numberOfChordsInOneBar: number): number {
+    // TODO uniquement en 4/4
+    return 4 / numberOfChordsInOneBar;
   }
 }
 

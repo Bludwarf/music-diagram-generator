@@ -245,13 +245,11 @@ export abstract class MobileRehearsal {
   async pauseSong(): Promise<void> {
     console.log('pauseSong')
     Tone.Transport.pause()
-    this.resetStates();
   }
 
   stopSong(): void {
     console.log('stopSong')
     Tone.Transport.stop()
-    this.resetStates();
   }
 
   onClickElementInStructure(element: TimedElement, isCurrentInStructure = this.isCurrentInStructure(element)): void {

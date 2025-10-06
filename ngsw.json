@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1759735263835,
+  "timestamp": 1759757741178,
   "index": "/music-diagram-generator/index.html",
   "assetGroups": [
     {
@@ -12,7 +12,7 @@
       },
       "urls": [
         "/music-diagram-generator/index.html",
-        "/music-diagram-generator/main-GKVXXKPG.js",
+        "/music-diagram-generator/main-UVC55SLZ.js",
         "/music-diagram-generator/manifest.webmanifest",
         "/music-diagram-generator/polyfills-RT5I6R6G.js",
         "/music-diagram-generator/styles-BBJWMLTX.css"
@@ -64,6 +64,7 @@
         "/music-diagram-generator/assets/images/WholeNote.svg",
         "/music-diagram-generator/assets/images/beat-marker.svg",
         "/music-diagram-generator/assets/recordings/07 - If You Really See Eurydice.json",
+        "/music-diagram-generator/assets/recordings/07 - If You Really See Eurydice.original.json",
         "/music-diagram-generator/assets/recordings/DIDAFTA PETIT PAPILLON Master Web 24bit 48Khz_02-01.json",
         "/music-diagram-generator/assets/recordings/ELLE REVE preview brut_01.json",
         "/music-diagram-generator/assets/recordings/Happy.json",
@@ -122,7 +123,8 @@
     "/music-diagram-generator/assets/images/WholeNote-centered.svg": "2f79539db81d31250014be9547b43961216bad4f",
     "/music-diagram-generator/assets/images/WholeNote.svg": "9af7fdfa41aa8caee06f753cc60a290acfc1839e",
     "/music-diagram-generator/assets/images/beat-marker.svg": "b64a350053fdf2b2d76ab05f20b4176153b35979",
-    "/music-diagram-generator/assets/recordings/07 - If You Really See Eurydice.json": "13c87e74bdbbb45dd1ca7fc90e52320719235879",
+    "/music-diagram-generator/assets/recordings/07 - If You Really See Eurydice.json": "8b0815613a723dea99b8e6a2b63cdc46ff49c9ed",
+    "/music-diagram-generator/assets/recordings/07 - If You Really See Eurydice.original.json": "719fa3aaa9f71d0b8702ebee11ad9dca92b1653c",
     "/music-diagram-generator/assets/recordings/DIDAFTA PETIT PAPILLON Master Web 24bit 48Khz_02-01.json": "4890e1b50b1d07f37c95c128aa2abc3dc38e1042",
     "/music-diagram-generator/assets/recordings/ELLE REVE preview brut_01.json": "ab1761a44633c5f042e8dda830ee184531b1ac90",
     "/music-diagram-generator/assets/recordings/Happy.json": "3e66beee3e56decdd85c3b392366819365a077fa",
@@ -137,8 +139,8 @@
     "/music-diagram-generator/assets/recordings/SURCOUF Preview voix_02.json": "045faf9290debcfc51d026f4abc38374fbd7269c",
     "/music-diagram-generator/assets/recordings/Tout foufou.json": "b71b5f9893a740e99ae005ca0a4243eda6506970",
     "/music-diagram-generator/assets/song/entries/(modèle).ts.j2": "29c527884eff11bb6654a092f4650a088543422b",
-    "/music-diagram-generator/index.html": "9167e29350c17c90892d1ea97d0a7a28f6740c2a",
-    "/music-diagram-generator/main-GKVXXKPG.js": "9d9fa5200c41f2c1f9c6e180dab7a5df92d70d19",
+    "/music-diagram-generator/index.html": "940fc5fb1f9776aa3ea02086e5527c569d55f7fc",
+    "/music-diagram-generator/main-UVC55SLZ.js": "c998526b3146d7ab94b327516004a415ab313355",
     "/music-diagram-generator/manifest.webmanifest": "6b8b3c692f3e448d195d8e68390df5760775d9a0",
     "/music-diagram-generator/media/Beats-JVHCVOT7.woff2": "7eefac0d91d94dd75857af00f09c1ceb0833d906",
     "/music-diagram-generator/media/realbook-webfont-IIPLEHXN.woff": "74586d16b87fee05fdee4be295c3295ccee599e9",

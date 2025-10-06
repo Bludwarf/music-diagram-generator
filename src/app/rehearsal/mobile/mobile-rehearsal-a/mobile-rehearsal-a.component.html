@@ -64,7 +64,7 @@
       {{ chords.ascii }}
     </ng-container>
     <ng-container *ngIf="!currentPatternInStructure.pattern.chords">
-      {{ currentPatternInStructure.pattern.duration.toBars() }}m
+      {{ currentPatternInStructure.pattern.durationInBars }}m
     </ng-container>
     <br/>
 
@@ -77,11 +77,11 @@
       [currentNote]="currentChord?.root"
     ></app-fretboard>
 
-    {{ currentPatternInStructureRelativeTimecode }} / {{ currentPatternInStructure.pattern.duration.toBars() }}
+    {{ undefined }} / {{ currentPatternInStructure.pattern.durationInBars }}
     <br/>
-    <ng-container *ngIf="currentPatternInStructure.eventsStartTime">
+    <ng-container *ngIf="currentPatternInStructure.eventsStartPosition">
       <ng-container
-        *ngFor="let barNumber of sequence(currentPatternInStructure.eventsDurationInBars, currentPatternInStructure.eventsStartTime.toBars() + 1)">
+        *ngFor="let barNumber of sequence(currentPatternInStructure.eventsDurationInBars, currentPatternInStructure.eventsStartPosition.bars + 1)">
         <app-rythm-bar
           *ngIf="currentPatternInStructure.pattern.events?.length"
           [number]="barNumber"

@@ -24,7 +24,7 @@ const Blanc = Pattern.fromData({
     ...IData,
     name: 'Blanc',
     chords: undefined,
-    duration: '1m',
+    durationInBars: 1,
 })
 
 const C = Pattern.fromData({

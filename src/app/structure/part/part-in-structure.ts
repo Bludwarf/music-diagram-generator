@@ -1,11 +1,11 @@
-import {Time} from "../../time";
+import {Position, PositionedElement, PositionFormatter} from "../../time";
 import {Structure} from "../structure";
 import {Part} from "./part";
 import {SectionInStructure} from "../section/section-in-structure";
 import {InStructure} from "../in-structure";
 import {PatternInStructure} from "../pattern/pattern-in-structure";
 
-export class PartInStructure implements InStructure {
+export class PartInStructure implements InStructure, PositionedElement {
   constructor(
     readonly part: Part,
     readonly structure: Structure,
@@ -18,16 +18,16 @@ export class PartInStructure implements InStructure {
     return /*this.part.initial ??*/ this.part.name.charAt(0)
   }
 
-  get startTime(): Time {
-    return this.sectionsInStructure[0].startTime
+  get startPosition(): Position {
+    return this.sectionsInStructure[0].startPosition
   }
 
-  get endTime(): Time {
-    return this.sectionsInStructure[this.sectionsInStructure.length - 1].endTime
+  get endPosition(): Position {
+    return this.sectionsInStructure[this.sectionsInStructure.length - 1].endPosition
   }
 
-  getSectionInStructureAt(time: Time): SectionInStructure | undefined {
-    return Time.getElementAt(time, this.sectionsInStructure)
+  getSectionInStructureAt(position: Position): SectionInStructure | undefined {
+    return Position.getElementAt(position, this.sectionsInStructure, false)
   }
 
   get patternsInStructure(): PatternInStructure[] {
@@ -37,6 +37,6 @@ export class PartInStructure implements InStructure {
   }
 
   toString(): string {
-    return `${this.startTime.toAbletonLiveBarsBeatsSixteenths()} @${this.startTime.toSeconds()}: ${this.part.name} :@${this.endTime.toSeconds()}`
+    return `${PositionFormatter.ABLETON_GLOBAL_TIMECODE.format(this.startPosition)}: ${this.part.name}`
   }
 }

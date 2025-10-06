@@ -6,7 +6,7 @@ import {ActivatedRoute} from "@angular/router";
 import SpyObj = jasmine.SpyObj;
 import {of} from "rxjs";
 
-describe('MobileRehearsalAComponent', () => {
+describe('MobileRehearsalPComponent', () => {
   let component: MobileRehearsalPComponent;
   let fixture: ComponentFixture<MobileRehearsalPComponent>;
   let activatedRoute: SpyObj<ActivatedRoute>;

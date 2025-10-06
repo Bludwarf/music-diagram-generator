@@ -24,11 +24,10 @@ import {error} from "../../../utils";
 import {SongRepository} from "../../../song/song-repository";
 import {KeyboardComponent} from "../../../keyboard/keyboard.component";
 import * as Tone from "tone";
-import {Time} from "../../../time";
+import {BeatTime} from "../../../time";
 import keyboardReducer from "../../../keyboard/reducer";
 import {KeyboardRange, KeyboardState} from "../../../keyboard/type";
 import {OctavedNote} from "../../../notes";
-import {time} from "jasmine-marbles";
 
 @Component({
   selector: 'app-mobile-rehearsal-p',
@@ -53,7 +52,7 @@ export class MobileRehearsalPComponent extends MobileRehearsal implements OnInit
   @ViewChild('fileInput')
   fileInput?: ElementRef<HTMLInputElement>;
 
-  keyboardStatesByTrackIndex: KeyboardState[] = [];
+  keyboardStatesByTrackIndex: (KeyboardState|undefined)[] = [];
   keyboardRangeByTrackIndex: KeyboardRange[] = [];
 
   constructor(
@@ -112,27 +111,21 @@ export class MobileRehearsalPComponent extends MobileRehearsal implements OnInit
               return;
             }
 
-            const noteTime = Time.fromMidiTicks(note.ticks, midi.header.ppq);
-            const noteDuration = Time.fromMidiTicks(note.durationTicks, midi.header.ppq);
-            const warpTime = recording.getWarpedTime(noteTime)
-            if (warpTime) {
-              const activeTime = warpTime.toSeconds();
+            const beatTime = BeatTime.fromMidiTicks(note.ticks, midi.header.ppq);
+            const secTime = recording.getSecTime(beatTime);
+            if (secTime) {
               Tone.Transport.schedule(time => {
                 this.keyboardStatesByTrackIndex[trackIndex] = keyboardReducer(this.keyboardStatesByTrackIndex[trackIndex], {
                   type: 'ACTIVE_KEY',
                   key: note.name,
                 })
-              }, activeTime);
-
-
-              const endWarpTime = recording.getWarpedTime(noteTime.add(noteDuration))
-              if (!endWarpTime) {
-                throw new Error(`WarpTime end inconnu pour la note MIDI ${note.name} de time=${noteTime} et de duration=${noteDuration}`);
+              }, secTime.value);
+              const endBeatTime = BeatTime.fromMidiTicks(note.ticks + note.durationTicks, midi.header.ppq);
+              const endSecTime = recording.getSecTime(endBeatTime);
+              if (!endSecTime) {
+                throw new Error(`WarpTime end inconnu pour la note MIDI ${note.name} ticks=${note.ticks} durationTicks=${note.durationTicks}`);
               }
-              const deactiveTime = endWarpTime.toSeconds();
-              if (deactiveTime === activeTime) {
-                console.error(`noteTime`, noteTime.toSeconds(), noteTime.add(noteDuration).toSeconds())
-                console.error(`endWarpTime`, activeTime, deactiveTime)
+              if (endSecTime.value === secTime.value) {
                 throw new Error(`La note ${note.name} devrait durer un minimum de temps (cf. log ticks=${note.ticks})`);
               }
               Tone.Transport.schedule(time => {
@@ -140,8 +133,7 @@ export class MobileRehearsalPComponent extends MobileRehearsal implements OnInit
                   type: 'DEACTIVE_KEY',
                   key: note.name,
                 })
-              }, deactiveTime);
-
+              }, endSecTime.value);
             } else {
               console.error('WarpTime inconnu pour la note MIDI', note);
             }
@@ -162,7 +154,11 @@ export class MobileRehearsalPComponent extends MobileRehearsal implements OnInit
   }
 
   private resetKeyboardStates() {
-    this.keyboardStatesByTrackIndex.forEach(keyboardState => keyboardState.activeKeys = []);
+    this.keyboardStatesByTrackIndex.forEach(keyboardState => {
+      if (keyboardState) {
+        keyboardState.activeKeys = [];
+      }
+    });
   }
 
   getLowerKey(trackIndex: number): string {
@@ -204,8 +200,8 @@ export class MobileRehearsalPComponent extends MobileRehearsal implements OnInit
     return on.toString();
   }
 
-  override refresh(time?: number) {
-    super.refresh(time);
+  override refresh() {
+    super.refresh();
   }
 
 }

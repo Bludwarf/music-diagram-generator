@@ -1,5 +1,4 @@
 import {AlsExtractor} from "./als-extractor";
-import {Time} from "../time";
 import {importAlsProject} from "./als-importer.spec";
 
 describe('AlsExtractor', () => {
@@ -11,7 +10,7 @@ describe('AlsExtractor', () => {
 
   it('should get sample duration from Petit papillon', async () => {
     const extractor = await createExtractorFor('Petit papillon')
-    expect(extractor.sampleDuration.toSeconds()).toBe(Time.fromValue(208).toSeconds())
+    expect(extractor.sampleDurationInSeconds).toBe(208)
   });
 
   it('should get Wrap Markers from Petit papillon', async () => {

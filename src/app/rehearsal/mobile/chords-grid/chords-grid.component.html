@@ -1,4 +1,4 @@
-<ng-container *ngFor="let bar of sequence(chords.duration.toBars())">
+<ng-container *ngFor="let bar of sequence(chords.durationInBars)">
   <div *ngIf="chords.getChordsAtBar(bar); let currentBarChords" class="bar" [class.current]="isCurrentBar(bar)"
     (click)="onClickBar(bar)" [class.multi-chords]="currentBarChords.length > 1" [class.looped]="isCurrentBar(bar) && currentBarIsLooped">
     <div *ngFor="let chord of currentBarChords" class="chord" #chordElement

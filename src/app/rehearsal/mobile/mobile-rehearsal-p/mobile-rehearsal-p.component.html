@@ -48,15 +48,15 @@
       </div>
 
       <app-chords-grid [chords]="getPatternChords(currentPatternInStructure)" [key]="currentKey"
-                       [currentBar]="currentBar - currentPatternInStructure.startTime.toBars()"
-                       [currentBarIsLooped]="!!currentBar && (loopedElement?.startTime?.toBars() === currentBar && loopedElement?.endTime?.toBars() === currentBar + 1)"
+                       [currentBar]="currentBar - currentPatternInStructure.startPosition.bars"
+                       [currentBarIsLooped]="!!currentBar && (loopedElement?.startPosition?.bars === currentBar && loopedElement?.endPosition?.bars === currentBar + 1)"
                        [style.border-color]="getPatternColor(currentPatternInStructure)"
-                       (clickBar)="onClickBar(currentPatternInStructure.startTime.toBars() + $event)"></app-chords-grid>
+                       (clickBar)="onClickBar(currentPatternInStructure.startPosition.bars + $event)"></app-chords-grid>
 
       <!-- <span class="pattern-timecode">{{ currentPatternInStructureRelativeTimecode }} / {{ currentPatternInStructure.pattern.duration.toBars() }}</span> -->
-      <ng-container *ngIf="currentPatternInStructure.eventsStartTime">
+      <ng-container *ngIf="currentPatternInStructure.eventsStartPosition">
         <ng-container
-          *ngFor="let barNumber of sequence(currentPatternInStructure.eventsDurationInBars, (currentPatternInStructure.eventsStartTime?.toBars() ?? 0) + 1)">
+          *ngFor="let barNumber of sequence(currentPatternInStructure.eventsDurationInBars, (currentPatternInStructure.eventsStartPosition?.bars ?? 0) + 1)">
           <app-rythm-bar
             [number]="barNumber"
             [events]="currentPatternInStructure.pattern.events ?? []"
@@ -73,11 +73,11 @@
 
 </ng-container>
 
-<div class="keyboards">
-  <div class="keyboard">
-    <app-keyboard [lowerKey]="keyboardRangeByTrackIndex[0].lowerKey" [higherKey]="keyboardRangeByTrackIndex[0].higherKey" [activeKeys]="keyboardStatesByTrackIndex[0]?.activeKeys || []"></app-keyboard>
+<div class="keyboards" *ngIf="keyboardRangeByTrackIndex?.length">
+  <div class="keyboard" *ngIf="keyboardRangeByTrackIndex[0]; let keyboardRange">
+    <app-keyboard [lowerKey]="keyboardRange.lowerKey" [higherKey]="keyboardRange.higherKey" [activeKeys]="keyboardStatesByTrackIndex[0]?.activeKeys || []"></app-keyboard>
   </div>
-  <div class="keyboard">
-    <app-keyboard [lowerKey]="keyboardRangeByTrackIndex[1].lowerKey" [higherKey]="keyboardRangeByTrackIndex[1].higherKey" [activeKeys]="keyboardStatesByTrackIndex[1]?.activeKeys || []"></app-keyboard>
+  <div class="keyboard" *ngIf="keyboardRangeByTrackIndex[1]; let keyboardRange">
+    <app-keyboard [lowerKey]="keyboardRange.lowerKey" [higherKey]="keyboardRange.higherKey" [activeKeys]="keyboardStatesByTrackIndex[1]?.activeKeys || []"></app-keyboard>
   </div>
 </div>

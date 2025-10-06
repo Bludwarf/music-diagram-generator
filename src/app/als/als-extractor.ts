@@ -1,6 +1,5 @@
 import {AlsProject} from "./v10/als-project";
 import {AudioTrack} from "./v10/audio-track";
-import {Time} from "../time";
 import {AudioClip} from "./v10/audio-clip";
 import {WarpMarker} from "../structure/warp-marker";
 import {RecordingInitData} from "../recording/recording";
@@ -19,10 +18,10 @@ export class AlsExtractor {
     return this.originalAudioTrack.audioClips[0]
   }
 
-  get sampleDuration(): Time {
+  get sampleDurationInSeconds(): number {
     const duration = this.originalAudioClip.duration
     const sampleRate = this.originalAudioClip.sampleRate
-    return Time.fromValue(duration / sampleRate)
+    return duration / sampleRate
   }
 
   get sampleBeatTimeDuration(): number {
@@ -36,7 +35,7 @@ export class AlsExtractor {
 
   extractStructureObject(): StructureObject {
     return {
-      sampleDuration: this.sampleDuration.toSeconds(),
+      sampleDuration: this.sampleDurationInSeconds,
       warpMarkers: this.warpMarkers,
     }
   }
@@ -44,7 +43,7 @@ export class AlsExtractor {
   extractRecordingInitData(): RecordingInitData {
     return {
       name: this.originalAudioClip.name,
-      sampleDuration: this.sampleDuration.toSeconds(),
+      sampleDuration: this.sampleDurationInSeconds,
       sampleBeatTimeDuration: this.sampleBeatTimeDuration,
       warpMarkers: this.warpMarkers,
     }

@@ -7,7 +7,7 @@ import {ActivatedRoute} from "@angular/router";
 import {Title} from "@angular/platform-browser";
 import {RythmBarEvent} from "../../rythm-bar/event";
 import * as Tone from "tone";
-import {Time, TimedElement} from "../../time";
+import {Position, PositionedElement, PositionFormatter, SecTime} from "../../time";
 import {error, sequence, stripExtension} from '../../utils';
 import {Recording} from "../../recording/recording";
 import {PartInStructure} from "../../structure/part/part-in-structure";
@@ -33,8 +33,6 @@ export abstract class MobileRehearsal {
   recording?: Recording;
   rythmBarTimecode?: string;
   transportBeatTime?: number
-  currentSectionInStructureRelativeTimecode?: string;
-  currentPatternInStructureRelativeTimecode?: string;
 
   protected sequence = sequence
 
@@ -43,7 +41,7 @@ export abstract class MobileRehearsal {
   sampleIsLoaded = false
 
   songName?: string
-  loopedElement?: TimedElement;
+  loopedElement?: PositionedElement;
 
   protected constructor(
     private readonly changeDetectorRef: ChangeDetectorRef,
@@ -138,7 +136,7 @@ export abstract class MobileRehearsal {
       // console.log('P1', Tone.Transport.position)
       Tone.Draw.schedule(() => {
         try {
-          this.refresh(time)
+          this.refresh()
         } catch (e) {
           console.error('Erreur lors du refresh', e)
         }
@@ -160,7 +158,7 @@ export abstract class MobileRehearsal {
     }
     Tone.Transport.loop = true
     Tone.Transport.loopStart = 0
-    Tone.Transport.loopEnd = this.recording.sampleDuration.toSeconds() // structure.duration.toBarsBeatsSixteenths()
+    Tone.Transport.loopEnd = this.recording.sampleDurationInSeconds // structure.duration.toBarsBeatsSixteenths()
     delete this.loopedElement
   }
 
@@ -168,7 +166,9 @@ export abstract class MobileRehearsal {
     // Si besoin, dans les composants enfants
   }
 
-  refresh(time?: number): void {
+  refresh(): void {
+
+    // TODO pour optimiser drastiquement les perfs, on pourrait faire des refresh spécifique en fonction des besoins (pour limiter le nombre de refresh)
 
     // console.log('time', time, Tone.Transport.seconds, Tone.Transport.position)
 
@@ -176,61 +176,46 @@ export abstract class MobileRehearsal {
 
     if (this.structure && this.recording) {
       this.transportSeconds = +Tone.Transport.seconds.toFixed(3)
-      const warpTime = this.recording.getWarpPosition(Tone.Transport.seconds)
+      const secTime = SecTime.fromToneTransportSeconds(Tone.Transport.seconds);
+      const beatTime = this.recording.getBeatTime(secTime);
 
-      if (warpTime) {
+      if (beatTime && beatTime.value > 0) {
+        const position = this.recording.getPosition(beatTime);
 
         // console.log('t2', time)
         // console.log('P2', Tone.Transport.position)
         // this.timecode = abletonLiveBarsBeatsSixteenths(Tone.Transport)
         this.transportPosition = Tone.Transport.position
-        this.timecode = warpTime.toAbletonLiveBarsBeatsSixteenths()
-        this.currentBar = warpTime.toBars() // TODO faire un utilitaire qui détecte la mesure en fonction d'une structure et de changements de signature
-        this.transportBeatTime = +warpTime.toBeatTime()
+        this.timecode = PositionFormatter.ABLETON_GLOBAL_TIMECODE.format(position);
+        this.currentBar = position.bars
+        this.transportBeatTime = beatTime.value
 
-        const changePatternFasterDelay = Time.fromValue(0) // Time.fromValue('4n') // TODO trop bizarre à l'affichage de la section courante, mais ok pour affichage partoche
-        const delayedWrappedTime = warpTime.add(changePatternFasterDelay);
-
-        this.currentPartInStructure = this.structure.getPartInStructureAt(delayedWrappedTime)
-        if (this.currentPartInStructure) {
-          this.currentSectionInStructure = this.currentPartInStructure.getSectionInStructureAt(delayedWrappedTime)
-        } else {
-          delete this.currentSectionInStructure
-        }
+        this.currentPartInStructure = this.structure.getPartInStructureAt(position)
+        this.currentSectionInStructure = this.currentPartInStructure.getSectionInStructureAt(position)
 
         if (this.currentSectionInStructure) {
-          this.currentPatternInStructure = this.currentSectionInStructure.getPatternInStructureAt(delayedWrappedTime)
-          this.currentSectionInStructureRelativeTimecode = delayedWrappedTime
-            .relativeTo(this.currentSectionInStructure.startTime)
-            .toAbletonLiveBarsBeatsSixteenths()
+          this.currentPatternInStructure = this.currentSectionInStructure.getPatternInStructureAt(position)
         } else {
           delete this.currentPatternInStructure
-          delete this.currentSectionInStructureRelativeTimecode
         }
-        this.currentChord = this.currentPatternInStructure?.getChordAt(delayedWrappedTime)
-        this.currentKey = this.currentPatternInStructure?.getKeyAt(delayedWrappedTime)
+        this.currentChord = this.currentPatternInStructure?.getChordAt(position)
+        this.currentKey = this.currentPatternInStructure?.getKeyAt(position)
 
         if (this.currentPatternInStructure) {
-          if (this.currentPatternInStructure.eventsStartTime) {
-            this.rythmBarTimecode = delayedWrappedTime
-              .relativeTo(this.currentPatternInStructure.startTime)
-              .mod(this.currentPatternInStructure.eventsDurationInBars)
-              .add(this.currentPatternInStructure.eventsStartTime)
-              .toAbletonLiveBarsBeatsSixteenths()
+          if (this.currentPatternInStructure.eventsStartPosition) {
+            this.rythmBarTimecode = PositionFormatter.ABLETON_GLOBAL_TIMECODE.format(position
+              .relativeTo(this.currentPatternInStructure.startPosition)
+              .modBars(this.currentPatternInStructure.eventsDurationInBars)
+              .addBars(this.currentPatternInStructure.eventsStartPosition.bars));
           } else {
             delete this.rythmBarTimecode
           }
-          this.currentPatternInStructureRelativeTimecode = delayedWrappedTime
-            .relativeTo(this.currentPatternInStructure.startTime)
-            .toAbletonLiveBarsBeatsSixteenths()
         } else {
           delete this.rythmBarTimecode
-          delete this.currentPatternInStructureRelativeTimecode
         }
       } else {
         delete this.timecode
         delete this.rythmBarTimecode
-        delete this.currentPatternInStructureRelativeTimecode
       }
     }
 
@@ -252,12 +237,12 @@ export abstract class MobileRehearsal {
     Tone.Transport.stop()
   }
 
-  onClickElementInStructure(element: TimedElement, isCurrentInStructure = this.isCurrentInStructure(element)): void {
+  onClickElementInStructure(element: PositionedElement, isCurrentInStructure = this.isCurrentInStructure(element)): void {
     if (!this.recording) {
       error('Aucun enregistrement (Recording)')
     }
 
-    let elementToLoop: TimedElement | undefined;
+    let elementToLoop: PositionedElement | undefined;
     if (isCurrentInStructure) {
       elementToLoop = element === this.loopedElement ? undefined : element
     } else {
@@ -266,21 +251,20 @@ export abstract class MobileRehearsal {
     elementToLoop ? this.loopOn(elementToLoop) : this.loopOnRecording();
 
     if (!isCurrentInStructure) {
-      const wrappedTime = this.recording.getWarpedTime(element.startTime);
-      if (wrappedTime) {
-        const fixOffset = 0.05 // On corrige la sélection qui arrive souvent sur l'élément précédent
-        Tone.Transport.seconds = wrappedTime.toSeconds() + fixOffset
+      const secTime = this.recording.getSecTimeAt(element.startPosition);
+      if (secTime !== undefined) {
+        const fixOffset = 0.05 // On corrige la sélection qui arrive souvent sur l'élément précédent => TODO corriger en arrondissant la sélection dans le refresh
+        Tone.Transport.seconds = secTime.value + fixOffset
         this.resetStates();
         this.refresh()
       }
     }
   }
-
   isCurrentInStructure(element: any): boolean {
     return element && (element === this.currentPartInStructure || element === this.currentSectionInStructure || element === this.currentPatternInStructure)
   }
 
-  private loopOn(element: TimedElement) {
+  private loopOn(element: PositionedElement) {
     let looped = false
 
     if (this.loopedElement !== element) {
@@ -288,13 +272,13 @@ export abstract class MobileRehearsal {
         error('Aucun enregistrement (Recording)')
       }
 
-      const wrappedStartTime = this.recording.getWarpedTime(element.startTime)
+      const wrappedStartTime = this.recording.getSecTimeAt(element.startPosition);
       if (wrappedStartTime !== undefined) {
-        const wrappedEndTime = this.recording.getWarpedTime(element.endTime)
+        const wrappedEndTime = this.recording.getSecTimeAt(element.endPosition);
         if (wrappedEndTime !== undefined) {
           Tone.Transport.loop = true
-          Tone.Transport.loopStart = wrappedStartTime.toSeconds()
-          Tone.Transport.loopEnd = wrappedEndTime.toSeconds()
+          Tone.Transport.loopStart = wrappedStartTime.value
+          Tone.Transport.loopEnd = wrappedEndTime.value
           looped = true
         }
       }
@@ -309,10 +293,11 @@ export abstract class MobileRehearsal {
   }
 
   onClickBar(bar: BarNumber0Indexed): void {
-    let startTime = Time.fromBar(bar)
+    const startPosition = new Position(bar)
+    const endPosition = startPosition.addBars(1);
     this.onClickElementInStructure({
-      startTime,
-      endTime: startTime.add(Time.fromBar(1)),
+      startPosition,
+      endPosition,
     }, bar === this.currentBar)
   }
 
@@ -323,7 +308,8 @@ export abstract class MobileRehearsal {
   }
 
   setProgressPercent(progress: number): void {
-    Tone.Transport.position = progress / 100 * Time.fromValue(Tone.Transport.loopEnd).toSeconds()
+    const loopEndInSeconds = Tone.Time(Tone.Transport.loopEnd).toSeconds();
+    Tone.Transport.position = progress / 100 * loopEndInSeconds
     this.resetStates();
     this.refresh()
   }
@@ -337,7 +323,7 @@ export abstract class MobileRehearsal {
   }
 
   getPatternChords(patternInStructure: PatternInStructure): Chords {
-    return patternInStructure.pattern.chords || Chords.repeatNoChord(patternInStructure.pattern.duration);
+    return patternInStructure.pattern.chords || Chords.repeatNoChord(patternInStructure.pattern.durationInBars);
   }
 
   destroy(): void {

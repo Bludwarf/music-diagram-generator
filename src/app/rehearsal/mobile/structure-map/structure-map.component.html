@@ -3,7 +3,7 @@
 
   <span *ngFor="let patternInStructure of structure.patternsInStructure"
         [attr.data-pattern]="patternInStructure.initial"
-        [style.flex]="patternInStructure.pattern.duration.toBars()"
+        [style.flex]="patternInStructure.pattern.durationInBars"
         [class.active]="patternInStructure == currentPatternInStructure"
         [style.background-color]="getPatternColor(patternInStructure)"
         (click)="onClickPatternInStructure(patternInStructure)"

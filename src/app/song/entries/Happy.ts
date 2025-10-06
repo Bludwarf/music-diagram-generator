@@ -36,7 +36,7 @@ const R = Pattern.fromData({
 const B = Pattern.fromData({
   key,
   name: 'Break',
-  duration: '2m',
+  durationInBars: 2,
   fretboard,
 })
 

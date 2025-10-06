@@ -1,20 +1,21 @@
 import {Structure} from "../../structure/structure";
 import {Part} from "../../structure/part/part";
-import {Midi, Recording} from "../../recording/recording";
+import {Recording} from "../../recording/recording";
 import recordingInitData from "../../../assets/recordings/07 - If You Really See Eurydice.json";
 import {Section} from "../../structure/section/section";
 import {Pattern, PatternInitData} from "../../structure/pattern/pattern";
 import {SongEntry} from "../song-entry";
 import {AbletonLive10Color} from "../../color";
 import {RythmBarEvent} from "../../rythm-bar/event";
-import eventsMDJson from "../../../assets/events/The Sims - If You Really See Eurydice/theme1-main-droite.events.json";
-import eventsMidiJson from "../../../assets/events/The Sims - If You Really See Eurydice/theme1.gp.mid.json";
 import eventsMuseScoreJson from "../../../assets/events/The Sims - If You Really See Eurydice/MuseScore.json";
-import {Time} from "../../time";
+import {BeatTime, Position} from "../../time";
 import {Key} from "../../notes";
 
-// const eventsMG = RythmBarEvent.fromEach(getEventsFromMidiNotes("kick", eventsMidiJson.tracks[1].notes))
-// const eventsMD = RythmBarEvent.fromEach(eventsMDJson)
+const recording = Recording.builder()
+  .initData(recordingInitData)
+  .midi(eventsMuseScoreJson)
+  .build();
+
 const eventsMG = RythmBarEvent.fromEach(getEventsFromMidiNotes("kick", eventsMuseScoreJson.tracks[1].notes, eventsMuseScoreJson.header.ppq))
 const eventsMD = RythmBarEvent.fromEach(getEventsFromMidiNotes("snare", eventsMuseScoreJson.tracks[0].notes, eventsMuseScoreJson.header.ppq))
 
@@ -48,11 +49,12 @@ function getEvents(offset: number) {
 
 function getEventsFromMidiNotes(eventNote: string, notes: any, ppq: number) {
   return notes.map((note: any) => {
-    const timeFields = Time.fromMidiTicks(note.ticks, ppq).toBarsBeatsSixteenthsOneBasedFields()
+    const beatTime = BeatTime.fromMidiTicks(note.ticks, ppq);
+    const position = recording.getPosition(beatTime);
     return {
-      "bar": timeFields.bars,
-      "beat": timeFields.beats,
-      "division": timeFields.sixteenths,
+      "bar": position.bars + 1,
+      "beat": position.beats + 1,
+      "division": position.sixteenths + 1,
       "note": eventNote
     }
   });
@@ -107,21 +109,21 @@ const T2 = Pattern.fromData({
   // key: Key.Cm,
   name: 'Thème 2',
   // chords: '| Cm | Gm | Bb | F |',
-  duration: '2m',
+  durationInBars: 2,
   color: AbletonLive10Color.fromIndex(1),
 })
 const P = Pattern.fromData({
   // key: Key.Cm,
   name: 'Pont',
   // chords: '| Cm | Gm | Bb | F |',
-  duration: '11m',
+  durationInBars: 11,
   color: AbletonLive10Color.fromIndex(39),
 })
 const F = Pattern.fromData({
   // key: Key.Cm,
   name: 'Fin',
   // chords: '| Cm | Gm | Bb | F |',
-  duration: '6m', // On avait identifié 7m sur Live, programmé 11 dans le ts, mais Jack Long sur MuseScore en transcrit 6
+  durationInBars: 6, // On avait identifié 7m sur Live, programmé 11 dans le ts, mais Jack Long sur MuseScore en transcrit 6
   color: AbletonLive10Color.fromIndex(23),
 })
 
@@ -148,7 +150,7 @@ export default {
       new Part('2', [theme2, pont]),
       new Part('3', [theme1, theme1b, theme1t, fin]),
     ])
-    .getEventsStartTime((pattern: Pattern) => {
+    .getEventsStartPosition((pattern: Pattern) => {
       const patternGroups = [
         T1aPatterns,
         T1bPatterns,
@@ -158,16 +160,12 @@ export default {
         const T1xPatterns = patternGroups[i];
         for (let j = 0; j < T1xPatterns.length; j++) {
           const T1xPattern = T1xPatterns[j];
-          if (pattern === T1xPattern) return Time.fromBar(i * 8 + j * 2)
+          if (pattern === T1xPattern) return new Position(i * 8 + j * 2)
         }
       }
       return undefined
     })
-    .getEventsDurationInBars((pattern: Pattern) => pattern.duration.toBars())
+    .getEventsDurationInBars((pattern: Pattern) => pattern.durationInBars)
     .build(),
-  recording: Recording.builder()
-    .initData(recordingInitData)
-    // .midi(eventsMidiJson)
-    .midi(eventsMuseScoreJson)
-    .build(),
+  recording,
 } as SongEntry

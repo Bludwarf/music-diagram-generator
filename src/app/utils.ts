@@ -8,6 +8,10 @@ export function sum(a: number, b: number): number {
   return a + b
 }
 
+export function arraySum(array: number[]): number {
+  return array.reduce((s, t) => s + t);
+}
+
 /**
  * Pour la version mobile, on affiche une alerte, car on n'a pas forcément accès à la console pour voir les erreurs
  */

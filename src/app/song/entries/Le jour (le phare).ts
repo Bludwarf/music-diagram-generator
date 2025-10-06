@@ -40,13 +40,13 @@ const R = Pattern.fromData({
 const bloquee = Pattern.fromData({
   key,
   name: 'Bloquée',
-  duration: '1m',
+  durationInBars: 1,
 })
 
 const breakBatterie = Pattern.fromData({
   key,
   name: 'Break batterie',
-  duration: '1m',
+  durationInBars: 1,
 })
 
 const fin = Pattern.fromData({

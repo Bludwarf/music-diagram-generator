@@ -52,7 +52,7 @@ export class MobileRehearsalPComponent extends MobileRehearsal implements OnInit
   @ViewChild('fileInput')
   fileInput?: ElementRef<HTMLInputElement>;
 
-  keyboardStatesByTrackIndex: KeyboardState[] = [];
+  keyboardStatesByTrackIndex: (KeyboardState|undefined)[] = [];
   keyboardRangeByTrackIndex: KeyboardRange[] = [];
 
   constructor(
@@ -154,7 +154,11 @@ export class MobileRehearsalPComponent extends MobileRehearsal implements OnInit
   }
 
   private resetKeyboardStates() {
-    this.keyboardStatesByTrackIndex.forEach(keyboardState => keyboardState.activeKeys = []);
+    this.keyboardStatesByTrackIndex.forEach(keyboardState => {
+      if (keyboardState) {
+        keyboardState.activeKeys = [];
+      }
+    });
   }
 
   getLowerKey(trackIndex: number): string {

@@ -27,6 +27,7 @@ export abstract class MobileRehearsal {
   progress = 0;
   timecode?: string;
   currentBar?: BarNumber0Indexed;
+  position?: Position;
   transportPosition?: any;
   transportSeconds?: number
   structure?: Structure;
@@ -131,12 +132,11 @@ export abstract class MobileRehearsal {
     this.player = player
 
     this.transportProgressLoop = new Tone.Loop((time) => {
-      // console.log('t1', time)
-      // console.log('t1BBS', Tone.Time(time).toBarsBeatsSixteenths())
-      // console.log('P1', Tone.Transport.position)
+      const transportTime = Tone.Transport.seconds;
       Tone.Draw.schedule(() => {
         try {
-          this.refresh()
+          const drawTime = Tone.Transport.seconds;
+          this.refresh(transportTime, drawTime)
         } catch (e) {
           console.error('Erreur lors du refresh', e)
         }
@@ -166,7 +166,15 @@ export abstract class MobileRehearsal {
     // Si besoin, dans les composants enfants
   }
 
-  refresh(): void {
+  refresh(transportTime?: number, drawTime?: number, position?: Position): void {
+    if (drawTime !== undefined && transportTime !== undefined) {
+      const delta = drawTime - transportTime;
+      if (delta < 0) {
+        // Peut se produire lors que ToneJs a fait une boucle, mais que l'affichage (le refresh) est en retard
+        console.warn(`Détection d'un delta négatif => on ignore le refresh`, delta)
+        return;
+      }
+    }
 
     // TODO pour optimiser drastiquement les perfs, on pourrait faire des refresh spécifique en fonction des besoins (pour limiter le nombre de refresh)
 
@@ -176,11 +184,12 @@ export abstract class MobileRehearsal {
 
     if (this.structure && this.recording) {
       this.transportSeconds = +Tone.Transport.seconds.toFixed(3)
-      const secTime = SecTime.fromToneTransportSeconds(Tone.Transport.seconds);
+      const secTime = SecTime.fromToneTransportSeconds(transportTime ?? Tone.Transport.seconds);
       const beatTime = this.recording.getBeatTime(secTime);
 
       if (beatTime && beatTime.value > 0) {
-        const position = this.recording.getPosition(beatTime);
+        position ??= this.recording.getPosition(beatTime);
+        this.position = position;
 
         // console.log('t2', time)
         // console.log('P2', Tone.Transport.position)
@@ -261,7 +270,7 @@ export abstract class MobileRehearsal {
       const fixOffset = 0.05 // On corrige la sélection qui arrive souvent sur l'élément précédent => TODO corriger en arrondissant la sélection dans le refresh
       Tone.Transport.seconds = secTime.value + fixOffset
       this.resetStates(position);
-      this.refresh()
+      this.refresh(undefined, undefined, position)
     }
   }
 

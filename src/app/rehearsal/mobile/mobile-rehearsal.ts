@@ -224,7 +224,7 @@ export abstract class MobileRehearsal {
 
   async playSong(): Promise<void> {
     console.log('playSong')
-    Tone.Transport.start()
+    Tone.Transport.start('+0.1') // https://github.com/Tonejs/Tone.js/wiki/Performance#scheduling-in-advance
   }
 
   async pauseSong(): Promise<void> {

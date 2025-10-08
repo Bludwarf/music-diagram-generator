@@ -162,7 +162,7 @@ export abstract class MobileRehearsal {
     delete this.loopedElement
   }
 
-  protected resetStates() {
+  protected resetStates(selectedPosition?: Position) {
     // Si besoin, dans les composants enfants
   }
 
@@ -251,15 +251,20 @@ export abstract class MobileRehearsal {
     elementToLoop ? this.loopOn(elementToLoop) : this.loopOnRecording();
 
     if (!isCurrentInStructure) {
-      const secTime = this.recording.getSecTimeAt(element.startPosition);
-      if (secTime !== undefined) {
-        const fixOffset = 0.05 // On corrige la sélection qui arrive souvent sur l'élément précédent => TODO corriger en arrondissant la sélection dans le refresh
-        Tone.Transport.seconds = secTime.value + fixOffset
-        this.resetStates();
-        this.refresh()
-      }
+      this.setPosition(element.startPosition);
     }
   }
+
+  setPosition(position: Position) {
+    const secTime = this.recording?.getSecTimeAt(position);
+    if (secTime !== undefined) {
+      const fixOffset = 0.05 // On corrige la sélection qui arrive souvent sur l'élément précédent => TODO corriger en arrondissant la sélection dans le refresh
+      Tone.Transport.seconds = secTime.value + fixOffset
+      this.resetStates(position);
+      this.refresh()
+    }
+  }
+
   isCurrentInStructure(element: any): boolean {
     return element && (element === this.currentPartInStructure || element === this.currentSectionInStructure || element === this.currentPatternInStructure)
   }

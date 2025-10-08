@@ -24,7 +24,7 @@ import {error} from "../../../utils";
 import {SongRepository} from "../../../song/song-repository";
 import {KeyboardComponent} from "../../../keyboard/keyboard.component";
 import * as Tone from "tone";
-import {BeatTime} from "../../../time";
+import {BeatTime, Position} from "../../../time";
 import keyboardReducer from "../../../keyboard/reducer";
 import {KeyboardRange, KeyboardState} from "../../../keyboard/type";
 import {OctavedNote} from "../../../notes";
@@ -52,7 +52,7 @@ export class MobileRehearsalPComponent extends MobileRehearsal implements OnInit
   @ViewChild('fileInput')
   fileInput?: ElementRef<HTMLInputElement>;
 
-  keyboardStatesByTrackIndex: (KeyboardState|undefined)[] = [];
+  keyboardStatesByTrackIndex: (KeyboardState | undefined)[] = [];
   keyboardRangeByTrackIndex: KeyboardRange[] = [];
 
   constructor(
@@ -148,9 +148,38 @@ export class MobileRehearsalPComponent extends MobileRehearsal implements OnInit
     }
   }
 
-  protected override resetStates() {
+  protected override resetStates(selectedPosition?: Position) {
     super.resetStates();
     this.resetKeyboardStates();
+
+    if (!this.playing && selectedPosition) {
+      this.activateCurrentMidiNotes(selectedPosition);
+    }
+  }
+
+  private activateCurrentMidiNotes(position: Position) {
+    const recording = this.recording;
+    if (recording) {
+      const midi = recording.midi;
+      if (midi) {
+        const ticks = recording.getBeatTimeAt(position)?.toMidiTicks(midi.header.ppq);
+        if (ticks !== undefined) {
+          midi.tracks.forEach((track, trackIndex) => {
+            const currentNotes = track.notes.filter(note => note.ticks <= ticks && ticks < note.ticks + note.durationTicks);
+            currentNotes.forEach((note, noteIndex) => {
+              if (note.durationTicks <= 0) {
+                console.warn(`On ignore cette note car sa durée est invalide`, note)
+                return;
+              }
+              this.keyboardStatesByTrackIndex[trackIndex] = keyboardReducer(this.keyboardStatesByTrackIndex[trackIndex], {
+                type: 'ACTIVE_KEY',
+                key: note.name,
+              })
+            });
+          });
+        }
+      }
+    }
   }
 
   private resetKeyboardStates() {

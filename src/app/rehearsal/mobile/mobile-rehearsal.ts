@@ -196,6 +196,7 @@ export abstract class MobileRehearsal {
         // this.timecode = abletonLiveBarsBeatsSixteenths(Tone.Transport)
         this.transportPosition = Tone.Transport.position
         this.timecode = PositionFormatter.ABLETON_GLOBAL_TIMECODE.format(position);
+        const previousCurrentBar = this.currentBar;
         this.currentBar = position.bars
         this.transportBeatTime = beatTime.value
 
@@ -207,7 +208,11 @@ export abstract class MobileRehearsal {
         } else {
           delete this.currentPatternInStructure
         }
+        const previousCurrentChord = this.currentChord;
         this.currentChord = this.currentPatternInStructure?.getChordAt(position)
+        if (this.currentBar !== previousCurrentBar || this.currentChord !== previousCurrentChord) {
+          this.onBarChange(this.currentBar, this.currentChord);
+        }
         this.currentKey = this.currentPatternInStructure?.getKeyAt(position)
 
         if (this.currentPatternInStructure) {
@@ -340,6 +345,9 @@ export abstract class MobileRehearsal {
     return patternInStructure.pattern.chords || Chords.repeatNoChord(patternInStructure.pattern.durationInBars);
   }
 
+  onBarChange(currentBar: BarNumber0Indexed, currentChord: Chord | undefined) {
+  }
+
   destroy(): void {
     if (this.transportProgressLoop) {
       this.transportProgressLoop.cancel()
@@ -354,3 +362,6 @@ export abstract class MobileRehearsal {
     this.stopSong()
   }
 }
+
+export type ViewType = 'A' | 'B' | 'B-maq' | 'P' | 'P-osmd'
+export const VIEW_TYPES: ViewType[] = ['A', 'B', 'B-maq', 'P', 'P-osmd']

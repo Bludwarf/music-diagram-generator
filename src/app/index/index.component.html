@@ -2,10 +2,11 @@
   <li><a routerLink="setlist">Setlist</a></li>
   <li *ngFor="let songName of playlist">
     {{ songName }}
-    <a [routerLink]="'morceaux/' + songName" [queryParams]="{view: 'A'}">A</a>
-    |
-    <a [routerLink]="'morceaux/' + songName" [queryParams]="{view: 'B'}">B</a>
-    |
-    <a [routerLink]="'morceaux/' + songName" [queryParams]="{view: 'P'}">P</a>
+    @for (viewType of VIEW_TYPES; track viewType; let i = $index) {
+      @if (i > 0) {
+        |
+      }
+      <a class="view-type-link" [routerLink]="'morceaux/' + songName" [queryParams]="{view: viewType}">{{viewType}}</a>
+    }
   </li>
 </ol>

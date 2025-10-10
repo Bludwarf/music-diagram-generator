@@ -8,12 +8,15 @@ import {SongEntry} from "../song-entry";
 import {AbletonLive10Color} from "../../color";
 import {RythmBarEvent} from "../../rythm-bar/event";
 import eventsMuseScoreJson from "../../../assets/events/The Sims - If You Really See Eurydice/MuseScore.json";
+import museScoreXmlString
+  from "../../../assets/events/The Sims - If You Really See Eurydice/MuseScore.mxl.unzipped.xml.json";
 import {BeatTime, Position} from "../../time";
 import {Key} from "../../notes";
 
 const recording = Recording.builder()
   .initData(recordingInitData)
   .midi(eventsMuseScoreJson)
+  .musicXmlString(museScoreXmlString) // TODO charger le fichier XML depuis les assets
   .build();
 
 const eventsMG = RythmBarEvent.fromEach(getEventsFromMidiNotes("kick", eventsMuseScoreJson.tracks[1].notes, eventsMuseScoreJson.header.ppq))

@@ -13,7 +13,7 @@ import {PageComponent} from "../page/page.component";
   standalone: true,
   imports: [
     StructureGridComponent,
-    PageComponent
+    PageComponent,
   ],
   templateUrl: './structure-page.component.html',
   styleUrl: './structure-page.component.scss',

@@ -5,6 +5,10 @@ import {ActivatedRoute} from "@angular/router";
 import {NgIf} from "@angular/common";
 import {MobileRehearsalBMaqComponent} from "../rehearsal/mobile/mobile-rehearsal-b-maq/mobile-rehearsal-b.component";
 import {MobileRehearsalPComponent} from "../rehearsal/mobile/mobile-rehearsal-p/mobile-rehearsal-p.component";
+import {
+  MobileRehearsalPOsmdComponent
+} from "../rehearsal/mobile/mobile-rehearsal-p-osmd/mobile-rehearsal-p-osmd.component";
+import {ViewType} from "../rehearsal/mobile/mobile-rehearsal";
 
 @Component({
   selector: 'app-song',
@@ -15,13 +19,14 @@ import {MobileRehearsalPComponent} from "../rehearsal/mobile/mobile-rehearsal-p/
     NgIf,
     MobileRehearsalBMaqComponent,
     MobileRehearsalPComponent,
+    MobileRehearsalPOsmdComponent,
   ],
   templateUrl: './song.component.html',
   styleUrl: './song.component.scss',
 })
 export class SongComponent {
 
-  view: 'A' | 'B' | 'B-maq' | 'P' = 'P'
+  view: ViewType = 'P'
 
   constructor(
     activatedRoute: ActivatedRoute,

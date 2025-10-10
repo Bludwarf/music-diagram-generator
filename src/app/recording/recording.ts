@@ -17,6 +17,7 @@ export class Recording {
         readonly warpMarkers: WarpMarker[],
         private readonly originalWarpMarkersLength = warpMarkers.length, // à cause de normalizeWarpMarker
         readonly midi?: Midi,
+        readonly musicXmlString?: string,
     ) {
         this.normalizeWarpMarker()
     }
@@ -230,6 +231,7 @@ export type MidiNote = {
 class RecordingBuilder implements Builder<Recording> {
     private _initData?: RecordingInitData;
     private _midi?: Midi;
+    private _musicXmlString?: string;
 
     initData(dto: typeof this._initData): this {
         this._initData = dto
@@ -242,6 +244,11 @@ class RecordingBuilder implements Builder<Recording> {
         return this
     }
 
+  musicXmlString(musicXmlString: string): this {
+    this._musicXmlString = musicXmlString
+    return this
+  }
+
     build(): Recording {
         if (!this._initData) {
             throw new Error('Missing DTO')
@@ -253,6 +260,7 @@ class RecordingBuilder implements Builder<Recording> {
             this._initData.warpMarkers,
             undefined,
             this._midi,
+            this._musicXmlString,
         )
     }
 }

@@ -19,14 +19,14 @@ import {SampleMapComponent} from "../sample-map/sample-map.component";
 import {StructureMapComponent} from "../structure-map/structure-map.component";
 import {PatternInStructure} from "../../../structure/pattern/pattern-in-structure";
 import {SampleCacheService} from "../../../sample/samples-cache.service";
-import {error} from "../../../utils";
+import {error, sequence} from "../../../utils";
 import {SongRepository} from "../../../song/song-repository";
 import {KeyboardComponent} from "../../../keyboard/keyboard.component";
 import * as Tone from "tone";
 import {BeatTime, Position, PositionedElement} from "../../../time";
 import keyboardReducer from "../../../keyboard/reducer";
 import {KeyboardState} from "../../../keyboard/type";
-import {BarNumber0Indexed, Chord, OctavedNote} from "../../../notes";
+import {BarNumber0Indexed, Chord, Note, OctavedNote} from "../../../notes";
 import {SheetMusicComponent} from "../../../sheet-music/sheet-music.component";
 import {MAX_MIDI, MIN_MIDI} from "../../../keyboard/notes";
 import {MidiNote} from "../../../recording/recording";
@@ -159,14 +159,18 @@ export class MobileRehearsalPOsmdComponent extends MobileRehearsal implements On
   }
 
   get currentMidiNotes(): MidiNote[] {
+    return this.getMidiNotesFrom(this.currentMidiNotesElement);
+  }
+
+  private getMidiNotesFrom(element: PositionedElement | undefined) {
     const recording = this.recording;
     const midi = recording?.midi
     if (!recording || !midi) {
       return []
     }
 
-    const startTicks = this.currentMidiNotesElement ? recording.getBeatTimeAt(this.currentMidiNotesElement.startPosition)?.toMidiTicks(midi.header.ppq) : undefined;
-    const endTicks = this.currentMidiNotesElement ? recording.getBeatTimeAt(this.currentMidiNotesElement.endPosition)?.toMidiTicks(midi.header.ppq) : undefined;
+    const startTicks = element ? recording.getBeatTimeAt(element.startPosition)?.toMidiTicks(midi.header.ppq) : undefined;
+    const endTicks = element ? recording.getBeatTimeAt(element.endPosition)?.toMidiTicks(midi.header.ppq) : undefined;
     return midi.tracks.flatMap(track =>
       track.notes.filter(note => startTicks !== undefined && endTicks !== undefined ? startTicks <= note.ticks && note.ticks < endTicks : true)
     );
@@ -195,6 +199,23 @@ export class MobileRehearsalPOsmdComponent extends MobileRehearsal implements On
   get keyboardHeight(): string | undefined {
     const heightInCm = this.keyHeightInPx
     return heightInCm ? `${heightInCm}px` : undefined;
+  }
+
+  get markedKeyNames(): string[] {
+    // // V1 : la fondamentale de l'accord courant
+    // const root = this.currentChord?.root;
+    // if (!root) {
+    //   return []
+    // }
+    //
+    // const octaves = sequence(9)
+    // return octaves.flatMap(octave => [
+    //   new OctavedNote(root, octave).toString()
+    // ])
+
+    // V2 : toutes les notes courante
+    return this.getMidiNotesFrom(this.currentPatternInStructure)
+      .map(midiNote => OctavedNote.fromMidi(midiNote.midi).toString())
   }
 
   private loadMusicXML() {

@@ -12,7 +12,7 @@ import {
 } from '@angular/core';
 import {allNotes, CalcNotePositions, MAX_NOTE, MIN_NOTE, NotePositions, NoteType} from "./notes";
 import {ActiveKey} from "./type";
-import {NgClass, NgStyle} from "@angular/common";
+import {NgClass, NgIf, NgStyle} from "@angular/common";
 import {KeyboardAdapter} from "./keyboard-adapter";
 import {OctavedNote} from "../notes";
 
@@ -21,7 +21,8 @@ import {OctavedNote} from "../notes";
   standalone: true,
   imports: [
     NgClass,
-    NgStyle
+    NgStyle,
+    NgIf
   ],
   templateUrl: './keyboard.component.html',
   styleUrl: './keyboard.component.scss',
@@ -30,6 +31,9 @@ import {OctavedNote} from "../notes";
 export class KeyboardComponent implements OnInit, OnChanges {
   @Input()
   activeKeys: ActiveKey[] = [];
+
+  @Input()
+  markedKeyNames: string[] = [];
 
   /**
    * @deprecated Semble poser des problèmes sur certaines notes.

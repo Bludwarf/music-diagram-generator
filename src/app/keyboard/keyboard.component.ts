@@ -59,6 +59,11 @@ export class KeyboardComponent implements OnInit, OnChanges {
     }
   }
 
+  /**
+   * Pour donner une indication sur le radius à appliquer à chaque touche
+   */
+  @Input() keyHeightInPx: number | undefined;
+
   whiteKeys: NoteType[];
   blackKeys: NoteType[];
   private notePositions: NotePositions;
@@ -116,15 +121,24 @@ export class KeyboardComponent implements OnInit, OnChanges {
   get whiteKeyStyle() {
     return {
       width: `${this.notePositions.whiteWidth}%`,
+      'border-radius': this.computeRadius(5),
     }
   };
 
   getBlackKeyStyle(note: NoteType) {
-    let pos = this.notePositions.leftPositions.find(lp => lp.ansi === note.ansi);
+    const pos = this.notePositions.leftPositions.find(lp => lp.ansi === note.ansi);
     return {
       width: `${this.notePositions.blackWidth}%`,
       left: pos ? `${pos.left}%` : undefined,
+      'border-radius': this.computeRadius(5),
     }
+  }
+
+  private computeRadius(baseRadius: number) {
+    const baseHeight = 350;
+    const radiusFactor = baseRadius / baseHeight
+    const radiusInPx = radiusFactor * (this.keyHeightInPx ?? baseHeight)
+    return `0 0 ${radiusInPx}px ${radiusInPx}px`;
   }
 
   pressKey = (note: NoteType) => {

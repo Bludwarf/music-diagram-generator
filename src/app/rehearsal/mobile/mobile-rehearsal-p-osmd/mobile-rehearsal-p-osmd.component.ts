@@ -180,17 +180,21 @@ export class MobileRehearsalPOsmdComponent extends MobileRehearsal implements On
     return this.getExtremeOctavedNote('up')
   }
 
-  get keyboardHeight(): string | undefined {
+  get keyHeightInPx(): number | undefined {
     const lowerOctavedNote = this.lowerOctavedNote;
     const higherOctavedNote = this.higherOctavedNote;
     if (lowerOctavedNote && higherOctavedNote) {
       const midiRange = higherOctavedNote.midi - lowerOctavedNote.midi;
-      const factor = 1.9 / 55 // 1.9cm pour 55 notes semble convenir pour l'affichage mobile // TODO le déduire des dimensions d'une touche
-      const heightInCm = midiRange * factor
-      return `${heightInCm}cm`
+      const factor = 72 / 55 // 72px pour 55 notes semble convenir pour l'affichage mobile // TODO le déduire des dimensions d'une touche
+      return midiRange * factor
     } else {
       return undefined
     }
+  }
+
+  get keyboardHeight(): string | undefined {
+    const heightInCm = this.keyHeightInPx
+    return heightInCm ? `${heightInCm}px` : undefined;
   }
 
   private loadMusicXML() {

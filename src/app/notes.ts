@@ -83,7 +83,19 @@ export class Note extends Mod12Value {
     return new Mode(key.mode.value + this.value - key.note.value);
   }
 
-  override toString(): string {
+  override toString(forcedAlteration?: 'b' | '#'): string {
+    if (forcedAlteration) {
+      if (forcedAlteration === 'b') {
+        if (this.value === 1 || this.value === 6) {
+          return NOTE_NAMES[this.value + 1] + forcedAlteration
+        }
+      }
+      if (forcedAlteration === '#') {
+        if (this.value === 3 || this.value === 8 || this.value === 10) {
+          return NOTE_NAMES[this.value - 1] + forcedAlteration
+        }
+      }
+    }
     return NOTE_NAMES[this.value]
   }
 
@@ -364,7 +376,7 @@ export class OctavedNote implements Comparable<OctavedNote> {
     return this.note.compareTo(other.note);
   }
 
-  toString(): string {
-    return this.note.toString() + this.octave;
+  toString(forcedAlteration?: 'b' | '#'): string {
+    return this.note.toString(forcedAlteration) + this.octave;
   }
 }

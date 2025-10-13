@@ -16,6 +16,8 @@ import {NgClass, NgIf, NgStyle} from "@angular/common";
 import {KeyboardAdapter} from "./keyboard-adapter";
 import {OctavedNote} from "../notes";
 
+const BASE_HEIGHT = 350;
+
 @Component({
   selector: 'app-keyboard',
   standalone: true,
@@ -32,8 +34,19 @@ export class KeyboardComponent implements OnInit, OnChanges {
   @Input()
   activeKeys: ActiveKey[] = [];
 
+  /**
+   * @deprecated Semble poser des problèmes sur certaines notes.
+   * Utiliser plutôt markedOctavedNotes.
+   */
   @Input()
   markedKeyNames: string[] = [];
+
+  @Input()
+  set markedOctavedNotes(markedOctavedNotes: OctavedNote[] | undefined) {
+    if (markedOctavedNotes) {
+      this.markedKeyNames = markedOctavedNotes.map(markedOctavedNote => this.keyboardAdapter.adaptNoteName(markedOctavedNote))
+    }
+  }
 
   /**
    * @deprecated Semble poser des problèmes sur certaines notes.
@@ -52,14 +65,14 @@ export class KeyboardComponent implements OnInit, OnChanges {
   @Input()
   set lowerOctavedNote(lowerOctavedNote: OctavedNote | undefined) {
     if (lowerOctavedNote) {
-      this.lowerKey = this.keyboardAdapter.adaptNoteNameForKeyboardState(lowerOctavedNote, 'down')
+      this.lowerKey = this.keyboardAdapter.adaptExtremeNoteName(lowerOctavedNote, 'down')
     }
   }
 
   @Input()
   set higherOctavedNote(higherOctavedNote: OctavedNote | undefined) {
     if (higherOctavedNote) {
-      this.higherKey = this.keyboardAdapter.adaptNoteNameForKeyboardState(higherOctavedNote, 'up')
+      this.higherKey = this.keyboardAdapter.adaptExtremeNoteName(higherOctavedNote, 'up')
     }
   }
 
@@ -139,11 +152,23 @@ export class KeyboardComponent implements OnInit, OnChanges {
   }
 
   private computeRadius(baseRadius: number) {
-    const baseHeight = 350;
-    const radiusFactor = baseRadius / baseHeight
-    const radiusInPx = radiusFactor * (this.keyHeightInPx ?? baseHeight)
+    const radiusFactor = baseRadius / BASE_HEIGHT
+    const keyHeightInPx = this.keyHeightInPx ?? BASE_HEIGHT;
+    const radiusInPx = radiusFactor * keyHeightInPx
     return `0 0 ${radiusInPx}px ${radiusInPx}px`;
   }
+
+  get whiteKeyWidthInPx(): number {
+    const keyHeightInPx = this.keyHeightInPx ?? BASE_HEIGHT;
+    const whiteKeyRatio = 23.5 / 165
+    return whiteKeyRatio * keyHeightInPx
+  }
+
+  get markStyle() {
+    return {
+      width: `${this.whiteKeyWidthInPx}px`,
+    }
+  };
 
   pressKey = (note: NoteType) => {
     this.playKey.emit(note.ansi);

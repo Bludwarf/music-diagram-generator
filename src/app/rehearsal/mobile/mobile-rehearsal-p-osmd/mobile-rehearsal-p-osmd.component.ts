@@ -201,7 +201,7 @@ export class MobileRehearsalPOsmdComponent extends MobileRehearsal implements On
     return heightInCm ? `${heightInCm}px` : undefined;
   }
 
-  get markedKeyNames(): string[] {
+  get markedOctavedNotes(): OctavedNote[] {
     // // V1 : la fondamentale de l'accord courant
     // const root = this.currentChord?.root;
     // if (!root) {
@@ -210,12 +210,12 @@ export class MobileRehearsalPOsmdComponent extends MobileRehearsal implements On
     //
     // const octaves = sequence(9)
     // return octaves.flatMap(octave => [
-    //   new OctavedNote(root, octave).toString()
+    //   new OctavedNote(root, octave)
     // ])
 
     // V2 : toutes les notes courante
     return this.getMidiNotesFrom(this.currentPatternInStructure)
-      .map(midiNote => OctavedNote.fromMidi(midiNote.midi).toString())
+      .map(midiNote => OctavedNote.fromMidi(midiNote.midi))
   }
 
   private loadMusicXML() {

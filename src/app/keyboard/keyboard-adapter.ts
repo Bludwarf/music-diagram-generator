@@ -6,7 +6,7 @@ import {OctavedNote} from "../notes";
 })
 export class KeyboardAdapter {
 
-  adaptNoteNameForKeyboardState(octavedNote: OctavedNote, direction: 'down' | 'up'): string {
+  adaptExtremeNoteName(octavedNote: OctavedNote, direction: 'down' | 'up'): string {
     const sign = direction === 'down' ? -1 : 1;
     let on = octavedNote;
     if (octavedNote.toString().includes('b')) {
@@ -17,14 +17,13 @@ export class KeyboardAdapter {
       on = on.transpose(sign * value);
     }
     if (octavedNote.compareTo(on) !== 0) {
-      console.warn('adaptNoteNameForKeyboardState', octavedNote.toString(), on.toString());
+      console.warn('adaptExtremeNoteName', octavedNote.toString(), on.toString());
     }
     return on.toString();
   }
 
-  adaptMidiValueForKeyboardState(midiValue: number, direction: 'down' | 'up'): string {
-    const octavedNote = OctavedNote.fromMidi(midiValue);
-    return this.adaptNoteNameForKeyboardState(octavedNote, direction);
+  adaptNoteName(octavedNote: OctavedNote): string {
+    return octavedNote.toString('#');
   }
 
 }

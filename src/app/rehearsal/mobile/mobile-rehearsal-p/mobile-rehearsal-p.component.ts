@@ -208,7 +208,7 @@ export class MobileRehearsalPComponent extends MobileRehearsal implements OnInit
         const method = direction === 'down' ? Math.min : Math.max;
         const minMidi = method(...midiTrack.notes.map(note => note.midi));
         const octavedNote = OctavedNote.fromMidi(minMidi);
-        return this.keyboardAdapter.adaptNoteNameForKeyboardState(octavedNote, direction);
+        return this.keyboardAdapter.adaptExtremeNoteName(octavedNote, direction);
       }
     }
     return defaultKey;

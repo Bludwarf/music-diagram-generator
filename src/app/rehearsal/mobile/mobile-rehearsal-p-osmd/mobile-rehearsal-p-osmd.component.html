@@ -68,7 +68,7 @@
       <!--      </ng-container>-->
 
       <div class="keyboard" *ngIf="keyboardHeight" [ngStyle]="{height: keyboardHeight, maxHeight: keyboardHeight}">
-        <app-keyboard [lowerOctavedNote]="lowerOctavedNote" [higherOctavedNote]="higherOctavedNote" [activeKeys]="keyboardState?.activeKeys || []" [keyHeightInPx]="keyHeightInPx" [markedKeyNames]="markedKeyNames"></app-keyboard>
+        <app-keyboard [lowerOctavedNote]="lowerOctavedNote" [higherOctavedNote]="higherOctavedNote" [activeKeys]="keyboardState?.activeKeys || []" [keyHeightInPx]="keyHeightInPx" [markedOctavedNotes]="markedOctavedNotes"></app-keyboard>
       </div>
 
       <app-sheet-music *ngIf="musicXml && position" [musicXmlContent]="musicXml" [position]="position"></app-sheet-music>

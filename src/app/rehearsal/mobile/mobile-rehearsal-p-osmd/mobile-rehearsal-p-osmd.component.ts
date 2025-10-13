@@ -23,11 +23,13 @@ import {error} from "../../../utils";
 import {SongRepository} from "../../../song/song-repository";
 import {KeyboardComponent} from "../../../keyboard/keyboard.component";
 import * as Tone from "tone";
-import {BeatTime, Position} from "../../../time";
+import {BeatTime, Position, PositionedElement} from "../../../time";
 import keyboardReducer from "../../../keyboard/reducer";
-import {KeyboardRange, KeyboardState} from "../../../keyboard/type";
+import {KeyboardState} from "../../../keyboard/type";
 import {BarNumber0Indexed, Chord, OctavedNote} from "../../../notes";
 import {SheetMusicComponent} from "../../../sheet-music/sheet-music.component";
+import {MAX_MIDI, MIN_MIDI} from "../../../keyboard/notes";
+import {MidiNote} from "../../../recording/recording";
 
 @Component({
   selector: 'app-mobile-rehearsal-p-osmd',
@@ -52,8 +54,7 @@ export class MobileRehearsalPOsmdComponent extends MobileRehearsal implements On
   @ViewChild('fileInput')
   fileInput?: ElementRef<HTMLInputElement>;
 
-  keyboardStatesByTrackIndex: (KeyboardState | undefined)[] = [];
-  keyboardRangeByTrackIndex: KeyboardRange[] = [];
+  keyboardState?: KeyboardState;
   musicXml?: string;
 
   constructor(
@@ -106,9 +107,12 @@ export class MobileRehearsalPOsmdComponent extends MobileRehearsal implements On
     if (recording) {
       const midi = recording.midi;
       if (midi) {
+        let lowerMidiValue = MAX_MIDI
+        let higherMidiValue = MIN_MIDI
+
         // Tone.Transport.PPQ = midi.header.ppq; // TODO cf. https://github.com/tonejs/tone.js/wiki/Time#ticks
-        midi.tracks.forEach((track, trackIndex) => {
-          track.notes.forEach((note, noteIndex) => {
+        midi.tracks.forEach(track => {
+          track.notes.forEach(note => {
             if (note.durationTicks <= 0) {
               console.warn(`On ignore cette note car sa durée est invalide`, note)
               return;
@@ -118,7 +122,7 @@ export class MobileRehearsalPOsmdComponent extends MobileRehearsal implements On
             const secTime = recording.getSecTime(beatTime);
             if (secTime) {
               Tone.Transport.schedule(time => {
-                this.keyboardStatesByTrackIndex[trackIndex] = keyboardReducer(this.keyboardStatesByTrackIndex[trackIndex], {
+                this.keyboardState = keyboardReducer(this.keyboardState, {
                   type: 'ACTIVE_KEY',
                   key: note.name,
                 })
@@ -132,7 +136,7 @@ export class MobileRehearsalPOsmdComponent extends MobileRehearsal implements On
                 throw new Error(`La note ${note.name} devrait durer un minimum de temps (cf. log ticks=${note.ticks})`);
               }
               Tone.Transport.schedule(time => {
-                this.keyboardStatesByTrackIndex[trackIndex] = keyboardReducer(this.keyboardStatesByTrackIndex[trackIndex], {
+                this.keyboardState = keyboardReducer(this.keyboardState, {
                   type: 'DEACTIVE_KEY',
                   key: note.name,
                 })
@@ -140,14 +144,52 @@ export class MobileRehearsalPOsmdComponent extends MobileRehearsal implements On
             } else {
               console.error('WarpTime inconnu pour la note MIDI', note);
             }
-          });
 
-          this.keyboardRangeByTrackIndex[trackIndex] = {
-            lowerKey: this.getLowerKey(trackIndex),
-            higherKey: this.getHigherKey(trackIndex),
-          }
+            lowerMidiValue = Math.min(lowerMidiValue, note.midi)
+            higherMidiValue = Math.max(higherMidiValue, note.midi)
+          });
         });
       }
+    }
+  }
+
+  get currentMidiNotesElement(): PositionedElement | undefined {
+    // return this.currentSectionInStructure;
+    return undefined; // Pour avoir toutes les notes du morceau
+  }
+
+  get currentMidiNotes(): MidiNote[] {
+    const recording = this.recording;
+    const midi = recording?.midi
+    if (!recording || !midi) {
+      return []
+    }
+
+    const startTicks = this.currentMidiNotesElement ? recording.getBeatTimeAt(this.currentMidiNotesElement.startPosition)?.toMidiTicks(midi.header.ppq) : undefined;
+    const endTicks = this.currentMidiNotesElement ? recording.getBeatTimeAt(this.currentMidiNotesElement.endPosition)?.toMidiTicks(midi.header.ppq) : undefined;
+    return midi.tracks.flatMap(track =>
+      track.notes.filter(note => startTicks !== undefined && endTicks !== undefined ? startTicks <= note.ticks && note.ticks < endTicks : true)
+    );
+  }
+
+  get lowerOctavedNote(): OctavedNote | undefined {
+    return this.getExtremeOctavedNote('down')
+  }
+
+  get higherOctavedNote(): OctavedNote | undefined {
+    return this.getExtremeOctavedNote('up')
+  }
+
+  get keyboardHeight(): string | undefined {
+    const lowerOctavedNote = this.lowerOctavedNote;
+    const higherOctavedNote = this.higherOctavedNote;
+    if (lowerOctavedNote && higherOctavedNote) {
+      const midiRange = higherOctavedNote.midi - lowerOctavedNote.midi;
+      const factor = 1.9 / 55 // 1.9cm pour 55 notes semble convenir pour l'affichage mobile // TODO le déduire des dimensions d'une touche
+      const heightInCm = midiRange * factor
+      return `${heightInCm}cm`
+    } else {
+      return undefined
     }
   }
 
@@ -175,14 +217,14 @@ export class MobileRehearsalPOsmdComponent extends MobileRehearsal implements On
       if (midi) {
         const ticks = recording.getBeatTimeAt(position)?.toMidiTicks(midi.header.ppq);
         if (ticks !== undefined) {
-          midi.tracks.forEach((track, trackIndex) => {
+          midi.tracks.forEach(track => {
             const currentNotes = track.notes.filter(note => note.ticks <= ticks && ticks < note.ticks + note.durationTicks);
-            currentNotes.forEach((note, noteIndex) => {
+            currentNotes.forEach(note => {
               if (note.durationTicks <= 0) {
                 console.warn(`On ignore cette note car sa durée est invalide`, note)
                 return;
               }
-              this.keyboardStatesByTrackIndex[trackIndex] = keyboardReducer(this.keyboardStatesByTrackIndex[trackIndex], {
+              this.keyboardState = keyboardReducer(this.keyboardState, {
                 type: 'ACTIVE_KEY',
                 key: note.name,
               })
@@ -194,51 +236,19 @@ export class MobileRehearsalPOsmdComponent extends MobileRehearsal implements On
   }
 
   private resetKeyboardStates() {
-    this.keyboardStatesByTrackIndex.forEach(keyboardState => {
-      if (keyboardState) {
-        keyboardState.activeKeys = [];
-      }
-    });
+    if (this.keyboardState) {
+      this.keyboardState.activeKeys = [];
+    }
   }
 
-  getLowerKey(trackIndex: number): string {
-    return this.getExtremeKey(trackIndex, 'down', 'A0');
-  }
-
-  getHigherKey(trackIndex: number): string {
-    return this.getExtremeKey(trackIndex, 'up', 'C8');
-  }
-
-  private getExtremeKey(trackIndex: number, direction: 'down' | 'up', defaultKey: string) {
-    const midi = this.recording?.midi;
-    if (midi) {
-      const midiTrack = midi.tracks[trackIndex];
-      if (midiTrack) {
+  private getExtremeOctavedNote(direction: 'down' | 'up'): OctavedNote | undefined {
+    const midiNotes = this.currentMidiNotes;
+    if (midiNotes.length) {
         const method = direction === 'down' ? Math.min : Math.max;
-        const minMidi = method(...midiTrack.notes.map(note => note.midi));
-        const octavedNote = OctavedNote.fromMidi(minMidi);
-        return this.adaptNoteNameForKeyboardState(octavedNote, direction);
-      }
+        const minMidi = method(...midiNotes.map(note => note.midi));
+        return OctavedNote.fromMidi(minMidi);
     }
-    return defaultKey;
-  }
-
-  // TODO fix keyboard lib
-
-  private adaptNoteNameForKeyboardState(octavedNote: OctavedNote, direction: 'down' | 'up'): string {
-    const sign = direction === 'down' ? -1 : 1;
-    let on = octavedNote;
-    if (octavedNote.toString().includes('b')) {
-      on = on.transpose(sign);
-    }
-    if (on.note.name === 'E' || on.note.name === 'B') {
-      const value = direction === 'down' ? 2 : 1;
-      on = on.transpose(sign * value);
-    }
-    if (octavedNote.compareTo(on) !== 0) {
-      console.warn('adaptNoteNameForKeyboardState', octavedNote.toString(), on.toString());
-    }
-    return on.toString();
+    return undefined;
   }
 
   override onBarChange(currentBar: BarNumber0Indexed, currentChord: Chord | undefined) {

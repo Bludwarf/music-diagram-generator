@@ -6,8 +6,14 @@ export type NoteType = {
   type: string,
 }
 
+export const MIN_MIDI = 21
+export const MAX_MIDI = 108
+
+export const MIN_NOTE = 'A0'
+export const MAX_NOTE = 'C8'
+
 export const allNotes : NoteType[] = [
-  {midi: 21, ansi: 'A0', type: 'white'},
+  {midi: MIN_MIDI, ansi: MIN_NOTE, type: 'white'},
   {midi: 22, ansi: 'A#0', type: 'black'},
   {midi: 23, ansi: 'B0', type: 'white'},
   {midi: 24, ansi: 'C1', type: 'white'},
@@ -95,7 +101,7 @@ export const allNotes : NoteType[] = [
   {midi: 105, ansi: 'A7', type: 'white'},
   {midi: 106, ansi: 'A#7', type: 'black'},
   {midi: 107, ansi: 'B7', type: 'white'},
-  {midi: 108, ansi: 'C8', type: 'white'},
+  {midi: MAX_MIDI, ansi: MAX_NOTE, type: 'white'},
 ]
 
 export type NotePositions = {

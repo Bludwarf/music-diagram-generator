@@ -28,6 +28,7 @@ import {BeatTime, Position} from "../../../time";
 import keyboardReducer from "../../../keyboard/reducer";
 import {KeyboardRange, KeyboardState} from "../../../keyboard/type";
 import {OctavedNote} from "../../../notes";
+import {KeyboardAdapter} from "../../../keyboard/keyboard-adapter";
 
 @Component({
   selector: 'app-mobile-rehearsal-p',
@@ -61,6 +62,7 @@ export class MobileRehearsalPComponent extends MobileRehearsal implements OnInit
     title: Title,
     sampleCacheService: SampleCacheService,
     songRepository: SongRepository,
+    private readonly keyboardAdapter: KeyboardAdapter,
   ) {
     super(changeDetectorRef, activatedRoute, title, sampleCacheService, songRepository)
   }
@@ -206,27 +208,10 @@ export class MobileRehearsalPComponent extends MobileRehearsal implements OnInit
         const method = direction === 'down' ? Math.min : Math.max;
         const minMidi = method(...midiTrack.notes.map(note => note.midi));
         const octavedNote = OctavedNote.fromMidi(minMidi);
-        return this.adaptNoteNameForKeyboardState(octavedNote, direction);
+        return this.keyboardAdapter.adaptNoteNameForKeyboardState(octavedNote, direction);
       }
     }
     return defaultKey;
-  }
-
-  // TODO fix keyboard lib
-  private adaptNoteNameForKeyboardState(octavedNote: OctavedNote, direction: 'down' | 'up'): string {
-    const sign = direction === 'down' ? -1 : 1;
-    let on = octavedNote;
-    if (octavedNote.toString().includes('b')) {
-      on = on.transpose(sign);
-    }
-    if (on.note.name === 'E' || on.note.name === 'B') {
-      const value = direction === 'down' ? 2 : 1;
-      on = on.transpose(sign * value);
-    }
-    if (octavedNote.compareTo(on) !== 0) {
-      console.warn('adaptNoteNameForKeyboardState', octavedNote.toString(), on.toString());
-    }
-    return on.toString();
   }
 
 }

@@ -1,9 +1,20 @@
 // Source : https://github.com/imagicbell/piano-app/blob/master/src/features/keyboard/index.js
 
-import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {allNotes, CalcNotePositions, NotePositions, NoteType} from "./notes";
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+  SimpleChanges
+} from '@angular/core';
+import {allNotes, CalcNotePositions, MAX_NOTE, MIN_NOTE, NotePositions, NoteType} from "./notes";
 import {ActiveKey} from "./type";
 import {NgClass, NgStyle} from "@angular/common";
+import {KeyboardAdapter} from "./keyboard-adapter";
+import {OctavedNote} from "../notes";
 
 @Component({
   selector: 'app-keyboard',
@@ -16,15 +27,37 @@ import {NgClass, NgStyle} from "@angular/common";
   styleUrl: './keyboard.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class KeyboardComponent implements OnInit {
+export class KeyboardComponent implements OnInit, OnChanges {
   @Input()
   activeKeys: ActiveKey[] = [];
 
+  /**
+   * @deprecated Semble poser des problèmes sur certaines notes.
+   * Utiliser plutôt lowerOctavedNote.
+   */
   @Input()
-  lowerKey: string = 'A0';
+  lowerKey: string = MIN_NOTE; // TODO nommage incohérent
+
+  /**
+   * @deprecated Semble poser des problèmes sur certaines notes.
+   * Utiliser plutôt higherOctavedNote.
+   */
+  @Input()
+  higherKey: string = MAX_NOTE; // TODO nommage incohérent
 
   @Input()
-  higherKey: string = 'C8';
+  set lowerOctavedNote(lowerOctavedNote: OctavedNote | undefined) {
+    if (lowerOctavedNote) {
+      this.lowerKey = this.keyboardAdapter.adaptNoteNameForKeyboardState(lowerOctavedNote, 'down')
+    }
+  }
+
+  @Input()
+  set higherOctavedNote(higherOctavedNote: OctavedNote | undefined) {
+    if (higherOctavedNote) {
+      this.higherKey = this.keyboardAdapter.adaptNoteNameForKeyboardState(higherOctavedNote, 'up')
+    }
+  }
 
   whiteKeys: NoteType[];
   blackKeys: NoteType[];
@@ -35,13 +68,19 @@ export class KeyboardComponent implements OnInit {
   @Output()
   stopKey = new EventEmitter<string>();
 
-  constructor() {
+  constructor(
+    private readonly keyboardAdapter: KeyboardAdapter,
+  ) {
     this.whiteKeys = [];
     this.blackKeys = [];
     this.notePositions = CalcNotePositions(allNotes);
   }
 
   ngOnInit() {
+    this.init();
+  }
+
+  private init() {
     const lowerNote = this.findNote(this.lowerKey);
     const higherNote = this.findNote(this.higherKey);
     const notes = allNotes.filter(note => note.midi >= lowerNote.midi && note.midi <= higherNote.midi);
@@ -49,6 +88,14 @@ export class KeyboardComponent implements OnInit {
     this.whiteKeys = notes.filter(note => note.type === 'white');
     this.blackKeys = notes.filter(note => note.type === 'black');
     this.notePositions = CalcNotePositions(notes);
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    const activeKeysChange = 'activeKeys' in changes
+    const propertyChanged = Object.keys(changes).length;
+    if (!activeKeysChange || propertyChanged > 1) {
+      this.init();
+    }
   }
 
   private findNote(key: string): NoteType {

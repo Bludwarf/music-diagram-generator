@@ -15,9 +15,9 @@ export class SandboxComponent {
   firstFretboardLowestFret = 0;
   firstFretboardFretsCount = 5;
 
-  firstFretboardRootValue = Note.fromName('G').value;
+  firstFretboardRootValue = Note.G.value;
   get firstFretboardRoot(): Note {
-    return new Note(this.firstFretboardRootValue);
+    return Note.fromValue(this.firstFretboardRootValue);
   }
 
   firstFretboardRootModeValue = Mode.fromName('vi').value;

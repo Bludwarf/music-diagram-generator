@@ -17,24 +17,24 @@ export const NOTE_NAMES = [
   'B',
 ];
 
-const NOTE_ALIASES: Record<string, string> = {
-  'Cb': 'B',
-  'Db': 'C#',
-  'D#': 'Eb',
-  'E#': 'F',
-  'Fb': 'E',
-  'Gb': 'F#',
-  'G#': 'Ab',
-  'A#': 'Bb',
-  'B#': 'C',
-}
-
 class Mod12Value implements Comparable<Mod12Value> {
   readonly value: number;
 
   constructor(value: number) {
+    this.value = Mod12Value.modValue(value);
+  }
+
+  static modValue(value: number): number {
     const modValue = value % 12;
-    this.value = modValue >= 0 ? modValue : modValue + 12;
+    return modValue >= 0 ? modValue : modValue + 12;
+  }
+
+  protected static _fromValue<T extends Mod12Value>(value: number, itemsByValue: Record<number, T>, constructor: (value: number) => T): T {
+    value = Mod12Value.modValue(value)
+    if (!(value in itemsByValue)) {
+      itemsByValue[value] = constructor(value)
+    }
+    return itemsByValue[value]
   }
 
   static getValueFromName(name: string, names: string[]): number {
@@ -52,27 +52,82 @@ class Mod12Value implements Comparable<Mod12Value> {
   }
 }
 
-export class Note extends Mod12Value {
+const NATURAL_NOTE_VALUE_BY_NAME: Record<string, number> = {
+  C: 0,
+  D: 2,
+  E: 4,
+  F: 5,
+  G: 7,
+  A: 9,
+  B: 11,
+}
 
-  constructor(value: number) {
+export class Note extends Mod12Value {
+  private static NOTES_BY_VALUE: Note[] = []
+  private static NOTES_BY_NAME: Record<string, Note> = {}
+
+  static C = Note.fromName('C')
+  static Cs = Note.fromName('C#')
+  static Db = Note.Cs
+  static D = Note.fromName('D')
+  static Eb = Note.fromName('Eb')
+  static Ds = Note.Eb
+  static E = Note.fromName('E')
+  static F = Note.fromName('F')
+  static Fs = Note.fromName('F#')
+  static Gb = Note.Fs
+  static G = Note.fromName('G')
+  static Ab = Note.fromName('Ab')
+  static Gs = Note.Ab
+  static A = Note.fromName('A')
+  static Bb = Note.fromName('Bb')
+  static As = Note.Bb
+  static B = Note.fromName('B')
+
+  protected constructor(value: number) {
     super(value);
   }
 
-  static fromName(name: string): Note {
-    const unaliasedName = NOTE_ALIASES[name] || name;
-    return new Note(Mod12Value.getValueFromName(unaliasedName, NOTE_NAMES));
+  /**
+   * Utiliser plutôt les constantes (comme {@link Note#C Note.C}) si possible
+   */
+  static fromValue(value: number): Note {
+    return this._fromValue(value, this.NOTES_BY_VALUE, value => new Note(value));
   }
 
-  next(halfsteps: number): Note {
-    return new Note(this.value + halfsteps);
+  /**
+   * Utiliser plutôt les constantes (comme {@link Note#C Note.C}) si possible
+   */
+  static fromName(name: string): Note {
+    if (!(name in this.NOTES_BY_NAME)) {
+      const naturalName = name[0]
+      const naturalValue = NATURAL_NOTE_VALUE_BY_NAME[naturalName];
+      if (naturalValue === undefined) {
+        throw new Error('Unknown natural note name ' + naturalValue);
+      }
+
+      let value = naturalValue;
+      for (let alteration of name.substring(1)) {
+        if (alteration === 'b') {
+          --value
+        } else if (alteration === '#') {
+          ++value
+        } else {
+          throw new Error('Unknown alteration ' + alteration)
+        }
+      }
+
+      this.NOTES_BY_NAME[name] = this.fromValue(value)
+    }
+    return this.NOTES_BY_NAME[name]
+  }
+
+  transpose(halfsteps: number): Note {
+    return Note.fromValue(this.value + halfsteps);
   }
 
   get name(): string {
     return NOTE_NAMES[this.value];
-  }
-
-  is(other: Note): boolean {
-    return this.value === other.value;
   }
 
   degreeIn(key: Key): Degree {
@@ -85,44 +140,23 @@ export class Note extends Mod12Value {
 
   override toString(forcedAlteration?: 'b' | '#'): string {
     if (forcedAlteration) {
+      let naturalNote: Note | undefined
       if (forcedAlteration === 'b') {
         if (this.value === 1 || this.value === 6) {
-          return NOTE_NAMES[this.value + 1] + forcedAlteration
+          naturalNote = this.transpose(1)
         }
       }
       if (forcedAlteration === '#') {
         if (this.value === 3 || this.value === 8 || this.value === 10) {
-          return NOTE_NAMES[this.value - 1] + forcedAlteration
+          naturalNote = this.transpose(-1)
         }
       }
+      if (naturalNote) {
+        return naturalNote + forcedAlteration
+      }
     }
-    return NOTE_NAMES[this.value]
+    return this.name
   }
-
-  relativeTo(root: Note): Note {
-    // TODO facto avec degreeIn
-    return new Note(this.value - root.value);
-  }
-
-  transpose(semitones: number): Note {
-    return new Note(this.value + semitones);
-  }
-}
-
-export namespace Note {
-  export const C = Note.fromName('C')
-  export const Cs = Note.fromName('C#')
-  export const D = Note.fromName('D')
-  export const Eb = Note.fromName('Eb')
-  export const E = Note.fromName('E')
-  export const F = Note.fromName('F')
-  export const Fs = Note.fromName('F#')
-  export const Gb = Fs
-  export const G = Note.fromName('G')
-  export const Ab = Note.fromName('Ab')
-  export const A = Note.fromName('A')
-  export const Bb = Note.fromName('Bb')
-  export const B = Note.fromName('B')
 }
 
 export const MODE_NAMES = [
@@ -146,7 +180,8 @@ export class Mode extends Mod12Value {
   }
 
   static fromName(name: string): Mode {
-    return new Note(Mod12Value.getValueFromName(name, MODE_NAMES));
+    // TODO cache comme Note
+    return new Mode(Mod12Value.getValueFromName(name, MODE_NAMES));
   }
 
   get name(): string {
@@ -155,6 +190,7 @@ export class Mode extends Mod12Value {
 }
 
 export namespace Mode {
+  // TODO utiliser un cache au niveau du constructeur plutôt que de définir des constantes
   export const I = Mode.fromName('I')
   export const vi = Mode.fromName('vi')
 }
@@ -166,6 +202,7 @@ export class Key {
 }
 
 export namespace Key {
+  // TODO utiliser un cache au niveau du constructeur plutôt que de définir des constantes
   export const C = new Key(Note.C)
   export const Cs = new Key(Note.Cs)
   export const D = new Key(Note.D)
@@ -203,7 +240,6 @@ export class Chord {
 
   constructor(
     readonly name: string, // TODO pour l'instant on fait simple
-    root?: Note,
   ) {
     if (!name) {
       throw new Error('name must be non empty')
@@ -235,18 +271,14 @@ export class Chord {
 }
 
 export namespace Chord {
-  export const Gm: Chord = new Chord("Gm", Note.G)
+  // TODO utiliser un cache au niveau du constructeur plutôt que de définir des constantes
+  export const Gm: Chord = new Chord("Gm")
 }
 
 /**
  * Exemple : <code>| Gm F | Eb D |</code>
  */
 export type AsciiChords = string
-
-/**
- * Exemple : <code>Gm F | Eb D</code>
- */
-export type AsciiChordsWithoutBorders = string
 
 export type BarNumber0Indexed = number
 
@@ -325,12 +357,6 @@ export class Chords extends Array<Chord> {
     return this.chordsByPosition.map(([position, chord]) => `${PositionFormatter.DEBUG.format(position)} ${chord}`).join('\n')
   }
 
-  toAsciiWithoutBorders(): AsciiChordsWithoutBorders {
-    return this.ascii
-      .substring(1, this.ascii.length - 1)
-      .trim()
-  }
-
   private static getChordBeatDuration(numberOfChordsInOneBar: number): number {
     // TODO uniquement en 4/4
     return 4 / numberOfChordsInOneBar;
@@ -361,7 +387,7 @@ export class OctavedNote implements Comparable<OctavedNote> {
   static fromMidi(midiNoteValue: number): OctavedNote {
     const octave = Math.floor(midiNoteValue / 12) - 1;
     const noteValue = midiNoteValue % 12;
-    return new OctavedNote(new Note(noteValue), octave);
+    return new OctavedNote(Note.fromValue(noteValue), octave);
   }
 
   transpose(semitones: number): OctavedNote {

@@ -33,7 +33,7 @@ export class Fretboard {
   ): Note[] {
     const stringIndices = [...Array(stringsCount).keys()];
     return stringIndices.map((stringIndex) =>
-      startingNote.next(stringIndex * stringInterval.value)
+      startingNote.transpose(stringIndex * stringInterval.value)
     );
   }
 }

@@ -18,15 +18,15 @@ export class FretboardComponent implements OnInit, OnChanges {
   @Input()
   lowestFret? = DEFAULT_LOWEST_FRET
 
-  startingNote = Note.fromName('E')
-  stringInterval = new Note(5)
+  startingNote = Note.E
+  stringInterval = Note.fromValue(5)
   stringsCount = 4
 
   @Input()
   fretsCount? = DEFAULT_FRETS_COUNT
 
   @Input()
-  key? = new Key(Note.fromName('C'), Mode.fromName('I'))
+  key? = new Key(Note.C, Mode.fromName('I'))
 
   @Input()
   currentNote?: Note
@@ -49,11 +49,5 @@ export class FretboardComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     this.buildFretboard()
-  }
-}
-
-class FretboardNote extends Note {
-  constructor(readonly string: Note, readonly fret: number) {
-    super(string.value + fret)
   }
 }

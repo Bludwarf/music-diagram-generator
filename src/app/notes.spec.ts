@@ -1,46 +1,82 @@
 import {Chord, Chords, Note, OctavedNote} from "./notes";
 import {Position} from "./time";
 
+const C = Note.C
+const Cs = Note.Cs
+const Db = Note.Db
+const D = Note.D
+const Ds = Note.Ds
+const Eb = Note.Eb
+const E = Note.E
+const F = Note.F
+const Fs = Note.Fs
+const Gb = Note.Gb
+const G = Note.G
+const Gs = Note.Gs
+const Ab = Note.Ab
+const A = Note.A
+const As = Note.As
+const Bb = Note.Bb
+const B = Note.B
+
 describe('Note', () => {
 
+  it('equals', () => {
+    expect(C.equals(C)).toBeTrue();
+    expect(Cs.equals(Db)).toBeTrue();
+  });
+
+  it('compareTo', () => {
+    expect(C.equals(C)).toBeTrue();
+    expect(Cs.equals(Db)).toBeTrue();
+  });
+
   it('should convert flat to flat', () => {
-    expect(Note.fromName('C').toString('b')).toEqual('C');
-    expect(Note.fromName('C#').toString('b')).toEqual('Db');
-    expect(Note.fromName('Db').toString('b')).toEqual('Db');
-    expect(Note.fromName('D').toString('b')).toEqual('D');
-    expect(Note.fromName('D#').toString('b')).toEqual('Eb');
-    expect(Note.fromName('Eb').toString('b')).toEqual('Eb');
-    expect(Note.fromName('E').toString('b')).toEqual('E');
-    expect(Note.fromName('F').toString('b')).toEqual('F');
-    expect(Note.fromName('F#').toString('b')).toEqual('Gb');
-    expect(Note.fromName('Gb').toString('b')).toEqual('Gb');
-    expect(Note.fromName('G').toString('b')).toEqual('G');
-    expect(Note.fromName('G#').toString('b')).toEqual('Ab');
-    expect(Note.fromName('Ab').toString('b')).toEqual('Ab');
-    expect(Note.fromName('A').toString('b')).toEqual('A');
-    expect(Note.fromName('A#').toString('b')).toEqual('Bb');
-    expect(Note.fromName('Bb').toString('b')).toEqual('Bb');
-    expect(Note.fromName('B').toString('b')).toEqual('B');
+    expect(C.toString('b')).toEqual('C');
+    expect(Cs.toString('b')).toEqual('Db');
+    expect(Db.toString('b')).toEqual('Db');
+    expect(D.toString('b')).toEqual('D');
+    expect(Ds.toString('b')).toEqual('Eb');
+    expect(Eb.toString('b')).toEqual('Eb');
+    expect(E.toString('b')).toEqual('E');
+    expect(F.toString('b')).toEqual('F');
+    expect(Fs.toString('b')).toEqual('Gb');
+    expect(Gb.toString('b')).toEqual('Gb');
+    expect(G.toString('b')).toEqual('G');
+    expect(Gs.toString('b')).toEqual('Ab');
+    expect(Ab.toString('b')).toEqual('Ab');
+    expect(A.toString('b')).toEqual('A');
+    expect(As.toString('b')).toEqual('Bb');
+    expect(Bb.toString('b')).toEqual('Bb');
+    expect(B.toString('b')).toEqual('B');
   });
 
   it('should convert flat to sharp', () => {
-    expect(Note.fromName('C').toString('#')).toEqual('C');
-    expect(Note.fromName('C#').toString('#')).toEqual('C#');
-    expect(Note.fromName('Db').toString('#')).toEqual('C#');
-    expect(Note.fromName('D').toString('#')).toEqual('D');
-    expect(Note.fromName('D#').toString('#')).toEqual('D#');
-    expect(Note.fromName('Eb').toString('#')).toEqual('D#');
-    expect(Note.fromName('E').toString('#')).toEqual('E');
-    expect(Note.fromName('F').toString('#')).toEqual('F');
-    expect(Note.fromName('F#').toString('#')).toEqual('F#');
-    expect(Note.fromName('Gb').toString('#')).toEqual('F#');
-    expect(Note.fromName('G').toString('#')).toEqual('G');
-    expect(Note.fromName('G#').toString('#')).toEqual('G#');
-    expect(Note.fromName('Ab').toString('#')).toEqual('G#');
-    expect(Note.fromName('A').toString('#')).toEqual('A');
-    expect(Note.fromName('A#').toString('#')).toEqual('A#');
-    expect(Note.fromName('Bb').toString('#')).toEqual('A#');
-    expect(Note.fromName('B').toString('#')).toEqual('B');
+    expect(C.toString('#')).toEqual('C');
+    expect(Cs.toString('#')).toEqual('C#');
+    expect(Db.toString('#')).toEqual('C#');
+    expect(D.toString('#')).toEqual('D');
+    expect(Ds.toString('#')).toEqual('D#');
+    expect(Eb.toString('#')).toEqual('D#');
+    expect(E.toString('#')).toEqual('E');
+    expect(F.toString('#')).toEqual('F');
+    expect(Fs.toString('#')).toEqual('F#');
+    expect(Gb.toString('#')).toEqual('F#');
+    expect(G.toString('#')).toEqual('G');
+    expect(Gs.toString('#')).toEqual('G#');
+    expect(Ab.toString('#')).toEqual('G#');
+    expect(A.toString('#')).toEqual('A');
+    expect(As.toString('#')).toEqual('A#');
+    expect(Bb.toString('#')).toEqual('A#');
+    expect(B.toString('#')).toEqual('B');
+  });
+
+  it('transpose', () => {
+    expect(C.transpose(-1)).toBe(B);
+    expect(C.transpose(0)).toBe(C);
+    expect(C.transpose(1)).toBe(Cs);
+    expect(Cs.transpose(-1)).toBe(C);
+    expect(Db.transpose(-1)).toBe(C);
   });
 
 });
@@ -48,11 +84,11 @@ describe('Note', () => {
 describe('Chord', () => {
 
   it('should get root from chord Am', () => {
-    expect(Chord.getRootFromName('Am')).toEqual(Note.A);
+    expect(Chord.getRootFromName('Am')).toBe(Note.A);
   });
 
   it('should get root from chord Gb', () => {
-    expect(Chord.getRootFromName('Gb')).toEqual(Note.Gb);
+    expect(Chord.getRootFromName('Gb')).toBe(Note.Gb);
   });
 
 });
@@ -122,15 +158,15 @@ describe('Chords', () => {
 describe('OctavedNote', () => {
 
   it('should get OctavedNote from MidiNoteName', () => {
-    expect(OctavedNote.fromMidiName('A0')).toEqual(new OctavedNote(Note.fromName('A'), 0));
-    expect(OctavedNote.fromMidiName('C8')).toEqual(new OctavedNote(Note.fromName('C'), 8));
-    expect(OctavedNote.fromMidiName('A#4')).toEqual(new OctavedNote(Note.fromName('A#'), 4));
-    expect(OctavedNote.fromMidiName('Ab4')).toEqual(new OctavedNote(Note.fromName('Ab'), 4));
+    expect(OctavedNote.fromMidiName('A0')).toEqual(new OctavedNote(A, 0));
+    expect(OctavedNote.fromMidiName('C8')).toEqual(new OctavedNote(C, 8));
+    expect(OctavedNote.fromMidiName('A#4')).toEqual(new OctavedNote(As, 4));
+    expect(OctavedNote.fromMidiName('Ab4')).toEqual(new OctavedNote(Ab, 4));
   });
 
   it('should get OctavedNote from MidiNoteValue', () => {
-    expect(OctavedNote.fromMidi(21)).toEqual(new OctavedNote(Note.fromName('A'), 0));
-    expect(OctavedNote.fromMidi(108)).toEqual(new OctavedNote(Note.fromName('C'), 8));
+    expect(OctavedNote.fromMidi(21)).toEqual(new OctavedNote(A, 0));
+    expect(OctavedNote.fromMidi(108)).toEqual(new OctavedNote(C, 8));
   });
 
   it('should get midi', () => {

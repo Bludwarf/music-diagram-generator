@@ -312,12 +312,21 @@ export abstract class MobileRehearsal {
   }
 
   onClickBar(bar: BarNumber0Indexed): void {
+    const barAsPositionedElement = this.getBarAsPositionedElement(bar);
+    this.onClickElementInStructure(barAsPositionedElement, bar === this.currentBar)
+  }
+
+  getBarAsPositionedElement(bar: BarNumber0Indexed): PositionedElement {
     const startPosition = new Position(bar)
     const endPosition = startPosition.addBars(1);
-    this.onClickElementInStructure({
+    return {
       startPosition,
       endPosition,
-    }, bar === this.currentBar)
+    }
+  }
+
+  get currentBarAsPositionedElement(): PositionedElement | undefined {
+    return this.currentBar !== undefined ? this.getBarAsPositionedElement(this.currentBar) : undefined
   }
 
   setProgress(event: Event): void {

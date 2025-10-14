@@ -25,7 +25,7 @@
 #transport {
   flex: none;
   display: flex;
-  gap: 4px; // TODO on veut 1px mais on est obligé de mettre 4px
+  gap: 1px;
 }
 
 #transport-timecode {
@@ -41,14 +41,10 @@ input[type=file] {
   display: none;
 }
 
-#transport-buttons {
+div.buttons {
   flex: none;
   display: flex;
   justify-content: center;
-
-  button {
-    aspect-ratio: 1;
-  }
 }
 
 #song-map {

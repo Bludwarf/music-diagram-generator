@@ -19,14 +19,14 @@ import {SampleMapComponent} from "../sample-map/sample-map.component";
 import {StructureMapComponent} from "../structure-map/structure-map.component";
 import {PatternInStructure} from "../../../structure/pattern/pattern-in-structure";
 import {SampleCacheService} from "../../../sample/samples-cache.service";
-import {error, sequence} from "../../../utils";
+import {error} from "../../../utils";
 import {SongRepository} from "../../../song/song-repository";
 import {KeyboardComponent} from "../../../keyboard/keyboard.component";
 import * as Tone from "tone";
 import {BeatTime, Position, PositionedElement} from "../../../time";
 import keyboardReducer from "../../../keyboard/reducer";
 import {KeyboardState} from "../../../keyboard/type";
-import {BarNumber0Indexed, Chord, Note, OctavedNote} from "../../../notes";
+import {BarNumber0Indexed, Chord, OctavedNote} from "../../../notes";
 import {SheetMusicComponent} from "../../../sheet-music/sheet-music.component";
 import {MAX_MIDI, MIN_MIDI} from "../../../keyboard/notes";
 import {MidiNote} from "../../../recording/recording";
@@ -56,6 +56,7 @@ export class MobileRehearsalPOsmdComponent extends MobileRehearsal implements On
 
   keyboardState?: KeyboardState;
   musicXml?: string;
+  keyboardMarkLevel: KeyboardMarkLevel = 'section'
 
   constructor(
     changeDetectorRef: ChangeDetectorRef,
@@ -214,8 +215,23 @@ export class MobileRehearsalPOsmdComponent extends MobileRehearsal implements On
     // ])
 
     // V2 : toutes les notes courante
-    return this.getMidiNotesFrom(this.currentPatternInStructure)
+    // return this.getMidiNotesFrom(this.currentPatternInStructure)
+    //   .map(midiNote => OctavedNote.fromMidi(midiNote.midi))
+
+    // V3 : configurable
+    return this.getMidiNotesFrom(this.currentElementForMarkedOctavedNotes)
       .map(midiNote => OctavedNote.fromMidi(midiNote.midi))
+  }
+
+  private get currentElementForMarkedOctavedNotes(): PositionedElement | undefined {
+    switch (this.keyboardMarkLevel) {
+      case "bar":
+        return this.currentBarAsPositionedElement
+      case "pattern":
+        return this.currentPatternInStructure
+      case "section":
+        return this.currentSectionInStructure
+    }
   }
 
   private loadMusicXML() {
@@ -269,9 +285,9 @@ export class MobileRehearsalPOsmdComponent extends MobileRehearsal implements On
   private getExtremeOctavedNote(direction: 'down' | 'up'): OctavedNote | undefined {
     const midiNotes = this.currentMidiNotes;
     if (midiNotes.length) {
-        const method = direction === 'down' ? Math.min : Math.max;
-        const minMidi = method(...midiNotes.map(note => note.midi));
-        return OctavedNote.fromMidi(minMidi);
+      const method = direction === 'down' ? Math.min : Math.max;
+      const minMidi = method(...midiNotes.map(note => note.midi));
+      return OctavedNote.fromMidi(minMidi);
     }
     return undefined;
   }
@@ -291,4 +307,17 @@ export class MobileRehearsalPOsmdComponent extends MobileRehearsal implements On
       }
     }
   }
+
+  promptSetting(): void {
+    const answer = prompt(`Marquage des notes sur le clavier`, this.keyboardMarkLevel || '');
+    if (answer) {
+      if (['bar', 'pattern', 'section'].includes(answer)) {
+        this.keyboardMarkLevel = answer as KeyboardMarkLevel
+      } else {
+        error('KeyboardMarkLevel inconnu');
+      }
+    }
+  }
 }
+
+type KeyboardMarkLevel = 'bar' | 'pattern' | 'section'

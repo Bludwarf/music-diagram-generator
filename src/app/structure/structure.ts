@@ -124,6 +124,7 @@ export class Structure {
     //   console.warn('currentTime != duration', currentTime.toAbletonLiveBarsBeatsSixteenths(), sampleDuration.toAbletonLiveBarsBeatsSixteenths())
     // }
   }
+
   getPartInStructureAt(position: Position): PartInStructure {
     return Position.getElementAtWithOverflow(position, this.partsInStructure)
   }
@@ -140,6 +141,14 @@ export class Structure {
 
   getPatternColor(patternInStructure: PatternInStructure): Color {
     return this.colorResolver.getPatternColor(patternInStructure)
+  }
+
+  get durationInBars(): number {
+    let durationInBars = 0;
+    for (const partInStructure of this.partsInStructure) {
+      durationInBars += partInStructure.part.durationInBars
+    }
+    return durationInBars;
   }
 
 }

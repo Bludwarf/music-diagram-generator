@@ -30,6 +30,7 @@ import {BarNumber0Indexed, Chord, OctavedNote} from "../../../notes";
 import {SheetMusicComponent} from "../../../sheet-music/sheet-music.component";
 import {MAX_MIDI, MIN_MIDI} from "../../../keyboard/notes";
 import {MidiNote} from "../../../recording/recording";
+import {SwipeDirective} from "../../../swipe.directive";
 
 @Component({
   selector: 'app-mobile-rehearsal-p-osmd',
@@ -44,6 +45,7 @@ import {MidiNote} from "../../../recording/recording";
     ChordsGridComponent,
     KeyboardComponent,
     SheetMusicComponent,
+    SwipeDirective,
   ],
   templateUrl: './mobile-rehearsal-p-osmd.component.html',
   styleUrl: './mobile-rehearsal-p-osmd.component.scss',
@@ -315,6 +317,17 @@ export class MobileRehearsalPOsmdComponent extends MobileRehearsal implements On
         this.keyboardMarkLevel = answer as KeyboardMarkLevel
       } else {
         error('KeyboardMarkLevel inconnu');
+      }
+    }
+  }
+
+  onSheetMusicSwipe(barDirection: number): void {
+    const currentBar = this.currentBar;
+    if (currentBar !== undefined) {
+      const lengthInBars = this.structure?.durationInBars;
+      if (lengthInBars !== undefined) {
+        const nextBar = Math.min(Math.max(currentBar + barDirection, 0), lengthInBars - 1);
+        this.onClickElementInStructure(this.getBarAsPositionedElement(nextBar)); // TODO remplacer par un setter de this.currentBar
       }
     }
   }

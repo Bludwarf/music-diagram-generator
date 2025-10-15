@@ -73,7 +73,7 @@
         <app-keyboard [lowerOctavedNote]="lowerOctavedNote" [higherOctavedNote]="higherOctavedNote" [activeKeys]="keyboardState?.activeKeys || []" [keyHeightInPx]="keyHeightInPx" [markedOctavedNotes]="markedOctavedNotes"></app-keyboard>
       </div>
 
-      <app-sheet-music *ngIf="musicXml && position" [musicXmlContent]="musicXml" [position]="position"></app-sheet-music>
+      <app-sheet-music *ngIf="musicXml && position" [musicXmlContent]="musicXml" [position]="position" (swipeLeft)="onSheetMusicSwipe(1)" (swipeRight)="onSheetMusicSwipe(-1)"></app-sheet-music>
 
     </div>
 

@@ -298,6 +298,14 @@ export abstract class MobileRehearsal {
         this.currentPatternInStructure = element.patternsInStructure[0]
       } else if (element instanceof PartInStructure) {
         this.currentPatternInStructure = element.sectionsInStructure[0].patternsInStructure[0]
+      } else if (this.structure) {
+        // TODO créer un type BarInStructure, pour être plus propre et plus optimisé
+        const position = element.startPosition
+        const currentPartInStructure = this.structure.getPartInStructureAt(position)
+        const currentSectionInStructure = currentPartInStructure.getSectionInStructureAt(position)
+        if (currentSectionInStructure) {
+          this.currentPatternInStructure = currentSectionInStructure.getPatternInStructureAt(position)
+        }
       }
     }
   }

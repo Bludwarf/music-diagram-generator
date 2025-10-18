@@ -17,7 +17,7 @@ export class KeyboardAdapter {
       on = on.transpose(sign * value);
     }
     if (octavedNote.compareTo(on) !== 0) {
-      console.warn('adaptExtremeNoteName', octavedNote.toString(), on.toString());
+      // console.warn('adaptExtremeNoteName', octavedNote.toString(), on.toString());
     }
     return on.toString();
   }

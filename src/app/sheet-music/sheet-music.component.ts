@@ -107,7 +107,7 @@ export class SheetMusicComponent implements AfterViewInit {
         it.moveToNext()
 
         if (it.CurrentRelativeInMeasureTimestamp.RealValue === 0) {
-          console.error('On a dépassé la realValue max ' + realValueBeforeMove)
+          // console.error('On a dépassé la realValue max ' + realValueBeforeMove)
           it.moveToPrevious()
           break;
         }
@@ -115,7 +115,7 @@ export class SheetMusicComponent implements AfterViewInit {
         if (movedDirectionWasNext === undefined) {
           movedDirectionWasNext = true;
         } else if (!movedDirectionWasNext) {
-          console.warn('Cannot moveToNext')
+          // console.warn('Cannot moveToNext')
           it.moveToPrevious()
           break;
         }
@@ -124,7 +124,7 @@ export class SheetMusicComponent implements AfterViewInit {
         if (movedDirectionWasNext === undefined) {
           movedDirectionWasNext = false;
         } else if (movedDirectionWasNext) {
-          console.warn('Cannot moveToPrevious')
+          // console.warn('Cannot moveToPrevious')
           // it.moveToNext() : on arrondit au temps précédent pour se positionner au même endroit qq soit le sens
           break;
         }

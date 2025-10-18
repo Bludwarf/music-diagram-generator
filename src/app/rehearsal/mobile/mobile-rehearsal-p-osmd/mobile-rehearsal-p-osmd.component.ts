@@ -75,7 +75,7 @@ export class MobileRehearsalPOsmdComponent extends MobileRehearsal implements On
     this.structure = entry.structure
     this.recording = entry.recording
     this.scheduleKeyboardNotes();
-
+    this.schedulePositionedElements();
     this.loadMusicXML();
   }
 
@@ -154,6 +154,38 @@ export class MobileRehearsalPOsmdComponent extends MobileRehearsal implements On
         });
       }
     }
+  }
+
+  private schedulePositionedElements() {
+    const recording = this.recording;
+    if (!recording) return
+
+    const partsInStructure = this.structure?.partsInStructure;
+    if (!partsInStructure) return
+
+    partsInStructure.forEach(partInStructure => {
+      partInStructure.sectionsInStructure.forEach(sectionInStructure => {
+        sectionInStructure.patternsInStructure.forEach(patternInStructure => {
+          const patternStartTime = recording.getSecTimeAt(patternInStructure.startPosition);
+          if (patternStartTime) {
+            Tone.Transport.schedule(time => {
+              console.log('start : ', patternInStructure.pattern.name)
+              this.currentPatternInStructure = patternInStructure
+            }, patternStartTime.value);
+          }
+
+          const patternEndTime = recording.getSecTimeAt(patternInStructure.endPosition);
+          if (patternEndTime) {
+            Tone.Transport.schedule(time => {
+              console.log('end : ', patternInStructure.pattern.name)
+              if (this.currentPatternInStructure === patternInStructure) {
+                delete this.currentPatternInStructure
+              }
+            }, patternEndTime.value);
+          }
+        })
+      })
+    })
   }
 
   get currentMidiNotesElement(): PositionedElement | undefined {

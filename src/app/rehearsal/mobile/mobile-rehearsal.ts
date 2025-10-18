@@ -203,11 +203,11 @@ export abstract class MobileRehearsal {
         this.currentPartInStructure = this.structure.getPartInStructureAt(position)
         this.currentSectionInStructure = this.currentPartInStructure.getSectionInStructureAt(position)
 
-        if (this.currentSectionInStructure) {
-          this.currentPatternInStructure = this.currentSectionInStructure.getPatternInStructureAt(position)
-        } else {
-          delete this.currentPatternInStructure
-        }
+        // if (this.currentSectionInStructure) {
+        //   this.currentPatternInStructure = this.currentSectionInStructure.getPatternInStructureAt(position)
+        // } else {
+        //   delete this.currentPatternInStructure
+        // }
         const previousCurrentChord = this.currentChord;
         this.currentChord = this.currentPatternInStructure?.getChordAt(position)
         if (this.currentBar !== previousCurrentBar || this.currentChord !== previousCurrentChord) {
@@ -266,6 +266,11 @@ export abstract class MobileRehearsal {
 
     if (!isCurrentInStructure) {
       this.setPosition(element.startPosition);
+      if (element instanceof PatternInStructure) {
+        console.log('click => set', element.pattern.name)
+        this.currentPatternInStructure = element
+        this.changeDetectorRef.detectChanges();
+      }
     }
   }
 

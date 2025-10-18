@@ -62,7 +62,7 @@ export abstract class MobileRehearsal {
 
   get position(): Position | undefined {
     const beatTime = this.beatTime;
-    if (beatTime && beatTime.value > 0) {
+    if (beatTime && beatTime.value >= 0) {
       return this.recording?.getPosition(beatTime)
     }
     return undefined

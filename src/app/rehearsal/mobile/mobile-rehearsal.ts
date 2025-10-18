@@ -1,4 +1,4 @@
-import {ChangeDetectorRef} from '@angular/core';
+import {NgZone, signal} from '@angular/core';
 import {SectionInStructure} from "../../structure/section/section-in-structure";
 import {PatternInStructure} from "../../structure/pattern/pattern-in-structure";
 import {BarNumber0Indexed, Chord, Chords, Key} from "../../notes";
@@ -14,6 +14,7 @@ import {PartInStructure} from "../../structure/part/part-in-structure";
 import {SampleCacheService} from '../../sample/samples-cache.service';
 import {SongRepository} from '../../song/song-repository';
 import {BarsBeatsSixteenths, Time} from "tone/Tone/core/type/Units";
+import {ToneAdapter} from "../../tonejs/tone-adapter";
 
 export abstract class MobileRehearsal {
 
@@ -49,12 +50,10 @@ export abstract class MobileRehearsal {
     return this.position ? PositionFormatter.ABLETON_GLOBAL_TIMECODE.format(this.position) : undefined
   }
 
-  get secTime(): SecTime {
-    return SecTime.fromToneTransportSeconds(Tone.Transport.seconds)
-  }
+  secTime = signal(new SecTime(0))
 
   get beatTime(): BeatTime | undefined {
-    return this.recording?.getBeatTime(this.secTime);
+    return this.recording?.getBeatTime(this.secTime());
   }
 
   get currentBar(): BarNumber0Indexed | undefined {
@@ -111,7 +110,7 @@ export abstract class MobileRehearsal {
   loopedElement?: PositionedElement;
 
   protected constructor(
-    protected readonly changeDetectorRef: ChangeDetectorRef,
+    protected readonly toneAdapter: ToneAdapter,
     activatedRoute: ActivatedRoute,
     title: Title,
     protected readonly sampleCacheService: SampleCacheService,
@@ -130,7 +129,7 @@ export abstract class MobileRehearsal {
 
     // console.log('Events chargés depuis le JSON', events);
 
-    // Tone.Transport.schedule(function (time) {
+    // this.toneAdapter.schedule(function (time) {
     //   console.log('Première mesure')
     // }, "1m");
   }
@@ -143,14 +142,6 @@ export abstract class MobileRehearsal {
   }
 
   protected scheduleAll(): void {
-    const recording = this.recording;
-    if (recording) {
-      for (let seconds = 0; seconds <= recording.sampleDurationInSeconds; ++seconds) {
-        Tone.Transport.schedule(() => {
-          // this.transportSeconds = seconds
-        }, seconds);
-      }
-    }
     this.schedulePositionedElements();
   }
 
@@ -166,14 +157,14 @@ export abstract class MobileRehearsal {
         sectionInStructure.patternsInStructure.forEach(patternInStructure => {
           const patternStartTime = recording.getSecTimeAt(patternInStructure.startPosition);
           if (patternStartTime) {
-            Tone.Transport.schedule(() => {
+            this.toneAdapter.schedule(() => {
               this.currentPatternInStructure = patternInStructure
             }, patternStartTime.value);
           }
 
           const patternEndTime = recording.getSecTimeAt(patternInStructure.endPosition);
           if (patternEndTime) {
-            Tone.Transport.schedule(() => {
+            this.toneAdapter.schedule(() => {
               if (this.currentPatternInStructure === patternInStructure) {
                 delete this.currentPatternInStructure
               }
@@ -246,8 +237,8 @@ export abstract class MobileRehearsal {
     player.sync().start(0)
     this.player = player
 
-    this.transportProgressLoop = new Tone.Loop(() => {
-      this.changeDetectorRef.detectChanges();
+    this.transportProgressLoop = this.toneAdapter.loop(() => {
+        this.secTime.set(SecTime.fromToneTransportSeconds(Tone.Transport.seconds))
     }, "32n").start(0);
     await Tone.loaded() // évite les erreurs de buffer
     await Tone.start()
@@ -308,7 +299,6 @@ export abstract class MobileRehearsal {
       } else if (element instanceof PartInStructure) {
         this.currentPatternInStructure = element.sectionsInStructure[0].patternsInStructure[0]
       }
-      this.changeDetectorRef.detectChanges();
     }
   }
 
@@ -317,6 +307,7 @@ export abstract class MobileRehearsal {
     if (secTime !== undefined) {
       const fixOffset = 0.05 // On corrige la sélection qui arrive souvent sur l'élément précédent => TODO corriger en arrondissant la sélection dans le refresh
       Tone.Transport.seconds = secTime.value + fixOffset
+      this.secTime.set(secTime)
       this.resetStates(position);
     }
   }

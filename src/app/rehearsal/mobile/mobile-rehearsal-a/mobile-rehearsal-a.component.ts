@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {Title} from "@angular/platform-browser";
 import {RythmBarComponent} from "../../../rythm-bar/rythm-bar.component";
@@ -10,6 +10,7 @@ import {SectionComponent} from "../../../structure/section/section.component";
 import {MobileRehearsal} from "../mobile-rehearsal";
 import {SampleCacheService} from '../../../sample/samples-cache.service';
 import {SongRepository} from '../../../song/song-repository';
+import {ToneAdapter} from "../../../tonejs/tone-adapter";
 
 @Component({
   selector: 'app-mobile-rehearsal-a',
@@ -23,13 +24,13 @@ import {SongRepository} from '../../../song/song-repository';
 export class MobileRehearsalAComponent extends MobileRehearsal implements OnInit {
 
   constructor(
-    changeDetectorRef: ChangeDetectorRef,
+    toneAdapter: ToneAdapter,
     activatedRoute: ActivatedRoute,
     title: Title,
     sampleCacheService: SampleCacheService,
     songRepository: SongRepository,
   ) {
-    super(changeDetectorRef, activatedRoute, title, sampleCacheService, songRepository)
+    super(toneAdapter, activatedRoute, title, sampleCacheService, songRepository)
   }
 
   ngOnInit() {

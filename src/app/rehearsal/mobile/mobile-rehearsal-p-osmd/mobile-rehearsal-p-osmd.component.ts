@@ -1,13 +1,5 @@
 import {CommonModule} from "@angular/common";
-import {
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  ElementRef,
-  OnDestroy,
-  OnInit,
-  ViewChild
-} from '@angular/core';
+import {ChangeDetectionStrategy, Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {FormsModule} from "@angular/forms";
 import {Title} from "@angular/platform-browser";
 import {ActivatedRoute} from "@angular/router";
@@ -31,6 +23,7 @@ import {SheetMusicComponent} from "../../../sheet-music/sheet-music.component";
 import {MAX_MIDI, MIN_MIDI} from "../../../keyboard/notes";
 import {MidiNote} from "../../../recording/recording";
 import {SwipeDirective} from "../../../swipe.directive";
+import {ToneAdapter} from "../../../tonejs/tone-adapter";
 
 @Component({
   selector: 'app-mobile-rehearsal-p-osmd',
@@ -61,13 +54,13 @@ export class MobileRehearsalPOsmdComponent extends MobileRehearsal implements On
   keyboardMarkLevel: KeyboardMarkLevel = 'bar'
 
   constructor(
-    changeDetectorRef: ChangeDetectorRef,
+    toneAdapter: ToneAdapter,
     activatedRoute: ActivatedRoute,
     title: Title,
     sampleCacheService: SampleCacheService,
     songRepository: SongRepository,
   ) {
-    super(changeDetectorRef, activatedRoute, title, sampleCacheService, songRepository)
+    super(toneAdapter, activatedRoute, title, sampleCacheService, songRepository)
   }
 
   ngOnInit() {
@@ -125,7 +118,7 @@ export class MobileRehearsalPOsmdComponent extends MobileRehearsal implements On
             const beatTime = BeatTime.fromMidiTicks(note.ticks, midi.header.ppq);
             const secTime = recording.getSecTime(beatTime);
             if (secTime) {
-              Tone.Transport.schedule(time => {
+              this.toneAdapter.schedule(time => {
                 this.keyboardState = keyboardReducer(this.keyboardState, {
                   type: 'ACTIVE_KEY',
                   key: note.name,
@@ -139,7 +132,13 @@ export class MobileRehearsalPOsmdComponent extends MobileRehearsal implements On
               if (endSecTime.value === secTime.value) {
                 throw new Error(`La note ${note.name} devrait durer un minimum de temps (cf. log ticks=${note.ticks})`);
               }
-              Tone.Transport.schedule(time => {
+              this.toneAdapter.schedule(() => {
+                this.keyboardState = keyboardReducer(this.keyboardState, {
+                  type: 'DEACTIVE_KEY',
+                  key: note.name,
+                })
+              }, endSecTime.value);
+              this.toneAdapter.schedule(time => {
                 this.keyboardState = keyboardReducer(this.keyboardState, {
                   type: 'DEACTIVE_KEY',
                   key: note.name,

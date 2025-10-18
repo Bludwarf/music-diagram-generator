@@ -1,13 +1,5 @@
 import {CommonModule} from "@angular/common";
-import {
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  ElementRef,
-  OnDestroy,
-  OnInit,
-  ViewChild
-} from '@angular/core';
+import {ChangeDetectionStrategy, Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {FormsModule} from "@angular/forms";
 import {Title} from "@angular/platform-browser";
 import {ActivatedRoute} from "@angular/router";
@@ -23,6 +15,7 @@ import {PatternInStructure} from "../../../structure/pattern/pattern-in-structur
 import {SampleCacheService} from "../../../sample/samples-cache.service";
 import {error} from "../../../utils";
 import {SongRepository} from "../../../song/song-repository";
+import {ToneAdapter} from "../../../tonejs/tone-adapter";
 
 @Component({
   selector: 'app-mobile-rehearsal-b',
@@ -48,13 +41,13 @@ export class MobileRehearsalBComponent extends MobileRehearsal implements OnInit
   fileInput?: ElementRef<HTMLInputElement>;
 
   constructor(
-    changeDetectorRef: ChangeDetectorRef,
+    toneAdapter: ToneAdapter,
     activatedRoute: ActivatedRoute,
     title: Title,
     sampleCacheService: SampleCacheService,
     songRepository: SongRepository,
   ) {
-    super(changeDetectorRef, activatedRoute, title, sampleCacheService, songRepository)
+    super(toneAdapter, activatedRoute, title, sampleCacheService, songRepository)
   }
 
   ngOnInit() {

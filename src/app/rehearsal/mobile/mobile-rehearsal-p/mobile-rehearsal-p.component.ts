@@ -1,13 +1,5 @@
 import {CommonModule} from "@angular/common";
-import {
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  Component,
-  ElementRef,
-  OnDestroy,
-  OnInit,
-  ViewChild
-} from '@angular/core';
+import {ChangeDetectionStrategy, Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {FormsModule} from "@angular/forms";
 import {Title} from "@angular/platform-browser";
 import {ActivatedRoute} from "@angular/router";
@@ -29,6 +21,7 @@ import keyboardReducer from "../../../keyboard/reducer";
 import {KeyboardRange, KeyboardState} from "../../../keyboard/type";
 import {OctavedNote} from "../../../notes";
 import {KeyboardAdapter} from "../../../keyboard/keyboard-adapter";
+import {ToneAdapter} from "../../../tonejs/tone-adapter";
 
 @Component({
   selector: 'app-mobile-rehearsal-p',
@@ -57,14 +50,14 @@ export class MobileRehearsalPComponent extends MobileRehearsal implements OnInit
   keyboardRangeByTrackIndex: KeyboardRange[] = [];
 
   constructor(
-    changeDetectorRef: ChangeDetectorRef,
+    toneAdapter: ToneAdapter,
     activatedRoute: ActivatedRoute,
     title: Title,
     sampleCacheService: SampleCacheService,
     songRepository: SongRepository,
     private readonly keyboardAdapter: KeyboardAdapter,
   ) {
-    super(changeDetectorRef, activatedRoute, title, sampleCacheService, songRepository)
+    super(toneAdapter, activatedRoute, title, sampleCacheService, songRepository)
   }
 
   ngOnInit() {
@@ -118,7 +111,7 @@ export class MobileRehearsalPComponent extends MobileRehearsal implements OnInit
             const beatTime = BeatTime.fromMidiTicks(note.ticks, midi.header.ppq);
             const secTime = recording.getSecTime(beatTime);
             if (secTime) {
-              Tone.Transport.schedule(time => {
+              this.toneAdapter.schedule(time => {
                 this.keyboardStatesByTrackIndex[trackIndex] = keyboardReducer(this.keyboardStatesByTrackIndex[trackIndex], {
                   type: 'ACTIVE_KEY',
                   key: note.name,
@@ -132,7 +125,7 @@ export class MobileRehearsalPComponent extends MobileRehearsal implements OnInit
               if (endSecTime.value === secTime.value) {
                 throw new Error(`La note ${note.name} devrait durer un minimum de temps (cf. log ticks=${note.ticks})`);
               }
-              Tone.Transport.schedule(time => {
+              this.toneAdapter.schedule(time => {
                 this.keyboardStatesByTrackIndex[trackIndex] = keyboardReducer(this.keyboardStatesByTrackIndex[trackIndex], {
                   type: 'DEACTIVE_KEY',
                   key: note.name,

@@ -58,15 +58,12 @@ export class MobileRehearsalBComponent extends MobileRehearsal implements OnInit
   }
 
   ngOnInit() {
-    const entry = this.requireSongEntry();
-    this.structure = entry.structure
-    this.recording = entry.recording
-
+    super.onInit();
     this.mockInit();
   }
 
   ngOnDestroy(): void {
-    this.destroy()
+    this.onDestroy()
   }
 
   private mockInit() {

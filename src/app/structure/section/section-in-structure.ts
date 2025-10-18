@@ -2,14 +2,21 @@ import {Position, PositionedElement, PositionFormatter} from "../../time";
 import {Structure} from "../structure";
 import {Section} from "./section";
 import {PatternInStructure} from "../pattern/pattern-in-structure";
+import {PartInStructure} from "../part/part-in-structure";
 
 export class SectionInStructure implements PositionedElement {
 
+  partInStructure!: PartInStructure;
+
   constructor(
     readonly section: Section,
-    readonly structure: Structure,
     readonly patternsInStructure: PatternInStructure[],
   ) {
+    patternsInStructure.forEach(p => p.sectionInStructure = this)
+  }
+
+  get structure(): Structure {
+    return this.partInStructure.structure;
   }
 
   get initial(): string {

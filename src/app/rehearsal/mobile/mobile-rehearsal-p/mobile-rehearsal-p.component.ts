@@ -68,14 +68,16 @@ export class MobileRehearsalPComponent extends MobileRehearsal implements OnInit
   }
 
   ngOnInit() {
-    const entry = this.requireSongEntry();
-    this.structure = entry.structure
-    this.recording = entry.recording
-    this.scheduleKeyboardNotes();
+    this.onInit()
   }
 
-  ngOnDestroy(): void {
-    this.destroy()
+  ngOnDestroy() {
+    this.onDestroy()
+  }
+
+  protected override scheduleAll() {
+    super.scheduleAll();
+    this.scheduleKeyboardNotes();
   }
 
   override async playSong(): Promise<void> {

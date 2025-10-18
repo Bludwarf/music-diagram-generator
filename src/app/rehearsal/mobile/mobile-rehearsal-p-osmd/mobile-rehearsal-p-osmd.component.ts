@@ -26,7 +26,7 @@ import * as Tone from "tone";
 import {BeatTime, Position, PositionedElement} from "../../../time";
 import keyboardReducer from "../../../keyboard/reducer";
 import {KeyboardState} from "../../../keyboard/type";
-import {BarNumber0Indexed, Chord, OctavedNote} from "../../../notes";
+import {OctavedNote} from "../../../notes";
 import {SheetMusicComponent} from "../../../sheet-music/sheet-music.component";
 import {MAX_MIDI, MIN_MIDI} from "../../../keyboard/notes";
 import {MidiNote} from "../../../recording/recording";
@@ -71,16 +71,17 @@ export class MobileRehearsalPOsmdComponent extends MobileRehearsal implements On
   }
 
   ngOnInit() {
-    const entry = this.requireSongEntry();
-    this.structure = entry.structure
-    this.recording = entry.recording
-    this.scheduleKeyboardNotes();
-
+    super.onInit()
     this.loadMusicXML();
   }
 
-  ngOnDestroy(): void {
-    this.destroy()
+  ngOnDestroy() {
+    this.onDestroy()
+  }
+
+  protected override scheduleAll() {
+    super.scheduleAll();
+    this.scheduleKeyboardNotes();
   }
 
   override async playSong(): Promise<void> {
@@ -292,22 +293,6 @@ export class MobileRehearsalPOsmdComponent extends MobileRehearsal implements On
       return OctavedNote.fromMidi(minMidi);
     }
     return undefined;
-  }
-
-  override onBarChange(currentBar: BarNumber0Indexed, currentChord: Chord | undefined) {
-    if (currentChord) {
-      const recording = this.recording;
-      if (recording) {
-        const beatTime = recording.getBeatTimeAt(new Position(currentBar)); // TODO passer beatTime plutôt que currentBar
-        const beatTimeEnd = recording.getBeatTimeAt(new Position(currentBar + 1));
-        const midi = recording.midi;
-        if (beatTime && beatTimeEnd && midi) {
-          const startTicks = beatTime.toMidiTicks(midi.header.ppq);
-          const endTicks = beatTimeEnd.toMidiTicks(midi.header.ppq);
-          return;
-        }
-      }
-    }
   }
 
   promptSetting(): void {

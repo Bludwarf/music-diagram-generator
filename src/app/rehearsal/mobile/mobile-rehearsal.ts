@@ -7,33 +7,99 @@ import {ActivatedRoute} from "@angular/router";
 import {Title} from "@angular/platform-browser";
 import {RythmBarEvent} from "../../rythm-bar/event";
 import * as Tone from "tone";
-import {Position, PositionedElement, PositionFormatter, SecTime} from "../../time";
+import {BeatTime, Position, PositionedElement, PositionFormatter, SecTime} from "../../time";
 import {error, sequence, stripExtension} from '../../utils';
 import {Recording} from "../../recording/recording";
 import {PartInStructure} from "../../structure/part/part-in-structure";
 import {SampleCacheService} from '../../sample/samples-cache.service';
 import {SongRepository} from '../../song/song-repository';
+import {BarsBeatsSixteenths, Time} from "tone/Tone/core/type/Units";
 
 export abstract class MobileRehearsal {
 
   debug = false
 
-  currentPartInStructure?: PartInStructure;
-  currentSectionInStructure?: SectionInStructure;
-  currentPatternInStructure?: PatternInStructure;
-  currentChord?: Chord;
-  currentKey?: Key;
+  get currentPartInStructure(): PartInStructure | undefined {
+    return this.currentSectionInStructure?.partInStructure
+  }
 
-  progress = 0;
-  timecode?: string;
-  currentBar?: BarNumber0Indexed;
-  position?: Position;
-  transportPosition?: any;
-  transportSeconds?: number
+  get currentSectionInStructure(): SectionInStructure | undefined {
+    return this.currentPatternInStructure?.sectionInStructure
+  }
+
+  currentPatternInStructure?: PatternInStructure;
+
+  get currentChord(): Chord | undefined {
+    const position = this.position;
+    if (!position) return undefined
+    return this.currentPatternInStructure?.getChordAt(position)
+  }
+
+  get currentKey(): Key | undefined {
+    const position = this.position;
+    if (!position) return undefined
+    return this.currentPatternInStructure?.getKeyAt(position)
+  }
+
+  get progress(): number {
+    return Math.min(Math.max(0, Tone.Transport.progress), 1) * 100
+  }
+
+  get timecode(): string | undefined {
+    return this.position ? PositionFormatter.ABLETON_GLOBAL_TIMECODE.format(this.position) : undefined
+  }
+
+  get secTime(): SecTime {
+    return SecTime.fromToneTransportSeconds(Tone.Transport.seconds)
+  }
+
+  get beatTime(): BeatTime | undefined {
+    return this.recording?.getBeatTime(this.secTime);
+  }
+
+  get currentBar(): BarNumber0Indexed | undefined {
+    return this.position?.bars
+  }
+
+  get position(): Position | undefined {
+    const beatTime = this.beatTime;
+    if (beatTime && beatTime.value > 0) {
+      return this.recording?.getPosition(beatTime)
+    }
+    return undefined
+  }
+
+  get transportPosition(): BarsBeatsSixteenths | Time {
+    return Tone.Transport.position
+  }
+
+  get transportSeconds(): number {
+    return Tone.Transport.seconds
+  }
+
   structure?: Structure;
   recording?: Recording;
-  rythmBarTimecode?: string;
-  transportBeatTime?: number
+
+  get rythmBarTimecode(): string | undefined {
+    const position = this.position;
+    if (!position) {
+      return undefined;
+    }
+
+    const currentPatternInStructure = this.currentPatternInStructure;
+    if (!currentPatternInStructure?.eventsStartPosition) {
+      return undefined;
+    }
+
+    return PositionFormatter.ABLETON_GLOBAL_TIMECODE.format(position
+      .relativeTo(currentPatternInStructure.startPosition)
+      .modBars(currentPatternInStructure.eventsDurationInBars)
+      .addBars(currentPatternInStructure.eventsStartPosition.bars));
+  }
+
+  get transportBeatTime(): number | undefined {
+    return this.beatTime?.value
+  }
 
   protected sequence = sequence
 
@@ -45,7 +111,7 @@ export abstract class MobileRehearsal {
   loopedElement?: PositionedElement;
 
   protected constructor(
-    private readonly changeDetectorRef: ChangeDetectorRef,
+    protected readonly changeDetectorRef: ChangeDetectorRef,
     activatedRoute: ActivatedRoute,
     title: Title,
     protected readonly sampleCacheService: SampleCacheService,
@@ -67,6 +133,55 @@ export abstract class MobileRehearsal {
     // Tone.Transport.schedule(function (time) {
     //   console.log('Première mesure')
     // }, "1m");
+  }
+
+  onInit() {
+    const entry = this.requireSongEntry();
+    this.structure = entry.structure
+    this.recording = entry.recording
+    this.scheduleAll();
+  }
+
+  protected scheduleAll(): void {
+    const recording = this.recording;
+    if (recording) {
+      for (let seconds = 0; seconds <= recording.sampleDurationInSeconds; ++seconds) {
+        Tone.Transport.schedule(() => {
+          // this.transportSeconds = seconds
+        }, seconds);
+      }
+    }
+    this.schedulePositionedElements();
+  }
+
+  private schedulePositionedElements() {
+    const recording = this.recording;
+    if (!recording) return
+
+    const partsInStructure = this.structure?.partsInStructure;
+    if (!partsInStructure) return
+
+    partsInStructure.forEach(partInStructure => {
+      partInStructure.sectionsInStructure.forEach(sectionInStructure => {
+        sectionInStructure.patternsInStructure.forEach(patternInStructure => {
+          const patternStartTime = recording.getSecTimeAt(patternInStructure.startPosition);
+          if (patternStartTime) {
+            Tone.Transport.schedule(() => {
+              this.currentPatternInStructure = patternInStructure
+            }, patternStartTime.value);
+          }
+
+          const patternEndTime = recording.getSecTimeAt(patternInStructure.endPosition);
+          if (patternEndTime) {
+            Tone.Transport.schedule(() => {
+              if (this.currentPatternInStructure === patternInStructure) {
+                delete this.currentPatternInStructure
+              }
+            }, patternEndTime.value);
+          }
+        })
+      })
+    })
   }
 
   addEvent(event: RythmBarEvent): void {
@@ -131,19 +246,9 @@ export abstract class MobileRehearsal {
     player.sync().start(0)
     this.player = player
 
-    this.transportProgressLoop = new Tone.Loop((time) => {
-      const transportTime = Tone.Transport.seconds;
-      Tone.Draw.schedule(() => {
-        try {
-          const drawTime = Tone.Transport.seconds;
-          this.refresh(transportTime, drawTime)
-        } catch (e) {
-          console.error('Erreur lors du refresh', e)
-        }
-      }, time);
-
+    this.transportProgressLoop = new Tone.Loop(() => {
+      this.changeDetectorRef.detectChanges();
     }, "32n").start(0);
-
     await Tone.loaded() // évite les erreurs de buffer
     await Tone.start()
 
@@ -164,76 +269,6 @@ export abstract class MobileRehearsal {
 
   protected resetStates(selectedPosition?: Position) {
     // Si besoin, dans les composants enfants
-  }
-
-  refresh(transportTime?: number, drawTime?: number, position?: Position): void {
-    if (drawTime !== undefined && transportTime !== undefined) {
-      const delta = drawTime - transportTime;
-      if (delta < 0) {
-        // Peut se produire lors que ToneJs a fait une boucle, mais que l'affichage (le refresh) est en retard
-        console.warn(`Détection d'un delta négatif => on ignore le refresh`, delta)
-        return;
-      }
-    }
-
-    // TODO pour optimiser drastiquement les perfs, on pourrait faire des refresh spécifique en fonction des besoins (pour limiter le nombre de refresh)
-
-    // console.log('time', time, Tone.Transport.seconds, Tone.Transport.position)
-
-    this.progress = Math.min(Math.max(0, Tone.Transport.progress), 1) * 100;
-
-    if (this.structure && this.recording) {
-      this.transportSeconds = +Tone.Transport.seconds.toFixed(3)
-      const secTime = SecTime.fromToneTransportSeconds(transportTime ?? Tone.Transport.seconds);
-      const beatTime = this.recording.getBeatTime(secTime);
-
-      if (beatTime && beatTime.value > 0) {
-        position ??= this.recording.getPosition(beatTime);
-        this.position = position;
-
-        // console.log('t2', time)
-        // console.log('P2', Tone.Transport.position)
-        // this.timecode = abletonLiveBarsBeatsSixteenths(Tone.Transport)
-        this.transportPosition = Tone.Transport.position
-        this.timecode = PositionFormatter.ABLETON_GLOBAL_TIMECODE.format(position);
-        const previousCurrentBar = this.currentBar;
-        this.currentBar = position.bars
-        this.transportBeatTime = beatTime.value
-
-        this.currentPartInStructure = this.structure.getPartInStructureAt(position)
-        this.currentSectionInStructure = this.currentPartInStructure.getSectionInStructureAt(position)
-
-        if (this.currentSectionInStructure) {
-          this.currentPatternInStructure = this.currentSectionInStructure.getPatternInStructureAt(position)
-        } else {
-          delete this.currentPatternInStructure
-        }
-        const previousCurrentChord = this.currentChord;
-        this.currentChord = this.currentPatternInStructure?.getChordAt(position)
-        if (this.currentBar !== previousCurrentBar || this.currentChord !== previousCurrentChord) {
-          this.onBarChange(this.currentBar, this.currentChord);
-        }
-        this.currentKey = this.currentPatternInStructure?.getKeyAt(position)
-
-        if (this.currentPatternInStructure) {
-          if (this.currentPatternInStructure.eventsStartPosition) {
-            this.rythmBarTimecode = PositionFormatter.ABLETON_GLOBAL_TIMECODE.format(position
-              .relativeTo(this.currentPatternInStructure.startPosition)
-              .modBars(this.currentPatternInStructure.eventsDurationInBars)
-              .addBars(this.currentPatternInStructure.eventsStartPosition.bars));
-          } else {
-            delete this.rythmBarTimecode
-          }
-        } else {
-          delete this.rythmBarTimecode
-        }
-      } else {
-        delete this.timecode
-        delete this.rythmBarTimecode
-      }
-    }
-
-    this.changeDetectorRef.detectChanges();
   }
 
   async playSong(): Promise<void> {
@@ -266,6 +301,14 @@ export abstract class MobileRehearsal {
 
     if (!isCurrentInStructure) {
       this.setPosition(element.startPosition);
+      if (element instanceof PatternInStructure) {
+        this.currentPatternInStructure = element
+      } else if (element instanceof SectionInStructure) {
+        this.currentPatternInStructure = element.patternsInStructure[0]
+      } else if (element instanceof PartInStructure) {
+        this.currentPatternInStructure = element.sectionsInStructure[0].patternsInStructure[0]
+      }
+      this.changeDetectorRef.detectChanges();
     }
   }
 
@@ -275,7 +318,6 @@ export abstract class MobileRehearsal {
       const fixOffset = 0.05 // On corrige la sélection qui arrive souvent sur l'élément précédent => TODO corriger en arrondissant la sélection dans le refresh
       Tone.Transport.seconds = secTime.value + fixOffset
       this.resetStates(position);
-      this.refresh(undefined, undefined, position)
     }
   }
 
@@ -339,7 +381,6 @@ export abstract class MobileRehearsal {
     const loopEndInSeconds = Tone.Time(Tone.Transport.loopEnd).toSeconds();
     Tone.Transport.position = progress / 100 * loopEndInSeconds
     this.resetStates();
-    this.refresh()
   }
 
   get playing(): boolean {
@@ -354,10 +395,7 @@ export abstract class MobileRehearsal {
     return patternInStructure.pattern.chords || Chords.repeatNoChord(patternInStructure.pattern.durationInBars);
   }
 
-  onBarChange(currentBar: BarNumber0Indexed, currentChord: Chord | undefined) {
-  }
-
-  destroy(): void {
+  onDestroy() {
     if (this.transportProgressLoop) {
       this.transportProgressLoop.cancel()
       this.transportProgressLoop.dispose()

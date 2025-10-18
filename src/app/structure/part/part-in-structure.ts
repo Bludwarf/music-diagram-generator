@@ -11,6 +11,7 @@ export class PartInStructure implements InStructure, PositionedElement {
     readonly structure: Structure,
     readonly sectionsInStructure: SectionInStructure[],
   ) {
+    sectionsInStructure.forEach(s => s.partInStructure = this)
   }
 
   get initial(): string {

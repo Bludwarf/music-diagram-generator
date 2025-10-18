@@ -103,11 +103,11 @@ export class Structure {
 
         const patternsInStructure: PatternInStructure[] = []
         for (const pattern of section.patterns) {
-          patternsInStructure.push(new PatternInStructure(pattern, this, currentPosition, getEventsStartPosition?.(pattern), getEventsDurationInBars?.(pattern)))
+          patternsInStructure.push(new PatternInStructure(pattern, currentPosition, getEventsStartPosition?.(pattern), getEventsDurationInBars?.(pattern)))
           currentPosition = currentPosition.addBars(pattern.durationInBars)
         }
 
-        const sectionInStructure = new SectionInStructure(section, this, patternsInStructure)
+        const sectionInStructure = new SectionInStructure(section, patternsInStructure)
         sectionsInStructure.push(sectionInStructure)
       }
 

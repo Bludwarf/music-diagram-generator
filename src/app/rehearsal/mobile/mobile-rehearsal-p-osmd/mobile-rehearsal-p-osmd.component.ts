@@ -58,7 +58,7 @@ export class MobileRehearsalPOsmdComponent extends MobileRehearsal implements On
 
   keyboardState?: KeyboardState;
   musicXml?: string;
-  keyboardMarkLevel: KeyboardMarkLevel = 'section'
+  keyboardMarkLevel: KeyboardMarkLevel = 'bar'
 
   constructor(
     changeDetectorRef: ChangeDetectorRef,

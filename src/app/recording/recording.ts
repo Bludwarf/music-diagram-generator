@@ -1,6 +1,7 @@
 import {BeatTime, Position, SecTime} from "../time";
 import {WarpMarker} from "../structure/warp-marker";
 import {Builder, error, sum} from "../utils";
+import {Note} from "../notes";
 
 const DEFAULT_TIME_SIGNATURE = {
     ticks: 0,
@@ -95,6 +96,21 @@ export class Recording {
 
         return new SecTime(secTime);
     }
+
+    getStartTime(note: MidiNote): SecTime | undefined {
+      return this.getSecTimeFromTicks(note.ticks);
+    }
+
+  getEndTime(note: MidiNote): SecTime | undefined {
+    return this.getSecTimeFromTicks(note.ticks + note.durationTicks);
+  }
+
+  getSecTimeFromTicks(ticks: number): SecTime | undefined {
+    const midi = this.midi;
+    if (!midi) return undefined
+    const beatTime = BeatTime.fromMidiTicks(ticks, midi.header.ppq);
+    return this.getSecTime(beatTime);
+  }
 
   getSecTimeAt(position: Position): SecTime | undefined {
     const beatTime = this.getBeatTimeAt(position);

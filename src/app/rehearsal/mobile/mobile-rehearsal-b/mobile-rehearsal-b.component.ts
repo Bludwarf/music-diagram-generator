@@ -38,7 +38,7 @@ import {ToneAdapter} from "../../../tonejs/tone-adapter";
 export class MobileRehearsalBComponent extends MobileRehearsal implements OnInit, OnDestroy {
 
   @ViewChild('fileInput')
-  fileInput?: ElementRef<HTMLInputElement>;
+  override fileInput?: ElementRef<HTMLInputElement>;
 
   constructor(
     toneAdapter: ToneAdapter,
@@ -60,23 +60,6 @@ export class MobileRehearsalBComponent extends MobileRehearsal implements OnInit
   }
 
   private mockInit() {
-  }
-
-  override async playSong(): Promise<void> {
-    if (!this.sampleIsLoaded) {
-      if (!this.recording) {
-        error('Aucun enregistrement (Recording)')
-      }
-
-      const audioFile = this.sampleCacheService.get(this.recording.name)
-      if (audioFile) {
-        await this.playAudioFile(audioFile)
-      } else {
-        this.fileInput?.nativeElement.click();
-      }
-      return;
-    }
-    await super.playSong();
   }
 
   getPatternColor(patternInStructure: PatternInStructure): string {

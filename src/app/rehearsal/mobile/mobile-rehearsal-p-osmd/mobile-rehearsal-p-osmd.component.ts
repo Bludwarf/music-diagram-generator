@@ -15,7 +15,7 @@ import {error} from "../../../utils";
 import {SongRepository} from "../../../song/song-repository";
 import {KeyboardComponent} from "../../../keyboard/keyboard.component";
 import * as Tone from "tone";
-import {BeatTime, Position, PositionedElement} from "../../../time";
+import {Position, PositionedElement} from "../../../time";
 import keyboardReducer from "../../../keyboard/reducer";
 import {KeyboardState} from "../../../keyboard/type";
 import {OctavedNote} from "../../../notes";
@@ -47,7 +47,7 @@ import {ToneAdapter} from "../../../tonejs/tone-adapter";
 export class MobileRehearsalPOsmdComponent extends MobileRehearsal implements OnInit, OnDestroy {
 
   @ViewChild('fileInput')
-  fileInput?: ElementRef<HTMLInputElement>;
+  override fileInput?: ElementRef<HTMLInputElement>;
 
   keyboardState?: KeyboardState;
   musicXml?: string;
@@ -77,23 +77,6 @@ export class MobileRehearsalPOsmdComponent extends MobileRehearsal implements On
     this.scheduleKeyboardNotes();
   }
 
-  override async playSong(): Promise<void> {
-    if (!this.sampleIsLoaded) {
-      if (!this.recording) {
-        error('Aucun enregistrement (Recording)')
-      }
-
-      const audioFile = this.sampleCacheService.get(this.recording.name)
-      if (audioFile) {
-        await this.playAudioFile(audioFile)
-      } else {
-        this.fileInput?.nativeElement.click();
-      }
-      return;
-    }
-    await super.playSong();
-  }
-
   getPatternColor(patternInStructure: PatternInStructure): string {
     return patternInStructure.structure.getPatternColor(patternInStructure).toString()
   }
@@ -115,17 +98,15 @@ export class MobileRehearsalPOsmdComponent extends MobileRehearsal implements On
               return;
             }
 
-            const beatTime = BeatTime.fromMidiTicks(note.ticks, midi.header.ppq);
-            const secTime = recording.getSecTime(beatTime);
+            const secTime = recording.getStartTime(note);
             if (secTime) {
-              this.toneAdapter.schedule(time => {
+              this.toneAdapter.schedule(() => {
                 this.keyboardState = keyboardReducer(this.keyboardState, {
                   type: 'ACTIVE_KEY',
                   key: note.name,
                 })
               }, secTime.value);
-              const endBeatTime = BeatTime.fromMidiTicks(note.ticks + note.durationTicks, midi.header.ppq);
-              const endSecTime = recording.getSecTime(endBeatTime);
+              const endSecTime = recording.getEndTime(note);
               if (!endSecTime) {
                 throw new Error(`WarpTime end inconnu pour la note MIDI ${note.name} ticks=${note.ticks} durationTicks=${note.durationTicks}`);
               }
@@ -138,7 +119,7 @@ export class MobileRehearsalPOsmdComponent extends MobileRehearsal implements On
                   key: note.name,
                 })
               }, endSecTime.value);
-              this.toneAdapter.schedule(time => {
+              this.toneAdapter.schedule(() => {
                 this.keyboardState = keyboardReducer(this.keyboardState, {
                   type: 'DEACTIVE_KEY',
                   key: note.name,

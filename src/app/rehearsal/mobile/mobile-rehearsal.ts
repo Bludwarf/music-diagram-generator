@@ -1,4 +1,4 @@
-import {NgZone, signal} from '@angular/core';
+import {ElementRef, signal} from '@angular/core';
 import {SectionInStructure} from "../../structure/section/section-in-structure";
 import {PatternInStructure} from "../../structure/pattern/pattern-in-structure";
 import {BarNumber0Indexed, Chord, Chords, Key} from "../../notes";
@@ -19,6 +19,7 @@ import {ToneAdapter} from "../../tonejs/tone-adapter";
 export abstract class MobileRehearsal {
 
   debug = false
+  fileInput?: ElementRef<HTMLInputElement>;
 
   get currentPartInStructure(): PartInStructure | undefined {
     return this.currentSectionInStructure?.partInStructure
@@ -238,7 +239,7 @@ export abstract class MobileRehearsal {
     this.player = player
 
     this.transportProgressLoop = this.toneAdapter.loop(() => {
-        this.secTime.set(SecTime.fromToneTransportSeconds(Tone.Transport.seconds))
+      this.secTime.set(SecTime.fromToneTransportSeconds(Tone.Transport.seconds))
     }, "32n").start(0);
     await Tone.loaded() // évite les erreurs de buffer
     await Tone.start()
@@ -263,6 +264,20 @@ export abstract class MobileRehearsal {
   }
 
   async playSong(): Promise<void> {
+    if (!this.sampleIsLoaded) {
+      if (!this.recording) {
+        error('Aucun enregistrement (Recording)')
+      }
+
+      const audioFile = this.sampleCacheService.get(this.recording.name)
+      if (audioFile) {
+        await this.playAudioFile(audioFile)
+      } else {
+        this.fileInput?.nativeElement.click();
+      }
+      return;
+    }
+
     console.log('playSong')
     Tone.Transport.start('+0.1') // https://github.com/Tonejs/Tone.js/wiki/Performance#scheduling-in-advance
   }

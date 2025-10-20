@@ -44,7 +44,7 @@ import {ToneAdapter} from "../../../tonejs/tone-adapter";
 export class MobileRehearsalPComponent extends MobileRehearsal implements OnInit, OnDestroy {
 
   @ViewChild('fileInput')
-  fileInput?: ElementRef<HTMLInputElement>;
+  override fileInput?: ElementRef<HTMLInputElement>;
 
   keyboardStatesByTrackIndex: (KeyboardState | undefined)[] = [];
   keyboardRangeByTrackIndex: KeyboardRange[] = [];

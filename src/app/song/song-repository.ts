@@ -59,7 +59,8 @@ export class SongRepository {
 
   private findSongEntry(songName: string, defaultSongEntry?: SongEntry | undefined): SongEntry | undefined {
     switch (songName.toLocaleLowerCase()) {
-      case 'le phare': return leJourEntry;
+      case 'le phare':
+        return leJourEntry;
     }
     return this.songEntries.find(entry => this.songNameEquals(songName, entry.name)) || defaultSongEntry;
   }
@@ -74,7 +75,7 @@ export class SongRepository {
 
   findSongEntryOrEmpty(songName: string): SongEntry {
     return this.findSongEntry(songName, {
-      ... EMPTY,
+      ...EMPTY,
       name: songName,
     })!;
   }

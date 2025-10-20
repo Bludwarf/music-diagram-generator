@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { SampleMapComponent } from './sample-map.component';
+import {SampleMapComponent} from './sample-map.component';
 
 describe('SampleMapComponent', () => {
   let component: SampleMapComponent;
@@ -10,8 +10,8 @@ describe('SampleMapComponent', () => {
     await TestBed.configureTestingModule({
       imports: [SampleMapComponent]
     })
-    .compileComponents();
-    
+      .compileComponents();
+
     fixture = TestBed.createComponent(SampleMapComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

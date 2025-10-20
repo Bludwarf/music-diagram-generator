@@ -1,10 +1,11 @@
-import { Note } from '../notes';
+import {Note} from '../notes';
 
 export class Fretboard {
   constructor(
     readonly strings: ReadonlyArray<Note>,
     readonly lines: ReadonlyArray<FretboardLine>
-  ) {}
+  ) {
+  }
 
   static create(config: FretboardConfig): Fretboard {
     const {
@@ -50,7 +51,8 @@ export class FretboardLine {
   private constructor(
     readonly fret: number,
     readonly notes: ReadonlyArray<FretboardNote>
-  ) {}
+  ) {
+  }
 
   static create(strings: Note[], fret: number): FretboardLine {
     const notes = strings.map((string) => new FretboardNote(string, fret));

@@ -11,8 +11,8 @@ describe('StructureMapComponent', () => {
     await TestBed.configureTestingModule({
       imports: [StructureMapComponent]
     })
-    .compileComponents();
-    
+      .compileComponents();
+
     fixture = TestBed.createComponent(StructureMapComponent);
     component = fixture.componentInstance;
 

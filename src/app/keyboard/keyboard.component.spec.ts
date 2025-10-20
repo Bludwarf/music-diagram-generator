@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { KeyboardComponent } from './keyboard.component';
+import {KeyboardComponent} from './keyboard.component';
 
 describe('KeyboardComponent', () => {
   let component: KeyboardComponent;
@@ -10,8 +10,8 @@ describe('KeyboardComponent', () => {
     await TestBed.configureTestingModule({
       imports: [KeyboardComponent]
     })
-    .compileComponents();
-    
+      .compileComponents();
+
     fixture = TestBed.createComponent(KeyboardComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

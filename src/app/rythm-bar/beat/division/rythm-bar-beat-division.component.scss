@@ -10,9 +10,8 @@
 
 @font-face {
   font-family: "Beats";
-  src:
-    local("Beats"),
-    url("../../../../assets/fonts/Beats.woff2") format("woff2");
+  src: local("Beats"),
+  url("../../../../assets/fonts/Beats.woff2") format("woff2");
 }
 
 .beat-number {
@@ -23,7 +22,7 @@
 .above-bar, .below-bar {
   display: flex;
   align-items: start;
-  
+
   img {
     width: 100%;
   }
@@ -31,7 +30,7 @@
 
 .above-bar {
   flex-direction: column-reverse;
-  
+
   img {
     transform: rotate(180deg);
   }

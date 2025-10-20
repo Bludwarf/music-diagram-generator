@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { ChordsGridComponent } from './chords-grid.component';
+import {ChordsGridComponent} from './chords-grid.component';
 import {Chords} from "../../../notes";
 
 describe('ChordsGridComponent', () => {
@@ -11,8 +11,8 @@ describe('ChordsGridComponent', () => {
     await TestBed.configureTestingModule({
       imports: [ChordsGridComponent]
     })
-    .compileComponents();
-    
+      .compileComponents();
+
     fixture = TestBed.createComponent(ChordsGridComponent);
     component = fixture.componentInstance;
     component.chords = Chords.fromAsciiChords('| Gm F | Eb D |')

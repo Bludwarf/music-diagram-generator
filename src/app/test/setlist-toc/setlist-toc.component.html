@@ -12,7 +12,7 @@
     </tr>
     @for (song of setlist.songs; track song; let i = $index) {
       <tr class="song">
-        <td class="number">{{i+1}}.</td>
+        <td class="number">{{ i + 1 }}.</td>
         <td>{{ song.songEntry.name }}</td>
         <td class="tempo">@if (song.songEntry.recording && song.songEntry.recording.meanTempo) {
           {{ round(song.songEntry.recording.meanTempo) }}

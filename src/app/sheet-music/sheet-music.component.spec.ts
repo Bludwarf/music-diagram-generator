@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { SheetMusicComponent } from './sheet-music.component';
+import {SheetMusicComponent} from './sheet-music.component';
 
 describe('SheetMusicComponent', () => {
   let component: SheetMusicComponent;
@@ -10,8 +10,8 @@ describe('SheetMusicComponent', () => {
     await TestBed.configureTestingModule({
       imports: [SheetMusicComponent]
     })
-    .compileComponents();
-    
+      .compileComponents();
+
     fixture = TestBed.createComponent(SheetMusicComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

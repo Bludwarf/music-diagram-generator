@@ -1,4 +1,4 @@
-import { Directive, EventEmitter, HostListener, Input, Output } from '@angular/core';
+import {Directive, EventEmitter, HostListener, Input, Output} from '@angular/core';
 
 /**
  * Source : https://stackoverflow.com/a/67553519/1655155
@@ -18,7 +18,8 @@ export class SwipeDirective {
   swipeCoord: Vector = new Vector(0, 0);
   swipeTime = new Date().getTime();
 
-  constructor() { }
+  constructor() {
+  }
 
   @HostListener('touchstart', ['$event']) onSwipeStart($event: TouchEvent) {
     this.onSwipe($event, 'start');

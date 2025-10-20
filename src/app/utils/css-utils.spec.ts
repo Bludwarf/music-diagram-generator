@@ -1,6 +1,4 @@
-import { adjustFontSize } from "./css-utils";
-import createSpyObj = jasmine.createSpyObj;
-import { createSpyHTMLElement } from "../test/test-utils";
+import {adjustFontSize} from "./css-utils";
 
 describe('adjustFontSize', () => {
 

@@ -1,4 +1,4 @@
-import { MXLHelper } from 'opensheetmusicdisplay';
+import {MXLHelper} from 'opensheetmusicdisplay';
 import {parseScore, ScoreTimewise} from 'musicxml-interfaces';
 
 // Source : https://github.com/imagicbell/piano-app/blob/a22138d05361e1ebf2571eed2949b0e4544c2781/src/data/midi/musicxmlReader.js#L9
@@ -39,7 +39,7 @@ export const ReadMusicXml = async (content: string): Promise<ScoreTimewise> => {
     try {
       let isMXL = str.indexOf(".mxl") > -1;
       if (isMXL) {
-        let response = await fetch(str, {headers: {"Content-Type": "application/octet-stream" }});
+        let response = await fetch(str, {headers: {"Content-Type": "application/octet-stream"}});
         let arrayBuffer = await response.arrayBuffer();
         let text = String.fromCharCode.apply(null, new Uint8Array(arrayBuffer) as any); // ajout Bludwarf : as any
         return await ReadMusicXml(text);
@@ -48,7 +48,7 @@ export const ReadMusicXml = async (content: string): Promise<ScoreTimewise> => {
         let text = await response.text();
         return await ReadMusicXml(text);
       }
-    } catch(err) {
+    } catch (err) {
       throw new Error("Invalid MXL/XML file: " + err);
     }
   }

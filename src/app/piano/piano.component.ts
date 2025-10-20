@@ -11,4 +11,5 @@ import {KeyboardComponent} from "../keyboard/keyboard.component";
   styleUrl: './piano.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class PianoComponent {}
+export class PianoComponent {
+}

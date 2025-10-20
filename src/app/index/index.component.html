@@ -6,7 +6,8 @@
       @if (i > 0) {
         |
       }
-      <a class="view-type-link" [routerLink]="'morceaux/' + songName" [queryParams]="{view: viewType}">{{viewType}}</a>
+      <a class="view-type-link" [routerLink]="'morceaux/' + songName"
+         [queryParams]="{view: viewType}">{{ viewType }}</a>
     }
   </li>
 </ol>

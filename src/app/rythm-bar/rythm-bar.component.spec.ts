@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { RythmBarComponent } from './rythm-bar.component';
+import {RythmBarComponent} from './rythm-bar.component';
 
 describe('RythmBarComponent', () => {
   let component: RythmBarComponent;
@@ -10,8 +10,8 @@ describe('RythmBarComponent', () => {
     await TestBed.configureTestingModule({
       imports: [RythmBarComponent]
     })
-    .compileComponents();
-    
+      .compileComponents();
+
     fixture = TestBed.createComponent(RythmBarComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

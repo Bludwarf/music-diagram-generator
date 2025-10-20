@@ -1,8 +1,8 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { sequence } from '../../utils';
-import { CommonModule } from '@angular/common';
-import { RythmBarBeatDivisionComponent } from './division/rythm-bar-beat-division.component';
-import { RythmBarEvent } from '../event';
+import {ChangeDetectionStrategy, Component, EventEmitter, Input, Output} from '@angular/core';
+import {sequence} from '../../utils';
+import {CommonModule} from '@angular/common';
+import {RythmBarBeatDivisionComponent} from './division/rythm-bar-beat-division.component';
+import {RythmBarEvent} from '../event';
 
 @Component({
   selector: 'app-rythm-bar-beat',

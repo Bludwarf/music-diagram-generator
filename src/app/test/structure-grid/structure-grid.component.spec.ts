@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { StructureGridComponent } from './structure-grid.component';
+import {StructureGridComponent} from './structure-grid.component';
 
 describe('StructureGridComponent', () => {
   let component: StructureGridComponent;
@@ -10,8 +10,8 @@ describe('StructureGridComponent', () => {
     await TestBed.configureTestingModule({
       imports: [StructureGridComponent]
     })
-    .compileComponents();
-    
+      .compileComponents();
+
     fixture = TestBed.createComponent(StructureGridComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

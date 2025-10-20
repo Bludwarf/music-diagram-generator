@@ -11,7 +11,8 @@ export class RythmBarEvent implements IRythmBarEvent {
     readonly beat = 1,
     readonly division = 1,
     readonly note = ''
-  ) {}
+  ) {
+  }
 
   static from(event: IRythmBarEvent): RythmBarEvent {
     return Object.assign(new RythmBarEvent(), event);

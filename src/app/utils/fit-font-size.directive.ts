@@ -1,5 +1,5 @@
-import { AfterViewInit, Directive, ElementRef, HostListener, Input, NgZone } from '@angular/core';
-import { adjustFontSize } from './css-utils';
+import {AfterViewInit, Directive, ElementRef, Input, NgZone} from '@angular/core';
+import {adjustFontSize} from './css-utils';
 
 @Directive({
   selector: '[appFitFontSize]',

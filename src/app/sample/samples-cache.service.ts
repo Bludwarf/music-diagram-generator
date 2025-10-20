@@ -1,16 +1,16 @@
-import { Injectable } from "@angular/core";
+import {Injectable} from "@angular/core";
 
 @Injectable({
-    providedIn: 'root'
+  providedIn: 'root'
 })
 export class SampleCacheService {
-    private audioFilesByRecordingName: Record<string, File> = {}
+  private audioFilesByRecordingName: Record<string, File> = {}
 
-    set(recordingName: string, audioFile: File): void {
-        this.audioFilesByRecordingName[recordingName] = audioFile
-    }
+  set(recordingName: string, audioFile: File): void {
+    this.audioFilesByRecordingName[recordingName] = audioFile
+  }
 
-    get(recordingName: string): File {
-        return this.audioFilesByRecordingName[recordingName]
-    }
+  get(recordingName: string): File {
+    return this.audioFilesByRecordingName[recordingName]
+  }
 }

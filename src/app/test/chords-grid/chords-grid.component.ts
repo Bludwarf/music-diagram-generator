@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
-import { BarNumber0Indexed, Chords } from '../../notes';
-import { ChordsGridComponent as AppChordsGridComponent } from '../../rehearsal/mobile/chords-grid/chords-grid.component';
+import {Component} from '@angular/core';
+import {Chords} from '../../notes';
+import {ChordsGridComponent as AppChordsGridComponent} from '../../rehearsal/mobile/chords-grid/chords-grid.component';
 
 @Component({
   selector: 'app-test-chords-grid',

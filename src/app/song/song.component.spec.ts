@@ -1,10 +1,10 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { SongComponent } from './song.component';
+import {SongComponent} from './song.component';
 import {ActivatedRoute} from "@angular/router";
-import SpyObj = jasmine.SpyObj;
 import {injectSpy, PROVIDER_SPIES} from "../test/test-utils";
 import {of} from "rxjs";
+import SpyObj = jasmine.SpyObj;
 
 describe('SongComponent', () => {
   let component: SongComponent;
@@ -19,7 +19,7 @@ describe('SongComponent', () => {
         PROVIDER_SPIES.ActivatedRoute,
       ]
     })
-    .compileComponents();
+      .compileComponents();
 
     activatedRoute = injectSpy(ActivatedRoute);
     activatedRoute.params = of({

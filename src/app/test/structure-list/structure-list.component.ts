@@ -1,5 +1,4 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
-import leJourEntry from "../../song/entries/Le jour (le phare)";
 import {SongRepository} from "../../song/song-repository";
 import {Structure} from "../../structure/structure";
 import {NgForOf} from "@angular/common";

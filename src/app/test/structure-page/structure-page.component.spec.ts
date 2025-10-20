@@ -13,8 +13,8 @@ describe('StructurePageComponent', () => {
     await TestBed.configureTestingModule({
       imports: [StructurePageComponent]
     })
-    .compileComponents();
-    
+      .compileComponents();
+
     fixture = TestBed.createComponent(StructurePageComponent);
     component = fixture.componentInstance;
 

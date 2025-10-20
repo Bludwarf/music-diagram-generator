@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { SetlistTocComponent } from './setlist-toc.component';
+import {SetlistTocComponent} from './setlist-toc.component';
 import {Setlist} from "../setlist-pages/setlist";
 
 describe('SetlistTocComponent', () => {
@@ -11,8 +11,8 @@ describe('SetlistTocComponent', () => {
     await TestBed.configureTestingModule({
       imports: [SetlistTocComponent]
     })
-    .compileComponents();
-    
+      .compileComponents();
+
     fixture = TestBed.createComponent(SetlistTocComponent);
     component = fixture.componentInstance;
     fixture.componentRef.setInput('setlist', new Setlist('Setlist de test', [], 'test'));

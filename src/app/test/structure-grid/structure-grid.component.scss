@@ -9,7 +9,7 @@
   display: grid;
   //grid-template-columns: repeat(12, 1fr);
   --gap: 0.7mm;
-  --section-gap: calc(var(--gap) * 1/2);
+  --section-gap: calc(var(--gap) * 1 / 2);
   gap: var(--gap);
   //grid-auto-rows: minmax(100px, auto);
   grid-auto-rows: auto;

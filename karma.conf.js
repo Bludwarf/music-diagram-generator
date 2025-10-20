@@ -2,19 +2,19 @@
 // https://karma-runner.github.io/1.0/config/configuration-file.html
 
 module.exports = function(config) {
-  config.set({
-    basePath: '',
-    frameworks: ['jasmine', '@angular-devkit/build-angular'],
-    plugins: [
-      require('karma-jasmine'),
-      require('karma-chrome-launcher'),
-      require('karma-jasmine-html-reporter'),
-      require('karma-coverage'),
-      require('@angular-devkit/build-angular/plugins/karma'),
-    ],
-    browsers: ['ChromeHeadless'],
-    files: [
-      {pattern: 'src/test/assets/als/*.als', included: false, watched: false, served: true},
-    ],
-  });
+    config.set({
+        basePath: '',
+        frameworks: ['jasmine', '@angular-devkit/build-angular'],
+        plugins: [
+            require('karma-jasmine'),
+            require('karma-chrome-launcher'),
+            require('karma-jasmine-html-reporter'),
+            require('karma-coverage'),
+            require('@angular-devkit/build-angular/plugins/karma'),
+        ],
+        browsers: ['ChromeHeadless'],
+        files: [
+            {pattern: 'src/test/assets/als/*.als', included: false, watched: false, served: true},
+        ],
+    });
 };

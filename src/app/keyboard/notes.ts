@@ -12,7 +12,7 @@ export const MAX_MIDI = 108
 export const MIN_NOTE = 'A0'
 export const MAX_NOTE = 'C8'
 
-export const allNotes : NoteType[] = [
+export const allNotes: NoteType[] = [
   {midi: MIN_MIDI, ansi: MIN_NOTE, type: 'white'},
   {midi: 22, ansi: 'A#0', type: 'black'},
   {midi: 23, ansi: 'B0', type: 'white'},
@@ -113,10 +113,10 @@ export type NotePositions = {
 export function CalcNotePositions(notes: NoteType[] = allNotes): NotePositions {
   let whiteKeys = notes.filter(note => note.type === 'white');
   let whiteWidth = 100 / whiteKeys.length;
-  let blackWidth = whiteWidth * 2/3;
+  let blackWidth = whiteWidth * 2 / 3;
 
   let whiteLeft = 0;
-  let blackLeft = whiteWidth * 2/3;
+  let blackLeft = whiteWidth * 2 / 3;
 
   let leftPositions = notes.map((note, index) => {
     if (index > 1) {
@@ -129,7 +129,7 @@ export function CalcNotePositions(notes: NoteType[] = allNotes): NotePositions {
         }
       }
     }
-    return { ansi: note.ansi, left: note.type === 'white' ? whiteLeft : blackLeft };
+    return {ansi: note.ansi, left: note.type === 'white' ? whiteLeft : blackLeft};
   });
 
   return {

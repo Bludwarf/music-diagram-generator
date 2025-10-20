@@ -1,4 +1,4 @@
-import { FitFontSizeDirective } from './fit-font-size.directive';
+import {FitFontSizeDirective} from './fit-font-size.directive';
 
 describe('FitFontSizeDirective', () => {
   it('should create an instance', () => {

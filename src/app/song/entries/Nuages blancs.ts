@@ -1,10 +1,10 @@
 import recordingInitData from "../../../assets/recordings/NUAGES BLANCS PréMaster Brut v2.02 SANS_01.json";
-import { Key } from "../../notes";
-import { Recording } from "../../recording/recording";
-import { Part } from "../../structure/part/part";
-import { FretboardData, Pattern } from "../../structure/pattern/pattern";
-import { Section } from "../../structure/section/section";
-import { Structure } from "../../structure/structure";
+import {Key} from "../../notes";
+import {Recording} from "../../recording/recording";
+import {Part} from "../../structure/part/part";
+import {FretboardData, Pattern} from "../../structure/pattern/pattern";
+import {Section} from "../../structure/section/section";
+import {Structure} from "../../structure/structure";
 import {RED} from "../../color";
 
 const key = Key.Gm

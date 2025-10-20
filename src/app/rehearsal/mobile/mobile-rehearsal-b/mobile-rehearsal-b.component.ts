@@ -13,7 +13,6 @@ import {SampleMapComponent} from "../sample-map/sample-map.component";
 import {StructureMapComponent} from "../structure-map/structure-map.component";
 import {PatternInStructure} from "../../../structure/pattern/pattern-in-structure";
 import {SampleCacheService} from "../../../sample/samples-cache.service";
-import {error} from "../../../utils";
 import {SongRepository} from "../../../song/song-repository";
 import {ToneAdapter} from "../../../tonejs/tone-adapter";
 

@@ -6,7 +6,7 @@
   gap: 1px;
   font-size: 6mm;
 
-  &>* {
+  & > * {
     flex: 1;
   }
 }
@@ -23,11 +23,11 @@
   $padding: 2px;
   padding: $padding;
 
-  &>.chord {
+  & > .chord {
     flex: 1;
     display: flex;
 
-    &>span {
+    & > span {
       margin: auto;
     }
 
@@ -76,11 +76,11 @@
   }
 
   &.multi-chords {
-    .chord:first-of-type>span {
+    .chord:first-of-type > span {
       margin-left: $padding;
     }
 
-    .chord:last-of-type>span {
+    .chord:last-of-type > span {
       margin-right: $padding;
     }
   }

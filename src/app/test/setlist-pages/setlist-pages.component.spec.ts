@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { SetlistPagesComponent } from './setlist-pages.component';
+import {SetlistPagesComponent} from './setlist-pages.component';
 
 describe('SetlistPagesComponent', () => {
   let component: SetlistPagesComponent;
@@ -10,8 +10,8 @@ describe('SetlistPagesComponent', () => {
     await TestBed.configureTestingModule({
       imports: [SetlistPagesComponent]
     })
-    .compileComponents();
-    
+      .compileComponents();
+
     fixture = TestBed.createComponent(SetlistPagesComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

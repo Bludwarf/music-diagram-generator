@@ -6,7 +6,8 @@
         {{ sectionInStructure.section.name }} :
         <ul>
           <li>
-            <span *ngFor="let patternInStructure of sectionInStructure.patternsInStructure" [style.background-color]="patternInStructure.structure.getPatternColor(patternInStructure).toString()">
+            <span *ngFor="let patternInStructure of sectionInStructure.patternsInStructure"
+                  [style.background-color]="patternInStructure.structure.getPatternColor(patternInStructure).toString()">
               {{ patternInStructure.initial }}
             </span>
           </li>

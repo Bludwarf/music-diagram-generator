@@ -75,9 +75,11 @@
 
 <div class="keyboards" *ngIf="keyboardRangeByTrackIndex?.length">
   <div class="keyboard" *ngIf="keyboardRangeByTrackIndex[0]; let keyboardRange">
-    <app-keyboard [lowerKey]="keyboardRange.lowerKey" [higherKey]="keyboardRange.higherKey" [activeKeys]="keyboardStatesByTrackIndex[0]?.activeKeys || []"></app-keyboard>
+    <app-keyboard [lowerKey]="keyboardRange.lowerKey" [higherKey]="keyboardRange.higherKey"
+                  [activeKeys]="keyboardStatesByTrackIndex[0]?.activeKeys || []"></app-keyboard>
   </div>
   <div class="keyboard" *ngIf="keyboardRangeByTrackIndex[1]; let keyboardRange">
-    <app-keyboard [lowerKey]="keyboardRange.lowerKey" [higherKey]="keyboardRange.higherKey" [activeKeys]="keyboardStatesByTrackIndex[1]?.activeKeys || []"></app-keyboard>
+    <app-keyboard [lowerKey]="keyboardRange.lowerKey" [higherKey]="keyboardRange.higherKey"
+                  [activeKeys]="keyboardStatesByTrackIndex[1]?.activeKeys || []"></app-keyboard>
   </div>
 </div>

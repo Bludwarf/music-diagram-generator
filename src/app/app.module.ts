@@ -28,7 +28,8 @@ import routes from "./routes";
     AppComponent
   ]
 })
-export class AppModule { }
+export class AppModule {
+}
 
 
 /*

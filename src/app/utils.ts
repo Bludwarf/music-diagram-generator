@@ -1,4 +1,4 @@
-import {Observable, fromEvent, tap, debounceTime} from "rxjs"
+import {debounceTime, fromEvent, Observable, tap} from "rxjs"
 
 export function sequence(size: number, offset = 0): number[] {
   return Array.from(new Array(size).keys()).map(val => val + offset)

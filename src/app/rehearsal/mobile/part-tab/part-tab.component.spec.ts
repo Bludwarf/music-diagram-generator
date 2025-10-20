@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { PartTabComponent } from './part-tab.component';
+import {PartTabComponent} from './part-tab.component';
 import {Part} from "../../../structure/part/part";
 import {Structure} from "../../../structure/structure";
 import {PartInStructure} from "../../../structure/part/part-in-structure";
@@ -13,8 +13,8 @@ describe('PartTabComponent', () => {
     await TestBed.configureTestingModule({
       imports: [PartTabComponent]
     })
-    .compileComponents();
-    
+      .compileComponents();
+
     fixture = TestBed.createComponent(PartTabComponent);
     component = fixture.componentInstance;
 

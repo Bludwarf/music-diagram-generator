@@ -1,13 +1,7 @@
 // Source : https://github.com/imagicbell/piano-app/blob/master/src/features/musicSheet/index.js
 
 import {AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, Input, ViewChild} from '@angular/core';
-import {
-  Cursor,
-  DrawingParametersEnum,
-  Fraction,
-  MusicPartManagerIterator,
-  OpenSheetMusicDisplay
-} from "opensheetmusicdisplay";
+import {Cursor, DrawingParametersEnum, OpenSheetMusicDisplay} from "opensheetmusicdisplay";
 import {Position} from "../time";
 
 @Component({

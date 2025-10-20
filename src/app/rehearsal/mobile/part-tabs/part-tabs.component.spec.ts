@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { PartTabsComponent } from './part-tabs.component';
+import {PartTabsComponent} from './part-tabs.component';
 import {Structure} from "../../../structure/structure";
 
 describe('PartTabsComponent', () => {
@@ -11,8 +11,8 @@ describe('PartTabsComponent', () => {
     await TestBed.configureTestingModule({
       imports: [PartTabsComponent]
     })
-    .compileComponents();
-    
+      .compileComponents();
+
     fixture = TestBed.createComponent(PartTabsComponent);
     component = fixture.componentInstance;
 

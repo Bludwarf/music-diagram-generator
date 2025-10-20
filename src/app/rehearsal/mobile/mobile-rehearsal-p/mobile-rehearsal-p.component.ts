@@ -15,7 +15,6 @@ import {SampleCacheService} from "../../../sample/samples-cache.service";
 import {error} from "../../../utils";
 import {SongRepository} from "../../../song/song-repository";
 import {KeyboardComponent} from "../../../keyboard/keyboard.component";
-import * as Tone from "tone";
 import {BeatTime, Position} from "../../../time";
 import keyboardReducer from "../../../keyboard/reducer";
 import {KeyboardRange, KeyboardState} from "../../../keyboard/type";

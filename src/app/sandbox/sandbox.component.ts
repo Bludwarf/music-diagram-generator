@@ -1,8 +1,8 @@
-import { Component } from '@angular/core';
-import { FretboardComponent } from '../fretboard/fretboard.component';
-import { FormsModule } from '@angular/forms';
-import { MODE_NAMES, Mode, Key, NOTE_NAMES, Note } from '../notes';
-import { CommonModule } from '@angular/common';
+import {Component} from '@angular/core';
+import {FretboardComponent} from '../fretboard/fretboard.component';
+import {FormsModule} from '@angular/forms';
+import {Key, Mode, MODE_NAMES, Note, NOTE_NAMES} from '../notes';
+import {CommonModule} from '@angular/common';
 
 @Component({
   selector: 'app-sandbox',
@@ -16,11 +16,13 @@ export class SandboxComponent {
   firstFretboardFretsCount = 5;
 
   firstFretboardRootValue = Note.G.value;
+
   get firstFretboardRoot(): Note {
     return Note.fromValue(this.firstFretboardRootValue);
   }
 
   firstFretboardRootModeValue = Mode.fromName('vi').value;
+
   get firstFretboardRootMode(): Mode {
     return new Mode(this.firstFretboardRootModeValue);
   }

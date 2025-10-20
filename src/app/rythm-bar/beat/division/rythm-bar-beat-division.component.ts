@@ -11,12 +11,12 @@ import {
   QueryList,
   ViewChildren,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { sequence } from '../../../utils';
-import { NoteComponent } from './note/note.component';
-import { RythmBarEvent } from '../../event';
-import { debounceTime, fromEvent, tap } from 'rxjs';
-import { RythmBarBeatDivisionLineComponent } from './line/rythm-bar-beat-division-line.component';
+import {CommonModule} from '@angular/common';
+import {sequence} from '../../../utils';
+import {NoteComponent} from './note/note.component';
+import {RythmBarEvent} from '../../event';
+import {debounceTime, fromEvent, tap} from 'rxjs';
+import {RythmBarBeatDivisionLineComponent} from './line/rythm-bar-beat-division-line.component';
 
 @Component({
   selector: 'app-rythm-bar-beat-division',
@@ -83,6 +83,7 @@ export class RythmBarBeatDivisionComponent implements AfterViewInit {
   private get widthV1(): number {
     return this.el.nativeElement.offsetWidth;
   }
+
   private get widthV2(): number {
     return this.el.nativeElement.getBoundingClientRect().width;
   }
@@ -149,7 +150,8 @@ export class RythmBarBeatDivisionComponent implements AfterViewInit {
   constructor(
     private readonly el: ElementRef,
     private readonly changeDetectorRef: ChangeDetectorRef,
-  ) { }
+  ) {
+  }
 
   ngAfterViewInit(): void {
     this.changeDetectorRef.detectChanges();

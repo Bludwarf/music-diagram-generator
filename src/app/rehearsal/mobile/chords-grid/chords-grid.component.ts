@@ -1,9 +1,9 @@
-import { NgForOf, NgIf } from "@angular/common";
-import { ChangeDetectionStrategy, Component, EventEmitter, HostBinding, Input, Output } from '@angular/core';
-import { BaseColor as Color } from '../../../color';
-import { BarNumber0Indexed, Chords, Key } from "../../../notes";
-import { sequence } from "../../../utils";
-import { FitFontSizeDirective } from '../../../utils/fit-font-size.directive';
+import {NgForOf, NgIf} from "@angular/common";
+import {ChangeDetectionStrategy, Component, EventEmitter, HostBinding, Input, Output} from '@angular/core';
+import {BaseColor as Color} from '../../../color';
+import {BarNumber0Indexed, Chords, Key} from "../../../notes";
+import {sequence} from "../../../utils";
+import {FitFontSizeDirective} from '../../../utils/fit-font-size.directive';
 
 @Component({
   selector: 'app-chords-grid',

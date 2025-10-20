@@ -1,10 +1,10 @@
 import recordingInitData from "../../../assets/recordings/LA FEMME DRAGON MasterBrut_01.json";
-import { Key } from "../../notes";
-import { Recording } from "../../recording/recording";
-import { Part } from "../../structure/part/part";
-import { Pattern } from "../../structure/pattern/pattern";
-import { Section } from "../../structure/section/section";
-import { Structure } from "../../structure/structure";
+import {Key} from "../../notes";
+import {Recording} from "../../recording/recording";
+import {Part} from "../../structure/part/part";
+import {Pattern} from "../../structure/pattern/pattern";
+import {Section} from "../../structure/section/section";
+import {Structure} from "../../structure/structure";
 import {BLUE} from "../../color";
 
 

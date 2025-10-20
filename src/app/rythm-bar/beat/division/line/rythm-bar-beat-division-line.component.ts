@@ -1,6 +1,15 @@
-import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, ElementRef, HostBinding, HostListener, Input, Output, ChangeDetectionStrategy } from '@angular/core';
-import { RythmBarEvent, abletonLiveTimeCode } from '../../../event';
+import {CommonModule} from '@angular/common';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  EventEmitter,
+  HostBinding,
+  HostListener,
+  Input,
+  Output
+} from '@angular/core';
+import {abletonLiveTimeCode, RythmBarEvent} from '../../../event';
 
 @Component({
   selector: 'app-rythm-bar-beat-division-line',

@@ -1,0 +1,35 @@
+parts:
+  - name: Intro
+    sections:
+      - name: D'nB
+        patterns:
+          - &I
+            name: Intro
+            chords:
+              - Gm
+              - Cm
+              - Gm
+              - Cm
+          - *I
+          - *I
+          - &Ip
+            name: Intro'
+            initial: I'
+            chords:
+              - Gm
+              - Cm
+              - Gm
+              - Gm
+  - name: '1'
+    sections:
+      - name: Couplet
+        patterns:
+          - &C
+            name: Couplet
+            chords:
+              - Gm
+              - Cm
+              - Gbm
+              - Dm
+          - *C
+          - *C

@@ -1,0 +1,70 @@
+patterns:
+  - &I
+    name: Intro
+    asciiChords: '| Gm | Cm | Gm | Cm |'
+  - &Ip
+    name: Intro'
+    initial: I'
+    chords:
+      - Gm
+      - Cm
+      - Gm
+      - Gm
+  - &C
+    name: Couplet
+    chords:
+      - Gm
+      - Cm
+      - Gbm
+      - Dm
+  - &R
+    name: Refrain
+    chords:
+      - Eb
+      - Bb
+      - F
+      - F
+  - &Rp
+    name: Refrain (fin)
+    chords:
+      - Eb
+      - Bb
+      - Dm
+      - Dm
+sections:
+  - &DnB
+    name: D'nB
+    patterns:
+      - *I
+      - *I
+      - *I
+      - *Ip
+  - &Couplet
+    name: Couplet
+    patterns:
+      - *C
+      - *C
+      - *C
+  - &Refrain
+    name: Couplet
+    patterns:
+      - *R
+      - *R
+      - *R
+      - *Rp
+  - &Bombarde
+    name: Couplet
+    patterns:
+      - *I
+      - *I
+      - *I
+      - *I
+parts:
+  - name: Intro
+    sections:
+      - *DnB
+  - name: '1'
+    sections:
+      - *Couplet
+      - *Refrain
+      - *Bombarde

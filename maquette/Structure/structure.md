@@ -36,6 +36,24 @@
     Couplet  Refrain   Bombarde
     C C C    R R R Rp  I I I I
 
+# Sections (horizontal + parties)
+
+    Intro : D'nB
+            I I I Ip
+    
+        1 : Couplet  Refrain   Bombarde
+            C C C    R R R Rp  I I I I
+    
+        2 : =1
+
+     Solo : D'nB         Solo basse  D'nB
+            Sb Sb Sb Sb  S           Sb Sb Sb Sb
+    
+        3 : Couplet (rap)  Refrain   Bombarde
+            C C C          R R R Rp  I I I I
+    
+        4 : =1
+
 # Patterns
 
     I	Intro           | Gm | Cm | Gm | Cm |

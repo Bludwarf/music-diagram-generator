@@ -184,6 +184,11 @@ export class Mode extends Mod12Value {
     return new Mode(Mod12Value.getValueFromName(name, MODE_NAMES));
   }
 
+    static fromValue(value: number): Mode {
+        // TODO cache comme Note
+        return new Mode(value);
+    }
+
   get name(): string {
     return MODE_NAMES[this.value];
   }
@@ -282,15 +287,22 @@ export type AsciiChords = string
 
 export type BarNumber0Indexed = number
 
-export class Chords extends Array<Chord> {
+export class Chords implements Iterable<Chord> {
 
   constructor(
-    list: (Chord)[],
-    readonly ascii: AsciiChords,
+    readonly list: (Chord)[],
+    readonly ascii: AsciiChords, // utilisé pour l'export JSON
     readonly durationInBars: number,
-    private readonly chordsByPosition: [Position, Chord | undefined][] = [], // TODO trier par asc
+    private readonly chordsByPosition: [Position, Chord | undefined][],
   ) {
-    super(...list)
+  }
+
+  [Symbol.iterator]() {
+      return this.list[Symbol.iterator]();
+  }
+
+  get length(): number {
+      return this.list.length;
   }
 
   static fromAsciiChords(asciiChords: AsciiChords): Chords {
@@ -333,7 +345,7 @@ export class Chords extends Array<Chord> {
   static repeatNoChord(barsDuration: number) {
     checkIsInteger('barsDuration', barsDuration);
     const asciiChords = new Array(barsDuration + 1).fill('|').join(' ')
-    return new Chords([], asciiChords, barsDuration);
+    return new Chords([], asciiChords, barsDuration, []);
   }
 
   getChordAt2(position: Position): Chord | undefined {
@@ -353,7 +365,7 @@ export class Chords extends Array<Chord> {
     return Chords.fromAsciiChords(`| ${chordGroups[bar]} |`);
   }
 
-  override toString(): string {
+  toString(): string {
     return this.chordsByPosition.map(([position, chord]) => `${PositionFormatter.DEBUG.format(position)} ${chord}`).join('\n')
   }
 

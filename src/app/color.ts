@@ -7,7 +7,7 @@ import {Structure} from './structure/structure';
 const LIGHTEN_RATIO = 0.5;
 
 export class BaseColor {
-  private readonly colorType: Color
+  readonly colorType: Color
 
   constructor(colorParam: ColorParam) {
     this.colorType = Color(colorParam)

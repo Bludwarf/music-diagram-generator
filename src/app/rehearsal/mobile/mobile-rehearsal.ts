@@ -406,7 +406,8 @@ export abstract class MobileRehearsal {
   }
 
   getPatternChords(patternInStructure: PatternInStructure): Chords {
-    return patternInStructure.pattern.chords || Chords.repeatNoChord(patternInStructure.pattern.durationInBars);
+      console.log(`patternInStructure`, patternInStructure);
+      return patternInStructure.pattern.chords || Chords.repeatNoChord(patternInStructure.pattern.durationInBars);
   }
 
   onDestroy() {

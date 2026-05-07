@@ -37,6 +37,15 @@ Ajuster le fichier dupliqué :
 1. `events`
 2. `patterns`
 
+## Répertoire (ZIP)
+
+Créer un dossier pour chaque morceau avec les fichiers :
+
+- `structure.json`
+- `recording.json`
+
+Zipper l'ensemble au format `.zip`.
+
 # Test Service Worker
 
 Builder en mode prod :

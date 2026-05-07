@@ -13,8 +13,6 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-  </component>
-  <component name="SonarLintModuleSettings">
-    <option name="uniqueId" value="3e0a3440-81e1-4886-b3d5-75f150bf0b62" />
+    <orderEntry type="library" name="vexflow" level="application" />
   </component>
 </module>

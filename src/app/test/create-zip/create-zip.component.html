@@ -1,0 +1,10 @@
+<!--<input type="button" value="Télécharger le songEntry.json" (click)="downloadSongEntryJson()"/><br/>-->
+<!--<input type="file" accept=".json" (change)="uploadSongEntryFile($event)"/>-->
+<h2>{{songName}}</h2>
+<select [(ngModel)]="songName">
+    @for (existingSongName of songNames; track existingSongName) {
+        <option [value]="existingSongName">{{existingSongName}}</option>
+    }
+</select><br/>
+<input type="button" value="Télécharger le structure.json" (click)="downloadStructureJson()"/><br/>
+<input type="button" value="Télécharger le recording.json" (click)="downloadRecordingJson()"/><br/>

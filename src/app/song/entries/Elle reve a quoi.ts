@@ -22,6 +22,7 @@ const IData = {
 const Blanc = Pattern.fromData({
   ...IData,
   name: 'Blanc',
+  initial: 'Bl',
   chords: undefined,
   durationInBars: 1,
 })
@@ -35,6 +36,7 @@ const C = Pattern.fromData({
 const B = Pattern.fromData({
   ...IData,
   name: 'Break',
+  initial: 'Bk',
   chords: '| Cm | Cm | Cm | Cm |',
   color: VIOLET,
 })

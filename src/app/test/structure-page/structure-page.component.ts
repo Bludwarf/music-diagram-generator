@@ -49,16 +49,16 @@ export class StructurePageComponent implements OnChanges {
   }
 
   // TODO faire une meilleure gestion de la liste des patterns
-  patterns: Pattern[] = [];
-  firstPatternsInStructureByPatternName: Record<string, PatternInStructure> = {};
+  patternsWithoutDuplicatedInitial: Pattern[] = [];
+  firstPatternInStructureByInitial: Record<string, PatternInStructure> = {};
 
   ngOnChanges(): void {
     if (this.structureInGrid) {
       for (const patternInStructure of this.structureInGrid.structure.patternsInStructure) {
         const pattern = patternInStructure.pattern;
-        if (!this.patterns.includes(pattern)) {
-          this.patterns.push(pattern);
-          this.firstPatternsInStructureByPatternName[pattern.name] = patternInStructure;
+        if (!(pattern.initial in this.firstPatternInStructureByInitial)) {
+          this.patternsWithoutDuplicatedInitial.push(pattern);
+          this.firstPatternInStructureByInitial[pattern.initial] = patternInStructure;
         }
       }
     }
@@ -74,7 +74,7 @@ export class StructurePageComponent implements OnChanges {
   }
 
   getFirstPatternInStructure(pattern: Pattern) {
-    return this.firstPatternsInStructureByPatternName[pattern.name];
+    return this.firstPatternInStructureByInitial[pattern.initial];
   }
 
   round = Math.round

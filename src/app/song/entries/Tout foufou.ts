@@ -29,6 +29,7 @@ const I2 = Pattern.fromData({
 const If = Pattern.fromData({
   key,
   name: 'Intro (fin)',
+  initial: 'If',
   chords: '| G | G | G | G |',
   fretboard,
 })
@@ -43,6 +44,7 @@ const C = Pattern.fromData({
 const Cp = Pattern.fromData({
   key,
   name: 'Couplet+',
+  initial: 'C+',
   chords: '| G | G | G | G | G | G | F | E |',
   fretboard,
 })
@@ -50,6 +52,7 @@ const Cp = Pattern.fromData({
 const R1 = Pattern.fromData({
   key,
   name: 'Refrain (1/2)',
+  initial: 'R1',
   chords: '| G/B G°/Bb | Am7\' D4 |',
   fretboard,
 })
@@ -57,6 +60,7 @@ const R1 = Pattern.fromData({
 const R2 = Pattern.fromData({
   key,
   name: 'Refrain (2/2)',
+  initial: 'R2',
   chords: '| G/B | G°/Bb | Am7\' | D4 |',
   fretboard,
 })

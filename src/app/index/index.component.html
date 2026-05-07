@@ -1,3 +1,4 @@
+<input type="file" accept=".zip" multiple (change)="uploadZip($event)"/>
 <ol>
   <li><a routerLink="setlist">Setlist</a></li>
   <li *ngFor="let songName of playlist">

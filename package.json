@@ -27,12 +27,14 @@
     "@angular/router": "19.2.21",
     "@angular/service-worker": "19.2.21",
     "@types/color": "3",
+    "class-transformer": "^0.5.1",
     "color": "4",
     "musicxml-interfaces": "^0.0.21",
     "opensheetmusicdisplay": "^1.9.2",
     "rxjs": "7.8",
     "tone": "14",
     "tslib": "2.3",
+    "unz": "^1.1.0",
     "xml-js": "^1.6.11",
     "zone.js": "0.15.1"
   },
@@ -55,6 +57,6 @@
     "karma-junit-reporter": "2",
     "protractor": "7",
     "ts-node": "10",
-    "typescript": "5.5.4"
+    "typescript": "5.8"
   }
 }

@@ -48,11 +48,13 @@ const refrainPData = {
 const refrainCalme = Pattern.fromData({
   ...refrainData,
   name: 'Refrain (calme)',
+  initial: 'Rc',
 });
 
 const refrainPCalme = Pattern.fromData({
   ...refrainPData,
   name: 'Refrain\' (calme)',
+  initial: `R'c`,
 });
 
 const refrain = Pattern.fromData(refrainData);
@@ -75,6 +77,7 @@ const coupletFinal = Pattern.fromData({
 const refrainFinalData = {
   key: Key.Cm,
   name: 'Refrain final',
+  initial: 'Rf',
   chords: '| C | G | Ab | Bb |',
   fretboard: fretboardFinal,
 }
@@ -84,13 +87,14 @@ const refrainFinal = Pattern.fromData(refrainFinalData)
 const refrainPFinal = Pattern.fromData({
   ...refrainFinalData,
   name: 'Refrain\' final',
-  initial: 'R\'',
+  initial: 'R\'f',
   chords: '| C | G | Ab | Ab |',
 })
 
 const fin = Pattern.fromData({
   ...refrainFinalData,
   name: 'Fin',
+  initial: 'F',
   chords: '| C | C | C | C |',
 })
 

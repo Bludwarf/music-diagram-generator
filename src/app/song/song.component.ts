@@ -11,18 +11,17 @@ import {
 import {ViewType} from "../rehearsal/mobile/mobile-rehearsal";
 
 @Component({
-  selector: 'app-song',
-  standalone: true,
-  imports: [
-    MobileRehearsalAComponent,
-    MobileRehearsalBComponent,
-    NgIf,
-    MobileRehearsalBMaqComponent,
-    MobileRehearsalPComponent,
-    MobileRehearsalPOsmdComponent,
-  ],
-  templateUrl: './song.component.html',
-  styleUrl: './song.component.scss',
+    selector: 'app-song',
+    imports: [
+        MobileRehearsalAComponent,
+        MobileRehearsalBComponent,
+        NgIf,
+        MobileRehearsalBMaqComponent,
+        MobileRehearsalPComponent,
+        MobileRehearsalPOsmdComponent,
+    ],
+    templateUrl: './song.component.html',
+    styleUrl: './song.component.scss'
 })
 export class SongComponent {
 

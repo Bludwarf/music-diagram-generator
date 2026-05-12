@@ -6,16 +6,15 @@ import {sequence} from "../../../utils";
 import {FitFontSizeDirective} from '../../../utils/fit-font-size.directive';
 
 @Component({
-  selector: 'app-chords-grid',
-  standalone: true,
-  imports: [
-    NgForOf,
-    NgIf,
-    FitFontSizeDirective,
-  ],
-  templateUrl: './chords-grid.component.html',
-  styleUrl: './chords-grid.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-chords-grid',
+    imports: [
+        NgForOf,
+        NgIf,
+        FitFontSizeDirective,
+    ],
+    templateUrl: './chords-grid.component.html',
+    styleUrl: './chords-grid.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ChordsGridComponent {
   @Input() chords!: Chords;

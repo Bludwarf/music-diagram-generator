@@ -1,34 +1,32 @@
 // Source : https://github.com/imagicbell/piano-app/blob/master/src/features/keyboard/index.js
 
 import {
-  ChangeDetectionStrategy,
-  Component,
-  EventEmitter,
-  Input,
-  OnChanges,
-  OnInit,
-  Output,
-  SimpleChanges
+    ChangeDetectionStrategy,
+    Component,
+    EventEmitter,
+    Input,
+    OnChanges,
+    OnInit,
+    Output,
+    SimpleChanges
 } from '@angular/core';
 import {allNotes, CalcNotePositions, MAX_NOTE, MIN_NOTE, NotePositions, NoteType} from "./notes";
 import {ActiveKey} from "./type";
-import {NgClass, NgIf, NgStyle} from "@angular/common";
+import {NgClass, NgIf} from "@angular/common";
 import {KeyboardAdapter} from "./keyboard-adapter";
 import {OctavedNote} from "../notes";
 
 const BASE_HEIGHT = 350;
 
 @Component({
-  selector: 'app-keyboard',
-  standalone: true,
-  imports: [
-    NgClass,
-    NgStyle,
-    NgIf
-  ],
-  templateUrl: './keyboard.component.html',
-  styleUrl: './keyboard.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'app-keyboard',
+    imports: [
+        NgClass,
+        NgIf
+    ],
+    templateUrl: './keyboard.component.html',
+    styleUrl: './keyboard.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class KeyboardComponent implements OnInit, OnChanges {
   @Input()

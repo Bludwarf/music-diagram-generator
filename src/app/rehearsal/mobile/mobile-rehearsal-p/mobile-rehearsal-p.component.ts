@@ -23,22 +23,21 @@ import {KeyboardAdapter} from "../../../keyboard/keyboard-adapter";
 import {ToneAdapter} from "../../../tonejs/tone-adapter";
 
 @Component({
-  selector: 'app-mobile-rehearsal-p',
-  standalone: true,
-  imports: [
-    RythmBarComponent,
-    CommonModule,
-    FormsModule,
-    StructureMapComponent,
-    PartTabsComponent,
-    PartLineComponent,
-    SampleMapComponent,
-    ChordsGridComponent,
-    KeyboardComponent,
-  ],
-  templateUrl: './mobile-rehearsal-p.component.html',
-  styleUrl: './mobile-rehearsal-p.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-mobile-rehearsal-p',
+    imports: [
+        RythmBarComponent,
+        CommonModule,
+        FormsModule,
+        StructureMapComponent,
+        PartTabsComponent,
+        PartLineComponent,
+        SampleMapComponent,
+        ChordsGridComponent,
+        KeyboardComponent,
+    ],
+    templateUrl: './mobile-rehearsal-p.component.html',
+    styleUrl: './mobile-rehearsal-p.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MobileRehearsalPComponent extends MobileRehearsal implements OnInit, OnDestroy {
 

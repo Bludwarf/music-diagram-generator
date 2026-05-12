@@ -6,14 +6,13 @@ import {SectionInStructure} from "../../../structure/section/section-in-structur
 import {PositionedElement} from "../../../time";
 
 @Component({
-  selector: 'app-part-line',
-  standalone: true,
-  imports: [
-    NgForOf
-  ],
-  templateUrl: './part-line.component.html',
-  styleUrl: './part-line.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-part-line',
+    imports: [
+        NgForOf
+    ],
+    templateUrl: './part-line.component.html',
+    styleUrl: './part-line.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PartLineComponent {
   @Input() partInStructure!: PartInStructure;

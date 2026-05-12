@@ -6,10 +6,9 @@ import {VIEW_TYPES} from "../rehearsal/mobile/mobile-rehearsal";
 
 @Component({
   selector: 'app-index',
-  standalone: true,
   imports: [CommonModule, FormsModule, RouterLink],
   templateUrl: './index.component.html',
-  styleUrl: './index.component.scss',
+  styleUrl: './index.component.scss'
 })
 export class IndexComponent {
 

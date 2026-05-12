@@ -4,14 +4,13 @@ import {Structure} from "../../structure/structure";
 import {NgForOf} from "@angular/common";
 
 @Component({
-  selector: 'app-structure-list',
-  standalone: true,
-  imports: [
-    NgForOf
-  ],
-  templateUrl: './structure-list.component.html',
-  styleUrl: './structure-list.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'app-structure-list',
+    imports: [
+        NgForOf
+    ],
+    templateUrl: './structure-list.component.html',
+    styleUrl: './structure-list.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class StructureListComponent implements OnInit {
 

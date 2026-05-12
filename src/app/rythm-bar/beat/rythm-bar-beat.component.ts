@@ -5,15 +5,14 @@ import {RythmBarBeatDivisionComponent} from './division/rythm-bar-beat-division.
 import {RythmBarEvent} from '../event';
 
 @Component({
-  selector: 'app-rythm-bar-beat',
-  standalone: true,
-  imports: [
-    CommonModule,
-    RythmBarBeatDivisionComponent,
-  ],
-  templateUrl: './rythm-bar-beat.component.html',
-  styleUrl: './rythm-bar-beat.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-rythm-bar-beat',
+    imports: [
+        CommonModule,
+        RythmBarBeatDivisionComponent,
+    ],
+    templateUrl: './rythm-bar-beat.component.html',
+    styleUrl: './rythm-bar-beat.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RythmBarBeatComponent {
 

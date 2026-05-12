@@ -13,13 +13,12 @@ import {SongRepository} from '../../../song/song-repository';
 import {ToneAdapter} from "../../../tonejs/tone-adapter";
 
 @Component({
-  selector: 'app-mobile-rehearsal-a',
-  standalone: true,
-  imports: [
-    RythmBarComponent, CommonModule, FormsModule, FretboardComponent, PatternComponent, SectionComponent
-  ],
-  templateUrl: './mobile-rehearsal-a.component.html',
-  styleUrl: './mobile-rehearsal-a.component.scss'
+    selector: 'app-mobile-rehearsal-a',
+    imports: [
+        RythmBarComponent, CommonModule, FormsModule, FretboardComponent, PatternComponent, SectionComponent
+    ],
+    templateUrl: './mobile-rehearsal-a.component.html',
+    styleUrl: './mobile-rehearsal-a.component.scss'
 })
 export class MobileRehearsalAComponent extends MobileRehearsal implements OnInit {
 

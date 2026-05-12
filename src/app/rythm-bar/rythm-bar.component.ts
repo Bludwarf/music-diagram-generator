@@ -5,15 +5,14 @@ import {sequence} from '../utils';
 import {RythmBarEvent} from './event';
 
 @Component({
-  selector: 'app-rythm-bar',
-  standalone: true,
-  imports: [
-    CommonModule,
-    RythmBarBeatComponent,
-  ],
-  templateUrl: './rythm-bar.component.html',
-  styleUrl: './rythm-bar.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-rythm-bar',
+    imports: [
+        CommonModule,
+        RythmBarBeatComponent,
+    ],
+    templateUrl: './rythm-bar.component.html',
+    styleUrl: './rythm-bar.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RythmBarComponent {
 

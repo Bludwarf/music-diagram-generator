@@ -6,15 +6,14 @@ import {JsonPipe, NgIf} from "@angular/common";
 import {RecordingInitData} from "../recording/recording";
 
 @Component({
-  selector: 'app-convert',
-  standalone: true,
-  imports: [
-    FormsModule,
-    NgIf,
-    JsonPipe
-  ],
-  templateUrl: './convert.component.html',
-  styleUrl: './convert.component.scss'
+    selector: 'app-convert',
+    imports: [
+        FormsModule,
+        NgIf,
+        JsonPipe
+    ],
+    templateUrl: './convert.component.html',
+    styleUrl: './convert.component.scss'
 })
 export class ConvertComponent {
 

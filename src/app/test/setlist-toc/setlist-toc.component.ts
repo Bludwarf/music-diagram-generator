@@ -4,14 +4,13 @@ import {Title} from "@angular/platform-browser";
 import {PageComponent} from "../page/page.component";
 
 @Component({
-  selector: 'app-setlist-toc',
-  standalone: true,
-  imports: [
-    PageComponent
-  ],
-  templateUrl: './setlist-toc.component.html',
-  styleUrl: './setlist-toc.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'app-setlist-toc',
+    imports: [
+        PageComponent
+    ],
+    templateUrl: './setlist-toc.component.html',
+    styleUrl: './setlist-toc.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SetlistTocComponent {
   get setlist(): Setlist {

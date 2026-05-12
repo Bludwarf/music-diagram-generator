@@ -17,22 +17,21 @@ import {SongRepository} from "../../../song/song-repository";
 import {ToneAdapter} from "../../../tonejs/tone-adapter";
 
 @Component({
-  selector: 'app-mobile-rehearsal-b',
-  standalone: true,
-  imports: [
-    RythmBarComponent,
-    CommonModule,
-    FormsModule,
-    FretboardComponent,
-    StructureMapComponent,
-    PartTabsComponent,
-    PartLineComponent,
-    SampleMapComponent,
-    ChordsGridComponent,
-  ],
-  templateUrl: './mobile-rehearsal-b.component.html',
-  styleUrl: './mobile-rehearsal-b.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-mobile-rehearsal-b',
+    imports: [
+        RythmBarComponent,
+        CommonModule,
+        FormsModule,
+        FretboardComponent,
+        StructureMapComponent,
+        PartTabsComponent,
+        PartLineComponent,
+        SampleMapComponent,
+        ChordsGridComponent,
+    ],
+    templateUrl: './mobile-rehearsal-b.component.html',
+    styleUrl: './mobile-rehearsal-b.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MobileRehearsalBComponent extends MobileRehearsal implements OnInit, OnDestroy {
 

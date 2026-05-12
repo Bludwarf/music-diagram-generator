@@ -5,11 +5,10 @@ import {Key, Mode, MODE_NAMES, Note, NOTE_NAMES} from '../notes';
 import {CommonModule} from '@angular/common';
 
 @Component({
-  selector: 'app-sandbox',
-  standalone: true,
-  imports: [CommonModule, FormsModule, FretboardComponent],
-  templateUrl: './sandbox.component.html',
-  styleUrl: './sandbox.component.scss',
+    selector: 'app-sandbox',
+    imports: [CommonModule, FormsModule, FretboardComponent],
+    templateUrl: './sandbox.component.html',
+    styleUrl: './sandbox.component.scss'
 })
 export class SandboxComponent {
   firstFretboardLowestFret = 0;

@@ -6,15 +6,14 @@ import {Title} from "@angular/platform-browser";
 import {SetlistTocComponent} from "../setlist-toc/setlist-toc.component";
 
 @Component({
-  selector: 'app-setlist-pages',
-  standalone: true,
-  imports: [
-    StructurePageComponent,
-    SetlistTocComponent
-  ],
-  templateUrl: './setlist-pages.component.html',
-  styleUrl: './setlist-pages.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'app-setlist-pages',
+    imports: [
+        StructurePageComponent,
+        SetlistTocComponent
+    ],
+    templateUrl: './setlist-pages.component.html',
+    styleUrl: './setlist-pages.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SetlistPagesComponent {
   protected setlist: Setlist;

@@ -4,14 +4,13 @@ import {NgForOf} from "@angular/common";
 import {PatternInStructure} from "../../../structure/pattern/pattern-in-structure";
 
 @Component({
-  selector: 'app-structure-map',
-  standalone: true,
-  imports: [
-    NgForOf
-  ],
-  templateUrl: './structure-map.component.html',
-  styleUrl: './structure-map.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-structure-map',
+    imports: [
+        NgForOf
+    ],
+    templateUrl: './structure-map.component.html',
+    styleUrl: './structure-map.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class StructureMapComponent {
   @Input() structure!: Structure;

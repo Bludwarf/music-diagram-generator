@@ -19,12 +19,11 @@ import {debounceTime, fromEvent, tap} from 'rxjs';
 import {RythmBarBeatDivisionLineComponent} from './line/rythm-bar-beat-division-line.component';
 
 @Component({
-  selector: 'app-rythm-bar-beat-division',
-  standalone: true,
-  imports: [CommonModule, RythmBarBeatDivisionLineComponent, NoteComponent],
-  templateUrl: './rythm-bar-beat-division.component.html',
-  styleUrl: './rythm-bar-beat-division.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-rythm-bar-beat-division',
+    imports: [CommonModule, RythmBarBeatDivisionLineComponent, NoteComponent],
+    templateUrl: './rythm-bar-beat-division.component.html',
+    styleUrl: './rythm-bar-beat-division.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RythmBarBeatDivisionComponent implements AfterViewInit {
   @Input()

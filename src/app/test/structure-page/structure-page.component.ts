@@ -9,15 +9,14 @@ import {SongEntry} from "../../song/song-entry";
 import {PageComponent} from "../page/page.component";
 
 @Component({
-  selector: 'app-structure-page',
-  standalone: true,
-  imports: [
-    StructureGridComponent,
-    PageComponent,
-  ],
-  templateUrl: './structure-page.component.html',
-  styleUrl: './structure-page.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'app-structure-page',
+    imports: [
+        StructureGridComponent,
+        PageComponent,
+    ],
+    templateUrl: './structure-page.component.html',
+    styleUrl: './structure-page.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class StructurePageComponent implements OnChanges {
 

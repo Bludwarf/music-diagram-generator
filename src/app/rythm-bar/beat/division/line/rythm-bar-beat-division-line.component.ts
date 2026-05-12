@@ -12,12 +12,11 @@ import {
 import {abletonLiveTimeCode, RythmBarEvent} from '../../../event';
 
 @Component({
-  selector: 'app-rythm-bar-beat-division-line',
-  standalone: true,
-  imports: [CommonModule],
-  templateUrl: './rythm-bar-beat-division-line.component.html',
-  styleUrl: './rythm-bar-beat-division-line.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-rythm-bar-beat-division-line',
+    imports: [CommonModule],
+    templateUrl: './rythm-bar-beat-division-line.component.html',
+    styleUrl: './rythm-bar-beat-division-line.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RythmBarBeatDivisionLineComponent {
 

@@ -7,12 +7,11 @@ const DEFAULT_LOWEST_FRET = 0;
 const DEFAULT_FRETS_COUNT = 5;
 
 @Component({
-  selector: 'app-fretboard',
-  standalone: true,
-  imports: [CommonModule],
-  templateUrl: './fretboard.component.html',
-  styleUrl: './fretboard.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-fretboard',
+    imports: [CommonModule],
+    templateUrl: './fretboard.component.html',
+    styleUrl: './fretboard.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FretboardComponent implements OnInit, OnChanges {
   @Input()

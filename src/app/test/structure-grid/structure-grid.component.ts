@@ -7,15 +7,14 @@ import {ColorResolver} from "../../color";
 import {SectionInStructure} from "../../structure/section/section-in-structure";
 
 @Component({
-  selector: 'app-structure-grid',
-  standalone: true,
-  imports: [
-    NgForOf,
-    NgIf
-  ],
-  templateUrl: './structure-grid.component.html',
-  styleUrl: './structure-grid.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'app-structure-grid',
+    imports: [
+        NgForOf,
+        NgIf
+    ],
+    templateUrl: './structure-grid.component.html',
+    styleUrl: './structure-grid.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class StructureGridComponent {
 

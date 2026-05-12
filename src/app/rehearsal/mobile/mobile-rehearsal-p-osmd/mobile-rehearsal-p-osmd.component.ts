@@ -25,23 +25,22 @@ import {SwipeDirective} from "../../../swipe.directive";
 import {ToneAdapter} from "../../../tonejs/tone-adapter";
 
 @Component({
-  selector: 'app-mobile-rehearsal-p-osmd',
-  standalone: true,
-  imports: [
-    CommonModule,
-    FormsModule,
-    StructureMapComponent,
-    PartTabsComponent,
-    PartLineComponent,
-    SampleMapComponent,
-    ChordsGridComponent,
-    KeyboardComponent,
-    SheetMusicComponent,
-    SwipeDirective,
-  ],
-  templateUrl: './mobile-rehearsal-p-osmd.component.html',
-  styleUrl: './mobile-rehearsal-p-osmd.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-mobile-rehearsal-p-osmd',
+    imports: [
+        CommonModule,
+        FormsModule,
+        StructureMapComponent,
+        PartTabsComponent,
+        PartLineComponent,
+        SampleMapComponent,
+        ChordsGridComponent,
+        KeyboardComponent,
+        SheetMusicComponent,
+        SwipeDirective,
+    ],
+    templateUrl: './mobile-rehearsal-p-osmd.component.html',
+    styleUrl: './mobile-rehearsal-p-osmd.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MobileRehearsalPOsmdComponent extends MobileRehearsal implements OnInit, OnDestroy {
 

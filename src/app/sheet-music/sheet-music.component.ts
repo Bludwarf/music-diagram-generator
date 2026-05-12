@@ -5,12 +5,11 @@ import {Cursor, DrawingParametersEnum, OpenSheetMusicDisplay} from "opensheetmus
 import {Position} from "../time";
 
 @Component({
-  selector: 'app-sheet-music',
-  standalone: true,
-  imports: [],
-  templateUrl: './sheet-music.component.html',
-  styleUrl: './sheet-music.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'app-sheet-music',
+    imports: [],
+    templateUrl: './sheet-music.component.html',
+    styleUrl: './sheet-music.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SheetMusicComponent implements AfterViewInit {
 

@@ -73,16 +73,12 @@ export class MobileRehearsalPComponent extends MobileRehearsal implements OnInit
 
   override async playSong(): Promise<void> {
     if (!this.sampleIsLoaded) {
-      if (!this.recording) {
+      const recording = this.recording;
+      if (!recording) {
         error('Aucun enregistrement (Recording)')
       }
 
-      const audioFile = this.sampleCacheService.get(this.recording.name)
-      if (audioFile) {
-        await this.playAudioFile(audioFile)
-      } else {
-        this.fileInput?.nativeElement.click();
-      }
+      this.playOrUploadAndPlayAudio(recording.name);
       return;
     }
     await super.playSong();

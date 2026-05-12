@@ -7,6 +7,7 @@ import {getUploadedFile} from "../utils/file-utils";
 import {SongRepository} from "../song/song-repository";
 import {SongArchive} from "../song/song-archive";
 import {SongEntryMapper} from "../json/parsers/song-entry-mapper.service";
+import {SampleCacheService} from "../sample/samples-cache.service";
 
 @Component({
     selector: 'app-index',
@@ -26,6 +27,7 @@ export class IndexComponent {
         private readonly songRepository: SongRepository,
         private readonly songEntryParser: SongEntryMapper,
         private readonly router: Router,
+        private readonly sampleCacheService: SampleCacheService,
     ) {
     }
 
@@ -36,6 +38,7 @@ export class IndexComponent {
         const songArchive = await SongArchive.fromZip(zip);
 
         await songArchive.pushSongsTo(this.songRepository, this.songEntryParser);
+        await songArchive.setAudioTo(this.sampleCacheService);
     }
 
     async openSong(songName: string): Promise<void> {

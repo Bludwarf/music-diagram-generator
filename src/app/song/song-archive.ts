@@ -4,10 +4,12 @@ import {SongRepository} from "./song-repository";
 import {SongEntryMapper} from "../json/parsers/song-entry-mapper.service";
 import {StructureDto} from "../json/parsers/structure-mapper.service";
 import {Recording} from "../recording/recording";
+import {SampleCacheService} from "../sample/samples-cache.service";
 import {warn} from "../utils";
 
 export const STRUCTURE_JSON = "structure.json"; // TODO à passer en private
 export const RECORDING_JSON = "recording.json"; // TODO à passer en private
+const RECORDING_MP3 = "recording.mp3";
 const SONG_ARCHIVE_FILE_NAMES = [
     STRUCTURE_JSON,
     RECORDING_JSON,
@@ -47,10 +49,12 @@ export class SongArchive {
         return Object.keys(this.filesBySongName)
     }
 
+    // TODO cache
     async getStructureOf(songName: string): Promise<StructureDto> {
         return await this.dto<StructureDto>(songName, STRUCTURE_JSON);
     }
 
+    // TODO cache
     async getRecordingOf(songName: string): Promise<Recording> {
         return await this.dto<Recording>(songName, RECORDING_JSON);
     }
@@ -70,6 +74,22 @@ export class SongArchive {
                 songRepository.pushAll(songEntry);
             } catch (e) {
                 warn(`Erreur lors de l'ajout du morceau "${songName}"`, e);
+            }
+        }
+    }
+
+    async getAudioOf(songName: string): Promise<Blob | undefined> {
+        const file = this.filesBySongName[songName][RECORDING_MP3];
+        if (!file) return undefined;
+        return new Blob([await file.arrayBuffer()]);
+    }
+
+    async setAudioTo(sampleCacheService: SampleCacheService) {
+        for (const songName of this.songNames) {
+            const recording = await this.getRecordingOf(songName);
+            const audio = await this.getAudioOf(songName);
+            if (audio) {
+                sampleCacheService.setAudio(recording.name, async () => audio);
             }
         }
     }

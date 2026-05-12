@@ -16,22 +16,9 @@ import {SongEntryMapper} from "../json/parsers/song-entry-mapper.service";
 })
 export class IndexComponent {
 
-    playlist: string[] = [
-        'Le jour (le phare)',
-        'La femme dragon',
-        'Noyer le silence',
-        'La 4L',
-        'Surcouf',
-        'Le résistant',
-        'Solitude',
-        'Petit Papillon',
-        'Nuages blancs',
-        'Elle rêve à quoi',
-        'Rockollection',
-        'Tout foufou',
-        'Happy',
-        'The Sims - If You Really See Eurydice'
-    ]
+    get playlist(): readonly string[] {
+        return this.songRepository.songNames;
+    }
 
     protected readonly VIEW_TYPES = VIEW_TYPES;
 

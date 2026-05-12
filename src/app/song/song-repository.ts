@@ -1,25 +1,6 @@
 import {Injectable} from "@angular/core";
 import {EMPTY, SongEntry} from "./song-entry";
 import {error} from "../utils";
-import aucunRespect from "../song/entries/Aucun respect";
-import auSonDesBars from "../song/entries/Au son des bars";
-import elleReveEntry from "../song/entries/Elle reve a quoi";
-import happy from "../song/entries/Happy";
-import kasABarh from "../song/entries/Kas a-barh";
-import la4LEntry from "../song/entries/La 4L";
-import introEntry from "../song/entries/Intro";
-import laFemmeDragonEntry from "../song/entries/La femme dragon";
-import leJourEntry from "../song/entries/Le jour (le phare)";
-import mirages from "../song/entries/Mirages";
-import noyerEntry from "../song/entries/Souffrance";
-import nuagesEntry from "../song/entries/Nuages blancs";
-import petitPapillonEntry from "../song/entries/Petit Papillon";
-import resEntry from "../song/entries/Le résistant";
-import rockollection from "../song/entries/Rockollection";
-import solEntry from "../song/entries/Solitude";
-import surcoufEntry from "../song/entries/Surcouf";
-import toutFoufou from "../song/entries/Tout foufou";
-import theSimsIfYouReallySeeEurydice from "./entries/The Sims - If You Really See Eurydice";
 
 @Injectable({
     providedIn: 'root'
@@ -27,30 +8,6 @@ import theSimsIfYouReallySeeEurydice from "./entries/The Sims - If You Really Se
 export class SongRepository {
     private readonly _songNames: string[] = []
     private readonly songEntries: SongEntry[] = []
-
-    constructor() {
-        this.pushAll(
-            aucunRespect,
-            auSonDesBars,
-            elleReveEntry,
-            happy,
-            la4LEntry,
-            introEntry,
-            kasABarh,
-            laFemmeDragonEntry,
-            leJourEntry,
-            mirages,
-            noyerEntry,
-            nuagesEntry,
-            petitPapillonEntry,
-            resEntry,
-            rockollection,
-            solEntry,
-            surcoufEntry,
-            toutFoufou,
-            theSimsIfYouReallySeeEurydice,
-        )
-    }
 
     get songNames(): readonly string [] {
         return this._songNames;

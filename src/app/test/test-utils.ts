@@ -3,6 +3,9 @@ import {ProviderToken} from "@angular/core";
 import {TestBed} from "@angular/core/testing";
 import createSpyObj = jasmine.createSpyObj;
 import SpyObj = jasmine.SpyObj;
+import {SongRepository} from "../song/song-repository";
+import {SongEntry} from "../song/song-entry";
+import {Structure} from "../structure/structure";
 
 // Source : https://stackoverflow.com/a/57331494/1655155
 /**
@@ -38,7 +41,14 @@ export const PROVIDER_SPIES = {
         provide: ActivatedRoute,
         useValue: createSpyObj<ActivatedRoute>('ActivatedRoute', [
             'params',
-        ] as (keyof ActivatedRoute)[]),
+            'queryParams',
+        ]),
+    },
+    SongRepository: {
+        provide: SongRepository,
+        useValue: createSpyObj<SongRepository>('SongRepository', [
+            'requireSongEntry',
+        ]),
     },
 }
 
@@ -50,4 +60,11 @@ export function createSpyHTMLElement(): SpyObj<HTMLElement> {
     return createSpyObj<HTMLElement>('HTMLElement', [
         'getBoundingClientRect',
     ])
+}
+
+export function buildSongEntry(): SongEntry {
+    return {
+        name: "Morceau de test",
+        structure: new Structure([]),
+    }
 }

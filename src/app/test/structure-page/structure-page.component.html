@@ -14,11 +14,11 @@
     <app-structure-grid [structureInGrid]="structureInGrid" [colorResolver]="colorResolver"></app-structure-grid>
   }
 
-  @if (patterns.length) {
+  @if (patternsWithoutDuplicatedInitial.length) {
     <br>
     <hr>
     <ul class="pattern-list">
-      @for (pattern of patterns; track pattern) {
+      @for (pattern of patternsWithoutDuplicatedInitial; track pattern) {
         <li
           [style.color]="getPatternColor(pattern)"
         >

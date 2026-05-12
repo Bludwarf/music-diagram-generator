@@ -41,6 +41,7 @@ const loco = Pattern.fromData({
 const locoF = Pattern.fromData({
   key,
   name: 'Loco (fin)',
+  initial: 'Lf',
   chords: '| Am | C B7 |',
   fretboard,
 });
@@ -49,6 +50,7 @@ const locomotion = new Section('Locomotion', [loco, loco, loco, locoF])
 const interlude = new Section('Intro', [Pattern.fromData({
   key,
   name: 'interlude',
+  initial: 'Il',
   chords: '| Em | Em |',
   fretboard,
   color: BLUE,
@@ -64,6 +66,7 @@ const hard = new Section(`Hard day's night`, [Pattern.fromData({
 const getAround = new Section(`I Get Around`, [Pattern.fromData({
   key,
   name: 'I Get Around',
+  initial: 'Ig',
   chords: '| G | E7 | Am | F D | G D |',
   fretboard,
   color: RED,
@@ -88,12 +91,14 @@ const satisfaction = new Section(`Satisfaction`, [s, s])
 const b1 = Pattern.fromData({
   key,
   name: 'Bascule 1/2',
+  initial: 'B1',
   chords: '| E | E |',
   fretboard,
 });
 const b2 = Pattern.fromData({
   key,
   name: 'Bascule 2/2',
+  initial: 'B2',
   chords: '| F# | F# |',
   fretboard,
 });

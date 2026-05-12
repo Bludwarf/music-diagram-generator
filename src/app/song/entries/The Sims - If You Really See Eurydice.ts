@@ -32,6 +32,7 @@ function getPatterns(letter: string, offset: number, dataDeltas: Partial<Pattern
       key: Key.C,
       color: AbletonLive10Color.fromIndex(32),
       name: 'Thème1' + letter + (i + 1),
+      initial: 'T1' + letter + (i + 1),
       events: getEvents(offset + 2 * i),
       ...dataDelta,
     }))

@@ -1,23 +1,44 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {StructureListComponent} from './structure-list.component';
+import {buildSongEntry, injectSpy, PROVIDER_SPIES} from "../test-utils";
+import {ActivatedRoute} from "@angular/router";
+import {of} from "rxjs";
+import {SongRepository} from "../../song/song-repository";
+import SpyObj = jasmine.SpyObj;
 
 describe('StructureListComponent', () => {
-  let component: StructureListComponent;
-  let fixture: ComponentFixture<StructureListComponent>;
+    let component: StructureListComponent;
+    let fixture: ComponentFixture<StructureListComponent>;
+    let activatedRoute: SpyObj<ActivatedRoute>;
+    let songRepository: SpyObj<SongRepository>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [StructureListComponent]
-    })
-      .compileComponents();
+    beforeEach(async () => {
+        await TestBed.configureTestingModule({
+            imports: [StructureListComponent],
+            providers: [
+                PROVIDER_SPIES.ActivatedRoute,
+                PROVIDER_SPIES.SongRepository,
+            ]
+        })
+            .compileComponents();
 
-    fixture = TestBed.createComponent(StructureListComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+        const songEntry = buildSongEntry();
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+        activatedRoute = injectSpy(ActivatedRoute);
+        activatedRoute.params = of({
+            songName: songEntry.name,
+        });
+
+        songRepository = injectSpy(SongRepository);
+        songRepository.requireSongEntry.and.returnValue(songEntry);
+
+        fixture = TestBed.createComponent(StructureListComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+    });
+
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
 });

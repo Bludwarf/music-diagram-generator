@@ -1,6 +1,8 @@
-<app-setlist-toc [setlist]="setlist"></app-setlist-toc>
-@for (song of setlist.songs; track song; ) {
-  <app-structure-page
-    [song]="song"
-    [songTotalCount]="setlist.songs.length"></app-structure-page>
+@if (setlist) {
+    <app-setlist-toc [setlist]="setlist"></app-setlist-toc>
+    @for (song of setlist.songs; track song; ) {
+        <app-structure-page
+            [song]="song"
+            [songTotalCount]="setlist.songs.length"></app-structure-page>
+    }
 }

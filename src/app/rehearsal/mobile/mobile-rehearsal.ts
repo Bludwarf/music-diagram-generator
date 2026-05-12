@@ -118,7 +118,6 @@ export abstract class MobileRehearsal {
     private readonly songRepository: SongRepository,
   ) {
 
-    // TODO unsubscribe
     activatedRoute.params.subscribe(params => {
       this.songName = params['songName']
       if (this.songName) {
@@ -208,18 +207,22 @@ export abstract class MobileRehearsal {
       if (nameWithoutExtension !== this.recording.name) {
         alert(`Le nom du fichier chargé "${audioFile.name}" ("${nameWithoutExtension}" sans extension) ne correspond pas à celui de l'enregistrement "${this.recording.name}"`)
       }
-      this.sampleCacheService.set(this.recording.name, audioFile)
+      this.sampleCacheService.setFile(this.recording.name, audioFile)
     }
 
-    this.playAudioFile(audioFile)
+    await this.playAudioFile(audioFile)
   }
 
   async playAudioFile(audioFile: File): Promise<void> {
+    await this.playAudio(audioFile);
+  }
+
+  async playAudio(audio: Blob): Promise<void> {
     if (!this.recording) {
       error('Aucun enregistrement (Recording)')
     }
 
-    const audioFileURL = URL.createObjectURL(audioFile);
+    const audioFileURL = URL.createObjectURL(audio);
 
     const player = new Player({
       url: audioFileURL,
@@ -265,24 +268,28 @@ export abstract class MobileRehearsal {
 
   async playSong(): Promise<void> {
     if (!this.sampleIsLoaded) {
-      if (!this.recording) {
+      const recording = this.recording;
+      if (!recording) {
         error('Aucun enregistrement (Recording)')
       }
 
-      const audioFile = this.sampleCacheService.get(this.recording.name)
-      if (audioFile) {
-        await this.playAudioFile(audioFile)
-      } else {
-        this.fileInput?.nativeElement.click();
-      }
-      return;
+      await this.playOrUploadAndPlayAudio(recording.name);
     }
 
     console.log('playSong')
     Transport.start('+0.1') // https://github.com/Tonejs/Tone.js/wiki/Performance#scheduling-in-advance
   }
 
-  async pauseSong(): Promise<void> {
+    protected async playOrUploadAndPlayAudio(recordingName: string) {
+        const audio = await this.sampleCacheService.get(recordingName)
+        if (audio) {
+            await this.playAudio(audio)
+        } else {
+            this.fileInput?.nativeElement.click();
+        }
+    }
+
+    async pauseSong(): Promise<void> {
     console.log('pauseSong')
     Transport.pause()
   }

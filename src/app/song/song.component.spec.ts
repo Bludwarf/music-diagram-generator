@@ -2,37 +2,45 @@ import {ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {SongComponent} from './song.component';
 import {ActivatedRoute} from "@angular/router";
-import {injectSpy, PROVIDER_SPIES} from "../test/test-utils";
+import {buildSongEntry, injectSpy, PROVIDER_SPIES} from "../test/test-utils";
 import {of} from "rxjs";
 import SpyObj = jasmine.SpyObj;
+import {SongRepository} from "./song-repository";
 
 describe('SongComponent', () => {
-  let component: SongComponent;
-  let fixture: ComponentFixture<SongComponent>;
+    let component: SongComponent;
+    let fixture: ComponentFixture<SongComponent>;
 
-  let activatedRoute: SpyObj<ActivatedRoute>;
+    let activatedRoute: SpyObj<ActivatedRoute>;
+    let songRepository: SpyObj<SongRepository>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [SongComponent],
-      providers: [
-        PROVIDER_SPIES.ActivatedRoute,
-      ]
-    })
-      .compileComponents();
+    beforeEach(async () => {
+        await TestBed.configureTestingModule({
+            imports: [SongComponent],
+            providers: [
+                PROVIDER_SPIES.ActivatedRoute,
+                PROVIDER_SPIES.SongRepository,
+            ]
+        })
+            .compileComponents();
 
-    activatedRoute = injectSpy(ActivatedRoute);
-    activatedRoute.params = of({
-      songName: 'Petit Papillon',
+        const songEntry = buildSongEntry();
+
+        activatedRoute = injectSpy(ActivatedRoute);
+        activatedRoute.params = of({
+            songName: songEntry.name,
+        });
+        activatedRoute.queryParams = of({});
+
+        songRepository = injectSpy(SongRepository);
+        songRepository.requireSongEntry.and.returnValue(songEntry);
+
+        fixture = TestBed.createComponent(SongComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
     });
-    activatedRoute.queryParams = of({});
 
-    fixture = TestBed.createComponent(SongComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
-
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
 });

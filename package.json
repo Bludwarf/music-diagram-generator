@@ -29,6 +29,7 @@
         "@types/color": "3",
         "angular-in-memory-web-api": "0.17",
         "color": "4",
+        "fflate": "^0.8.2",
         "musicxml-interfaces": "^0.0.21",
         "opensheetmusicdisplay": "^1.9.2",
         "rxjs": "7.8",

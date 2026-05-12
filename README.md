@@ -41,6 +41,23 @@ Ajuster le fichier dupliqué :
 1. `events`
 2. `patterns`
 
+## Répertoire (ZIP)
+
+Créer un dossier pour chaque morceau avec les fichiers :
+
+- `structure.json`
+- `recording.json`
+
+Le dossier peut contenir n'importe quel caractère (même `/` si encodé `%2F`).
+La comparaison se fera uniquement sur les lettres contenues dans le nom du morceau.
+
+Ajouter un fichier `setlist.txt` (optionnel).
+
+Zipper l'ensemble au format `.zip`.
+
+Si on souhaite donner un titre et une version à la setlist, le ZIP doit être nommé ainsi : `<titre> (<version>).zip`.
+On gère l'encodage, comme les noms des morceaux.
+
 # Test Service Worker
 
 Builder en mode prod :
@@ -63,7 +80,9 @@ http-server ./dist/browser -c-1 -o
 
 # Exécuter certains tests unitaires
 
-On a d'abord configuré Codespace pour avoir tous les outils nécessaire en suivant [cette doc](https://docs.github.com/fr/codespaces/setting-up-your-project-for-codespaces/adding-a-dev-container-configuration/setting-up-your-nodejs-project-for-codespaces). Ainsi on a automatiquement Chrome d'installé.
+On a d'abord configuré Codespace pour avoir tous les outils nécessaire en
+suivant [cette doc](https://docs.github.com/fr/codespaces/setting-up-your-project-for-codespaces/adding-a-dev-container-configuration/setting-up-your-nodejs-project-for-codespaces).
+Ainsi on a automatiquement Chrome d'installé.
 
 ```bash
 npm test -- --include='**/css-utils.spec.ts'

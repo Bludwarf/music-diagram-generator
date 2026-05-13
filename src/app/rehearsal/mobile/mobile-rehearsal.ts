@@ -66,7 +66,7 @@ export abstract class MobileRehearsal {
     if (beatTime && beatTime.value >= 0) {
       return this.recording?.getPosition(beatTime)
     }
-    return undefined
+    return this.currentPartInStructure?.startPosition
   }
 
   get transportPosition(): BarsBeatsSixteenths | Time {
@@ -231,7 +231,7 @@ export abstract class MobileRehearsal {
 
     // cf. https://github.com/Tonejs/Tone.js/blob/dev/examples/daw.html
     Transport.bpm.value = 120;
-    if (!this.loopedElement) {
+    if (!this.loopedElement && this.recording) {
       this.loopOnRecording()
     }
 
@@ -293,17 +293,15 @@ export abstract class MobileRehearsal {
   }
 
   onClickElementInStructure(element: PositionedElement, isCurrentInStructure = this.isCurrentInStructure(element)): void {
-    if (!this.recording) {
-      error('Aucun enregistrement (Recording)')
-    }
-
     let elementToLoop: PositionedElement | undefined;
     if (isCurrentInStructure) {
       elementToLoop = element === this.loopedElement ? undefined : element
     } else {
       elementToLoop = undefined
     }
-    elementToLoop ? this.loopOn(elementToLoop) : this.loopOnRecording();
+    if (this.recording) {
+      elementToLoop ? this.loopOn(elementToLoop) : this.loopOnRecording();
+    }
 
     if (!isCurrentInStructure) {
       this.setPosition(element.startPosition);
@@ -362,7 +360,7 @@ export abstract class MobileRehearsal {
     Transport.loop = looped
     if (looped) {
       this.loopedElement = element
-    } else {
+    } else if (this.recording) {
       this.loopOnRecording()
     }
   }

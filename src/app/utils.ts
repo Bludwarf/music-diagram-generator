@@ -52,3 +52,6 @@ export function stripExtension(fileName: string): string {
     return fileName
   }
 }
+
+// Source : https://stackoverflow.com/a/63045455/1655155
+export type NonUndefined<T> = T extends undefined ? never : T;

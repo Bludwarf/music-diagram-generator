@@ -16,11 +16,11 @@ export class SongEntryMapper {
     ) {
     }
 
-    async model(songName: string, structure: StructureDto, recording: Recording): Promise<SongEntry> {
+    async model(songName: string, structure: StructureDto, recording?: Recording): Promise<SongEntry> {
         return {
             name: songName,
             structure: this.structureMapper.model(structure),
-            recording: this.recordingMapper.model(recording),
+            recording: recording ? this.recordingMapper.model(recording) : undefined,
         };
     }
 }

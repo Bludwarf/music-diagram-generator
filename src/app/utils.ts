@@ -58,3 +58,6 @@ export function jsonEquals(obj1: any, obj2: any): boolean {
     const json2 = JSON.stringify(obj2);
     return json1 === json2;
 }
+
+// Source : https://stackoverflow.com/a/63045455/1655155
+export type NonUndefined<T> = T extends undefined ? never : T;

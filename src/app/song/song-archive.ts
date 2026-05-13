@@ -51,17 +51,20 @@ export class SongArchive {
 
     // TODO cache
     async getStructureOf(songName: string): Promise<StructureDto> {
-        return await this.dto<StructureDto>(songName, STRUCTURE_JSON);
+        const structure = await this.dto<StructureDto>(songName, STRUCTURE_JSON);
+        if (!structure) throw new Error(`${STRUCTURE_JSON} requis introuvable dans l'archive`);
+        return structure;
     }
 
     // TODO cache
-    async getRecordingOf(songName: string): Promise<Recording> {
+    async getRecordingOf(songName: string): Promise<Recording | undefined> {
         return await this.dto<Recording>(songName, RECORDING_JSON);
     }
 
-    private async dto<T>(songName: string, fileName: SongArchiveFileName): Promise<T> {
+    private async dto<T>(songName: string, fileName: SongArchiveFileName): Promise<T | undefined> {
         const file = this.filesBySongName[songName][fileName];
         const json = await file?.text();
+        if (!json) return undefined;
         return JSON.parse(json) as T
     }
 
@@ -87,9 +90,11 @@ export class SongArchive {
     async setAudioTo(sampleCacheService: SampleCacheService) {
         for (const songName of this.songNames) {
             const recording = await this.getRecordingOf(songName);
-            const audio = await this.getAudioOf(songName);
-            if (audio) {
-                sampleCacheService.setAudio(recording.name, async () => audio);
+            if (recording) {
+                const audio = await this.getAudioOf(songName);
+                if (audio) {
+                    sampleCacheService.setAudio(recording.name, async () => audio);
+                }
             }
         }
     }

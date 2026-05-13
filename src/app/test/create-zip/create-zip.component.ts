@@ -5,6 +5,7 @@ import {SongEntry} from "../../song/song-entry";
 import {StructureMapper} from "../../json/parsers/structure-mapper.service";
 import {RECORDING_JSON, STRUCTURE_JSON} from "../../song/song-archive";
 import {FormsModule} from "@angular/forms";
+import {error, NonUndefined} from "../../utils";
 
 const songNames = [
     "Aucun respect",
@@ -67,10 +68,11 @@ export class CreateZipComponent {
 
     downloadRecordingJson(): void {
         const recording = this.songEntry.recording;
+        if (!recording) error(`Aucun enregistrement`);
         this.downloadAsJson(RECORDING_JSON, recording);
     }
 
-    downloadAsJson(filename: string, obj: any): void {
+    downloadAsJson<T>(filename: string, obj: NonUndefined<T>): void {
         downloadJsonFile(filename, JSON.stringify(obj, undefined, 2));
     }
 

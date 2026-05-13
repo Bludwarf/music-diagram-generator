@@ -13,7 +13,9 @@
     <app-structure-map *ngIf="structure" [structure]="structure" [timecode]="timecode"
                        [currentPatternInStructure]="currentPatternInStructure"
                        (clickPatternInStructure)="onClickElementInStructure($event)"></app-structure-map>
-    <app-sample-map [transportSeconds]="transportSeconds"></app-sample-map>
+    @if (recording) {
+      <app-sample-map [transportSeconds]="transportSeconds"></app-sample-map>
+    }
   </div>
 
 </div>

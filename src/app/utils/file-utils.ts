@@ -1,4 +1,5 @@
-import unz, {Archive} from "unz";
+import unz, {Archive, ArchiveFile} from "unz";
+import {error} from "../utils";
 
 export type UnzippedEntry = {
     path: string;
@@ -81,9 +82,40 @@ export async function unzip(blob: Blob, format: CompressionFormat = "gzip") {
  * }
  * ```
  */
-export async function unzipArchive(blob: Blob): Promise<Archive> {
+export async function unzipArchive(blob: Blob): Promise<ArchivePathEncodingFixWrapper> {
     const buffer = await blob.arrayBuffer();
-    return unz(buffer);
+    const archive = unz(buffer);
+    return new ArchivePathEncodingFixWrapper(archive); // TODO problème d'encodage (exemple : "é" -> "\uFFFD")
+}
+
+export class ArchivePathEncodingFixWrapper {
+
+
+    constructor(
+        public readonly archive: Archive,
+    ) {
+    }
+
+    *[Symbol.iterator](): MapIterator<[string, ArchiveFile]> {
+        for (const [fileName, archiveFile] of this.archive) {
+            yield [this.decodeFileName(fileName), archiveFile];
+        }
+    }
+
+    private decodeFileName(fileName: string): string {
+        if (!fileName.includes("\uFFFD")) return fileName;
+
+        const decodedFileName = fileName
+            .replace("r\uFFFDve", "rêve")
+            .replace(" \uFFFD ", " à ")
+            .replace("r\uFFFDsist", "résist")
+            .replace("Broc\uFFFDliande", "Brocéliande")
+        ;
+
+        if (decodedFileName.includes("\uFFFD")) error(`Décodage incomplet pour le nom de fichier : ${fileName} -> ${decodedFileName}`);
+
+        return decodedFileName;
+    }
 }
 
 /**

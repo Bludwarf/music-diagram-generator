@@ -1,6 +1,5 @@
 import {Injectable, NgZone} from "@angular/core";
-import * as Tone from "tone";
-import {Loop} from "tone";
+import {Loop, Transport} from "tone";
 import {Seconds, Time, TransportTime} from "tone/Tone/core/type/Units";
 
 @Injectable({
@@ -14,7 +13,7 @@ export class ToneAdapter {
   }
 
   loop(callback?: (time: Seconds) => void, interval?: Time): Loop {
-    return new Tone.Loop(time => {
+    return new Loop(time => {
       this.ngZone.run(() => {
         callback?.(time)
       })
@@ -22,7 +21,7 @@ export class ToneAdapter {
   }
 
   schedule(callback: TransportCallback, time: TransportTime/* TODO  | TransportTimeClass */) {
-    Tone.Transport.schedule(time => {
+    Transport.schedule(time => {
       this.ngZone.run(() => {
         callback?.(time)
       })

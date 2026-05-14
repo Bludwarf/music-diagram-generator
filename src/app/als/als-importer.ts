@@ -1,7 +1,7 @@
 import {AlsProject} from "./v10/als-project";
 import {checkXmlContent} from "../xml/xml-js-utils";
 
-import * as convert from 'xml-js';
+import {xml2json} from 'xml-js';
 import {Injectable} from "@angular/core";
 
 @Injectable({
@@ -31,7 +31,7 @@ export class AlsImporter {
 
   private loadXmlContent(xmlContent: string): AlsProject {
     checkXmlContent(xmlContent);
-    const jsonContent = convert.xml2json(xmlContent, {
+    const jsonContent = xml2json(xmlContent, {
       compact: true,
     })
     return this.loadJsonContent(jsonContent)

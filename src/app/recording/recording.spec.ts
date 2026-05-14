@@ -1,15 +1,15 @@
 import {Recording} from "./recording";
 import {BeatTime, SecTime} from "../time";
-import * as Tone from "tone";
+import {Transport} from "tone";
 
-const ORIGINAL_PPQ = Tone.Transport.PPQ;
-const ORIGINAL_BPM_VALUE = Tone.Transport.bpm.value;
+const ORIGINAL_PPQ = Transport.PPQ;
+const ORIGINAL_BPM_VALUE = Transport.bpm.value;
 
 describe('Recording', () => {
 
   afterEach(() => {
-    Tone.Transport.PPQ = ORIGINAL_PPQ;
-    Tone.Transport.bpm.value = ORIGINAL_BPM_VALUE;
+    Transport.PPQ = ORIGINAL_PPQ;
+    Transport.bpm.value = ORIGINAL_BPM_VALUE;
   });
 
   function testGetWarpPosition(recording: Recording, secTimeValue: number, expectedBeatTimeValue: number) {

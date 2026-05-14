@@ -6,7 +6,7 @@ import {Structure} from "../../structure/structure";
 import {ActivatedRoute} from "@angular/router";
 import {Title} from "@angular/platform-browser";
 import {RythmBarEvent} from "../../rythm-bar/event";
-import * as Tone from "tone";
+import {loaded, Loop, LoopOptions, Player, start, Time as ToneTime, Transport} from "tone";
 import {BeatTime, Position, PositionedElement, PositionFormatter, SecTime} from "../../time";
 import {error, sequence, stripExtension} from '../../utils';
 import {Recording} from "../../recording/recording";
@@ -44,7 +44,7 @@ export abstract class MobileRehearsal {
   }
 
   get progress(): number {
-    return Math.min(Math.max(0, Tone.Transport.progress), 1) * 100
+    return Math.min(Math.max(0, Transport.progress), 1) * 100
   }
 
   get timecode(): string | undefined {
@@ -70,11 +70,11 @@ export abstract class MobileRehearsal {
   }
 
   get transportPosition(): BarsBeatsSixteenths | Time {
-    return Tone.Transport.position
+    return Transport.position
   }
 
   get transportSeconds(): number {
-    return Tone.Transport.seconds
+    return Transport.seconds
   }
 
   structure?: Structure;
@@ -103,8 +103,8 @@ export abstract class MobileRehearsal {
 
   protected sequence = sequence
 
-  player?: Tone.Player
-  transportProgressLoop?: Tone.Loop<Tone.LoopOptions>;
+  player?: Player
+  transportProgressLoop?: Loop<LoopOptions>;
   sampleIsLoaded = false
 
   songName?: string
@@ -221,7 +221,7 @@ export abstract class MobileRehearsal {
 
     const audioFileURL = URL.createObjectURL(audioFile);
 
-    const player = new Tone.Player({
+    const player = new Player({
       url: audioFileURL,
       // loop: true,
       // autostart: true,
@@ -230,7 +230,7 @@ export abstract class MobileRehearsal {
     }).toDestination();
 
     // cf. https://github.com/Tonejs/Tone.js/blob/dev/examples/daw.html
-    Tone.Transport.bpm.value = 120;
+    Transport.bpm.value = 120;
     if (!this.loopedElement) {
       this.loopOnRecording()
     }
@@ -239,10 +239,10 @@ export abstract class MobileRehearsal {
     this.player = player
 
     this.transportProgressLoop = this.toneAdapter.loop(() => {
-      this.secTime.set(SecTime.fromToneTransportSeconds(Tone.Transport.seconds))
+      this.secTime.set(SecTime.fromToneTransportSeconds(Transport.seconds))
     }, "32n").start(0);
-    await Tone.loaded() // évite les erreurs de buffer
-    await Tone.start()
+    await loaded() // évite les erreurs de buffer
+    await start()
 
     this.sampleIsLoaded = true
 
@@ -253,9 +253,9 @@ export abstract class MobileRehearsal {
     if (!this.recording) {
       error('Aucun enregistrement (Recording)')
     }
-    Tone.Transport.loop = true
-    Tone.Transport.loopStart = 0
-    Tone.Transport.loopEnd = this.recording.sampleDurationInSeconds // structure.duration.toBarsBeatsSixteenths()
+    Transport.loop = true
+    Transport.loopStart = 0
+    Transport.loopEnd = this.recording.sampleDurationInSeconds // structure.duration.toBarsBeatsSixteenths()
     delete this.loopedElement
   }
 
@@ -279,17 +279,17 @@ export abstract class MobileRehearsal {
     }
 
     console.log('playSong')
-    Tone.Transport.start('+0.1') // https://github.com/Tonejs/Tone.js/wiki/Performance#scheduling-in-advance
+    Transport.start('+0.1') // https://github.com/Tonejs/Tone.js/wiki/Performance#scheduling-in-advance
   }
 
   async pauseSong(): Promise<void> {
     console.log('pauseSong')
-    Tone.Transport.pause()
+    Transport.pause()
   }
 
   stopSong(): void {
     console.log('stopSong')
-    Tone.Transport.stop()
+    Transport.stop()
   }
 
   onClickElementInStructure(element: PositionedElement, isCurrentInStructure = this.isCurrentInStructure(element)): void {
@@ -329,7 +329,7 @@ export abstract class MobileRehearsal {
     const secTime = this.recording?.getSecTimeAt(position);
     if (secTime !== undefined) {
       const fixOffset = 0.05 // On corrige la sélection qui arrive souvent sur l'élément précédent => TODO corriger en arrondissant la sélection dans le refresh
-      Tone.Transport.seconds = secTime.value + fixOffset
+      Transport.seconds = secTime.value + fixOffset
       this.secTime.set(secTime)
       this.resetStates(position);
     }
@@ -351,15 +351,15 @@ export abstract class MobileRehearsal {
       if (wrappedStartTime !== undefined) {
         const wrappedEndTime = this.recording.getSecTimeAt(element.endPosition);
         if (wrappedEndTime !== undefined) {
-          Tone.Transport.loop = true
-          Tone.Transport.loopStart = wrappedStartTime.value
-          Tone.Transport.loopEnd = wrappedEndTime.value
+          Transport.loop = true
+          Transport.loopStart = wrappedStartTime.value
+          Transport.loopEnd = wrappedEndTime.value
           looped = true
         }
       }
     }
 
-    Tone.Transport.loop = looped
+    Transport.loop = looped
     if (looped) {
       this.loopedElement = element
     } else {
@@ -392,13 +392,13 @@ export abstract class MobileRehearsal {
   }
 
   setProgressPercent(progress: number): void {
-    const loopEndInSeconds = Tone.Time(Tone.Transport.loopEnd).toSeconds();
-    Tone.Transport.position = progress / 100 * loopEndInSeconds
+    const loopEndInSeconds = ToneTime(Transport.loopEnd).toSeconds();
+    Transport.position = progress / 100 * loopEndInSeconds
     this.resetStates();
   }
 
   get playing(): boolean {
-    return Tone.Transport.state === 'started'
+    return Transport.state === 'started'
   }
 
   protected requireSongEntry() {

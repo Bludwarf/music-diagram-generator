@@ -23,7 +23,7 @@ export class SongArchive {
     ) {
     }
 
-    static async fromZip(zip: File): Promise<SongArchive> {
+    static async fromZip(zip: Blob): Promise<SongArchive> {
         const archive = await unzipArchive(zip);
         const filesBySongName: Record<string, Record<SongArchiveFileName, ArchiveFile>> = {};
         for (const [fileName, archiveFile] of archive) {

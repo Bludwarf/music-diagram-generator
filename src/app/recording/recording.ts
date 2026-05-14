@@ -9,17 +9,25 @@ const DEFAULT_TIME_SIGNATURE = {
 };
 
 export class Recording {
+
+  readonly originalWarpMarkersLength: number;
+
   constructor(
     /** Nom du fichier sans extension */
     readonly name: string,
     readonly sampleDurationInSeconds: number,
     readonly sampleBeatTimeDuration: number,
     readonly warpMarkers: WarpMarker[],
-    private readonly originalWarpMarkersLength = warpMarkers.length, // à cause de normalizeWarpMarker
+    originalWarpMarkersLength?: number,
     readonly midi?: Midi,
     readonly musicXmlString?: string,
   ) {
-    this.normalizeWarpMarker()
+    if (originalWarpMarkersLength) {
+      this.originalWarpMarkersLength = originalWarpMarkersLength;
+    } else {
+      this.originalWarpMarkersLength = warpMarkers.length;
+     this.normalizeWarpMarker()
+    }
   }
 
   static builder(): RecordingBuilder {

@@ -301,6 +301,8 @@ export class Chords implements Iterable<Chord> {
       return this.list[Symbol.iterator]();
   }
 
+  [n: number]: Chord;
+
   get length(): number {
       return this.list.length;
   }

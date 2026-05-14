@@ -12,6 +12,12 @@ export function arraySum(array: number[]): number {
   return array.reduce((s, t) => s + t);
 }
 
+export function remove<T>(item: T, array: T[]): void {
+    const index = array.indexOf(item);
+    if (index === -1) return;
+    array.splice(index, 1);
+}
+
 /**
  * Pour la version mobile, on affiche une alerte, car on n'a pas forcément accès à la console pour voir les erreurs
  */

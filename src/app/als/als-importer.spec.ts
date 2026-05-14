@@ -13,6 +13,7 @@ describe('AlsImporter', () => {
   it('should load Petit papillon', async () => {
     const alsProject = await importAlsProject('Petit papillon')
     expect(alsProject).toBeTruthy();
+    expect(alsProject.audioTracks.length).toBe(5);
   });
 
 });

@@ -68,18 +68,10 @@ http-server ./dist/browser -c-1 -o
 
 # Exécuter certains tests unitaires
 
-On a d'abord configuré Codespace pour avoir tous les outils nécessaire en suivant [cette doc](https://docs.github.com/fr/codespaces/setting-up-your-project-for-codespaces/adding-a-dev-container-configuration/setting-up-your-nodejs-project-for-codespaces). Ainsi on a automatiquement Chrome d'installé.
+En ligne de commande (sinon KO avec vitest 4 dans IntelliJ 2026.1.1) :
 
-```bash
-npm test -- --include='**/css-utils.spec.ts'
 ```
-
-On peut également utiliser l'extension VSCode `Karma Test Explorer` mais il faut d'abord configurer l'environnement :
-
-```bash
-npm install
-export PATH="./node_modules/.bin:$PATH"
-export CHROME_BIN=/opt/chrome/chrome
+npm run test -- src/app/song/song-archive.spec.ts
 ```
 
 # Déploiement poru tester une branche

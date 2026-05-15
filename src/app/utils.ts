@@ -67,3 +67,15 @@ export function jsonEquals(obj1: any, obj2: any): boolean {
 
 // Source : https://stackoverflow.com/a/63045455/1655155
 export type NonUndefined<T> = T extends undefined ? never : T;
+
+export function getOrRequire<T>(obj: T | undefined, required: boolean, messageGetter: () => string): T | undefined {
+    if (obj) return obj;
+
+    const message = messageGetter();
+    if (required) {
+        error(message)
+    } else {
+        console.warn(message);
+        return undefined;
+    }
+}

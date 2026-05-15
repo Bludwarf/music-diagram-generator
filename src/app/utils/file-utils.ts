@@ -119,3 +119,8 @@ function downloadFile(filename: string, blob: Blob): void {
     a.click();
     a.remove();
 }
+
+export function basenameUnix(path: string, ext?: string) {
+    const end = ext ? -ext.length : undefined;
+    return path.slice(path.lastIndexOf('/') + 1, end);
+}

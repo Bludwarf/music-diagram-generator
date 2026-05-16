@@ -49,25 +49,28 @@ export class CreateZipComponent {
 
     songName: string | undefined;
 
-    get songEntry(): SongEntry {
+    get songEntry(): Promise<SongEntry> {
         return this.songRepository.requireSongEntry(this.songName!);
     }
 
-    downloadStructureJsonV1(): void {
-        const structure = this.songEntry.structure;
+    async downloadStructureJsonV1(): Promise<void> {
+        const songEntry = await this.songEntry;
+        const structure = songEntry.structure;
         this.downloadAsJson(STRUCTURE_JSON, {
             parts: structure.partsInStructure.map(partInStructure => partInStructure.part),
         });
     }
 
-    downloadStructureJson(): void {
-        const structure = this.songEntry.structure;
+    async downloadStructureJson(): Promise<void> {
+        const songEntry = await this.songEntry;
+        const structure = songEntry.structure;
         const jsonStructure = this.structureMapper.dto(structure)
         this.downloadAsJson(STRUCTURE_JSON, jsonStructure);
     }
 
-    downloadRecordingJson(): void {
-        const recording = this.songEntry.recording;
+    async downloadRecordingJson(): Promise<void> {
+        const songEntry = await this.songEntry;
+        const recording = songEntry.recording;
         if (!recording) error(`Aucun enregistrement`);
         this.downloadAsJson(RECORDING_JSON, recording);
     }

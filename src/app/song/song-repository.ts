@@ -2,6 +2,7 @@ import {Injectable} from "@angular/core";
 import {EMPTY, SongEntry} from "./song-entry";
 import {error, remove} from "../utils";
 import {SongInArchive} from "./song-archive";
+import {SongArchiveLoader} from "./song-archive-loader.service";
 
 @Injectable({
     providedIn: 'root'
@@ -9,6 +10,12 @@ import {SongInArchive} from "./song-archive";
 export class SongRepository {
     private readonly _songNames: string[] = []
     private readonly songEntries: SongEntry[] = []
+
+
+    constructor(
+        private readonly songArchiveLoader: SongArchiveLoader,
+    ) {
+    }
 
     get songNames(): readonly string [] {
         return this._songNames;
@@ -27,9 +34,13 @@ export class SongRepository {
         return this.songEntries.find(entry => this.songNameEquals(resolvedSongName, entry.name)) || defaultSongEntry;
     }
 
-    requireSongEntry(songName: string) {
+    async requireSongEntry(songName: string, fromSongArchiveLoader = false): Promise<SongEntry> {
         const entry = this.findSongEntry(songName);
         if (!entry) {
+            if (!fromSongArchiveLoader && this.songArchiveLoader.isDefaultSong(songName)) {
+                await this.songArchiveLoader.getDefaultSetlist(this);
+                return this.requireSongEntry(songName, true);
+            }
             error('SongEntry inconnu pour ' + songName)
         }
         return entry;

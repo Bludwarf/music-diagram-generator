@@ -1,9 +1,9 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {StructurePageComponent} from './structure-page.component';
-import {SongInSetlist} from "../setlist-pages/setlist";
+import {SongInSetlist} from "../../setlist";
 import {StructureInGrid} from "../structure-grid/StructureInGrid";
-import {Structure} from "../../structure/structure";
+import {Structure} from "../../../structure/structure";
 
 describe('StructurePageComponent', () => {
   let component: StructurePageComponent;

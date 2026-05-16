@@ -1,12 +1,12 @@
 import {ChangeDetectionStrategy, Component, Input, OnChanges} from '@angular/core';
 import {StructureGridComponent} from "../structure-grid/structure-grid.component";
 import {StructureInGrid} from "../structure-grid/StructureInGrid";
-import {Pattern} from "../../structure/pattern/pattern";
-import {ColorResolver} from "../../color";
-import {PatternInStructure} from "../../structure/pattern/pattern-in-structure";
-import {SongInSetlist} from "../setlist-pages/setlist";
-import {SongEntry} from "../../song/song-entry";
-import {PageComponent} from "../page/page.component";
+import {Pattern} from "../../../structure/pattern/pattern";
+import {ColorResolver} from "../../../color";
+import {PatternInStructure} from "../../../structure/pattern/pattern-in-structure";
+import {SongInSetlist} from "../../setlist";
+import {SongEntry} from "../../../song/song-entry";
+import {PageComponent} from "../../../page/page.component";
 
 @Component({
   selector: 'app-structure-page',

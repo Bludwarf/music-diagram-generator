@@ -1,10 +1,9 @@
-import {ChangeDetectionStrategy, Component} from '@angular/core';
-import {SongRepository} from "../../song/song-repository";
-import {Structure} from "../../structure/structure";
+import {Component} from '@angular/core';
 import {NgForOf} from "@angular/common";
-import {error} from "../../utils";
-import {SongEntry} from "../../song/song-entry";
 import {ActivatedRoute} from "@angular/router";
+import {Structure} from "../../structure/structure";
+import {SongRepository} from "../../song/song-repository";
+import {SongArchiveLoader} from "../../song/song-archive-loader.service";
 
 @Component({
     selector: 'app-structure-list',
@@ -14,27 +13,20 @@ import {ActivatedRoute} from "@angular/router";
     ],
     templateUrl: './structure-list.component.html',
     styleUrl: './structure-list.component.scss',
-    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class StructureListComponent {
 
     protected structure?: Structure;
 
     constructor(
-        private readonly songRepository: SongRepository,
+        private readonly songArchiveLoader: SongArchiveLoader,
+        songRepository: SongRepository,
         activatedRoute: ActivatedRoute,
     ) {
-        activatedRoute.params.subscribe(params => {
-            const songName = params['songName']
-            if (songName) error('Aucun titre')
-
-            const songEntry = this.requireSongEntry(songName);
+        const songEntry$ = this.songArchiveLoader.songEntry$(activatedRoute, songRepository);
+        songEntry$.subscribe(songEntry => {
             this.structure = songEntry.structure;
-        })
-    }
-
-    protected requireSongEntry(songName: string): SongEntry {
-        return this.songRepository.requireSongEntry(songName)
+        });
     }
 
 }

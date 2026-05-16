@@ -1,13 +1,16 @@
-<ol>
-  <li><a routerLink="setlist">Setlist</a></li>
-  <li *ngFor="let songName of playlist">
-    {{ songName }}
-    @for (viewType of VIEW_TYPES; track viewType; let i = $index) {
-      @if (i > 0) {
-        |
-      }
-      <a class="view-type-link" [routerLink]="'morceaux/' + songName"
-         [queryParams]="{view: viewType}">{{ viewType }}</a>
-    }
-  </li>
-</ol>
+<input type="file" accept=".zip" multiple (change)="uploadZip($event)"/><br/>
+@if (setlist) {
+    <a routerLink="setlist" [queryParams]="{title: setlist.title}">Setlist</a>
+    <ol>
+        <li *ngFor="let song of setlist">
+            {{ song.name }}
+            @for (viewType of VIEW_TYPES; track viewType; let i = $index) {
+                @if (i > 0) {
+                    |
+                }
+                <a class="view-type-link" [routerLink]="'morceaux/' + song.name"
+                   [queryParams]="{view: viewType}">{{ viewType }}</a>
+            }
+        </li>
+    </ol>
+}

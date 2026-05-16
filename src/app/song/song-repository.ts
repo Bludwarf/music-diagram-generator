@@ -1,90 +1,67 @@
 import {Injectable} from "@angular/core";
 import {EMPTY, SongEntry} from "./song-entry";
-import {error} from "../utils";
-import aucunRespect from "../song/entries/Aucun respect";
-import auSonDesBars from "../song/entries/Au son des bars";
-import elleReveEntry from "../song/entries/Elle reve a quoi";
-import happy from "../song/entries/Happy";
-import kasABarh from "../song/entries/Kas a-barh";
-import la4LEntry from "../song/entries/La 4L";
-import introEntry from "../song/entries/Intro";
-import laFemmeDragonEntry from "../song/entries/La femme dragon";
-import leJourEntry from "../song/entries/Le jour (le phare)";
-import mirages from "../song/entries/Mirages";
-import noyerEntry from "../song/entries/Souffrance";
-import nuagesEntry from "../song/entries/Nuages blancs";
-import petitPapillonEntry from "../song/entries/Petit Papillon";
-import resEntry from "../song/entries/Le résistant";
-import rockollection from "../song/entries/Rockollection";
-import solEntry from "../song/entries/Solitude";
-import surcoufEntry from "../song/entries/Surcouf";
-import toutFoufou from "../song/entries/Tout foufou";
-import theSimsIfYouReallySeeEurydice from "./entries/The Sims - If You Really See Eurydice";
+import {error, remove} from "../utils";
+import {SongInArchive} from "./song-archive";
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class SongRepository {
-  private readonly songEntries: SongEntry[] = []
+    private readonly _songNames: string[] = []
+    private readonly songEntries: SongEntry[] = []
 
-  constructor() {
-    this.pushAll(
-      aucunRespect,
-      auSonDesBars,
-      elleReveEntry,
-      happy,
-      la4LEntry,
-      introEntry,
-      kasABarh,
-      laFemmeDragonEntry,
-      leJourEntry,
-      mirages,
-      noyerEntry,
-      nuagesEntry,
-      petitPapillonEntry,
-      resEntry,
-      rockollection,
-      solEntry,
-      surcoufEntry,
-      toutFoufou,
-      theSimsIfYouReallySeeEurydice,
-    )
-  }
-
-  private pushAll(...songEntries: SongEntry[]) {
-    for (const songEntry of songEntries) {
-      this.songEntries.push(songEntry)
+    get songNames(): readonly string [] {
+        return this._songNames;
     }
-  }
 
-  private findSongEntry(songName: string, defaultSongEntry?: SongEntry | undefined): SongEntry | undefined {
-    switch (songName.toLocaleLowerCase()) {
-      case 'le phare':
-        return leJourEntry;
+    pushAll(...songEntries: SongEntry[]) {
+        for (const songEntry of songEntries) {
+            this.removeSong(songEntry.name);
+            this._songNames.push(songEntry.name)
+            this.songEntries.push(songEntry)
+        }
     }
-    return this.songEntries.find(entry => this.songNameEquals(songName, entry.name)) || defaultSongEntry;
-  }
 
-  requireSongEntry(songName: string) {
-    const entry = this.findSongEntry(songName);
-    if (!entry) {
-      error('SongEntry inconnu pour ' + songName)
+    private findSongEntry(songName: string, defaultSongEntry?: SongEntry | undefined): SongEntry | undefined {
+        const resolvedSongName = SongInArchive.resolveSongNameFromSetlist(songName);
+        return this.songEntries.find(entry => this.songNameEquals(resolvedSongName, entry.name)) || defaultSongEntry;
     }
-    return entry;
-  }
 
-  findSongEntryOrEmpty(songName: string): SongEntry {
-    return this.findSongEntry(songName, {
-      ...EMPTY,
-      name: songName,
-    })!;
-  }
-
-  private songNameEquals(expectedSongName: string | undefined, songName: string) {
-    if (!expectedSongName) {
-      return false
+    requireSongEntry(songName: string) {
+        const entry = this.findSongEntry(songName);
+        if (!entry) {
+            error('SongEntry inconnu pour ' + songName)
+        }
+        return entry;
     }
-    const format = (string: string) => string.toLowerCase().trim()
-    return format(songName) === format(expectedSongName);
-  }
+
+    findSongEntryOrEmpty(songName: string): SongEntry {
+        return this.findSongEntry(songName, {
+            ...EMPTY,
+            name: songName,
+        })!;
+    }
+
+    private songNameEquals(expectedSongName: string | undefined, songName: string) {
+        if (!expectedSongName) {
+            return false
+        }
+        const format = (string: string) => string.toLowerCase().trim()
+        return format(songName) === format(expectedSongName);
+    }
+
+    private removeSong(songName: string): void {
+        this.removeSongName(songName);
+        this.removeSongEntry(songName);
+    }
+
+    private removeSongName(songName: string) {
+        remove(songName, this._songNames);
+    }
+
+    private removeSongEntry(songName: string) {
+        const index = this.songEntries.findIndex(entry => this.songNameEquals(songName, entry.name));
+        if (index === -1) return;
+        this.songEntries.splice(index, 1);
+    }
 }

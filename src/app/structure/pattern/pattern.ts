@@ -6,7 +6,7 @@ export class Pattern {
   constructor(
     readonly name: string,
     readonly durationInBars: number,
-    readonly initial?: string,
+    readonly initial: string,
     readonly key?: Key,
     readonly chords?: Chords,
     readonly events?: any,
@@ -26,7 +26,7 @@ export class Pattern {
     return new Pattern(
       data.name,
       data.durationInBars ? data.durationInBars : getDurationFrom(chords),
-      data.initial,
+      data.initial ?? this.getInitialFromName(data.name),
       data.key,
       chords,
       data.events,
@@ -38,6 +38,10 @@ export class Pattern {
   times(n: number) {
     return new Array(n).fill(this);
   }
+
+    private static getInitialFromName(name: string) {
+        return name[0];
+    }
 
   // TODO constructeur de copie / clone pour éviter de tout dupliquer dans les entries
 }

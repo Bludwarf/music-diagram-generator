@@ -33,22 +33,6 @@ export class IndexComponent implements OnInit {
         private readonly setlistRepository: SetlistRepository,
         readonly title: Title,
     ) {
-        this.setlist = Setlist.from(`Tous les morceaux`, '09/08/2025', this.songRepository, [
-            'Le jour (le phare)',
-            'La femme dragon',
-            'Noyer le silence',
-            'La 4L',
-            'Surcouf',
-            'Le résistant',
-            'Solitude',
-            'Petit Papillon',
-            'Nuages blancs',
-            'Elle rêve à quoi',
-            'Rockollection',
-            'Tout foufou',
-            'Happy',
-            'The Sims - If You Really See Eurydice'
-        ]);
     }
 
     get setlist(): Setlist | undefined {

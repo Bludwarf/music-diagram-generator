@@ -2,7 +2,7 @@ import {Component, isDevMode, OnInit} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
 import {RouterLink} from "@angular/router";
-import {VIEW_TYPES} from "../rehearsal/mobile/mobile-rehearsal";
+import {ViewType} from "../rehearsal/mobile/mobile-rehearsal";
 import {SongRepository} from "../song/song-repository";
 import {Setlist} from "../setlist/setlist";
 import {SetlistRepository} from "../setlist/setlist-repository";
@@ -21,7 +21,10 @@ export class IndexComponent implements OnInit {
 
     private _setlist?: Setlist;
 
-    protected readonly VIEW_TYPES = VIEW_TYPES;
+    protected readonly VIEW_TYPES: ViewType[] = [
+        "B",
+        "P-osmd",
+    ];
 
     protected readonly testRoutes: readonly string[] = [
         "chords-grid",

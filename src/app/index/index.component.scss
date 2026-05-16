@@ -1,7 +1,12 @@
 :host {
+    margin: auto auto;
+}
+
+input {
     width: 100%;
 }
 
-input[type=range] {
-    width: 100%;
+ol, ul {
+    text-align: left;
+    margin-inline: 1ex;
 }

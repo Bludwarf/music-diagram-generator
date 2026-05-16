@@ -1,7 +1,7 @@
-import {getSongArchive} from "../../song/song-archive.spec";
+import {getSongArchive} from "../song/song-archive.spec";
 import {Setlist} from "./setlist";
-import {SongRepository} from "../../song/song-repository";
-import {Structure} from "../../structure/structure";
+import {SongRepository} from "../song/song-repository";
+import {Structure} from "../structure/structure";
 import createSpyObj = jasmine.createSpyObj;
 
 describe('Setlist', () => {

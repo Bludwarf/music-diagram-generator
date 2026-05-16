@@ -41,7 +41,6 @@ import {ToneAdapter} from "../../../tonejs/tone-adapter";
   ],
   templateUrl: './mobile-rehearsal-p-osmd.component.html',
   styleUrl: './mobile-rehearsal-p-osmd.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MobileRehearsalPOsmdComponent extends MobileRehearsal implements OnInit, OnDestroy {
 

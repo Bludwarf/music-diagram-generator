@@ -1,6 +1,6 @@
-import {Structure} from "../../structure/structure";
-import {PartInStructure} from "../../structure/part/part-in-structure";
-import {SectionInStructure} from "../../structure/section/section-in-structure";
+import {Structure} from "../../../structure/structure";
+import {PartInStructure} from "../../../structure/part/part-in-structure";
+import {SectionInStructure} from "../../../structure/section/section-in-structure";
 
 export class StructureInGrid {
   partsInGrid: PartInGrid[] = [];

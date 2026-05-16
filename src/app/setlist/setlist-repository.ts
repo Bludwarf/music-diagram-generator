@@ -1,6 +1,6 @@
 import {Setlist} from "./setlist";
 import {Injectable} from "@angular/core";
-import {error} from "../../utils";
+import {error} from "../utils";
 
 @Injectable({
     providedIn: 'root'

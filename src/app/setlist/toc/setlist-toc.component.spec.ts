@@ -1,7 +1,7 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {SetlistTocComponent} from './setlist-toc.component';
-import {Setlist} from "../setlist-pages/setlist";
+import {Setlist} from "../setlist";
 
 describe('SetlistTocComponent', () => {
   let component: SetlistTocComponent;

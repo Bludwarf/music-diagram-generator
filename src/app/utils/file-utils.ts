@@ -1,6 +1,32 @@
 import {unzip as fflateUnzip, Unzipped} from "fflate";
 import {error} from "../utils";
 
+// Source : https://stackoverflow.com/a/57331494/1655155
+export function getAssetFile(filePath: string, fileName = filePath): Promise<File> {
+    return new Promise((resolve, reject) => {
+        const request = createAssetFileRequest(filePath);
+
+        request.onload = () => {
+            if (request.status !== 200) {
+                reject(new Error(`Failed to load ${filePath}: ${request.status}`));
+                return;
+            }
+            const file = new File([request.response], fileName, {type: 'application/zip'})
+            resolve(file);
+        };
+
+        request.onerror = () => reject(new Error(`Network error loading ${filePath}`));
+        request.send(null);
+    });
+}
+
+function createAssetFileRequest(filePath: string): XMLHttpRequest {
+    const request = new XMLHttpRequest();
+    request.open('GET', filePath, true);
+    request.responseType = 'arraybuffer'; // maybe also 'text'
+    return request;
+}
+
 // Source : https://developer.mozilla.org/en-US/docs/Web/API/Compression_Streams_API
 export async function unzip(blob: Blob) {
     const ds = new DecompressionStream("gzip");

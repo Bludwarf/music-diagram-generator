@@ -1,8 +1,7 @@
-import {StructureInGrid} from "../structure-grid/StructureInGrid";
-import {SongRepository} from "../../song/song-repository";
-import {SongEntry} from "../../song/song-entry";
-import {SongArchive} from "../../song/song-archive";
-import {error} from "../../utils";
+import {StructureInGrid} from "./pages/structure-grid/StructureInGrid";
+import {SongRepository} from "../song/song-repository";
+import {SongEntry} from "../song/song-entry";
+import {SongArchive} from "../song/song-archive";
 
 export class Setlist implements Iterable<SongInSetlist> {
     readonly songs!: SongInSetlist[];
@@ -10,7 +9,7 @@ export class Setlist implements Iterable<SongInSetlist> {
     constructor(
         readonly title: string,
         songs: SongInSetlist[],
-        readonly version: string,
+        readonly version?: string,
     ) {
         this.songs = songs;
     }
@@ -22,13 +21,13 @@ export class Setlist implements Iterable<SongInSetlist> {
     static fromSongArchive(songArchive: SongArchive, songRepository: SongRepository): Setlist {
         const titleVersionRegex = /^([^(]+) +\((.+)\)$/;
         const matches = titleVersionRegex.exec(songArchive.title);
-        if (!matches) error(`Impossible de créer une setlist à partir du nom de l'archive ${songArchive.title} car on ne retrouve pas la version (regex : ${titleVersionRegex.exec(songArchive.title)})`)
-        const bandName = matches[1];
-        const setlistVersion = matches[2];
-        return Setlist.from(`Setlist ${bandName}`, setlistVersion, songRepository, songArchive.setlist)
+        const bandName = matches?.[1];
+        const setlistTitle = bandName ? `Setlist ${bandName}` : songArchive.title;
+        const setlistVersion = matches?.[2];
+        return Setlist.from(setlistTitle, setlistVersion, songRepository, songArchive.setlist)
     }
 
-    private static from(title: string, version: string, songRepository: SongRepository, songNames: readonly string[]) {
+    private static from(title: string, version: string | undefined, songRepository: SongRepository, songNames: readonly string[]) {
         const songs = songNames.map(songName => {
             const songEntry = songRepository.findSongEntryOrEmpty(songName);
             return SongInSetlist.from(songEntry);

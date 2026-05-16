@@ -4,6 +4,7 @@ import {Injectable} from "@angular/core";
 import {Recording} from "../../recording/recording";
 import {SongEntry} from "../../song/song-entry";
 import {StructureDto} from "../../structure/structure-dto";
+import {SongInArchive} from "../../song/song-archive";
 
 @Injectable({
     providedIn: 'root'
@@ -23,5 +24,11 @@ export class SongEntryMapper {
             structure: this.structureMapper.model(structure),
             recording: recording ? this.recordingMapper.model(recording) : undefined,
         };
+    }
+
+    async modelFromSong(song: SongInArchive): Promise<SongEntry> {
+        const structure = await song.structure;
+        const recording = await song.recording;
+        return await this.model(song.name, song.version, structure, recording);
     }
 }

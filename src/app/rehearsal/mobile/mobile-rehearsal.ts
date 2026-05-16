@@ -134,8 +134,8 @@ export abstract class MobileRehearsal {
     // }, "1m");
   }
 
-  onInit() {
-    const entry = this.requireSongEntry();
+  async onInit() {
+    const entry = await this.requireSongEntry();
     this.structure = entry.structure
     this.recording = entry.recording
     this.scheduleAll();
@@ -407,7 +407,7 @@ export abstract class MobileRehearsal {
   }
 
   protected requireSongEntry() {
-    return this.songRepository.requireSongEntry(this.songName!!)
+    return this.songRepository.requireSongEntry(this.songName!)
   }
 
   getPatternChords(patternInStructure: PatternInStructure): Chords {

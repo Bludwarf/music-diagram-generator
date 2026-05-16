@@ -32,7 +32,6 @@ import {ToneAdapter} from "../../../tonejs/tone-adapter";
   ],
   templateUrl: './mobile-rehearsal-b.component.html',
   styleUrl: './mobile-rehearsal-b.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MobileRehearsalBComponent extends MobileRehearsal implements OnInit, OnDestroy {
 
@@ -51,14 +50,10 @@ export class MobileRehearsalBComponent extends MobileRehearsal implements OnInit
 
   ngOnInit() {
     super.onInit();
-    this.mockInit();
   }
 
   ngOnDestroy(): void {
     this.onDestroy()
-  }
-
-  private mockInit() {
   }
 
   getPatternColor(patternInStructure: PatternInStructure): string {

@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {Title} from "@angular/platform-browser";
 import {RythmBarComponent} from "../../../rythm-bar/rythm-bar.component";
@@ -19,7 +19,8 @@ import {ToneAdapter} from "../../../tonejs/tone-adapter";
     RythmBarComponent, CommonModule, FormsModule, FretboardComponent, PatternComponent, SectionComponent
   ],
   templateUrl: './mobile-rehearsal-a.component.html',
-  styleUrl: './mobile-rehearsal-a.component.scss'
+  styleUrl: './mobile-rehearsal-a.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MobileRehearsalAComponent extends MobileRehearsal implements OnInit {
 

@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {ChangeDetectionStrategy, Component} from '@angular/core';
 import {CommonModule} from "@angular/common";
 import {FormsModule} from "@angular/forms";
 
@@ -9,7 +9,8 @@ import {FormsModule} from "@angular/forms";
     CommonModule, FormsModule
   ],
   templateUrl: './mobile-rehearsal-b.component.html',
-  styleUrl: './mobile-rehearsal-b.component.scss'
+  styleUrl: './mobile-rehearsal-b.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MobileRehearsalBMaqComponent {
 

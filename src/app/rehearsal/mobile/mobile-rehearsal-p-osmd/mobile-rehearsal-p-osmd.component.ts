@@ -63,8 +63,9 @@ export class MobileRehearsalPOsmdComponent extends MobileRehearsal implements On
   }
 
   ngOnInit() {
-    super.onInit()
-    this.loadMusicXML();
+    super.onInit().then(() => {
+      this.loadMusicXML();
+    })
   }
 
   ngOnDestroy() {

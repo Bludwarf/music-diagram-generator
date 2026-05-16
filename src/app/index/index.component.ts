@@ -1,17 +1,14 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, isDevMode, OnInit} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
 import {RouterLink} from "@angular/router";
 import {VIEW_TYPES} from "../rehearsal/mobile/mobile-rehearsal";
-import {getUploadedFile} from "../utils/file-utils";
 import {SongRepository} from "../song/song-repository";
-import {SongArchive, SongInArchive} from "../song/song-archive";
-import {SongEntryMapper} from "../json/parsers/song-entry-mapper.service";
-import {SampleCacheService} from "../sample/samples-cache.service";
-import {warn} from "../utils";
-import {Setlist} from "../test/setlist-pages/setlist";
-import {SetlistRepository} from "../test/setlist-pages/setlist-repository";
+import {Setlist} from "../setlist/setlist";
+import {SetlistRepository} from "../setlist/setlist-repository";
 import {Title} from "@angular/platform-browser";
+import {SongArchiveLoader} from "../song/song-archive-loader.service";
+import {getUploadedFile} from "../utils/file-utils";
 
 @Component({
     selector: 'app-index',
@@ -26,11 +23,18 @@ export class IndexComponent implements OnInit {
 
     protected readonly VIEW_TYPES = VIEW_TYPES;
 
+    protected readonly testRoutes: readonly string[] = [
+        "chords-grid",
+        "structure-list",
+        "create-zip",
+    ]
+
+    protected readonly isDevMode = isDevMode;
+
     constructor(
         private readonly songRepository: SongRepository,
-        private readonly songEntryParser: SongEntryMapper,
-        private readonly sampleCacheService: SampleCacheService,
         private readonly setlistRepository: SetlistRepository,
+        private readonly songArchiveLoader: SongArchiveLoader,
         readonly title: Title,
     ) {
     }
@@ -45,39 +49,22 @@ export class IndexComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.loadSetlist();
+    }
+
+    async loadSetlist(): Promise<void> {
         this.setlist = this.setlistRepository.lastPushed;
+
+        if (!this.setlist && isDevMode()) {
+            this.setlist = await this.songArchiveLoader.getDefaultSetlist(this.songRepository);
+        }
     }
 
     async uploadZip(event: Event): Promise<void> {
         const zip = getUploadedFile(event);
         if (!zip) return;
 
-        const songArchive = await SongArchive.fromZip(zip);
-
-        for (const song of songArchive) {
-            await this.pushSong(song, this.songRepository, this.songEntryParser, this.sampleCacheService);
-        }
-
-        this.setlist = Setlist.fromSongArchive(songArchive, this.songRepository);
-        this.setlistRepository.push(this.setlist);
-    }
-
-    async pushSong(song: SongInArchive, songRepository: SongRepository, songEntryParser: SongEntryMapper, sampleCacheService: SampleCacheService) {
-        try {
-            const structure = await song.structure;
-            const recording = await song.recording;
-            const songEntry = await songEntryParser.model(song.name, song.version, structure, recording);
-            songRepository.pushAll(songEntry);
-
-            if (recording) {
-                const audio = await song.audio;
-                if (audio) {
-                    sampleCacheService.setAudio(recording.name, async () => audio);
-                }
-            }
-        } catch (e) {
-            warn(`Erreur lors de l'ajout du morceau "${song.name}"`, e);
-        }
+        this.setlist = await this.songArchiveLoader.load(zip, this.songRepository);
     }
 
 }

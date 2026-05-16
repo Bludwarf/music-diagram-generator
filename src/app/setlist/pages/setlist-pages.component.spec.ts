@@ -1,7 +1,7 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {SetlistPagesComponent} from './setlist-pages.component';
-import {injectSpy, PROVIDER_SPIES} from "../test-utils";
+import {injectSpy, PROVIDER_SPIES} from "../../test/test-utils";
 import {ActivatedRoute} from "@angular/router";
 import {of} from "rxjs";
 import SpyObj = jasmine.SpyObj;

@@ -1,12 +1,12 @@
 import {ChangeDetectionStrategy, Component} from '@angular/core';
 import {SongRepository} from "../../song/song-repository";
-import {StructurePageComponent} from "../structure-page/structure-page.component";
-import {Setlist} from './setlist';
+import {StructurePageComponent} from "./structure-page/structure-page.component";
+import {Setlist} from '../setlist';
 import {Title} from "@angular/platform-browser";
-import {SetlistTocComponent} from "../setlist-toc/setlist-toc.component";
-import {ActivatedRoute, Router} from "@angular/router";
+import {SetlistTocComponent} from "../toc/setlist-toc.component";
+import {ActivatedRoute} from "@angular/router";
 import {error} from "../../utils";
-import {SetlistRepository} from "./setlist-repository";
+import {SetlistRepository} from "../setlist-repository";
 
 @Component({
     selector: 'app-setlist-pages',

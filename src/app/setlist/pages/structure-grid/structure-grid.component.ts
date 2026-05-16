@@ -1,10 +1,10 @@
 import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
-import {sequence} from "../../utils";
+import {sequence} from "../../../utils";
 import {NgForOf, NgIf} from "@angular/common";
 import {PartInGrid, SectionInGrid, StructureInGrid} from "./StructureInGrid";
-import {PatternInStructure} from "../../structure/pattern/pattern-in-structure";
-import {ColorResolver} from "../../color";
-import {SectionInStructure} from "../../structure/section/section-in-structure";
+import {PatternInStructure} from "../../../structure/pattern/pattern-in-structure";
+import {ColorResolver} from "../../../color";
+import {SectionInStructure} from "../../../structure/section/section-in-structure";
 
 @Component({
   selector: 'app-structure-grid',

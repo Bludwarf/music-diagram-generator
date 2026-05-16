@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
-import {Setlist} from "../setlist-pages/setlist";
+import {Setlist} from "../setlist";
 import {Title} from "@angular/platform-browser";
-import {PageComponent} from "../page/page.component";
+import {PageComponent} from "../../page/page.component";
 
 @Component({
   selector: 'app-setlist-toc',

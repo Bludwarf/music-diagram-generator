@@ -50,15 +50,11 @@ export class MobileRehearsalBComponent extends MobileRehearsal implements OnInit
   }
 
   ngOnInit() {
-    super.onInit();
-    this.mockInit();
+    super.onInit().then();
   }
 
   ngOnDestroy(): void {
     this.onDestroy()
-  }
-
-  private mockInit() {
   }
 
   getPatternColor(patternInStructure: PatternInStructure): string {

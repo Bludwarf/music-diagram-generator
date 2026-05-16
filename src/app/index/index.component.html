@@ -14,3 +14,12 @@
         </li>
     </ol>
 }
+
+@if (isDevMode()) {
+    <hr/>
+    <ul>
+    @for (testRoute of testRoutes; track testRoute; let first = $first) {
+        <li><a [routerLink]="'test/' + testRoute">{{ testRoute }}</a></li>
+    }
+    </ul>
+}

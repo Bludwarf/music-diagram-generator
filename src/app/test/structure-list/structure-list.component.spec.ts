@@ -31,7 +31,7 @@ describe('StructureListComponent', () => {
         });
 
         songRepository = injectSpy(SongRepository);
-        songRepository.requireSongEntry.and.returnValue(songEntry);
+        songRepository.requireSongEntry.and.returnValue(Promise.resolve(songEntry));
 
         fixture = TestBed.createComponent(StructureListComponent);
         component = fixture.componentInstance;

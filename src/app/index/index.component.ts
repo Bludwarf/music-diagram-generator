@@ -9,6 +9,7 @@ import {SetlistRepository} from "../setlist/setlist-repository";
 import {Title} from "@angular/platform-browser";
 import {SongArchiveLoader} from "../song/song-archive-loader.service";
 import {getUploadedFile} from "../utils/file-utils";
+import * as VERSION_INFO from "../../environments/version-info.json";
 
 @Component({
     selector: 'app-index',
@@ -79,6 +80,10 @@ export class IndexComponent implements OnInit {
         history.pushState({
             viewType: this.viewType
         }, "");
+    }
+
+    get revision(): string {
+        return VERSION_INFO.revision;
     }
 
 }

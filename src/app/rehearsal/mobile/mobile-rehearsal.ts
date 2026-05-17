@@ -15,6 +15,7 @@ import {SampleCacheService} from '../../sample/samples-cache.service';
 import {SongRepository} from '../../song/song-repository';
 import {BarsBeatsSixteenths, Time} from "tone/Tone/core/type/Units";
 import {ToneAdapter} from "../../tonejs/tone-adapter";
+import NoSleep from 'nosleep.js';
 
 export abstract class MobileRehearsal {
 
@@ -30,6 +31,8 @@ export abstract class MobileRehearsal {
   }
 
   currentPatternInStructure?: PatternInStructure; // TODO se baser sur currentPositionedBar
+
+  private readonly noSleep = new NoSleep();
 
   get currentChord(): Chord | undefined {
     const position = this.position;
@@ -278,6 +281,7 @@ export abstract class MobileRehearsal {
 
     console.log('playSong')
     Transport.start('+0.1') // https://github.com/Tonejs/Tone.js/wiki/Performance#scheduling-in-advance
+    await this.noSleep.enable();
   }
 
     protected async playOrUploadAndPlayAudio(recordingName: string) {
@@ -289,14 +293,16 @@ export abstract class MobileRehearsal {
         }
     }
 
-    async pauseSong(): Promise<void> {
+  async pauseSong(): Promise<void> {
     console.log('pauseSong')
     Transport.pause()
+    this.noSleep.disable();
   }
 
   stopSong(): void {
     console.log('stopSong')
     Transport.stop()
+    this.noSleep.disable();
   }
 
   onClickElementInStructure(element: PositionedElement, isCurrentInStructure = this.isCurrentInStructure(element)): void {
@@ -435,4 +441,3 @@ export abstract class MobileRehearsal {
 }
 
 export type ViewType = 'A' | 'B' | 'B-maq' | 'P' | 'P-osmd'
-export const VIEW_TYPES: ViewType[] = ['A', 'B', 'B-maq', 'P', 'P-osmd']

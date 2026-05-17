@@ -49,7 +49,7 @@ export class IndexComponent implements OnInit {
 
     set setlist(setlist: Setlist | undefined) {
         this._setlist = setlist;
-        this.title.setTitle(setlist?.title ?? "Music Diagram Generator");
+        this.title.setTitle(setlist?.title ? "Setlist " + setlist.title : "Music Diagram Generator");
     }
 
     ngOnInit() {

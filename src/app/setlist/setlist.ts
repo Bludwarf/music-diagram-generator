@@ -22,7 +22,7 @@ export class Setlist implements Iterable<SongInSetlist> {
         const titleVersionRegex = /^([^(]+) +\((.+)\)$/;
         const matches = titleVersionRegex.exec(songArchive.title);
         const bandName = matches?.[1];
-        const setlistTitle = bandName ? `Setlist ${bandName}` : songArchive.title;
+        const setlistTitle = bandName ?? songArchive.title;
         const setlistVersion = matches?.[2];
         return Setlist.from(setlistTitle, setlistVersion, songRepository, songArchive.setlist)
     }

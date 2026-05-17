@@ -21,7 +21,7 @@ export class SetlistTocComponent {
   @Input({required: true})
   set setlist(value: Setlist) {
     this._setlist = value;
-    this.title.setTitle(this._setlist.title);
+    this.title.setTitle("Setlist " + this._setlist.title);
   }
 
   private _setlist!: Setlist;

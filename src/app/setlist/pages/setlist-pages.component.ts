@@ -29,12 +29,12 @@ export class SetlistPagesComponent {
         setlistRepository: SetlistRepository,
     ) {
         activatedRoute.queryParams.subscribe(params => {
-            const title = params['title'];
-            if (!title) {
+            const setlistTitle = params['setlistTitle'];
+            if (!setlistTitle) {
                 this.setlist = undefined;
                 error(`Aucun titre de setlist reçu`);
             }
-            this.setlist = setlistRepository.getByTitle(title);
+            this.setlist = setlistRepository.getByTitle(setlistTitle);
         });
 
     }

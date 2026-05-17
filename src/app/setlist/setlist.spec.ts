@@ -24,7 +24,7 @@ describe('Setlist', () => {
 
         const setlist = Setlist.fromSongArchive(songArchive, songRepository);
 
-        expect(setlist.title).toEqual("Setlist Groupe de test");
+        expect(setlist.title).toEqual("Groupe de test");
         expect(setlist.version).toEqual("15/05/2026");
         expect(setlist.songs.map(song => song.songEntry.name)).toEqual([
             'Morceau sans version',

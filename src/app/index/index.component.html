@@ -1,6 +1,6 @@
 <input type="file" accept=".zip" multiple (change)="uploadZip($event)"/><br/>
 @if (setlist) {
-    <a routerLink="setlist" [queryParams]="{title: setlist.title}">Setlist</a><br/>
+    <a routerLink="setlist" [queryParams]="{setlistTitle: setlist.title}">Setlist {{setlist.title}}</a><br/>
 
     <select [(ngModel)]="viewType" (change)="onViewTypeChange()">
         @for (viewType of VIEW_TYPES; track viewType; let i = $index) {

@@ -26,7 +26,7 @@ import {ViewType} from "../rehearsal/mobile/mobile-rehearsal";
 })
 export class SongComponent {
 
-  view: ViewType = 'P'
+  view: ViewType = 'B'
 
   constructor(
     activatedRoute: ActivatedRoute,

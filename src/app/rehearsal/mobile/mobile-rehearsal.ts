@@ -29,7 +29,7 @@ export abstract class MobileRehearsal {
     return this.currentPatternInStructure?.sectionInStructure
   }
 
-  currentPatternInStructure?: PatternInStructure;
+  currentPatternInStructure?: PatternInStructure; // TODO se baser sur currentPositionedBar
 
   get currentChord(): Chord | undefined {
     const position = this.position;
@@ -63,10 +63,10 @@ export abstract class MobileRehearsal {
 
   get position(): Position | undefined {
     const beatTime = this.beatTime;
-    if (beatTime && beatTime.value >= 0) {
+    if (beatTime !== undefined && beatTime.value >= 0) {
       return this.recording?.getPosition(beatTime)
     }
-    return this.currentPartInStructure?.startPosition
+    return this.currentPatternInStructure?.startPosition
   }
 
   get transportPosition(): BarsBeatsSixteenths | Time {

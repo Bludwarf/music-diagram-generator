@@ -4,7 +4,12 @@
 
 ## Installation
 
-Installer la police [Roboto](https://fonts.google.com/specimen/Roboto).
+Installer la police [Roboto](https://fonts.google.com/specimen/Roboto). Lancer :
+
+```
+npm run prebuild
+npm start
+```
 
 ## Preview mobile
 

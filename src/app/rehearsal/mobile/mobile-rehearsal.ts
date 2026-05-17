@@ -1,4 +1,4 @@
-import {ElementRef, signal} from '@angular/core';
+import {ElementRef, OnDestroy, signal} from '@angular/core';
 import {SectionInStructure} from "../../structure/section/section-in-structure";
 import {PatternInStructure} from "../../structure/pattern/pattern-in-structure";
 import {BarNumber0Indexed, Chord, Chords, Key} from "../../notes";
@@ -16,6 +16,7 @@ import {SongRepository} from '../../song/song-repository';
 import {BarsBeatsSixteenths, Time} from "tone/Tone/core/type/Units";
 import {ToneAdapter} from "../../tonejs/tone-adapter";
 import NoSleep from 'nosleep.js';
+import {Subject} from "rxjs";
 
 export abstract class MobileRehearsal {
 
@@ -31,6 +32,7 @@ export abstract class MobileRehearsal {
   }
 
   currentPatternInStructure?: PatternInStructure; // TODO se baser sur currentPositionedBar
+  currentPatternInStructure$ = new Subject<PatternInStructure | undefined>();
 
   private readonly noSleep = new NoSleep();
 
@@ -162,6 +164,7 @@ export abstract class MobileRehearsal {
           if (patternStartTime) {
             this.toneAdapter.schedule(() => {
               this.currentPatternInStructure = patternInStructure
+              this.currentPatternInStructure$.next(patternInStructure)
             }, patternStartTime.value);
           }
 
@@ -170,6 +173,7 @@ export abstract class MobileRehearsal {
             this.toneAdapter.schedule(() => {
               if (this.currentPatternInStructure === patternInStructure) {
                 delete this.currentPatternInStructure
+                this.currentPatternInStructure$.next(undefined)
               }
             }, patternEndTime.value);
           }
@@ -440,4 +444,4 @@ export abstract class MobileRehearsal {
   }
 }
 
-export type ViewType = 'A' | 'B' | 'B-maq' | 'P' | 'P-osmd'
+export type ViewType = 'A' | 'B' | 'B-maq' | 'P' | 'P-osmd' | 'C'

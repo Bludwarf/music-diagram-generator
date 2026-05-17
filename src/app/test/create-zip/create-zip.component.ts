@@ -7,27 +7,7 @@ import {FormsModule} from "@angular/forms";
 import {RECORDING_JSON, STRUCTURE_JSON} from "../../song/song-archive";
 import {error, NonUndefined} from "../../utils";
 
-const songNames = [
-    "Aucun respect",
-    "Au son des bars",
-    "Elle rêve à quoi",
-    "Happy",
-    "La 4L",
-    "Intro",
-    "Kas a-barh",
-    "La femme dragon",
-    "Le jour (le phare)",
-    "Mirages",
-    "Noyer le silence",
-    "Nuages blancs",
-    "Petit Papillon",
-    "Le résistant",
-    "Rockollection",
-    "Solitude",
-    "Surcouf",
-    "Tout foufou",
-    "The Sims - If You Really See Eurydice"
-];
+const songNames: string[] = [];
 
 @Component({
     selector: 'app-create-zip',

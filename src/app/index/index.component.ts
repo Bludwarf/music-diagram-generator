@@ -25,6 +25,7 @@ export class IndexComponent implements OnInit {
         "B",
         "P-osmd",
     ];
+    protected viewType: ViewType = "B";
 
     protected readonly testRoutes: readonly string[] = [
         "chords-grid",
@@ -53,6 +54,10 @@ export class IndexComponent implements OnInit {
 
     ngOnInit() {
         this.loadSetlist();
+        const viewTypeFromState = history.state?.viewType;
+        if (viewTypeFromState) {
+            this.viewType = viewTypeFromState;
+        }
     }
 
     async loadSetlist(): Promise<void> {
@@ -68,6 +73,12 @@ export class IndexComponent implements OnInit {
         if (!zip) return;
 
         this.setlist = await this.songArchiveLoader.load(zip, this.songRepository);
+    }
+
+    onViewTypeChange(): void {
+        history.pushState({
+            viewType: this.viewType
+        }, "");
     }
 
 }

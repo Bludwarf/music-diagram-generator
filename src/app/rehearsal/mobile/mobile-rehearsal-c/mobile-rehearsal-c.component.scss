@@ -1,0 +1,165 @@
+:host {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    // gap: 2mm;
+    flex-direction: column;
+
+    & > * {
+        //flex: 1;
+    }
+}
+
+.active {
+    color: white;
+}
+
+.looped {
+    color: yellow;
+}
+
+.pattern-name-container {
+    .active.pattern {
+        font-size: 8mm;
+    }
+}
+
+#transport {
+    flex: none;
+    display: flex;
+    gap: 4px; // TODO on veut 1px mais on est obligé de mettre 4px
+}
+
+#transport-timecode {
+    text-align: right;
+    flex: 3rem;
+    font-family: "Courier New", monospace;
+    color: white;
+    position: absolute;
+    right: 0;
+}
+
+input[type=file] {
+    display: none;
+}
+
+#transport-buttons {
+    flex: none;
+    display: flex;
+    justify-content: center;
+
+    button {
+        aspect-ratio: 1;
+    }
+}
+
+#song-map {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    font-size: 5mm;
+
+    & > * {
+        flex: 1;
+    }
+
+}
+
+app-part-tabs {
+    flex: none;
+}
+
+.chords-and-fretboard {
+    display: flex;
+
+    & > * {
+        flex: 1;
+    }
+
+    .chords-and-staff {
+        flex: 2;
+
+        .pattern-name-container {
+            display: flex;
+            text-align: center;
+
+            span {
+                margin: 2px auto;
+            }
+        }
+    }
+
+    .fretboard-container {
+        background: black;
+    }
+}
+
+.pattern-timecode {
+    font-size: 5mm;
+}
+
+#horizontal-scroller-container {
+    width: 100vw;
+    overflow: auto;
+}
+
+#sections-line {
+    display: flex;
+    background: #616161; // cf. styles.css > *
+    font-size: 5mm;
+    text-indent: 1mm;
+
+    & > * {
+        flex: 1;
+        overflow: hidden;
+        white-space: nowrap;
+        text-align: left;
+        background: var(--background);
+        //box-shadow: -10px 0 10px #444;
+        //clip-path: inset(0 0 0 -100%);
+        border-bottom: solid 2px transparent;
+    }
+
+    & > *:not(:first-child) {
+        border-left: solid 1px #616161;
+    }
+
+    .active {
+        color: white;
+        border-bottom-color: white;
+        //box-shadow: 0 0 10px #0006;
+        //clip-path: inset(-30px -30px 0px -30px);
+    }
+
+    .looped {
+        color: yellow;
+    }
+}
+
+#patterns-line {
+    display: flex;
+    gap: 1px;
+
+    & > * {
+        flex: 1;
+        white-space: nowrap;
+        overflow: hidden;
+    }
+
+    // TODO factorisation avec structure-map.component.scss
+
+    [data-pattern].active {
+        color: white;
+        box-shadow: 0 0 10px #0006;
+        clip-path: inset(0 -30px 0px -30px);
+    }
+
+    [data-pattern].looped {
+        color: yellow;
+    }
+
+    [data-pattern] {
+        color: #0006; // TODO idem part-line active-section-line
+    }
+
+}

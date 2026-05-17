@@ -1,0 +1,121 @@
+<!-- Upload -->
+<input #fileInput type="file" accept=".wav,.mp3" (change)="uploadFile($event)"/>
+
+<!-- Transport -->
+<div id="transport">
+
+    <div id="transport-buttons">
+        <button (click)="playSong()" *ngIf="!playing">⏵</button>
+        <button (click)="pauseSong()" *ngIf="playing">⏸</button>
+    </div>
+
+    <div id="song-map">
+        <app-structure-map *ngIf="structure" [structure]="structure" [timecode]="timecode"
+                           [currentPatternInStructure]="currentPatternInStructure"
+                           (clickPatternInStructure)="onClickElementInStructure($event)"></app-structure-map>
+        @if (recording) {
+            <app-sample-map [transportSeconds]="transportSeconds"></app-sample-map>
+        }
+    </div>
+
+</div>
+
+@if (structure) {
+
+    <div id="horizontal-scroller-container" #horizontalScroller>
+
+        <div [style.width]="structure.durationInBars * widthPerBar.value + widthPerBar.unit" #horizontalScrolledDiv>
+
+            <div id="sections-line">
+                @for (sectionInStructure of sectionsInStructure; track $index) {
+                    <div class="part"
+                         [style.flex]="sectionInStructure.section.durationInBars"
+                         [class.active]="sectionInStructure === currentSectionInStructure"
+                         [class.looped]="sectionInStructure === loopedElement"
+                         (click)="onClickElementInStructure(sectionInStructure)"
+                    >
+                        {{ sectionInStructure.section.name }}
+                    </div>
+                }
+            </div>
+
+            <div id="patterns-line">
+                @for (patternInStructure of patternsInStructure; track $index) {
+                    <div class="pattern"
+                         [attr.data-pattern]="patternInStructure.initial"
+                         [style.flex]="patternInStructure.pattern.durationInBars"
+                         [class.active]="patternInStructure === currentPatternInStructure"
+                         [class.looped]="patternInStructure === loopedElement"
+                         [style.backgroundColor]="getPatternColor(patternInStructure)"
+                         (click)="onClickElementInStructure(patternInStructure)"
+                    >
+                        {{ patternInStructure.initial }}
+                    </div>
+                }
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!--<div id="active-section-line">-->
+        <!--    <div *ngFor="let patternInStructure of currentPartInStructure.patternsInStructure"-->
+        <!--         [style.flex]="patternInStructure.pattern.durationInBars"-->
+        <!--         [style.border-color]="patternInStructure === currentPatternInStructure ? getPatternColor(patternInStructure) : undefined"></div>-->
+        <!--</div>-->
+
+
+        <!-- TODO on reprend le composant A en attendant de trouver la bonne manière de faire -->
+        <!-- Détail sur le pattern courant -->
+    <ng-container *ngIf="currentPatternInStructure && currentBar !== undefined">
+
+        <div class="chords-and-fretboard">
+
+            <div class="chords-and-staff">
+
+                <div class="pattern-name-container"
+                     [style.backgroundColor]="getPatternColor(currentPatternInStructure)">
+        <span class="active pattern" [class.looped]="currentPatternInStructure === loopedElement">
+          {{ currentPatternInStructure.pattern.name }}
+        </span>
+                </div>
+
+                <app-chords-grid [chords]="getPatternChords(currentPatternInStructure)" [key]="currentKey"
+                                 [currentBar]="currentBar - currentPatternInStructure.startPosition.bars"
+                                 [currentBarIsLooped]="currentBar !== undefined && (loopedElement?.startPosition?.bars === currentBar && loopedElement?.endPosition?.bars === currentBar + 1)"
+                                 [style.border-color]="getPatternColor(currentPatternInStructure)"
+                                 (clickBar)="onClickBar(currentPatternInStructure.startPosition.bars + $event)"></app-chords-grid>
+
+                <!-- <span class="pattern-timecode">{{ currentPatternInStructureRelativeTimecode }} / {{ currentPatternInStructure.pattern.duration.toBars() }}</span> -->
+                <ng-container *ngIf="currentPatternInStructure.eventsStartPosition">
+                    <ng-container
+                        *ngFor="let barNumber of sequence(currentPatternInStructure.eventsDurationInBars, (currentPatternInStructure.eventsStartPosition?.bars ?? 0) + 1)">
+                        <app-rythm-bar
+                            [number]="barNumber"
+                            [events]="currentPatternInStructure.pattern.events ?? []"
+                            (addEvent)="addEvent($event)"
+                            (removeEvent)="removeEvent($event)"
+                            [timecode]="rythmBarTimecode"
+                        ></app-rythm-bar>
+                    </ng-container>
+                </ng-container>
+
+            </div>
+
+            <div class="fretboard-container">
+
+                <app-fretboard
+                    [lowestFret]="0"
+                    [fretsCount]="13"
+                    [key]="currentPatternInStructure.pattern.key"
+                    [currentNote]="currentChord?.root"
+                ></app-fretboard>
+
+            </div>
+
+        </div>
+
+    </ng-container>
+
+}

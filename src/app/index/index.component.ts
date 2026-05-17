@@ -25,6 +25,7 @@ export class IndexComponent implements OnInit {
     protected readonly VIEW_TYPES: ViewType[] = [
         "B",
         "P-osmd",
+        "C"
     ];
     protected viewType: ViewType = "B";
 

@@ -1,16 +1,18 @@
 <input type="file" accept=".zip" multiple (change)="uploadZip($event)"/><br/>
 @if (setlist) {
-    <a routerLink="setlist" [queryParams]="{title: setlist.title}">Setlist</a>
+    <a routerLink="setlist" [queryParams]="{title: setlist.title}">Setlist</a><br/>
+
+    <select [(ngModel)]="viewType" (change)="onViewTypeChange()">
+        @for (viewType of VIEW_TYPES; track viewType; let i = $index) {
+            <option [ngValue]="viewType">{{ viewType }}</option>
+        }
+    </select>
+
     <ol>
         <li *ngFor="let song of setlist">
-            {{ song.name }}
-            @for (viewType of VIEW_TYPES; track viewType; let i = $index) {
-                @if (i > 0) {
-                    |
-                }
-                <a class="view-type-link" [routerLink]="'morceaux/' + song.name"
-                   [queryParams]="{view: viewType}">{{ viewType }}</a>
-            }
+            <a class="view-type-link"
+               [routerLink]="'morceaux/' + song.name"
+               [queryParams]="{view: viewType}">{{ song.name }}</a>
         </li>
     </ol>
 }
@@ -18,8 +20,8 @@
 @if (isDevMode()) {
     <hr/>
     <ul>
-    @for (testRoute of testRoutes; track testRoute; let first = $first) {
-        <li><a [routerLink]="'test/' + testRoute">{{ testRoute }}</a></li>
-    }
+        @for (testRoute of testRoutes; track testRoute) {
+            <li><a [routerLink]="'test/' + testRoute">{{ testRoute }}</a></li>
+        }
     </ul>
 }

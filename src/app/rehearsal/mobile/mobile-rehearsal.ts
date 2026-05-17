@@ -406,8 +406,13 @@ export abstract class MobileRehearsal {
     return Transport.state === 'started'
   }
 
-  protected requireSongEntry() {
-    return this.songRepository.requireSongEntry(this.songName!)
+  protected async requireSongEntry() {
+    try {
+      return await this.songRepository.requireSongEntry(this.songName!)
+    } catch (e) {
+      history.back();
+      throw e;
+    }
   }
 
   getPatternChords(patternInStructure: PatternInStructure): Chords {

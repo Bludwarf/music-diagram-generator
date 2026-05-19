@@ -37,32 +37,32 @@ describe('AlsExtractor', () => {
 
   it('should get recording name from Petit papillon', async () => {
     const extractor = await createExtractorFor('Petit papillon')
-    const recordingInitData = extractor.extractRecordingInitData()
-    expect(recordingInitData.name).toEqual('DIDAFTA PETIT PAPILLON Master Web 24bit 48Khz_02-01')
+    const recordingDto = extractor.extractRecordingDto()
+    expect(recordingDto.name).toEqual('DIDAFTA PETIT PAPILLON Master Web 24bit 48Khz_02-01')
   });
 
   it('should get recording sampleDuration from Petit papillon', async () => {
     const extractor = await createExtractorFor('Petit papillon')
-    const recordingInitData = extractor.extractRecordingInitData()
-    expect(recordingInitData.sampleDuration).toEqual(208)
+    const recordingDto = extractor.extractRecordingDto()
+    expect(recordingDto.sampleDurationInSeconds).toEqual(208)
   });
 
   it('should get recording sampleBeatTimeDuration from Petit papillon', async () => {
     const extractor = await createExtractorFor('Petit papillon')
-    const recordingInitData = extractor.extractRecordingInitData()
-    expect(recordingInitData.sampleBeatTimeDuration).toEqual(378.36283820346318 - -1.1762159715284715)
+    const recordingDto = extractor.extractRecordingDto()
+    expect(recordingDto.sampleBeatTimeDuration).toEqual(378.36283820346318 - -1.1762159715284715)
   });
 
   it('should get recording sampleBeatTimeDuration from Nuages Blancs', async () => {
     const extractor = await createExtractorFor('Nuages blancs')
-    const recordingInitData = extractor.extractRecordingInitData()
-    expect(recordingInitData.sampleBeatTimeDuration).toEqual(932 - -0.782730030386280418)
+    const recordingDto = extractor.extractRecordingDto()
+    expect(recordingDto.sampleBeatTimeDuration).toEqual(932 - -0.782730030386280418)
   });
 
   it('should get recording sampleBeatTimeDuration from La femme dragon', async () => {
     const extractor = await createExtractorFor('La femme dragon')
-    const recordingInitData = extractor.extractRecordingInitData()
-    expect(recordingInitData.sampleBeatTimeDuration).toEqual(545.33568827006332 - -2.0646923389110889)
+    const recordingDto = extractor.extractRecordingDto()
+    expect(recordingDto.sampleBeatTimeDuration).toEqual(545.33568827006332 - -2.0646923389110889)
   });
 
 });

@@ -27,6 +27,8 @@
         "@angular/platform-browser-dynamic": "17",
         "@angular/router": "17",
         "@angular/service-worker": "17",
+        "@ng-icons/core": "27",
+        "@ng-icons/bootstrap-icons": "27",
         "@types/color": "3",
         "angular-in-memory-web-api": "0.17",
         "color": "4",

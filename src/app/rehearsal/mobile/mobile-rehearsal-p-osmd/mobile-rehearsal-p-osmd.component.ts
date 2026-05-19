@@ -23,6 +23,7 @@ import {MAX_MIDI, MIN_MIDI} from "../../../keyboard/notes";
 import {MidiNote} from "../../../recording/recording";
 import {SwipeDirective} from "../../../swipe.directive";
 import {ToneAdapter} from "../../../tonejs/tone-adapter";
+import {TransportButtonComponent} from "../../../buttons/transport-button/transport-button.component";
 
 @Component({
     selector: 'app-mobile-rehearsal-p-osmd',
@@ -38,6 +39,7 @@ import {ToneAdapter} from "../../../tonejs/tone-adapter";
         KeyboardComponent,
         SheetMusicComponent,
         SwipeDirective,
+        TransportButtonComponent,
     ],
     templateUrl: './mobile-rehearsal-p-osmd.component.html',
     styleUrl: './mobile-rehearsal-p-osmd.component.scss',

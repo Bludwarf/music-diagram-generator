@@ -5,8 +5,8 @@
 <div id="transport">
 
     <div id="transport-buttons">
-        <button (click)="playSong()" *ngIf="!playing">⏵</button>
-        <button (click)="pauseSong()" *ngIf="playing">⏸</button>
+        <app-transport-button icon="play" *ngIf="!playing" (click)="playSong()" [disabled]="playButtonIsDisabled"></app-transport-button>
+        <app-transport-button icon="pause" *ngIf="playing" (click)="pauseSong()"></app-transport-button>
     </div>
 
     <div id="song-map">

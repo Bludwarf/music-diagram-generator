@@ -15,6 +15,7 @@ import {SongRepository} from "../../../song/song-repository";
 import {ToneAdapter} from "../../../tonejs/tone-adapter";
 import {SectionInStructure} from "../../../structure/section/section-in-structure";
 import {PartInStructure} from "../../../structure/part/part-in-structure";
+import {TransportButtonComponent} from "../../../buttons/transport-button/transport-button.component";
 
 class CSSUnitValueClass {
 
@@ -37,6 +38,7 @@ class CSSUnitValueClass {
         StructureMapComponent,
         SampleMapComponent,
         ChordsGridComponent,
+        TransportButtonComponent,
     ],
     templateUrl: './mobile-rehearsal-c.component.html',
     styleUrl: './mobile-rehearsal-c.component.scss',

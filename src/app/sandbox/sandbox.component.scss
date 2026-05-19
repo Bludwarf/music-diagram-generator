@@ -1,35 +1,35 @@
 select.modes {
-  option {
-    &[value='0'] {
-      background: var(--I-color);
-    }
+    option {
+        &[value='0'] {
+            background: var(--I-color);
+        }
 
-    &[value='2'] {
-      background: var(--ii-color);
-      color: white;
-    }
+        &[value='2'] {
+            background: var(--ii-color);
+            color: white;
+        }
 
-    &[value='4'] {
-      background: var(--iii-color);
-      color: white;
-    }
+        &[value='4'] {
+            background: var(--iii-color);
+            color: white;
+        }
 
-    &[value='5'] {
-      background: var(--IV-color);
-    }
+        &[value='5'] {
+            background: var(--IV-color);
+        }
 
-    &[value='7'] {
-      background: var(--V-color);
-    }
+        &[value='7'] {
+            background: var(--V-color);
+        }
 
-    &[value='9'] {
-      background: var(--vi-color);
-      color: white;
-    }
+        &[value='9'] {
+            background: var(--vi-color);
+            color: white;
+        }
 
-    &[value='11'] {
-      background: var(--vii-color);
-      color: white;
+        &[value='11'] {
+            background: var(--vii-color);
+            color: white;
+        }
     }
-  }
 }

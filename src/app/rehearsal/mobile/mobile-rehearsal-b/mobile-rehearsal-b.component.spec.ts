@@ -4,8 +4,8 @@ import {MobileRehearsalBComponent} from './mobile-rehearsal-b.component';
 import {buildSongEntry, injectSpy, PROVIDER_SPIES} from "../../../test/test-utils";
 import {ActivatedRoute} from "@angular/router";
 import {of} from "rxjs";
-import SpyObj = jasmine.SpyObj;
 import {SongRepository} from "../../../song/song-repository";
+import SpyObj = jasmine.SpyObj;
 
 describe('MobileRehearsalAComponent', () => {
     let component: MobileRehearsalBComponent;

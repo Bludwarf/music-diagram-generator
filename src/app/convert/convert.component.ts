@@ -6,54 +6,54 @@ import {JsonPipe, NgIf} from "@angular/common";
 import {RecordingDto} from "../recording/recording-dto";
 
 @Component({
-  selector: 'app-convert',
-  standalone: true,
-  imports: [
-    FormsModule,
-    NgIf,
-    JsonPipe
-  ],
-  templateUrl: './convert.component.html',
-  styleUrl: './convert.component.scss'
+    selector: 'app-convert',
+    standalone: true,
+    imports: [
+        FormsModule,
+        NgIf,
+        JsonPipe
+    ],
+    templateUrl: './convert.component.html',
+    styleUrl: './convert.component.scss'
 })
 export class ConvertComponent {
 
-  recordingDto?: RecordingDto;
-  songEntry?: string;
+    recordingDto?: RecordingDto;
+    songEntry?: string;
 
-  _songName?: string
+    _songName?: string
 
-  constructor(
-    private readonly alsImporter: AlsImporter,
-  ) {
-  }
-
-  async uploadFile(event: Event): Promise<void> {
-
-    const element = event.currentTarget as HTMLInputElement;
-    let fileList: FileList | null = element.files;
-    if (!fileList?.length) {
-      return;
+    constructor(
+        private readonly alsImporter: AlsImporter,
+    ) {
     }
 
-    const alsFile = fileList[0]
-    const alsProject = await this.alsImporter.load(alsFile);
+    async uploadFile(event: Event): Promise<void> {
 
-    const structureExtractor = new AlsExtractor(alsProject);
-    // this.jsonStructure = JSON.stringify(structureExtractor.extractStructureObject(), undefined, 4)
-    this.recordingDto = structureExtractor.extractRecordingDto()
+        const element = event.currentTarget as HTMLInputElement;
+        let fileList: FileList | null = element.files;
+        if (!fileList?.length) {
+            return;
+        }
 
-    this.songName = alsFile.name.substring(0, alsFile.name.indexOf('.'))
-  }
+        const alsFile = fileList[0]
+        const alsProject = await this.alsImporter.load(alsFile);
 
-  get songName(): string | undefined {
-    return this._songName
-  }
+        const structureExtractor = new AlsExtractor(alsProject);
+        // this.jsonStructure = JSON.stringify(structureExtractor.extractStructureObject(), undefined, 4)
+        this.recordingDto = structureExtractor.extractRecordingDto()
 
-  set songName(songName: string) {
-    this._songName = songName
-    const recordingName = this.recordingDto?.name ?? prompt('recording.name')
-    this.songEntry = `
+        this.songName = alsFile.name.substring(0, alsFile.name.indexOf('.'))
+    }
+
+    get songName(): string | undefined {
+        return this._songName
+    }
+
+    set songName(songName: string) {
+        this._songName = songName
+        const recordingName = this.recordingDto?.name ?? prompt('recording.name')
+        this.songEntry = `
     import { Key } from '../../notes';
     import recordingInitData from '../../../assets/recordings/${recordingName}.json';
     import { Pattern } from '../../structure/pattern/pattern';
@@ -112,5 +112,5 @@ export class ConvertComponent {
         recording,
     }    
 `
-  }
+    }
 }

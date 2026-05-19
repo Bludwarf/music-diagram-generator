@@ -1,5 +1,5 @@
 import {CommonModule} from "@angular/common";
-import {ChangeDetectionStrategy, Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {FormsModule} from "@angular/forms";
 import {Title} from "@angular/platform-browser";
 import {ActivatedRoute} from "@angular/router";
@@ -17,46 +17,46 @@ import {SongRepository} from "../../../song/song-repository";
 import {ToneAdapter} from "../../../tonejs/tone-adapter";
 
 @Component({
-  selector: 'app-mobile-rehearsal-b',
-  standalone: true,
-  imports: [
-    RythmBarComponent,
-    CommonModule,
-    FormsModule,
-    FretboardComponent,
-    StructureMapComponent,
-    PartTabsComponent,
-    PartLineComponent,
-    SampleMapComponent,
-    ChordsGridComponent,
-  ],
-  templateUrl: './mobile-rehearsal-b.component.html',
-  styleUrl: './mobile-rehearsal-b.component.scss',
+    selector: 'app-mobile-rehearsal-b',
+    standalone: true,
+    imports: [
+        RythmBarComponent,
+        CommonModule,
+        FormsModule,
+        FretboardComponent,
+        StructureMapComponent,
+        PartTabsComponent,
+        PartLineComponent,
+        SampleMapComponent,
+        ChordsGridComponent,
+    ],
+    templateUrl: './mobile-rehearsal-b.component.html',
+    styleUrl: './mobile-rehearsal-b.component.scss',
 })
 export class MobileRehearsalBComponent extends MobileRehearsal implements OnInit, OnDestroy {
 
-  @ViewChild('fileInput')
-  override fileInput?: ElementRef<HTMLInputElement>;
+    @ViewChild('fileInput')
+    override fileInput?: ElementRef<HTMLInputElement>;
 
-  constructor(
-    toneAdapter: ToneAdapter,
-    activatedRoute: ActivatedRoute,
-    title: Title,
-    sampleCacheService: SampleCacheService,
-    songRepository: SongRepository,
-  ) {
-    super(toneAdapter, activatedRoute, title, sampleCacheService, songRepository)
-  }
+    constructor(
+        toneAdapter: ToneAdapter,
+        activatedRoute: ActivatedRoute,
+        title: Title,
+        sampleCacheService: SampleCacheService,
+        songRepository: SongRepository,
+    ) {
+        super(toneAdapter, activatedRoute, title, sampleCacheService, songRepository)
+    }
 
-  ngOnInit() {
-    super.onInit();
-  }
+    ngOnInit() {
+        super.onInit();
+    }
 
-  ngOnDestroy(): void {
-    this.onDestroy()
-  }
+    ngOnDestroy(): void {
+        this.onDestroy()
+    }
 
-  getPatternColor(patternInStructure: PatternInStructure): string {
-    return patternInStructure.structure.getPatternColor(patternInStructure).toString()
-  }
+    getPatternColor(patternInStructure: PatternInStructure): string {
+        return patternInStructure.structure.getPatternColor(patternInStructure).toString()
+    }
 }

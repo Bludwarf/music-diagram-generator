@@ -2,12 +2,12 @@
 <input type="text" [(ngModel)]="songName" placeholder="Titre du morceau"/>
 
 <p>
-  <b>Attention si le morceau contient des changements de signature, il faut vérifier l'alignement dans Live et ajuster
-    chaque BeatTime à la main dans le JSON (ainsi que le sampleBeatTimeDuration)</b>
+    <b>Attention si le morceau contient des changements de signature, il faut vérifier l'alignement dans Live et ajuster
+        chaque BeatTime à la main dans le JSON (ainsi que le sampleBeatTimeDuration)</b>
 </p>
 
 <p>
-  <i>(Live applique la même signature rythmique pour tout le sample)</i>
+    <i>(Live applique la même signature rythmique pour tout le sample)</i>
 </p>
 
 <pre>
@@ -22,11 +22,11 @@
 </pre>
 
 <ng-container *ngIf="recordingDto">
-  src/assets/recordings/{{ recordingDto.name }}.json
-  <textarea [ngModel]="recordingDto | json" rows="10"></textarea>
+    src/assets/recordings/{{ recordingDto.name }}.json
+    <textarea [ngModel]="recordingDto | json" rows="10"></textarea>
 </ng-container>
 
 <ng-container *ngIf="songEntry">
-  src/app/song/entries/{{ songName }}.ts
-  <textarea [ngModel]="songEntry" rows="10"></textarea>
+    src/app/song/entries/{{ songName }}.ts
+    <textarea [ngModel]="songEntry" rows="10"></textarea>
 </ng-container>

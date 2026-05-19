@@ -1,35 +1,35 @@
 <app-page [title]="title">
-  <div class="information">
-    <div>
-      @if (songEntry.recording) {
-        Tempo moyen : {{ round(songEntry.recording.meanTempo) }}
-      }
+    <div class="information">
+        <div>
+            @if (songEntry.recording) {
+                Tempo moyen : {{ round(songEntry.recording.meanTempo) }}
+            }
+        </div>
+        <div>
+            Version : {{ songEntry.version || '(inconnue)' }}
+        </div>
     </div>
-    <div>
-      Version : {{ songEntry.version || '(inconnue)' }}
-    </div>
-  </div>
 
-  @if (structureInGrid.partsInGrid.length) {
-    <app-structure-grid [structureInGrid]="structureInGrid" [colorResolver]="colorResolver"></app-structure-grid>
-  }
+    @if (structureInGrid.partsInGrid.length) {
+        <app-structure-grid [structureInGrid]="structureInGrid" [colorResolver]="colorResolver"></app-structure-grid>
+    }
 
-  @if (patternsWithoutDuplicatedInitial.length) {
-    <br>
-    <hr>
-    <ul class="pattern-list">
-      @for (pattern of patternsWithoutDuplicatedInitial; track pattern) {
-        <li
-          [style.color]="getPatternColor(pattern)"
-        >
+    @if (patternsWithoutDuplicatedInitial.length) {
+        <br>
+        <hr>
+        <ul class="pattern-list">
+            @for (pattern of patternsWithoutDuplicatedInitial; track pattern) {
+                <li
+                    [style.color]="getPatternColor(pattern)"
+                >
         <span class="pattern-initial"
               [style.background-color]="getPatternColor(pattern)">{{ getFirstPatternInStructure(pattern).initial }}</span>&nbsp;<span
-          class="pattern-name">{{ pattern.name }}</span> ({{ pattern.durationInBars }}m)
-          @if (pattern.chords) {
-            : <span class="pattern-chords">{{ pattern.chords.ascii }}</span>
-          }
-        </li>
-      }
-    </ul>
-  }
+                    class="pattern-name">{{ pattern.name }}</span> ({{ pattern.durationInBars }}m)
+                    @if (pattern.chords) {
+                        : <span class="pattern-chords">{{ pattern.chords.ascii }}</span>
+                    }
+                </li>
+            }
+        </ul>
+    }
 </app-page>

@@ -3,21 +3,21 @@ import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {RythmBarBeatDivisionComponent} from './rythm-bar-beat-division.component';
 
 describe('RythmBarBeatDivisionComponent', () => {
-  let component: RythmBarBeatDivisionComponent;
-  let fixture: ComponentFixture<RythmBarBeatDivisionComponent>;
+    let component: RythmBarBeatDivisionComponent;
+    let fixture: ComponentFixture<RythmBarBeatDivisionComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [RythmBarBeatDivisionComponent]
-    })
-      .compileComponents();
+    beforeEach(async () => {
+        await TestBed.configureTestingModule({
+            imports: [RythmBarBeatDivisionComponent]
+        })
+            .compileComponents();
 
-    fixture = TestBed.createComponent(RythmBarBeatDivisionComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+        fixture = TestBed.createComponent(RythmBarBeatDivisionComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+    });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
 });

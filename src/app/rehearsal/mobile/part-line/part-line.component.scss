@@ -1,68 +1,68 @@
 #sections-line {
-  display: flex;
-  background: #616161; // cf. styles.css > *
-  font-size: 5mm;
-  text-indent: 1mm;
+    display: flex;
+    background: #616161; // cf. styles.css > *
+    font-size: 5mm;
+    text-indent: 1mm;
 
-  & > * {
-    flex: 1;
-    overflow: hidden;
-    white-space: nowrap;
-    text-align: left;
-    background: var(--background);
-    //box-shadow: -10px 0 10px #444;
-    //clip-path: inset(0 0 0 -100%);
-  }
+    & > * {
+        flex: 1;
+        overflow: hidden;
+        white-space: nowrap;
+        text-align: left;
+        background: var(--background);
+        //box-shadow: -10px 0 10px #444;
+        //clip-path: inset(0 0 0 -100%);
+    }
 
-  & > *:not(:first-child) {
-    border-left: solid 1px #616161;
-  }
+    & > *:not(:first-child) {
+        border-left: solid 1px #616161;
+    }
 
-  .active {
-    color: white;
-    border-bottom: solid 2px white;
-    //box-shadow: 0 0 10px #0006;
-    //clip-path: inset(-30px -30px 0px -30px);
-  }
+    .active {
+        color: white;
+        border-bottom: solid 2px white;
+        //box-shadow: 0 0 10px #0006;
+        //clip-path: inset(-30px -30px 0px -30px);
+    }
 
-  .looped {
-    color: yellow;
-  }
+    .looped {
+        color: yellow;
+    }
 }
 
 #patterns-line {
-  display: flex;
-  gap: 1px;
+    display: flex;
+    gap: 1px;
 
-  & > * {
-    flex: 1;
-    white-space: nowrap;
-    overflow: hidden;
-  }
+    & > * {
+        flex: 1;
+        white-space: nowrap;
+        overflow: hidden;
+    }
 
-  // TODO factorisation avec structure-map.component.scss
+    // TODO factorisation avec structure-map.component.scss
 
-  [data-pattern].active {
-    color: white;
-    box-shadow: 0 0 10px #0006;
-    clip-path: inset(0 -30px 0px -30px);
-  }
+    [data-pattern].active {
+        color: white;
+        box-shadow: 0 0 10px #0006;
+        clip-path: inset(0 -30px 0px -30px);
+    }
 
-  [data-pattern].looped {
-    color: yellow;
-  }
+    [data-pattern].looped {
+        color: yellow;
+    }
 
-  [data-pattern] {
-    color: #0006; // TODO idem part-line active-section-line
-  }
+    [data-pattern] {
+        color: #0006; // TODO idem part-line active-section-line
+    }
 
 }
 
 #active-section-line {
-  display: flex;
+    display: flex;
 
-  & > * {
-    border-top: solid 3px #0006;
-  }
+    & > * {
+        border-top: solid 3px #0006;
+    }
 
 }

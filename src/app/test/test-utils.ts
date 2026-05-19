@@ -1,12 +1,12 @@
 import {ActivatedRoute} from "@angular/router";
 import {ProviderToken} from "@angular/core";
 import {TestBed} from "@angular/core/testing";
-import createSpyObj = jasmine.createSpyObj;
-import SpyObj = jasmine.SpyObj;
 import {SongRepository} from "../song/song-repository";
 import {SongEntry} from "../song/song-entry";
 import {Structure} from "../structure/structure";
 import {getAssetFile} from "../utils/file-utils";
+import createSpyObj = jasmine.createSpyObj;
+import SpyObj = jasmine.SpyObj;
 
 /**
  * @param filePath Doit être déclaré dans "files" du fichier karma.conf.js

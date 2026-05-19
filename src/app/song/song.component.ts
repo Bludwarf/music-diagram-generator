@@ -6,38 +6,38 @@ import {NgIf} from "@angular/common";
 import {MobileRehearsalBMaqComponent} from "../rehearsal/mobile/mobile-rehearsal-b-maq/mobile-rehearsal-b.component";
 import {MobileRehearsalPComponent} from "../rehearsal/mobile/mobile-rehearsal-p/mobile-rehearsal-p.component";
 import {
-  MobileRehearsalPOsmdComponent
+    MobileRehearsalPOsmdComponent
 } from "../rehearsal/mobile/mobile-rehearsal-p-osmd/mobile-rehearsal-p-osmd.component";
 import {ViewType} from "../rehearsal/mobile/mobile-rehearsal";
 import {MobileRehearsalCComponent} from "../rehearsal/mobile/mobile-rehearsal-c/mobile-rehearsal-c.component";
 
 @Component({
-  selector: 'app-song',
-  standalone: true,
-  imports: [
-    MobileRehearsalAComponent,
-    MobileRehearsalBComponent,
-    NgIf,
-    MobileRehearsalBMaqComponent,
-    MobileRehearsalPComponent,
-    MobileRehearsalPOsmdComponent,
-    MobileRehearsalCComponent,
-  ],
-  templateUrl: './song.component.html',
-  styleUrl: './song.component.scss',
+    selector: 'app-song',
+    standalone: true,
+    imports: [
+        MobileRehearsalAComponent,
+        MobileRehearsalBComponent,
+        NgIf,
+        MobileRehearsalBMaqComponent,
+        MobileRehearsalPComponent,
+        MobileRehearsalPOsmdComponent,
+        MobileRehearsalCComponent,
+    ],
+    templateUrl: './song.component.html',
+    styleUrl: './song.component.scss',
 })
 export class SongComponent {
 
-  view: ViewType = 'B'
+    view: ViewType = 'B'
 
-  constructor(
-    activatedRoute: ActivatedRoute,
-  ) {
-    activatedRoute.queryParams.subscribe(queryParams => {
-      const view = queryParams['view']
-      if (view) {
-        this.view = view
-      }
-    })
-  }
+    constructor(
+        activatedRoute: ActivatedRoute,
+    ) {
+        activatedRoute.queryParams.subscribe(queryParams => {
+            const view = queryParams['view']
+            if (view) {
+                this.view = view
+            }
+        })
+    }
 }

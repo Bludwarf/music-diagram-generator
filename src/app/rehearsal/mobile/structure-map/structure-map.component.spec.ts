@@ -4,24 +4,24 @@ import {StructureMapComponent} from './structure-map.component';
 import {Structure} from "../../../structure/structure";
 
 describe('StructureMapComponent', () => {
-  let component: StructureMapComponent;
-  let fixture: ComponentFixture<StructureMapComponent>;
+    let component: StructureMapComponent;
+    let fixture: ComponentFixture<StructureMapComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [StructureMapComponent]
-    })
-      .compileComponents();
+    beforeEach(async () => {
+        await TestBed.configureTestingModule({
+            imports: [StructureMapComponent]
+        })
+            .compileComponents();
 
-    fixture = TestBed.createComponent(StructureMapComponent);
-    component = fixture.componentInstance;
+        fixture = TestBed.createComponent(StructureMapComponent);
+        component = fixture.componentInstance;
 
-    component.structure = new Structure([])
+        component.structure = new Structure([])
 
-    fixture.detectChanges();
-  });
+        fixture.detectChanges();
+    });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
 });

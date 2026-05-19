@@ -3,27 +3,27 @@
 $whole-note-aspect-ratio: math.div(12, 7); // source : https://commons.wikimedia.org/wiki/File:WholeNote.svg
 
 :host {
-  // border: solid 1px white;
-  background: white;
-  // width: 20px;
-  // height: 15px;
-  aspect-ratio: $whole-note-aspect-ratio;
-  font-size: 10pt;
-  border-top: solid 1px black;
+    // border: solid 1px white;
+    background: white;
+    // width: 20px;
+    // height: 15px;
+    aspect-ratio: $whole-note-aspect-ratio;
+    font-size: 10pt;
+    border-top: solid 1px black;
 }
 
 :host.bottom-line {
-  border-bottom: solid 1px black;
+    border-bottom: solid 1px black;
 }
 
 :host.on-the-beat {
-  background: #EEE;
+    background: #EEE;
 }
 
 :host:hover, :host(.active) {
-  background: rgba(255, 255, 155, 50%);
+    background: rgba(255, 255, 155, 50%);
 }
 
 :host:hover {
-  background: rgb(255, 255, 155);
+    background: rgb(255, 255, 155);
 }

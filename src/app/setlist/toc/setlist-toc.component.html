@@ -1,23 +1,23 @@
 <app-page [title]="title.getTitle()">
-  <div class="information">
-    <div>
-      Version : {{ setlist.version || '(inconnue)' }}
+    <div class="information">
+        <div>
+            Version : {{ setlist.version || '(inconnue)' }}
+        </div>
     </div>
-  </div>
-  <table>
-    <tr>
-      <th></th>
-      <th></th>
-      <th class="tempo">BPM</th>
-    </tr>
-    @for (song of setlist.songs; track song; let i = $index) {
-      <tr class="song">
-        <td class="number">{{ i + 1 }}.</td>
-        <td>{{ song.songEntry.name }}</td>
-        <td class="tempo">@if (song.songEntry.recording && song.songEntry.recording.meanTempo) {
-          {{ round(song.songEntry.recording.meanTempo) }}
-        }</td>
-      </tr>
-    }
-  </table>
+    <table>
+        <tr>
+            <th></th>
+            <th></th>
+            <th class="tempo">BPM</th>
+        </tr>
+        @for (song of setlist.songs; track song; let i = $index) {
+            <tr class="song">
+                <td class="number">{{ i + 1 }}.</td>
+                <td>{{ song.songEntry.name }}</td>
+                <td class="tempo">@if (song.songEntry.recording && song.songEntry.recording.meanTempo) {
+                    {{ round(song.songEntry.recording.meanTempo) }}
+                }</td>
+            </tr>
+        }
+    </table>
 </app-page>

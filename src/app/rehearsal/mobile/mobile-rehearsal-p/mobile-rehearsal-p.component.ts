@@ -21,6 +21,7 @@ import {KeyboardRange, KeyboardState} from "../../../keyboard/type";
 import {OctavedNote} from "../../../notes";
 import {KeyboardAdapter} from "../../../keyboard/keyboard-adapter";
 import {ToneAdapter} from "../../../tonejs/tone-adapter";
+import {TransportButtonComponent} from "../../../buttons/transport-button/transport-button.component";
 
 @Component({
     selector: 'app-mobile-rehearsal-p',
@@ -35,6 +36,7 @@ import {ToneAdapter} from "../../../tonejs/tone-adapter";
         SampleMapComponent,
         ChordsGridComponent,
         KeyboardComponent,
+        TransportButtonComponent,
     ],
     templateUrl: './mobile-rehearsal-p.component.html',
     styleUrl: './mobile-rehearsal-p.component.scss',

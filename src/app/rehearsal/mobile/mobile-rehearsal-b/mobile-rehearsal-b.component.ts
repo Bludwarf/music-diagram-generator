@@ -15,6 +15,7 @@ import {PatternInStructure} from "../../../structure/pattern/pattern-in-structur
 import {SampleCacheService} from "../../../sample/samples-cache.service";
 import {SongRepository} from "../../../song/song-repository";
 import {ToneAdapter} from "../../../tonejs/tone-adapter";
+import {TransportButtonComponent} from "../../../buttons/transport-button/transport-button.component";
 
 @Component({
     selector: 'app-mobile-rehearsal-b',
@@ -29,6 +30,7 @@ import {ToneAdapter} from "../../../tonejs/tone-adapter";
         PartLineComponent,
         SampleMapComponent,
         ChordsGridComponent,
+        TransportButtonComponent,
     ],
     templateUrl: './mobile-rehearsal-b.component.html',
     styleUrl: './mobile-rehearsal-b.component.scss',

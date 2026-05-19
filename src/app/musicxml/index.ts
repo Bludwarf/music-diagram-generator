@@ -9,15 +9,15 @@ import {parseHeader as parseHeader_musicxml, parseTracks as parseTracks_musicxml
  * @param content is either the url of a file, or the string content of a .xml/.mxl file
  */
 export const loadMusicXml = async (content: string) => {
-  let data = await ReadMusicXml(content);
+    let data = await ReadMusicXml(content);
 
-  const parsed: any = {}; // TODO ajout Bludwarf
+    const parsed: any = {}; // TODO ajout Bludwarf
 
-  [parsed.header, parsed.measures] = parseHeader_musicxml(data);
-  [parsed.tracks, parsed.duration] = parseTracks_musicxml(data, parsed.header, parsed.measures);
+    [parsed.header, parsed.measures] = parseHeader_musicxml(data);
+    [parsed.tracks, parsed.duration] = parseTracks_musicxml(data, parsed.header, parsed.measures);
 
-  console.log("parse musicxml header\n", parsed.header);
-  console.log("parse musicxml tracks\n", parsed.tracks);
+    console.log("parse musicxml header\n", parsed.header);
+    console.log("parse musicxml tracks\n", parsed.tracks);
 
-  return parsed; // TODO ajout Bludwarf
+    return parsed; // TODO ajout Bludwarf
 };

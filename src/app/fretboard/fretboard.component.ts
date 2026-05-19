@@ -7,47 +7,47 @@ const DEFAULT_LOWEST_FRET = 0;
 const DEFAULT_FRETS_COUNT = 5;
 
 @Component({
-  selector: 'app-fretboard',
-  standalone: true,
-  imports: [CommonModule],
-  templateUrl: './fretboard.component.html',
-  styleUrl: './fretboard.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-fretboard',
+    standalone: true,
+    imports: [CommonModule],
+    templateUrl: './fretboard.component.html',
+    styleUrl: './fretboard.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FretboardComponent implements OnInit, OnChanges {
-  @Input()
-  lowestFret? = DEFAULT_LOWEST_FRET
+    @Input()
+    lowestFret? = DEFAULT_LOWEST_FRET
 
-  startingNote = Note.E
-  stringInterval = Note.fromValue(5)
-  stringsCount = 4
+    startingNote = Note.E
+    stringInterval = Note.fromValue(5)
+    stringsCount = 4
 
-  @Input()
-  fretsCount? = DEFAULT_FRETS_COUNT
+    @Input()
+    fretsCount? = DEFAULT_FRETS_COUNT
 
-  @Input()
-  key? = new Key(Note.C, Mode.fromName('I'))
+    @Input()
+    key? = new Key(Note.C, Mode.fromName('I'))
 
-  @Input()
-  currentNote?: Note
+    @Input()
+    currentNote?: Note
 
-  fretboard?: Fretboard;
+    fretboard?: Fretboard;
 
-  ngOnInit(): void {
-    this.buildFretboard()
-  }
+    ngOnInit(): void {
+        this.buildFretboard()
+    }
 
-  private buildFretboard(): void {
-    this.fretboard = Fretboard.create({
-      startingNote: this.startingNote,
-      stringInterval: this.stringInterval,
-      stringsCount: this.stringsCount,
-      lowestFret: this.lowestFret ?? DEFAULT_LOWEST_FRET,
-      fretsCount: this.fretsCount ?? DEFAULT_FRETS_COUNT,
-    });
-  }
+    private buildFretboard(): void {
+        this.fretboard = Fretboard.create({
+            startingNote: this.startingNote,
+            stringInterval: this.stringInterval,
+            stringsCount: this.stringsCount,
+            lowestFret: this.lowestFret ?? DEFAULT_LOWEST_FRET,
+            fretsCount: this.fretsCount ?? DEFAULT_FRETS_COUNT,
+        });
+    }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    this.buildFretboard()
-  }
+    ngOnChanges(changes: SimpleChanges): void {
+        this.buildFretboard()
+    }
 }

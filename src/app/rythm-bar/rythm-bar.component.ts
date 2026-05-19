@@ -5,45 +5,45 @@ import {sequence} from '../utils';
 import {RythmBarEvent} from './event';
 
 @Component({
-  selector: 'app-rythm-bar',
-  standalone: true,
-  imports: [
-    CommonModule,
-    RythmBarBeatComponent,
-  ],
-  templateUrl: './rythm-bar.component.html',
-  styleUrl: './rythm-bar.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-rythm-bar',
+    standalone: true,
+    imports: [
+        CommonModule,
+        RythmBarBeatComponent,
+    ],
+    templateUrl: './rythm-bar.component.html',
+    styleUrl: './rythm-bar.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RythmBarComponent {
 
-  @Input()
-  number = 1
+    @Input()
+    number = 1
 
-  @Input()
-  beats = 4
+    @Input()
+    beats = 4
 
-  @Input()
-  beatDivision = 4
+    @Input()
+    beatDivision = 4
 
-  @Input()
-  events: RythmBarEvent[] = []
+    @Input()
+    events: RythmBarEvent[] = []
 
-  // TODO utiliser un timecode relatif plutôt qu'absolu ?
-  @Input()
-  timecode?: string;
+    // TODO utiliser un timecode relatif plutôt qu'absolu ?
+    @Input()
+    timecode?: string;
 
-  @Output()
-  addEvent: EventEmitter<RythmBarEvent> = new EventEmitter();
+    @Output()
+    addEvent: EventEmitter<RythmBarEvent> = new EventEmitter();
 
-  @Output()
-  removeEvent: EventEmitter<RythmBarEvent> = new EventEmitter();
+    @Output()
+    removeEvent: EventEmitter<RythmBarEvent> = new EventEmitter();
 
-  private _beatsArray?: number[];
-  protected get beatsArray(): number[] {
-    if (!this._beatsArray) {
-      this._beatsArray = sequence(this.beats, 1);
+    private _beatsArray?: number[];
+    protected get beatsArray(): number[] {
+        if (!this._beatsArray) {
+            this._beatsArray = sequence(this.beats, 1);
+        }
+        return this._beatsArray;
     }
-    return this._beatsArray;
-  }
 }

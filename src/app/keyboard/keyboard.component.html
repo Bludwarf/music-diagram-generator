@@ -1,18 +1,18 @@
 <div class="keyboard-container">
-  <div class="key-wrap">
-    @for (key of whiteKeys; track key.ansi; ) {
-      <div key={key.midi} [ngClass]="getKeyNgClass(key)" [style]="whiteKeyStyle"
-           onPointerDown="pressKey(key)" onPointerUp="releaseKey(key)">
-        <!--        <span class="key-white-text">{{ key.ansi }}</span>-->
-        <div class="mark" [style]="markStyle" *ngIf="markedKeyNames.includes(key.ansi)"></div>
-      </div>
-    }
-    @for (key of blackKeys; track key.ansi; ) {
-      <div key={key.midi} [ngClass]="getKeyNgClass(key)" [style]="getBlackKeyStyle(key)"
-           onPointerDown="pressKey(key)" onPointerUp="releaseKey(key)">
-        <!--        <span class="key-black-text">{{ key.ansi }}</span>-->
-        <div class="mark" [style]="markStyle" *ngIf="markedKeyNames.includes(key.ansi)"></div>
-      </div>
-    }
-  </div>
+    <div class="key-wrap">
+        @for (key of whiteKeys; track key.ansi; ) {
+            <div key={key.midi} [ngClass]="getKeyNgClass(key)" [style]="whiteKeyStyle"
+                 onPointerDown="pressKey(key)" onPointerUp="releaseKey(key)">
+                <!--        <span class="key-white-text">{{ key.ansi }}</span>-->
+                <div class="mark" [style]="markStyle" *ngIf="markedKeyNames.includes(key.ansi)"></div>
+            </div>
+        }
+        @for (key of blackKeys; track key.ansi; ) {
+            <div key={key.midi} [ngClass]="getKeyNgClass(key)" [style]="getBlackKeyStyle(key)"
+                 onPointerDown="pressKey(key)" onPointerUp="releaseKey(key)">
+                <!--        <span class="key-black-text">{{ key.ansi }}</span>-->
+                <div class="mark" [style]="markStyle" *ngIf="markedKeyNames.includes(key.ansi)"></div>
+            </div>
+        }
+    </div>
 </div>

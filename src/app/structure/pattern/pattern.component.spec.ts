@@ -3,21 +3,21 @@ import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {PatternComponent} from './pattern.component';
 
 describe('PatternComponent', () => {
-  let component: PatternComponent;
-  let fixture: ComponentFixture<PatternComponent>;
+    let component: PatternComponent;
+    let fixture: ComponentFixture<PatternComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [PatternComponent]
-    })
-      .compileComponents();
+    beforeEach(async () => {
+        await TestBed.configureTestingModule({
+            imports: [PatternComponent]
+        })
+            .compileComponents();
 
-    fixture = TestBed.createComponent(PatternComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+        fixture = TestBed.createComponent(PatternComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+    });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
 });

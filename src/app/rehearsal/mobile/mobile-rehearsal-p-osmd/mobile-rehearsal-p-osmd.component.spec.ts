@@ -4,8 +4,8 @@ import {buildSongEntry, injectSpy, PROVIDER_SPIES} from "../../../test/test-util
 import {ActivatedRoute} from "@angular/router";
 import {of} from "rxjs";
 import {MobileRehearsalPOsmdComponent} from "./mobile-rehearsal-p-osmd.component";
-import SpyObj = jasmine.SpyObj;
 import {SongRepository} from "../../../song/song-repository";
+import SpyObj = jasmine.SpyObj;
 
 describe('MobileRehearsalPOsmdComponent', () => {
     let component: MobileRehearsalPOsmdComponent;

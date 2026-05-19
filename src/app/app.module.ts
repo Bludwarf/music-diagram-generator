@@ -9,24 +9,24 @@ import {ServiceWorkerModule} from '@angular/service-worker';
 import routes from "./routes";
 
 @NgModule({
-  imports: [
-    CommonModule,
-    BrowserModule,
-    ReactiveFormsModule,
-    RouterModule.forRoot(routes),
-    ServiceWorkerModule.register('ngsw-worker.js', {
-      enabled: !isDevMode(),
-      // Register the ServiceWorker as soon as the application is stable
-      // or after 30 seconds (whichever comes first).
-      registrationStrategy: 'registerWhenStable:30000'
-    })
-  ],
-  declarations: [
-    AppComponent
-  ],
-  bootstrap: [
-    AppComponent
-  ]
+    imports: [
+        CommonModule,
+        BrowserModule,
+        ReactiveFormsModule,
+        RouterModule.forRoot(routes),
+        ServiceWorkerModule.register('ngsw-worker.js', {
+            enabled: !isDevMode(),
+            // Register the ServiceWorker as soon as the application is stable
+            // or after 30 seconds (whichever comes first).
+            registrationStrategy: 'registerWhenStable:30000'
+        })
+    ],
+    declarations: [
+        AppComponent
+    ],
+    bootstrap: [
+        AppComponent
+    ]
 })
 export class AppModule {
 }

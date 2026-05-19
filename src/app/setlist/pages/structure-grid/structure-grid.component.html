@@ -1,85 +1,85 @@
 <div *ngIf="structureInGrid" class="wrapper"
      [style.grid-template-columns]="'repeat(' + structureInGrid.width + ', 1fr)'">
 
-  <!-- Partie -->
-  <ng-container *ngFor="let partInGrid of structureInGrid.partsInGrid">
+    <!-- Partie -->
+    <ng-container *ngFor="let partInGrid of structureInGrid.partsInGrid">
 
-    <!-- TODO Titre de la partie en 1ère colonne -->
-    <!--    <div class="cell-part" [style.grid-column]="'span ' + structureInGrid.width">-->
-    <!--      {{ sectionsToString(partInGrid.partInStructure.sectionsInStructure) }}-->
-    <!--    </div>-->
+        <!-- TODO Titre de la partie en 1ère colonne -->
+        <!--    <div class="cell-part" [style.grid-column]="'span ' + structureInGrid.width">-->
+        <!--      {{ sectionsToString(partInGrid.partInStructure.sectionsInStructure) }}-->
+        <!--    </div>-->
 
-    <!-- Ligne des titres de sections -->
-    <ng-container>
+        <!-- Ligne des titres de sections -->
+        <ng-container>
 
-      <!-- Titres des sections -->
-      <div class="cell-section" *ngFor="let sectionInGrid of partInGrid.sectionsInGrid"
-           [style.grid-column]="'span ' + sectionInGrid.width"
-           [style.color]="getSectionColor(sectionInGrid.sectionInStructure)"
-      >
-        {{ sectionInGrid.sectionInStructure.section.name }}
-      </div>
-      <div class="cell-section-padding" [style.grid-column]="'span ' + (structureInGrid.width - partInGrid.width)"
-           *ngIf="partInGrid.width < structureInGrid.width">
-      </div>
+            <!-- Titres des sections -->
+            <div class="cell-section" *ngFor="let sectionInGrid of partInGrid.sectionsInGrid"
+                 [style.grid-column]="'span ' + sectionInGrid.width"
+                 [style.color]="getSectionColor(sectionInGrid.sectionInStructure)"
+            >
+                {{ sectionInGrid.sectionInStructure.section.name }}
+            </div>
+            <div class="cell-section-padding" [style.grid-column]="'span ' + (structureInGrid.width - partInGrid.width)"
+                 *ngIf="partInGrid.width < structureInGrid.width">
+            </div>
 
-      <!-- On génère autant de colonnes vides que la valeur startOffset de la partInGrid -->
-      <div *ngFor="let col of sequence(partInGrid.startOffset)"></div>
-
-    </ng-container>
-
-    <!-- Ligne des barres de sections -->
-    <ng-container>
-
-      <!-- Titres des sections -->
-      <div class="cell-section-bar" *ngFor="let sectionInGrid of partInGrid.sectionsInGrid"
-           [style.grid-column]="'span ' + sectionInGrid.width"
-           [style.background-color]="getSectionColor(sectionInGrid.sectionInStructure)"
-      ></div>
-      <div class="cell-section-padding" [style.grid-column]="'span ' + (structureInGrid.width - partInGrid.width)"
-           *ngIf="partInGrid.width < structureInGrid.width">
-      </div>
-
-      <!-- On génère autant de colonnes vides que la valeur startOffset de la partInGrid -->
-      <div *ngFor="let col of sequence(partInGrid.startOffset)"></div>
-
-    </ng-container>
-
-    <!-- Ligne des patterns -->
-    <ng-container>
-
-      <!-- On génère autant de colonnes que de mesures contenues dans les patterns de la partInGrid -->
-      <ng-container *ngFor="let sectionInGrid of partInGrid.sectionsInGrid">
-        <ng-container *ngFor="let patternInStructure of sectionInGrid.sectionInStructure.patternsInStructure">
-
-          <!-- V1 : Une cellule par mesure dans le pattern -->
-          <!--        <div *ngFor="let bar of sequence(patternInStructure.eventsDurationInBars, 1)"-->
-          <!--             class="cell-pattern"-->
-          <!--             [class.first-bar-in-pattern]="bar == 1"-->
-          <!--             [class.last-bar-in-pattern]="bar == patternInStructure.eventsDurationInBars"-->
-          <!--             [style.border-color]="getSectionColor(sectionInGrid.sectionInStructure)"-->
-          <!--        ></div>-->
-
-          <!-- V2 : Une cellule pour tout le pattern -->
-          <div
-            [style.grid-column]="'span ' + patternInStructure.eventsDurationInBars"
-            class="cell-pattern cell-pattern-v2"
-            [class.first-pattern-in-section]="isFirstPatternInSection(patternInStructure, sectionInGrid)"
-            [class.last-pattern-in-section]="isLastPatternInSection(patternInStructure, sectionInGrid)"
-            [class.first-pattern-in-part]="isFirstPatternInPart(patternInStructure, partInGrid)"
-            [class.last-pattern-in-part]="isLastPatternInPart(patternInStructure, partInGrid)"
-            [style.background-color]="getPatternColor(patternInStructure)"
-          ></div>
+            <!-- On génère autant de colonnes vides que la valeur startOffset de la partInGrid -->
+            <div *ngFor="let col of sequence(partInGrid.startOffset)"></div>
 
         </ng-container>
-      </ng-container>
 
-      <!-- On remplit l'espace restant de la ligne -->
-      <div *ngIf="structureInGrid.width - partInGrid.width"
-           [style.grid-column]="'span ' + (structureInGrid.width - partInGrid.width)"></div>
+        <!-- Ligne des barres de sections -->
+        <ng-container>
+
+            <!-- Titres des sections -->
+            <div class="cell-section-bar" *ngFor="let sectionInGrid of partInGrid.sectionsInGrid"
+                 [style.grid-column]="'span ' + sectionInGrid.width"
+                 [style.background-color]="getSectionColor(sectionInGrid.sectionInStructure)"
+            ></div>
+            <div class="cell-section-padding" [style.grid-column]="'span ' + (structureInGrid.width - partInGrid.width)"
+                 *ngIf="partInGrid.width < structureInGrid.width">
+            </div>
+
+            <!-- On génère autant de colonnes vides que la valeur startOffset de la partInGrid -->
+            <div *ngFor="let col of sequence(partInGrid.startOffset)"></div>
+
+        </ng-container>
+
+        <!-- Ligne des patterns -->
+        <ng-container>
+
+            <!-- On génère autant de colonnes que de mesures contenues dans les patterns de la partInGrid -->
+            <ng-container *ngFor="let sectionInGrid of partInGrid.sectionsInGrid">
+                <ng-container *ngFor="let patternInStructure of sectionInGrid.sectionInStructure.patternsInStructure">
+
+                    <!-- V1 : Une cellule par mesure dans le pattern -->
+                    <!--        <div *ngFor="let bar of sequence(patternInStructure.eventsDurationInBars, 1)"-->
+                    <!--             class="cell-pattern"-->
+                    <!--             [class.first-bar-in-pattern]="bar == 1"-->
+                    <!--             [class.last-bar-in-pattern]="bar == patternInStructure.eventsDurationInBars"-->
+                    <!--             [style.border-color]="getSectionColor(sectionInGrid.sectionInStructure)"-->
+                    <!--        ></div>-->
+
+                    <!-- V2 : Une cellule pour tout le pattern -->
+                    <div
+                        [style.grid-column]="'span ' + patternInStructure.eventsDurationInBars"
+                        class="cell-pattern cell-pattern-v2"
+                        [class.first-pattern-in-section]="isFirstPatternInSection(patternInStructure, sectionInGrid)"
+                        [class.last-pattern-in-section]="isLastPatternInSection(patternInStructure, sectionInGrid)"
+                        [class.first-pattern-in-part]="isFirstPatternInPart(patternInStructure, partInGrid)"
+                        [class.last-pattern-in-part]="isLastPatternInPart(patternInStructure, partInGrid)"
+                        [style.background-color]="getPatternColor(patternInStructure)"
+                    ></div>
+
+                </ng-container>
+            </ng-container>
+
+            <!-- On remplit l'espace restant de la ligne -->
+            <div *ngIf="structureInGrid.width - partInGrid.width"
+                 [style.grid-column]="'span ' + (structureInGrid.width - partInGrid.width)"></div>
+
+        </ng-container>
 
     </ng-container>
-
-  </ng-container>
 
 </div>

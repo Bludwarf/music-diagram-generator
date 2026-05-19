@@ -7,7 +7,7 @@ import {BaseColor} from "../../color";
 import {Section} from "../../structure/section/section";
 import {error, jsonEquals} from "../../utils";
 import {ModelDtoMapper} from "./model-dto-mapper";
-import {StructureDto, PatternDto, PartDto, SectionDto} from "../../structure/structure-dto";
+import {PartDto, PatternDto, SectionDto, StructureDto} from "../../structure/structure-dto";
 
 function byKey<T>(items: T[], keyGetter: (item: T) => string): Record<string, T> {
     const byKey: Record<string, T> = {}

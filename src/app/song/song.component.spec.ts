@@ -4,8 +4,8 @@ import {SongComponent} from './song.component';
 import {ActivatedRoute} from "@angular/router";
 import {buildSongEntry, injectSpy, PROVIDER_SPIES} from "../test/test-utils";
 import {of} from "rxjs";
-import SpyObj = jasmine.SpyObj;
 import {SongRepository} from "./song-repository";
+import SpyObj = jasmine.SpyObj;
 
 describe('SongComponent', () => {
     let component: SongComponent;

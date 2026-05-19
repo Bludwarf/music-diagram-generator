@@ -1,24 +1,24 @@
 #transport-timecode {
-  text-align: right;
-  flex: 3rem;
-  font-family: "Courier New", monospace;
-  color: white;
-  position: absolute;
-  right: 0;
-  text-shadow: 1px 1px 2px black;
-  pointer-events: none;
+    text-align: right;
+    flex: 3rem;
+    font-family: "Courier New", monospace;
+    color: white;
+    position: absolute;
+    right: 0;
+    text-shadow: 1px 1px 2px black;
+    pointer-events: none;
 }
 
 #structure-map-zones {
-  display: flex;
-  height: 5mm;
+    display: flex;
+    height: 5mm;
 
-  & > * {
-    height: 100%;
-    border: solid 1px transparent;
+    & > * {
+        height: 100%;
+        border: solid 1px transparent;
 
-    &.active {
-      border: solid 1px #FFF8;
+        &.active {
+            border: solid 1px #FFF8;
+        }
     }
-  }
 }

@@ -4,17 +4,17 @@
 <!-- Transport -->
 <div id="transport">
 
-  <div id="transport-buttons">
-    <button (click)="playSong()" *ngIf="!playing">⏵</button>
-    <button (click)="pauseSong()" *ngIf="playing">⏸</button>
-  </div>
+    <div id="transport-buttons">
+        <button (click)="playSong()" *ngIf="!playing">⏵</button>
+        <button (click)="pauseSong()" *ngIf="playing">⏸</button>
+    </div>
 
-  <div id="song-map">
-    <app-structure-map *ngIf="structure" [structure]="structure" [timecode]="timecode"
-                       [currentPatternInStructure]="currentPatternInStructure"
-                       (clickPatternInStructure)="onClickElementInStructure($event)"></app-structure-map>
-    <app-sample-map [transportSeconds]="transportSeconds"></app-sample-map>
-  </div>
+    <div id="song-map">
+        <app-structure-map *ngIf="structure" [structure]="structure" [timecode]="timecode"
+                           [currentPatternInStructure]="currentPatternInStructure"
+                           (clickPatternInStructure)="onClickElementInStructure($event)"></app-structure-map>
+        <app-sample-map [transportSeconds]="transportSeconds"></app-sample-map>
+    </div>
 
 </div>
 
@@ -37,49 +37,49 @@
 <!-- Détail sur le pattern courant -->
 <ng-container *ngIf="currentPatternInStructure && currentBar !== undefined">
 
-  <div class="chords-and-fretboard">
+    <div class="chords-and-fretboard">
 
-    <div class="chords-and-staff">
+        <div class="chords-and-staff">
 
-      <div class="pattern-name-container" [style.backgroundColor]="getPatternColor(currentPatternInStructure)">
+            <div class="pattern-name-container" [style.backgroundColor]="getPatternColor(currentPatternInStructure)">
         <span class="active pattern" [class.looped]="currentPatternInStructure === loopedElement">
           {{ currentPatternInStructure.pattern.name }}
         </span>
-      </div>
+            </div>
 
-      <app-chords-grid [chords]="getPatternChords(currentPatternInStructure)" [key]="currentKey"
-                       [currentBar]="currentBar - currentPatternInStructure.startPosition.bars"
-                       [currentBarIsLooped]="currentBar !== undefined && (loopedElement?.startPosition?.bars === currentBar && loopedElement?.endPosition?.bars === currentBar + 1)"
-                       [style.border-color]="getPatternColor(currentPatternInStructure)"
-                       (clickBar)="onClickBar(currentPatternInStructure.startPosition.bars + $event)"></app-chords-grid>
+            <app-chords-grid [chords]="getPatternChords(currentPatternInStructure)" [key]="currentKey"
+                             [currentBar]="currentBar - currentPatternInStructure.startPosition.bars"
+                             [currentBarIsLooped]="currentBar !== undefined && (loopedElement?.startPosition?.bars === currentBar && loopedElement?.endPosition?.bars === currentBar + 1)"
+                             [style.border-color]="getPatternColor(currentPatternInStructure)"
+                             (clickBar)="onClickBar(currentPatternInStructure.startPosition.bars + $event)"></app-chords-grid>
 
-      <!-- <span class="pattern-timecode">{{ currentPatternInStructureRelativeTimecode }} / {{ currentPatternInStructure.pattern.duration.toBars() }}</span> -->
-      <ng-container *ngIf="currentPatternInStructure.eventsStartPosition">
-        <ng-container
-          *ngFor="let barNumber of sequence(currentPatternInStructure.eventsDurationInBars, (currentPatternInStructure.eventsStartPosition?.bars ?? 0) + 1)">
-          <app-rythm-bar
-            [number]="barNumber"
-            [events]="currentPatternInStructure.pattern.events ?? []"
-            (addEvent)="addEvent($event)"
-            (removeEvent)="removeEvent($event)"
-            [timecode]="rythmBarTimecode"
-          ></app-rythm-bar>
-        </ng-container>
-      </ng-container>
+            <!-- <span class="pattern-timecode">{{ currentPatternInStructureRelativeTimecode }} / {{ currentPatternInStructure.pattern.duration.toBars() }}</span> -->
+            <ng-container *ngIf="currentPatternInStructure.eventsStartPosition">
+                <ng-container
+                    *ngFor="let barNumber of sequence(currentPatternInStructure.eventsDurationInBars, (currentPatternInStructure.eventsStartPosition?.bars ?? 0) + 1)">
+                    <app-rythm-bar
+                        [number]="barNumber"
+                        [events]="currentPatternInStructure.pattern.events ?? []"
+                        (addEvent)="addEvent($event)"
+                        (removeEvent)="removeEvent($event)"
+                        [timecode]="rythmBarTimecode"
+                    ></app-rythm-bar>
+                </ng-container>
+            </ng-container>
+
+        </div>
 
     </div>
-
-  </div>
 
 </ng-container>
 
 <div class="keyboards" *ngIf="keyboardRangeByTrackIndex?.length">
-  <div class="keyboard" *ngIf="keyboardRangeByTrackIndex[0]; let keyboardRange">
-    <app-keyboard [lowerKey]="keyboardRange.lowerKey" [higherKey]="keyboardRange.higherKey"
-                  [activeKeys]="keyboardStatesByTrackIndex[0]?.activeKeys || []"></app-keyboard>
-  </div>
-  <div class="keyboard" *ngIf="keyboardRangeByTrackIndex[1]; let keyboardRange">
-    <app-keyboard [lowerKey]="keyboardRange.lowerKey" [higherKey]="keyboardRange.higherKey"
-                  [activeKeys]="keyboardStatesByTrackIndex[1]?.activeKeys || []"></app-keyboard>
-  </div>
+    <div class="keyboard" *ngIf="keyboardRangeByTrackIndex[0]; let keyboardRange">
+        <app-keyboard [lowerKey]="keyboardRange.lowerKey" [higherKey]="keyboardRange.higherKey"
+                      [activeKeys]="keyboardStatesByTrackIndex[0]?.activeKeys || []"></app-keyboard>
+    </div>
+    <div class="keyboard" *ngIf="keyboardRangeByTrackIndex[1]; let keyboardRange">
+        <app-keyboard [lowerKey]="keyboardRange.lowerKey" [higherKey]="keyboardRange.higherKey"
+                      [activeKeys]="keyboardStatesByTrackIndex[1]?.activeKeys || []"></app-keyboard>
+    </div>
 </div>

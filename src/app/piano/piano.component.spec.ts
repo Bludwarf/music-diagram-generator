@@ -3,21 +3,21 @@ import {ComponentFixture, TestBed} from '@angular/core/testing';
 import {PianoComponent} from './piano.component';
 
 describe('PianoComponent', () => {
-  let component: PianoComponent;
-  let fixture: ComponentFixture<PianoComponent>;
+    let component: PianoComponent;
+    let fixture: ComponentFixture<PianoComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [PianoComponent]
-    })
-      .compileComponents();
+    beforeEach(async () => {
+        await TestBed.configureTestingModule({
+            imports: [PianoComponent]
+        })
+            .compileComponents();
 
-    fixture = TestBed.createComponent(PianoComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+        fixture = TestBed.createComponent(PianoComponent);
+        component = fixture.componentInstance;
+        fixture.detectChanges();
+    });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
 });

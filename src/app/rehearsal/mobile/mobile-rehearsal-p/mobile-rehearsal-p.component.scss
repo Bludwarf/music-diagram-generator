@@ -1,104 +1,104 @@
 :host {
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  // gap: 2mm;
-  flex-direction: column;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    // gap: 2mm;
+    flex-direction: column;
 
-  & > * {
-    //flex: 1;
-  }
+    & > * {
+        //flex: 1;
+    }
 }
 
 .active {
-  color: white;
+    color: white;
 }
 
 .looped {
-  color: yellow;
+    color: yellow;
 }
 
 .active.pattern {
-  font-size: 8mm;
+    font-size: 8mm;
 }
 
 #transport {
-  flex: none;
-  display: flex;
-  gap: 4px; // TODO on veut 1px mais on est obligé de mettre 4px
+    flex: none;
+    display: flex;
+    gap: 4px; // TODO on veut 1px mais on est obligé de mettre 4px
 }
 
 #transport-timecode {
-  text-align: right;
-  flex: 3rem;
-  font-family: "Courier New", monospace;
-  color: white;
-  position: absolute;
-  right: 0;
+    text-align: right;
+    flex: 3rem;
+    font-family: "Courier New", monospace;
+    color: white;
+    position: absolute;
+    right: 0;
 }
 
 input[type=file] {
-  display: none;
+    display: none;
 }
 
 #transport-buttons {
-  flex: none;
-  display: flex;
-  justify-content: center;
+    flex: none;
+    display: flex;
+    justify-content: center;
 
-  button {
-    aspect-ratio: 1;
-  }
+    button {
+        aspect-ratio: 1;
+    }
 }
 
 #song-map {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  font-size: 5mm;
-
-  & > * {
     flex: 1;
-  }
+    display: flex;
+    flex-direction: column;
+    font-size: 5mm;
+
+    & > * {
+        flex: 1;
+    }
 
 }
 
 app-part-tabs {
-  flex: none;
+    flex: none;
 }
 
 .chords-and-fretboard {
-  display: flex;
+    display: flex;
 
-  & > * {
-    flex: 1;
-  }
-
-  .chords-and-staff {
-    flex: 2;
-
-    .pattern-name-container {
-      display: flex;
-      text-align: center;
-
-      span {
-        margin: 2px auto;
-      }
+    & > * {
+        flex: 1;
     }
-  }
+
+    .chords-and-staff {
+        flex: 2;
+
+        .pattern-name-container {
+            display: flex;
+            text-align: center;
+
+            span {
+                margin: 2px auto;
+            }
+        }
+    }
 }
 
 .pattern-timecode {
-  font-size: 5mm;
+    font-size: 5mm;
 }
 
 .keyboards {
-  //flex:1; // TODO trouver un bon affichage mobile
-  display: flex;
-  flex-direction: column;
-  height: 4cm; // TODO trouver un bon affichage mobile
+    //flex:1; // TODO trouver un bon affichage mobile
+    display: flex;
+    flex-direction: column;
+    height: 4cm; // TODO trouver un bon affichage mobile
 
-  .keyboard {
-    flex: 1;
-  }
+    .keyboard {
+        flex: 1;
+    }
 }

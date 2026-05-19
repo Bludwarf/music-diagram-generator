@@ -6,26 +6,26 @@ import {Part} from "../../../structure/part/part";
 import {Structure} from "../../../structure/structure";
 
 describe('PartLineComponent', () => {
-  let component: PartLineComponent;
-  let fixture: ComponentFixture<PartLineComponent>;
+    let component: PartLineComponent;
+    let fixture: ComponentFixture<PartLineComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [PartLineComponent]
-    })
-      .compileComponents();
+    beforeEach(async () => {
+        await TestBed.configureTestingModule({
+            imports: [PartLineComponent]
+        })
+            .compileComponents();
 
-    fixture = TestBed.createComponent(PartLineComponent);
-    component = fixture.componentInstance;
+        fixture = TestBed.createComponent(PartLineComponent);
+        component = fixture.componentInstance;
 
-    const part = new Part('Intro', [])
-    const structure = new Structure([part])
-    component.partInStructure = new PartInStructure(part, structure, [])
+        const part = new Part('Intro', [])
+        const structure = new Structure([part])
+        component.partInStructure = new PartInStructure(part, structure, [])
 
-    fixture.detectChanges();
-  });
+        fixture.detectChanges();
+    });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
 });

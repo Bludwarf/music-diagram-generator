@@ -2,22 +2,22 @@ import {ChangeDetectionStrategy, Component, HostBinding, Input} from '@angular/c
 import {PartInStructure} from "../../../structure/part/part-in-structure";
 
 @Component({
-  selector: 'app-part-tab',
-  standalone: true,
-  imports: [],
-  templateUrl: './part-tab.component.html',
-  styleUrl: './part-tab.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-part-tab',
+    standalone: true,
+    imports: [],
+    templateUrl: './part-tab.component.html',
+    styleUrl: './part-tab.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PartTabComponent {
-  @Input() partInStructure!: PartInStructure;
-  @Input() currentPartInStructure?: PartInStructure;
+    @Input() partInStructure!: PartInStructure;
+    @Input() currentPartInStructure?: PartInStructure;
 
-  @Input() @HostBinding('class.looped') looped = false
+    @Input() @HostBinding('class.looped') looped = false
 
-  @HostBinding('class.active')
-  get active(): boolean {
-    return this.partInStructure === this.currentPartInStructure
-  }
+    @HostBinding('class.active')
+    get active(): boolean {
+        return this.partInStructure === this.currentPartInStructure
+    }
 
 }

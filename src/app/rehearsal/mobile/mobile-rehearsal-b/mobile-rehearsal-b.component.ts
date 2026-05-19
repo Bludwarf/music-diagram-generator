@@ -17,47 +17,47 @@ import {SongRepository} from "../../../song/song-repository";
 import {ToneAdapter} from "../../../tonejs/tone-adapter";
 
 @Component({
-  selector: 'app-mobile-rehearsal-b',
-  standalone: true,
-  imports: [
-    RythmBarComponent,
-    CommonModule,
-    FormsModule,
-    FretboardComponent,
-    StructureMapComponent,
-    PartTabsComponent,
-    PartLineComponent,
-    SampleMapComponent,
-    ChordsGridComponent,
-  ],
-  templateUrl: './mobile-rehearsal-b.component.html',
-  styleUrl: './mobile-rehearsal-b.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-mobile-rehearsal-b',
+    standalone: true,
+    imports: [
+        RythmBarComponent,
+        CommonModule,
+        FormsModule,
+        FretboardComponent,
+        StructureMapComponent,
+        PartTabsComponent,
+        PartLineComponent,
+        SampleMapComponent,
+        ChordsGridComponent,
+    ],
+    templateUrl: './mobile-rehearsal-b.component.html',
+    styleUrl: './mobile-rehearsal-b.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MobileRehearsalBComponent extends MobileRehearsal implements OnInit, OnDestroy {
 
-  @ViewChild('fileInput')
-  override fileInput?: ElementRef<HTMLInputElement>;
+    @ViewChild('fileInput')
+    override fileInput?: ElementRef<HTMLInputElement>;
 
-  constructor(
-    toneAdapter: ToneAdapter,
-    activatedRoute: ActivatedRoute,
-    title: Title,
-    sampleCacheService: SampleCacheService,
-    songRepository: SongRepository,
-  ) {
-    super(toneAdapter, activatedRoute, title, sampleCacheService, songRepository)
-  }
+    constructor(
+        toneAdapter: ToneAdapter,
+        activatedRoute: ActivatedRoute,
+        title: Title,
+        sampleCacheService: SampleCacheService,
+        songRepository: SongRepository,
+    ) {
+        super(toneAdapter, activatedRoute, title, sampleCacheService, songRepository)
+    }
 
-  ngOnInit() {
-    super.onInit().then();
-  }
+    ngOnInit() {
+        super.onInit().then();
+    }
 
-  ngOnDestroy(): void {
-    this.onDestroy()
-  }
+    ngOnDestroy(): void {
+        this.onDestroy()
+    }
 
-  getPatternColor(patternInStructure: PatternInStructure): string {
-    return patternInStructure.structure.getPatternColor(patternInStructure).toString()
-  }
+    getPatternColor(patternInStructure: PatternInStructure): string {
+        return patternInStructure.structure.getPatternColor(patternInStructure).toString()
+    }
 }

@@ -6,33 +6,33 @@ import {SectionInStructure} from "../../../structure/section/section-in-structur
 import {PositionedElement} from "../../../time";
 
 @Component({
-  selector: 'app-part-line',
-  standalone: true,
-  imports: [
-    NgForOf
-  ],
-  templateUrl: './part-line.component.html',
-  styleUrl: './part-line.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-part-line',
+    standalone: true,
+    imports: [
+        NgForOf
+    ],
+    templateUrl: './part-line.component.html',
+    styleUrl: './part-line.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PartLineComponent {
-  @Input() partInStructure!: PartInStructure;
-  @Input() currentPatternInStructure?: PatternInStructure;
-  @Input() currentSectionInStructure?: SectionInStructure
-  @Input() loopedElement?: PositionedElement;
-  @Output() clickSectionInStructure = new EventEmitter<SectionInStructure>()
-  @Output() clickPatternInStructure = new EventEmitter<PatternInStructure>()
+    @Input() partInStructure!: PartInStructure;
+    @Input() currentPatternInStructure?: PatternInStructure;
+    @Input() currentSectionInStructure?: SectionInStructure
+    @Input() loopedElement?: PositionedElement;
+    @Output() clickSectionInStructure = new EventEmitter<SectionInStructure>()
+    @Output() clickPatternInStructure = new EventEmitter<PatternInStructure>()
 
-  onClickSectionInStructure(sectionInStructure: SectionInStructure) {
-    this.clickSectionInStructure.emit(sectionInStructure)
-  }
+    onClickSectionInStructure(sectionInStructure: SectionInStructure) {
+        this.clickSectionInStructure.emit(sectionInStructure)
+    }
 
-  onClickPatternInStructure(patternInStructure: PatternInStructure) {
-    this.clickPatternInStructure.emit(patternInStructure)
-  }
+    onClickPatternInStructure(patternInStructure: PatternInStructure) {
+        this.clickPatternInStructure.emit(patternInStructure)
+    }
 
-  getPatternColor(patternInStructure: PatternInStructure): string {
-    return patternInStructure.structure.getPatternColor(patternInStructure).toString()
-  }
+    getPatternColor(patternInStructure: PatternInStructure): string {
+        return patternInStructure.structure.getPatternColor(patternInStructure).toString()
+    }
 
 }

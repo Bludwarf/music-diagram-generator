@@ -1,26 +1,26 @@
 <div id="sections-line">
-  <div *ngFor="let sectionInStructure of partInStructure.sectionsInStructure" class="part"
-       [style.flex]="sectionInStructure.section.durationInBars"
-       [class.active]="sectionInStructure === currentSectionInStructure"
-       [class.looped]="sectionInStructure === loopedElement"
-       (click)="onClickSectionInStructure(sectionInStructure)"
-  >
-    {{ sectionInStructure.section.name }}
-  </div>
+    <div *ngFor="let sectionInStructure of partInStructure.sectionsInStructure" class="part"
+         [style.flex]="sectionInStructure.section.durationInBars"
+         [class.active]="sectionInStructure === currentSectionInStructure"
+         [class.looped]="sectionInStructure === loopedElement"
+         (click)="onClickSectionInStructure(sectionInStructure)"
+    >
+        {{ sectionInStructure.section.name }}
+    </div>
 </div>
 <div id="patterns-line">
-  <div *ngFor="let patternInStructure of partInStructure.patternsInStructure" class="pattern"
-       [attr.data-pattern]="patternInStructure.initial" [style.flex]="patternInStructure.pattern.durationInBars"
-       [class.active]="patternInStructure === currentPatternInStructure"
-       [class.looped]="patternInStructure === loopedElement"
-       [style.backgroundColor]="getPatternColor(patternInStructure)"
-       (click)="onClickPatternInStructure(patternInStructure)"
-  >
-    {{ patternInStructure.initial }}
-  </div>
+    <div *ngFor="let patternInStructure of partInStructure.patternsInStructure" class="pattern"
+         [attr.data-pattern]="patternInStructure.initial" [style.flex]="patternInStructure.pattern.durationInBars"
+         [class.active]="patternInStructure === currentPatternInStructure"
+         [class.looped]="patternInStructure === loopedElement"
+         [style.backgroundColor]="getPatternColor(patternInStructure)"
+         (click)="onClickPatternInStructure(patternInStructure)"
+    >
+        {{ patternInStructure.initial }}
+    </div>
 </div>
 <div id="active-section-line">
-  <div *ngFor="let patternInStructure of partInStructure.patternsInStructure"
-       [style.flex]="patternInStructure.pattern.durationInBars"
-       [style.border-color]="patternInStructure === currentPatternInStructure ? getPatternColor(patternInStructure) : undefined"></div>
+    <div *ngFor="let patternInStructure of partInStructure.patternsInStructure"
+         [style.flex]="patternInStructure.pattern.durationInBars"
+         [style.border-color]="patternInStructure === currentPatternInStructure ? getPatternColor(patternInStructure) : undefined"></div>
 </div>

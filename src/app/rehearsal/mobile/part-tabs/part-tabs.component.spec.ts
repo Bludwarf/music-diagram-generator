@@ -4,24 +4,24 @@ import {PartTabsComponent} from './part-tabs.component';
 import {Structure} from "../../../structure/structure";
 
 describe('PartTabsComponent', () => {
-  let component: PartTabsComponent;
-  let fixture: ComponentFixture<PartTabsComponent>;
+    let component: PartTabsComponent;
+    let fixture: ComponentFixture<PartTabsComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [PartTabsComponent]
-    })
-      .compileComponents();
+    beforeEach(async () => {
+        await TestBed.configureTestingModule({
+            imports: [PartTabsComponent]
+        })
+            .compileComponents();
 
-    fixture = TestBed.createComponent(PartTabsComponent);
-    component = fixture.componentInstance;
+        fixture = TestBed.createComponent(PartTabsComponent);
+        component = fixture.componentInstance;
 
-    component.structure = new Structure([])
+        component.structure = new Structure([])
 
-    fixture.detectChanges();
-  });
+        fixture.detectChanges();
+    });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+    it('should create', () => {
+        expect(component).toBeTruthy();
+    });
 });

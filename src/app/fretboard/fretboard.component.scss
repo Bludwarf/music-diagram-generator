@@ -1,33 +1,33 @@
 .viewport {
-  display: inline-block;
+    display: inline-block;
 }
 
 :host {
-  background: #000;
-  display: grid;
-  grid-template-columns: auto repeat(4, 1fr); /* 4 cordes + 1 colonnes pour les points blancs */
-  gap: 1mm;
-  padding: 2px;
-  font-size: 3mm;
+    background: #000;
+    display: grid;
+    grid-template-columns: auto repeat(4, 1fr); /* 4 cordes + 1 colonnes pour les points blancs */
+    gap: 1mm;
+    padding: 2px;
+    font-size: 3mm;
 }
 
 [data-fret] {
-  flex: 1 1 auto;
-  aspect-ratio: 1;
-  box-sizing: border-box;
-  overflow: clip;
-  padding-top: 1mm;
+    flex: 1 1 auto;
+    aspect-ratio: 1;
+    box-sizing: border-box;
+    overflow: clip;
+    padding-top: 1mm;
 }
 
 [data-note] {
-  background: var(--disabled-color);
-  color: var(--disabled-color);
-  border-radius: 0.1em;
+    background: var(--disabled-color);
+    color: var(--disabled-color);
+    border-radius: 0.1em;
 }
 
 [data-note][data-fret='0'] {
-  border-top-left-radius: 100%;
-  border-top-right-radius: 100%;
+    border-top-left-radius: 100%;
+    border-top-right-radius: 100%;
 }
 
 /* Sillet */
@@ -36,19 +36,19 @@
 /*}*/
 
 [data-note]:hover, [data-note].active {
-  color: white;
-  text-shadow: 0 0 1ex #000;
-  border: solid 1pt #fff;
-  /*box-shadow: 0 0 0 1pt #FFF;*/
-  /* Laisse des traces après le survol */
+    color: white;
+    text-shadow: 0 0 1ex #000;
+    border: solid 1pt #fff;
+    /*box-shadow: 0 0 0 1pt #FFF;*/
+    /* Laisse des traces après le survol */
 }
 
 .fret-mark {
-  color: #444;
-  font-size: 72%;
-  text-align: right;
-  white-space: nowrap;
-  aspect-ratio: unset;
+    color: #444;
+    font-size: 72%;
+    text-align: right;
+    white-space: nowrap;
+    aspect-ratio: unset;
 }
 
 .fret-mark[data-fret='3'],
@@ -57,7 +57,7 @@
 .fret-mark[data-fret='9'],
 .fret-mark[data-fret='12'],
 .fret-mark[data-fret='15'] {
-  color: white;
+    color: white;
 }
 
 .fret-mark[data-fret='3']:before,
@@ -66,13 +66,13 @@
 .fret-mark[data-fret='9']:before,
 .fret-mark[data-fret='12']:before,
 .fret-mark[data-fret='15']:before {
-  content: '⬤';
-  margin-right: 1ex;
+    content: '⬤';
+    margin-right: 1ex;
 }
 
 // TODO il faudrait plutôt mettre les points l'un sur l'autre (vertical)
 .fret-mark[data-fret='12']:before {
-  content: '⬤⬤';
+    content: '⬤⬤';
 }
 
 /*[data-note][data-fret="3"]:after,*/
@@ -90,50 +90,50 @@
 /* Gamme */
 
 [data-mode='vi'] {
-  background: var(--vi-color);
-  color: var(--vi-color);
-  border-color: var(--vi-color);
+    background: var(--vi-color);
+    color: var(--vi-color);
+    border-color: var(--vi-color);
 }
 
 [data-mode='ii'] {
-  background: var(--ii-color);
-  color: var(--ii-color);
-  border-color: var(--ii-color);
+    background: var(--ii-color);
+    color: var(--ii-color);
+    border-color: var(--ii-color);
 }
 
 [data-mode='iii'] {
-  background: var(--iii-color);
-  color: var(--iii-color);
-  border-color: var(--iii-color);
+    background: var(--iii-color);
+    color: var(--iii-color);
+    border-color: var(--iii-color);
 }
 
 [data-mode='vii'] {
-  background: var(--vii-color);
-  color: var(--vii-color);
-  border-color: var(--vii-color);
+    background: var(--vii-color);
+    color: var(--vii-color);
+    border-color: var(--vii-color);
 }
 
 [data-mode='IV'] {
-  background: var(--IV-color);
-  color: var(--IV-color);
-  border-color: var(--IV-color);
+    background: var(--IV-color);
+    color: var(--IV-color);
+    border-color: var(--IV-color);
 }
 
 [data-mode='V'] {
-  background: var(--V-color);
-  color: var(--V-color);
-  border-color: var(--V-color);
+    background: var(--V-color);
+    color: var(--V-color);
+    border-color: var(--V-color);
 }
 
 [data-mode='I'] {
-  background: var(--I-color);
-  color: var(--I-color);
-  border-color: var(--I-color);
+    background: var(--I-color);
+    color: var(--I-color);
+    border-color: var(--I-color);
 }
 
 /* Tonalité */
 [data-degree='0'] {
-  color: #fff4;
-  font-weight: bold;
-  /*box-shadow: 0 0 0 1pt red;*/
+    color: #fff4;
+    font-weight: bold;
+    /*box-shadow: 0 0 0 1pt red;*/
 }

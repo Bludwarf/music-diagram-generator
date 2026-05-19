@@ -4,33 +4,33 @@ import {Title} from "@angular/platform-browser";
 import {PageComponent} from "../../page/page.component";
 
 @Component({
-  selector: 'app-setlist-toc',
-  standalone: true,
-  imports: [
-    PageComponent
-  ],
-  templateUrl: './setlist-toc.component.html',
-  styleUrl: './setlist-toc.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'app-setlist-toc',
+    standalone: true,
+    imports: [
+        PageComponent
+    ],
+    templateUrl: './setlist-toc.component.html',
+    styleUrl: './setlist-toc.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SetlistTocComponent {
-  get setlist(): Setlist {
-    return this._setlist;
-  }
+    get setlist(): Setlist {
+        return this._setlist;
+    }
 
-  @Input({required: true})
-  set setlist(value: Setlist) {
-    this._setlist = value;
-    this.title.setTitle("Setlist " + this._setlist.title);
-  }
+    @Input({required: true})
+    set setlist(value: Setlist) {
+        this._setlist = value;
+        this.title.setTitle("Setlist " + this._setlist.title);
+    }
 
-  private _setlist!: Setlist;
+    private _setlist!: Setlist;
 
-  constructor(
-    readonly title: Title,
-  ) {
-  }
+    constructor(
+        readonly title: Title,
+    ) {
+    }
 
-  round = Math.round
+    round = Math.round
 
 }

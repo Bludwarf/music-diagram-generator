@@ -5,32 +5,32 @@ import {Key, Mode, MODE_NAMES, Note, NOTE_NAMES} from '../notes';
 import {CommonModule} from '@angular/common';
 
 @Component({
-  selector: 'app-sandbox',
-  standalone: true,
-  imports: [CommonModule, FormsModule, FretboardComponent],
-  templateUrl: './sandbox.component.html',
-  styleUrl: './sandbox.component.scss',
+    selector: 'app-sandbox',
+    standalone: true,
+    imports: [CommonModule, FormsModule, FretboardComponent],
+    templateUrl: './sandbox.component.html',
+    styleUrl: './sandbox.component.scss',
 })
 export class SandboxComponent {
-  firstFretboardLowestFret = 0;
-  firstFretboardFretsCount = 5;
+    firstFretboardLowestFret = 0;
+    firstFretboardFretsCount = 5;
 
-  firstFretboardRootValue = Note.G.value;
+    firstFretboardRootValue = Note.G.value;
 
-  get firstFretboardRoot(): Note {
-    return Note.fromValue(this.firstFretboardRootValue);
-  }
+    get firstFretboardRoot(): Note {
+        return Note.fromValue(this.firstFretboardRootValue);
+    }
 
-  firstFretboardRootModeValue = Mode.fromName('vi').value;
+    firstFretboardRootModeValue = Mode.fromName('vi').value;
 
-  get firstFretboardRootMode(): Mode {
-    return new Mode(this.firstFretboardRootModeValue);
-  }
+    get firstFretboardRootMode(): Mode {
+        return new Mode(this.firstFretboardRootModeValue);
+    }
 
-  get firstFretboardKey(): Key {
-    return new Key(this.firstFretboardRoot, this.firstFretboardRootMode);
-  }
+    get firstFretboardKey(): Key {
+        return new Key(this.firstFretboardRoot, this.firstFretboardRootMode);
+    }
 
-  NOTE_NAMES = NOTE_NAMES;
-  MODE_NAMES = MODE_NAMES;
+    NOTE_NAMES = NOTE_NAMES;
+    MODE_NAMES = MODE_NAMES;
 }

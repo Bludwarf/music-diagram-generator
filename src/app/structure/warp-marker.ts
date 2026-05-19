@@ -1,8 +1,8 @@
 export class WarpMarker {
 
-  constructor(
-    readonly secTime: number,
-    readonly beatTime: number,
-  ) {
-  }
+    constructor(
+        readonly secTime: number,
+        readonly beatTime: number,
+    ) {
+    }
 }

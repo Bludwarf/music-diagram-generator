@@ -87,13 +87,16 @@ export class Recording {
     const beatTimeValue = beatTime.value;
     const warpMarkers = this.warpMarkers
 
-    if (beatTimeValue < warpMarkers[0].beatTime) {
+    const firstWarpMarker = warpMarkers[0];
+    if (beatTimeValue < firstWarpMarker.beatTime) {
       return undefined // TODO quelle position si on est avant "1:1:1" ? Impossible dans Ableton Live
     }
 
-    if (beatTimeValue > warpMarkers[warpMarkers.length - 1].beatTime) {
+    const lastWarpMarker = warpMarkers.at(-1)!;
+    if (beatTimeValue > lastWarpMarker.beatTime) {
       // TODO quelle position si on est après le dernier WrapMarker ?
-      error(`beatTime après le dernier WrapMarker : ${beatTimeValue} > ${warpMarkers[warpMarkers.length - 1].beatTime}`)
+      console.warn(`beatTime après le dernier WrapMarker : ${beatTimeValue} > ${lastWarpMarker.beatTime}`)
+      return undefined;
     }
 
     const nextWrapMarkerIndex = warpMarkers.findIndex(wrapMarker => beatTimeValue < wrapMarker.beatTime)

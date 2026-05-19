@@ -28,7 +28,7 @@ export class SongArchive {
         const archive = await unzipArchive(zip);
         const versionBySongCode: Record<string, string | undefined> = {};
         const filesBySongCode: Record<string, Record<SongArchiveFileName, ArchiveFile>> = {};
-        let songNames: string[] = [];
+        let songNames: Set<string> = new Set();
         let setlist: string[] | undefined = undefined;
         for (const [fileName, archiveFile] of archive) {
             if (fileName === SETLIST_TXT) {
@@ -43,7 +43,7 @@ export class SongArchive {
             }
 
             const songName = decodeURIComponent(fileName.substring(0, indexOfSlash));
-            songNames.push(songName);
+            songNames.add(songName);
             const songCode = SongInArchive.songCode(songName);
 
             const pathAfterSongName = fileName.substring(indexOfSlash + 1);
@@ -62,7 +62,7 @@ export class SongArchive {
         }
 
         const title = decodeURIComponent(basenameUnix(zip.name, ".zip"));
-        return new SongArchive(title, versionBySongCode, filesBySongCode, setlist ?? songNames);
+        return new SongArchive(title, versionBySongCode, filesBySongCode, setlist ?? [...songNames]);
     }
 
     private static async parseSetlistFile(archiveFile: ArchiveFile): Promise<string[]> {

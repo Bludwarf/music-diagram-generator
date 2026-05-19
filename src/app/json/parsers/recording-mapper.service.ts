@@ -1,17 +1,18 @@
 import {Injectable} from "@angular/core";
 import {Recording} from "../../recording/recording";
 import {ModelDtoMapper} from "./model-dto-mapper";
+import {RecordingDto} from "../../recording/recording-dto";
 
 @Injectable({
     providedIn: 'root'
 })
-export class RecordingMapper implements ModelDtoMapper<Recording, Recording> {
+export class RecordingMapper implements ModelDtoMapper<Recording, RecordingDto> {
 
-    dto(model: Recording): Recording {
+    dto(model: Recording): RecordingDto {
         return model;
     }
 
-    model(dto: Recording): Recording {
+    model(dto: RecordingDto): Recording {
         return new Recording(
             dto.name,
             dto.sampleDurationInSeconds,

@@ -3,7 +3,7 @@ import {FormsModule} from "@angular/forms";
 import {AlsImporter} from "../als/als-importer";
 import {AlsExtractor} from "../als/als-extractor";
 import {JsonPipe, NgIf} from "@angular/common";
-import {RecordingInitData} from "../recording/recording";
+import {RecordingDto} from "../recording/recording-dto";
 
 @Component({
   selector: 'app-convert',
@@ -18,7 +18,7 @@ import {RecordingInitData} from "../recording/recording";
 })
 export class ConvertComponent {
 
-  recordingInitData?: RecordingInitData;
+  recordingDto?: RecordingDto;
   songEntry?: string;
 
   _songName?: string
@@ -41,7 +41,7 @@ export class ConvertComponent {
 
     const structureExtractor = new AlsExtractor(alsProject);
     // this.jsonStructure = JSON.stringify(structureExtractor.extractStructureObject(), undefined, 4)
-    this.recordingInitData = structureExtractor.extractRecordingInitData()
+    this.recordingDto = structureExtractor.extractRecordingDto()
 
     this.songName = alsFile.name.substring(0, alsFile.name.indexOf('.'))
   }
@@ -52,7 +52,7 @@ export class ConvertComponent {
 
   set songName(songName: string) {
     this._songName = songName
-    const recordingName = this.recordingInitData?.name ?? prompt('recording.name')
+    const recordingName = this.recordingDto?.name ?? prompt('recording.name')
     this.songEntry = `
     import { Key } from '../../notes';
     import recordingInitData from '../../../assets/recordings/${recordingName}.json';

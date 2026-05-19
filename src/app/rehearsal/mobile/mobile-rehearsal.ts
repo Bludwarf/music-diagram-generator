@@ -111,6 +111,7 @@ export abstract class MobileRehearsal {
     player?: Player
     transportProgressLoop?: Loop<LoopOptions>;
     sampleIsLoaded = false
+    playButtonIsDisabled = false
 
     songName?: string
     loopedElement?: PositionedElement;
@@ -274,16 +275,17 @@ export abstract class MobileRehearsal {
     }
 
     async playSong(): Promise<void> {
+        this.playButtonIsDisabled = true;
         if (!this.sampleIsLoaded) {
             const recording = this.recording;
             if (!recording) {
+                this.playButtonIsDisabled = false;
                 error('Aucun enregistrement (Recording)')
             }
 
             await this.playOrUploadAndPlayAudio(recording.name);
         }
 
-        console.log('playSong')
         Transport.start('+0.1') // https://github.com/Tonejs/Tone.js/wiki/Performance#scheduling-in-advance
         await this.noSleep.enable();
     }
@@ -298,9 +300,9 @@ export abstract class MobileRehearsal {
     }
 
     async pauseSong(): Promise<void> {
-        console.log('pauseSong')
         Transport.pause()
         this.noSleep.disable();
+        this.playButtonIsDisabled = false;
     }
 
     stopSong(): void {

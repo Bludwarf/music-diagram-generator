@@ -45,6 +45,12 @@ div.buttons {
     flex: none;
     display: flex;
     justify-content: center;
+
+    button {
+        width: 50px;
+        aspect-ratio: 1;
+        border-radius: 20%;
+    }
 }
 
 #song-map {

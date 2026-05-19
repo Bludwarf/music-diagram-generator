@@ -154,7 +154,11 @@ export class StructureMapper implements ModelDtoMapper<Structure, StructureDto> 
     private modelSection(dto: SectionDto, patternByInitial: Record<string, PatternDto>): Section {
         return new Section(
             dto.name,
-            dto.patternInitials.map(initial => this.patternParser.model(patternByInitial[initial])),
+            dto.patternInitials.map(initial => {
+                const patternDto = patternByInitial[initial];
+                if (!patternDto) error(`Pattern portant l'initial "${initial}" introuvable pour la section ${dto.name}`);
+                return this.patternParser.model(patternDto);
+            }),
             dto.initial,
             dto.color ? this.colorParser.model(dto.color) : undefined,
         );

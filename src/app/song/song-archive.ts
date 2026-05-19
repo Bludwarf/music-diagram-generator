@@ -36,6 +36,11 @@ export class SongArchive {
                 continue;
             }
 
+            if (fileName.endsWith("/")) {
+                // On ignore les dossiers
+                continue;
+            }
+
             const indexOfSlash = fileName.indexOf("/");
             if (indexOfSlash === -1) {
                 console.warn(`Fichier ignoré dans l'archive : ${fileName}`);

@@ -5,7 +5,8 @@ import {StructureDto} from "../structure/structure-dto";
 
 export const STRUCTURE_JSON = "structure.json";
 export const RECORDING_JSON = "recording.json";
-const RECORDING_MP3 = "recording.mp3";
+const RECORDING_EXTENSION = ".mp3";
+const RECORDING_MP3 = "recording" + RECORDING_EXTENSION;
 const SONG_ARCHIVE_FILE_NAMES = [
     STRUCTURE_JSON,
     RECORDING_JSON,
@@ -130,7 +131,7 @@ export class SongInArchive {
     }
 
     get audio(): Promise<Blob | undefined> {
-        return this.getArrayBuffer(RECORDING_MP3);
+        return this.getArrayBuffer(RECORDING_MP3, RECORDING_EXTENSION);
     }
 
     private async requireDto<T>(fileName: SongArchiveFileName): Promise<T> {
@@ -153,14 +154,22 @@ export class SongInArchive {
         return JSON.parse(json) as T
     }
 
-    private async getArrayBuffer(fileName: SongArchiveFileName): Promise<Blob | undefined> {
-        const file = this.getArchiveFile(fileName);
+    private async getArrayBuffer(fileName: SongArchiveFileName, extension?: string): Promise<Blob | undefined> {
+        const file = this.getArchiveFile(fileName) ??
+            (extension ? this.searchArchiveFileByExtension(extension) : undefined);
         if (!file) return undefined;
         return new Blob([await file.arrayBuffer()]);
     }
 
     private getArchiveFile(fileName: SongArchiveFileName): ArchiveFile | undefined {
         return this.songFiles[fileName];
+    }
+
+    private searchArchiveFileByExtension(extension: string): ArchiveFile | undefined {
+        for (const fileName in this.songFiles) {
+            if (fileName.endsWith(extension)) return this.songFiles[fileName];
+        }
+        return undefined;
     }
 
     static songCode(songName: string): string {

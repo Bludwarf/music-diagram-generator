@@ -52,6 +52,7 @@ Créer un dossier pour chaque morceau avec les fichiers :
 
 - `structure.json`
 - `recording.json`
+- `recording.mp3` (ou un seul fichier portant l'extension `.mp3`) (optionnel))
 
 Le dossier peut contenir n'importe quel caractère (même `/` si encodé `%2F`).
 La comparaison se fera uniquement sur les lettres contenues dans le nom du morceau.

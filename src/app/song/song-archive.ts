@@ -50,7 +50,7 @@ export class SongArchive {
             const indexOfSlash2 = pathAfterSongName.indexOf("/");
             const version = indexOfSlash2 === -1 ? undefined : decodeURIComponent(pathAfterSongName.substring(0, indexOfSlash2));
 
-            if (songCode in versionBySongCode && versionBySongCode[songCode] !== version) error(`On ne peut pas mélanger les versions dans le dossier du morceau ${songName}`);
+            if (songCode in versionBySongCode && versionBySongCode[songCode] !== version) error(`On ne peut pas mélanger les versions ${versionBySongCode[songCode]} et ${version} dans le dossier du morceau ${songName}`);
             versionBySongCode[songCode] = version;
 
             const songFileName = (version ? pathAfterSongName : fileName).substring((version ? indexOfSlash2 : indexOfSlash) + 1);

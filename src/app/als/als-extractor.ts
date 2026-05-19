@@ -2,7 +2,7 @@ import {AlsProject} from "./v10/als-project";
 import {AudioTrack} from "./v10/audio-track";
 import {AudioClip} from "./v10/audio-clip";
 import {WarpMarker} from "../structure/warp-marker";
-import {RecordingInitData} from "../recording/recording";
+import {RecordingDto} from "../recording/recording-dto";
 
 export class AlsExtractor {
 
@@ -40,10 +40,10 @@ export class AlsExtractor {
     }
   }
 
-  extractRecordingInitData(): RecordingInitData {
+  extractRecordingDto(): RecordingDto {
     return {
       name: this.originalAudioClip.name,
-      sampleDuration: this.sampleDurationInSeconds,
+      sampleDurationInSeconds: this.sampleDurationInSeconds,
       sampleBeatTimeDuration: this.sampleBeatTimeDuration,
       warpMarkers: this.warpMarkers,
     }

@@ -22,6 +22,8 @@ export class Recording {
     readonly midi?: Midi,
     readonly musicXmlString?: string,
   ) {
+    if (!sampleDurationInSeconds) error(`sampleDurationInSeconds obligatoire`);
+    if (!sampleBeatTimeDuration) error(`sampleBeatTimeDuration obligatoire`);
     if (originalWarpMarkersLength) {
       this.originalWarpMarkersLength = originalWarpMarkersLength;
     } else {

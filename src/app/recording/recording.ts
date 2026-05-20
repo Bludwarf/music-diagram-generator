@@ -1,6 +1,6 @@
 import {BeatTime, Position, SecTime} from "../time";
 import {WarpMarker} from "../structure/warp-marker";
-import {Builder, error, sum} from "../utils";
+import {error, sum} from "../utils";
 
 const DEFAULT_TIME_SIGNATURE = {
     ticks: 0,
@@ -8,50 +8,20 @@ const DEFAULT_TIME_SIGNATURE = {
     measures: 0,
 };
 
-export class Recording {
+type WarpMarkerField = keyof WarpMarker;
 
-    readonly originalWarpMarkersLength: number;
+export class Recording {
 
     constructor(
         /** Nom du fichier sans extension */
         readonly name: string,
         readonly sampleDurationInSeconds: number,
-        readonly sampleBeatTimeDuration: number,
         readonly warpMarkers: WarpMarker[],
-        originalWarpMarkersLength?: number,
         readonly midi?: Midi,
         readonly musicXmlString?: string,
     ) {
-        if (!sampleDurationInSeconds) error(`sampleDurationInSeconds obligatoire`);
-        if (!sampleBeatTimeDuration) error(`sampleBeatTimeDuration obligatoire`);
-        if (originalWarpMarkersLength) {
-            this.originalWarpMarkersLength = originalWarpMarkersLength;
-        } else {
-            this.originalWarpMarkersLength = warpMarkers.length;
-            this.normalizeWarpMarker()
-        }
-    }
-
-    static builder(): RecordingBuilder {
-        return new RecordingBuilder()
-    }
-
-    get sampleEndBeatTime(): number {
-        return this.sampleBeatTimeDuration + this.warpMarkers[0].beatTime
-    }
-
-    private normalizeWarpMarker(): void {
-        const lastWarpMarker = this.warpMarkers[this.warpMarkers.length - 1]
-        const missingSampleEndWarpMarker = lastWarpMarker.beatTime < this.sampleEndBeatTime
-        if (missingSampleEndWarpMarker) {
-            // Pour simplifier le code de getWarpPosition(), on ajoute systématiquement un WarpMarker à la fin du sample
-            if (this.sampleBeatTimeDuration < lastWarpMarker.beatTime) {
-                // TODO pour le moment on laisse passer, car certains morceaux n'ont pas de sampleBeatTimeDuration valides ("Noyer le silence"), ce qui est peut-être normal
-                console.warn(`La durée du sample en BeatTime (${this.sampleBeatTimeDuration}) doit être supérieure au BeatTime du dernier WarpMarker (${lastWarpMarker.beatTime})`)
-            } else {
-                this.warpMarkers.push(new WarpMarker(this.sampleDurationInSeconds, this.sampleEndBeatTime))
-            }
-        }
+        if (!sampleDurationInSeconds) error(`L'enregistrement ${name} doit définir son sampleDurationInSeconds`);
+        if (!(warpMarkers?.length >= 2)) error(`L'enregistrement ${name} doit contenir au moins deux WarpMarkers`)
     }
 
     /**
@@ -64,18 +34,35 @@ export class Recording {
             .map(region => region.bps * region.secDuration)
             .reduce(sum, 0)
         const start = this.warpMarkers[0];
-        const end = this.warpMarkers[this.originalWarpMarkersLength - 1];
+        const end = this.warpMarkers.at(-1)!;
         return weightedBps / (end.secTime - start.secTime) * 60
     }
 
+    private _regions?: Region[]
     get regions() {
-        const regions: Region[] = []
-        for (let endIndex = 1; endIndex < this.originalWarpMarkersLength; ++endIndex) {
-            const start = this.warpMarkers[endIndex - 1];
-            const end = this.warpMarkers[endIndex];
-            regions.push(new Region(start, end))
+        if (!this._regions) {
+            const regions: Region[] = []
+            for (let endIndex = 1; endIndex < this.warpMarkers.length; ++endIndex) {
+                const start = this.warpMarkers[endIndex - 1];
+                const end = this.warpMarkers[endIndex];
+                regions.push(new Region(start, end))
+            }
+            if (regions.length === 0) error(`Aucune région trouvée`);
+            this._regions = regions;
         }
-        return regions;
+        return this._regions;
+    }
+
+    getRegionAtSecTime(secTime: SecTime): Region {
+        return this.getRegionAtValue(secTime.value, "secTime");
+    }
+
+    getRegionAtBeatTime(beatTime: BeatTime): Region {
+        return this.getRegionAtValue(beatTime.value, "beatTime");
+    }
+
+    private getRegionAtValue(value: number, field: WarpMarkerField): Region {
+        return this.regions.find(region => value <= region.end[field]) ?? this.regions.at(-1)!;
     }
 
     /**
@@ -84,29 +71,9 @@ export class Recording {
      * Cf. ConvertComponent
      */
     getSecTime(beatTime: BeatTime): SecTime | undefined {
-        const beatTimeValue = beatTime.value;
-        const warpMarkers = this.warpMarkers
-
-        const firstWarpMarker = warpMarkers[0];
-        if (beatTimeValue < firstWarpMarker.beatTime) {
-            return undefined // TODO quelle position si on est avant "1:1:1" ? Impossible dans Ableton Live
-        }
-
-        const lastWarpMarker = warpMarkers.at(-1)!;
-        if (beatTimeValue > lastWarpMarker.beatTime) {
-            // TODO quelle position si on est après le dernier WrapMarker ?
-            console.warn(`beatTime après le dernier WrapMarker : ${beatTimeValue} > ${lastWarpMarker.beatTime}`)
-            return undefined;
-        }
-
-        const nextWrapMarkerIndex = warpMarkers.findIndex(wrapMarker => beatTimeValue < wrapMarker.beatTime)
-
-        const previousWrapMarker = warpMarkers[nextWrapMarkerIndex - 1]
-        const nextWrapMarker = warpMarkers[nextWrapMarkerIndex]
-        const beatTimeRatio = (beatTimeValue - previousWrapMarker.beatTime) / (nextWrapMarker.beatTime - previousWrapMarker.beatTime)
-        const secTime = previousWrapMarker.secTime + beatTimeRatio * (nextWrapMarker.secTime - previousWrapMarker.secTime)
-
-        return new SecTime(secTime);
+        const region = this.getRegionAtBeatTime(beatTime);
+        const secTimeValue = region.start.secTime + (beatTime.value - region.start.beatTime) / region.bps
+        return new SecTime(secTimeValue);
     }
 
     getStartTime(note: MidiNote): SecTime | undefined {
@@ -149,7 +116,6 @@ export class Recording {
         if (currentTimeSignature.timeSignature[1] !== 4) {
             throw new Error(`Seules les signatures */4 sont implémentées`);
         }
-        // console.log(`beatTimeFromCurrentTimeSignature`, beatTimeFromCurrentTimeSignature.value, this.getPositionWithTimeSignature(beatTimeFromCurrentTimeSignature, currentTimeSignature).toAbletonLiveString());
         const barsFromCurrentTimeSignature = Math.floor(beatTimeFromCurrentTimeSignature.value / currentTimeSignature.timeSignature[0]); // TODO ts.dénum
         const bars = currentTimeSignature.measures + barsFromCurrentTimeSignature;
         return new Position(
@@ -171,26 +137,8 @@ export class Recording {
     }
 
     getBeatTime(secTime: SecTime): BeatTime | undefined {
-        // TODO facto avec getBeatTime => réutiliser regions => ne pas oublier de gérer l'overflow, quand on dépasse le dernier WarpMarker original (mais avant celui ajouté par cette classe)
-        const secTimeValue = secTime.value;
-        const warpMarkers = this.warpMarkers
-
-        if (secTimeValue < warpMarkers[0].secTime) {
-            return undefined // TODO quelle position si on est avant "1:1:1" ? Impossible dans Ableton Live
-        }
-
-        if (secTimeValue > warpMarkers[warpMarkers.length - 1].secTime) {
-            // TODO quelle position si on est après le dernier WrapMarker ?
-            error(`beatTime après le dernier WrapMarker : ${secTimeValue} > ${warpMarkers[warpMarkers.length - 1].secTime}`)
-        }
-
-        const nextWrapMarkerIndex = warpMarkers.findIndex(wrapMarker => secTimeValue < wrapMarker.secTime)
-
-        const previousWrapMarker = nextWrapMarkerIndex !== -1 ? warpMarkers[nextWrapMarkerIndex - 1] : warpMarkers[warpMarkers.length - 2]
-        const nextWrapMarker = nextWrapMarkerIndex !== -1 ? warpMarkers[nextWrapMarkerIndex] : warpMarkers[warpMarkers.length - 1]
-        const secTimeRatio = (secTimeValue - previousWrapMarker.secTime) / (nextWrapMarker.secTime - previousWrapMarker.secTime)
-        const beatTimeValue = previousWrapMarker.beatTime + secTimeRatio * (nextWrapMarker.beatTime - previousWrapMarker.beatTime)
-
+        const region = this.getRegionAtSecTime(secTime);
+        const beatTimeValue = region.start.beatTime + (secTime.value - region.start.secTime) * region.bps
         return new BeatTime(beatTimeValue);
     }
 
@@ -254,62 +202,6 @@ export type MidiNote = {
     ticks: number;
     time: number;
     velocity: number;
-}
-
-class RecordingBuilder implements Builder<Recording> {
-    private _initData?: RecordingInitData;
-    private _midi?: Midi;
-    private _musicXmlString?: string;
-
-    initData(dto: typeof this._initData): this {
-        this._initData = dto
-        return this
-    }
-
-    // TODO type pour le MIDI
-    midi(midi: Midi): this {
-        this._midi = midi
-        return this
-    }
-
-    musicXmlString(musicXmlString: string): this {
-        this._musicXmlString = musicXmlString
-        return this
-    }
-
-    build(): Recording {
-        if (!this._initData) {
-            throw new Error('Missing DTO')
-        }
-        return new Recording(
-            this._initData.name,
-            this._initData.sampleDuration,
-            this._initData.sampleBeatTimeDuration,
-            this._initData.warpMarkers,
-            undefined,
-            this._midi,
-            this._musicXmlString,
-        )
-    }
-}
-
-export interface RecordingInitData {
-    /**
-     * Nom du sample
-     */
-    name: string;
-
-    /**
-     * Durée du sample original en secondes.
-     */
-    sampleDuration: number
-
-    /**
-     * Durée totale du sample en battements (BeatTime).
-     */
-    sampleBeatTimeDuration: number
-
-    warpMarkers: WarpMarker[]
 }
 
 class Region {

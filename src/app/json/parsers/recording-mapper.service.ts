@@ -16,9 +16,7 @@ export class RecordingMapper implements ModelDtoMapper<Recording, RecordingDto> 
         return new Recording(
             dto.name,
             dto.sampleDurationInSeconds,
-            dto.sampleBeatTimeDuration,
             dto.warpMarkers,
-            dto.originalWarpMarkersLength,
             dto.midi,
             dto.musicXmlString,
         );

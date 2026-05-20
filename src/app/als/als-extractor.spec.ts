@@ -13,6 +13,18 @@ describe('AlsExtractor', () => {
         expect(extractor.sampleDurationInSeconds).toBe(208)
     });
 
+    describe('Man In The Mirror', () => {
+        // <WarpMarker Id="4" SecTime="0.288208616780045279" BeatTime="0" />
+        // <WarpMarker Id="9" SecTime="319.76723356009069" BeatTime="534.23802941849817" />
+        // Dernier WarpMarker ajouté manuellement dans Live, sur la fin de la forme d'onde (dernière position cliquable)
+
+        it('should get sample SecTime duration from Man In The Mirror', async () => {
+            const extractor = await createExtractorFor('Man In The Mirror')
+            expect(extractor.sampleDurationInSeconds).toBe(319.76723356009069)
+        });
+
+    })
+
     it('should get Wrap Markers from Petit papillon', async () => {
         const extractor = await createExtractorFor('Petit papillon')
 
@@ -45,24 +57,6 @@ describe('AlsExtractor', () => {
         const extractor = await createExtractorFor('Petit papillon')
         const recordingDto = extractor.extractRecordingDto()
         expect(recordingDto.sampleDurationInSeconds).toEqual(208)
-    });
-
-    it('should get recording sampleBeatTimeDuration from Petit papillon', async () => {
-        const extractor = await createExtractorFor('Petit papillon')
-        const recordingDto = extractor.extractRecordingDto()
-        expect(recordingDto.sampleBeatTimeDuration).toEqual(378.36283820346318 - -1.1762159715284715)
-    });
-
-    it('should get recording sampleBeatTimeDuration from Nuages Blancs', async () => {
-        const extractor = await createExtractorFor('Nuages blancs')
-        const recordingDto = extractor.extractRecordingDto()
-        expect(recordingDto.sampleBeatTimeDuration).toEqual(932 - -0.782730030386280418)
-    });
-
-    it('should get recording sampleBeatTimeDuration from La femme dragon', async () => {
-        const extractor = await createExtractorFor('La femme dragon')
-        const recordingDto = extractor.extractRecordingDto()
-        expect(recordingDto.sampleBeatTimeDuration).toEqual(545.33568827006332 - -2.0646923389110889)
     });
 
 });

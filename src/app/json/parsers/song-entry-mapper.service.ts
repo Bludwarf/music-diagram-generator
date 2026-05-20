@@ -1,10 +1,10 @@
 import {StructureMapper} from "./structure-mapper.service";
 import {RecordingMapper} from "./recording-mapper.service";
 import {Injectable} from "@angular/core";
-import {Recording} from "../../recording/recording";
 import {SongEntry} from "../../song/song-entry";
 import {StructureDto} from "../../structure/structure-dto";
 import {SongInArchive} from "../../song/song-archive";
+import {RecordingDto} from "../../recording/recording-dto";
 
 @Injectable({
     providedIn: 'root'
@@ -17,12 +17,12 @@ export class SongEntryMapper {
     ) {
     }
 
-    async model(songName: string, version: string | undefined, structure: StructureDto, recording?: Recording): Promise<SongEntry> {
+    async model(songName: string, version: string | undefined, structure: StructureDto, recordingDto?: RecordingDto): Promise<SongEntry> {
         return {
             name: songName,
             version,
             structure: this.structureMapper.model(structure),
-            recording: recording ? this.recordingMapper.model(recording) : undefined,
+            recording: recordingDto ? this.recordingMapper.model(recordingDto) : undefined,
         };
     }
 

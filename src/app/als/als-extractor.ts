@@ -24,11 +24,6 @@ export class AlsExtractor {
         return duration / sampleRate
     }
 
-    get sampleBeatTimeDuration(): number {
-        const end = Math.max(this.originalAudioClip.loop.hiddenLoopEnd, this.originalAudioClip.loop.loopEnd)
-        return end - this.originalAudioClip.loop.hiddenLoopStart
-    }
-
     get warpMarkers(): WarpMarker[] {
         return this.originalAudioClip.wrapMarkers.map(wrapMarker => new WarpMarker(wrapMarker.secTime, wrapMarker.beatTime))
     }
@@ -44,7 +39,6 @@ export class AlsExtractor {
         return {
             name: this.originalAudioClip.name,
             sampleDurationInSeconds: this.sampleDurationInSeconds,
-            sampleBeatTimeDuration: this.sampleBeatTimeDuration,
             warpMarkers: this.warpMarkers,
         }
     }
@@ -56,11 +50,6 @@ export interface StructureObject {
      * Durée du sample original en secondes.
      */
     sampleDuration: number
-
-    /**
-     * BeatTime à la tout fin du sample observée dans Ableton Live.
-     */
-    sampleBeatTimeDuration?: number
 
     warpMarkers: WarpMarker[]
 }

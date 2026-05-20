@@ -18,17 +18,9 @@ Sur Stackblitz utilliser une largeur de 360px pour avoir un preview assez fidèl
 
 ## Nouveau morceau
 
-Optionnel :
-
-> Trouver la toute fin du sample dans Ableton Live. Ce sera le `sampleBeatTimeDuration`.
-
-> Exemple si fin à la mesure 92, alors sampleBeatTimeDuration = 92 * 4
-
 Copier le fichier als dans [src/assets/als](src/assets/als).
 
 Dézipper manuellement le fichier als et lui ajouter l'extension `.als.xml`.
-
-> Ajuster le `sampleBeatTimeDuration` trouvé précédemment.
 
 Uploader le fichier .als.xml dans le [convertisseur](https://bludwarf.github.io/music-diagram-generator/convert).
 

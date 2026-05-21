@@ -1,16 +1,27 @@
 import {ArchiveFile, basenameUnix, unzipArchive} from "../utils/file-utils";
-import {Recording} from "../recording/recording";
+import {Midi, Recording} from "../recording/recording";
 import {error, getOrRequire} from "../utils";
 import {StructureDto} from "../structure/structure-dto";
 
 export const STRUCTURE_JSON = "structure.json";
 export const RECORDING_JSON = "recording.json";
-const RECORDING_EXTENSION = ".mp3";
-const RECORDING_MP3 = "recording" + RECORDING_EXTENSION;
+
+const AUDIO_EXTENSION = ".mp3";
+const RECORDING_MP3 = "recording" + AUDIO_EXTENSION;
+
+const MIDI_EXTENSION = ".mid.json"; // TODO accepter directement du *.mid
+const RECORDING_MIDI = "recording" + MIDI_EXTENSION;
+
+const MUSIC_XML_EXTENSION = ".mxl.xml"; // TODO accepter directement du *.mxl (XML zippé)
+const MUSIC_XML = "recording" + MUSIC_XML_EXTENSION;
+
 const SONG_ARCHIVE_FILE_NAMES = [
     STRUCTURE_JSON,
     RECORDING_JSON,
+    RECORDING_MP3,
+    RECORDING_MIDI,
 ] as readonly string[];
+
 export type SongArchiveFileName = typeof SONG_ARCHIVE_FILE_NAMES[number];
 
 const SETLIST_TXT = "setlist.txt";
@@ -126,12 +137,22 @@ export class SongInArchive {
     }
 
     // TODO cache
+    get midi(): Promise<Midi | undefined> {
+        return this.getDto<Midi>(RECORDING_MIDI, MIDI_EXTENSION);
+    }
+
+    // TODO cache
+    get musicXml(): Promise<string | undefined> {
+        return this.getText(MUSIC_XML, MUSIC_XML_EXTENSION);
+    }
+
+    // TODO cache
     get structure(): Promise<StructureDto> {
         return this.requireDto<StructureDto>(STRUCTURE_JSON);
     }
 
     get audio(): Promise<Blob | undefined> {
-        return this.getArrayBuffer(RECORDING_MP3, RECORDING_EXTENSION);
+        return this.getArrayBuffer(RECORDING_MP3, AUDIO_EXTENSION);
     }
 
     private async requireDto<T>(fileName: SongArchiveFileName): Promise<T> {
@@ -147,22 +168,26 @@ export class SongInArchive {
         });
     }
 
-    private async getDto<T>(fileName: SongArchiveFileName): Promise<T | undefined> {
-        const file = this.getArchiveFile(fileName);
-        const json = await file?.text();
+    private async getDto<T>(fileName: SongArchiveFileName, extension?: string): Promise<T | undefined> {
+        const json = await this.getText(fileName, extension);
         if (!json) return undefined;
         return JSON.parse(json) as T
     }
 
+    private async getText(fileName: SongArchiveFileName, extension?: string): Promise<string | undefined> {
+        const file = this.getArchiveFile(fileName, extension)
+        return file?.text();
+    }
+
     private async getArrayBuffer(fileName: SongArchiveFileName, extension?: string): Promise<Blob | undefined> {
-        const file = this.getArchiveFile(fileName) ??
-            (extension ? this.searchArchiveFileByExtension(extension) : undefined);
+        const file = this.getArchiveFile(fileName, extension)
         if (!file) return undefined;
         return new Blob([await file.arrayBuffer()]);
     }
 
-    private getArchiveFile(fileName: SongArchiveFileName): ArchiveFile | undefined {
-        return this.songFiles[fileName];
+    private getArchiveFile(fileName: SongArchiveFileName, extension?: string): ArchiveFile | undefined {
+        return this.songFiles[fileName] ??
+            (extension ? this.searchArchiveFileByExtension(extension) : undefined)
     }
 
     private searchArchiveFileByExtension(extension: string): ArchiveFile | undefined {

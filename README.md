@@ -43,8 +43,12 @@ Ajuster le fichier dupliqué :
 Créer un dossier pour chaque morceau avec les fichiers :
 
 - `structure.json`
-- `recording.json`
-- `recording.mp3` (ou un seul fichier portant l'extension `.mp3`) (optionnel))
+- `recording.json` : Informations sur l'enregistrement, comme le nom et les WarpMarkers
+- `recording.mp3` : Audio de l'enregistrement (optionnel)
+- `recording.mid.json` : MIDI (optionnel)
+- `recording.mxl.mxl` : Music XML (optionnel)
+
+Si un fichier est le seul à porter cette extension, le reste du nom peut être n'importe quoi.
 
 Le dossier peut contenir n'importe quel caractère (même `/` si encodé `%2F`).
 La comparaison se fera uniquement sur les lettres contenues dans le nom du morceau.

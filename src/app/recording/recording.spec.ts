@@ -23,14 +23,8 @@ describe('Recording', () => {
             'DIDAFTA PETIT PAPILLON Master Web 24bit 48Khz_02-01',
             208,
             [
-                {
-                    secTime: 0,
-                    beatTime: -1.1762159715284715
-                },
-                {
-                    secTime: 197.84312565104167,
-                    beatTime: 360.35486076423575
-                }
+                {secTime: 0, beatTime: -1.1762159715284715},
+                {secTime: 197.84312565104167, beatTime: 360.35486076423575},
             ]);
         testGetWarpPosition(recording, 0, -1.1762159715284715);
     });
@@ -40,14 +34,8 @@ describe('Recording', () => {
             'DIDAFTA PETIT PAPILLON Master Web 24bit 48Khz_02-01',
             208,
             [
-                {
-                    secTime: 0,
-                    beatTime: -1.1762159715284715
-                },
-                {
-                    secTime: 197.84312565104167,
-                    beatTime: 360.35486076423575
-                }
+                {secTime: 0, beatTime: -1.1762159715284715},
+                {secTime: 197.84312565104167, beatTime: 360.35486076423575},
             ]);
         testGetWarpPosition(recording, 197.84312565104167, 360.35486076423575);
     });
@@ -57,14 +45,9 @@ describe('Recording', () => {
         const recording = new Recording(
             'DIDAFTA PETIT PAPILLON Master Web 24bit 48Khz_02-01',
             sampleDuration,
-            [{
-                secTime: 0,
-                beatTime: -1.1762159715284715
-            },
-                {
-                    secTime: 197.84312565104167,
-                    beatTime: 360.35486076423575
-                }
+            [
+                {secTime: 0, beatTime: -1.1762159715284715},
+                {secTime: 197.84312565104167, beatTime: 360.35486076423575},
             ])
         testGetWarpPosition(recording, sampleDuration, relativeBeatTimeJsRounded);
     });
@@ -77,18 +60,9 @@ describe('Recording', () => {
             "Michael Jackson - 07 - Man In The Mirror",
             sampleDuration,
             [
-                {
-                    "secTime": 0.2882086167800453,
-                    "beatTime": 0
-                },
-                {
-                    "secTime": 6.771950113378685,
-                    "beatTime": 10.8422181984682
-                },
-                {
-                    "secTime": 6.790637887334485,
-                    "beatTime": 10.8734681984682
-                },
+                {secTime: 0.2882086167800453, beatTime: 0},
+                {secTime: 6.771950113378685, beatTime: 10.8422181984682},
+                {secTime: 6.790637887334485, beatTime: 10.8734681984682},
             ],
         )
         testGetWarpPosition(recording, sampleDuration, 534.2380293230831); // Live calcule 534.23802941849817 mais on est pas mal
@@ -99,14 +73,8 @@ describe('Recording', () => {
             "ELLE REVE preview brut_01",
             236.669375,
             [
-                {
-                    secTime: 0,
-                    beatTime: -11.438887414668665
-                },
-                {
-                    secTime: 221.33526285807292,
-                    beatTime: 556.1785269418082
-                }
+                {secTime: 0, beatTime: -11.438887414668665},
+                {secTime: 221.33526285807292, beatTime: 556.1785269418082},
             ])
         const lastChordSecTime = 3 * 60 + 44.275
         testGetWarpPosition(recording, lastChordSecTime, 563.7175244510227);
@@ -117,14 +85,8 @@ describe('Recording', () => {
             "Simple recording",
             236.669375,
             [
-                {
-                    secTime: 0,
-                    beatTime: 0,
-                },
-                {
-                    secTime: 60, // 1 min
-                    beatTime: 120, // 120 BPM
-                }
+                {secTime: 0, beatTime: 0,},
+                {secTime: 60, beatTime: 120,}, // 1 min | 120 BPM
             ])
         expect(recording.meanTempo).toBe(120)
     });
@@ -134,18 +96,9 @@ describe('Recording', () => {
             "Simple recording",
             236.669375,
             [
-                {
-                    secTime: 0,
-                    beatTime: 0,
-                },
-                {
-                    secTime: 60, // 1 min
-                    beatTime: 120, // 120 BPM
-                },
-                {
-                    secTime: 60 + 30, // + 30 s
-                    beatTime: 120 + 120, // 240 BPM
-                }
+                {secTime: 0, beatTime: 0,},
+                {secTime: 60, beatTime: 120,}, // 1 min | 120 BPM
+                {secTime: 60 + 30, beatTime: 120 + 120,}, // 1 min 30 s | 240 BPM
             ])
         expect(recording.meanTempo).toBe(160)
     });
@@ -155,14 +108,8 @@ describe('Recording', () => {
             "07 - If You Really See Eurydice",
             222.4272335600907,
             [
-                {
-                    "secTime": 22.42859410430839,
-                    "beatTime": 32
-                },
-                {
-                    "secTime": 27.76201814058957,
-                    "beatTime": 40
-                }
+                {secTime: 22.42859410430839, beatTime: 32},
+                {secTime: 27.76201814058957, beatTime: 40},
             ])
         const ppq = 480;
         const ticks = 16080;
@@ -176,14 +123,8 @@ describe('Recording', () => {
             "07 - If You Really See Eurydice",
             222.4272335600907,
             [
-                {
-                    "secTime": 22.42859410430839,
-                    "beatTime": 32
-                },
-                {
-                    "secTime": 27.76201814058957,
-                    "beatTime": 40
-                }
+                {secTime: 22.42859410430839, beatTime: 32},
+                {secTime: 27.76201814058957, beatTime: 40},
             ])
         const beatTime = new BeatTime(0);
         const secTime = recording.getSecTime(beatTime);
@@ -196,14 +137,8 @@ describe('Recording', () => {
             "07 - If You Really See Eurydice",
             222.4272335600907,
             [
-                {
-                    "secTime": 22.42859410430839,
-                    "beatTime": 32
-                },
-                {
-                    "secTime": 27.76201814058957,
-                    "beatTime": 40
-                }
+                {secTime: 22.42859410430839, beatTime: 32},
+                {secTime: 27.76201814058957, beatTime: 40},
             ])
         const beatTime = new BeatTime(40);
         const secTime = recording.getSecTime(beatTime);

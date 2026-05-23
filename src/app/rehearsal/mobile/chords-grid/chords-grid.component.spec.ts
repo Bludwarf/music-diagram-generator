@@ -15,7 +15,7 @@ describe('ChordsGridComponent', () => {
 
         fixture = TestBed.createComponent(ChordsGridComponent);
         component = fixture.componentInstance;
-        component.chords = Chords.fromAsciiChords('| Gm F | Eb D |')
+        component.chords = Chords.fromAsciiChords('| Gm F | Eb D |', () => [4, 4])
         fixture.detectChanges();
     });
 

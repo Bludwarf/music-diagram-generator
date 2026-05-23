@@ -1,5 +1,6 @@
 import {Seconds} from "tone/build/esm/core/type/Units";
 import {checkIsInteger, checkIsPositive, checkIsStrictlyPositive} from "./utils/validators";
+import {error} from "./utils";
 
 interface BarsBeatsSixteenthsFields {
     /** 0-indexée */
@@ -8,16 +9,23 @@ interface BarsBeatsSixteenthsFields {
     sixteenths: number
 }
 
-/** Temps en comptant par battement (pulse)  */
+/** Temps en comptant à la noire (1 battement (pulse) = 1 temps en 4/4 ou 0.5 temps en 6/8)  */
 export class BeatTime {
     constructor(
         readonly value: number,
     ) {
     }
 
-    static fromMidiTicks(ticks: number, ppq: number): BeatTime {
+    static fromMidiTicks(ticks: number, ppq?: number): BeatTime {
+        let beatTimeValue ;
+        if (ticks === 0) {
+            beatTimeValue = 0;
+        } else {
+            if (!ppq) error(`PPQ requis si ticks > 0`)
+            beatTimeValue = ticks / ppq;
+        }
         // TODO cache pour chaque ticks, pour perfs
-        return new BeatTime(ticks / ppq);
+        return new BeatTime(beatTimeValue);
     }
 
     toMidiTicks(ppq: number): number {

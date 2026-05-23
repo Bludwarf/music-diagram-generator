@@ -108,7 +108,7 @@ describe('Chords', () => {
     // TODO TU Position pour avoir '0:0:0' == '0:0' == '0'
 
     it('should create from | Gm F | Eb D |', () => {
-        const chords = Chords.fromAsciiChords('| Gm F | Eb D |')
+        const chords = Chords.fromAsciiChords('| Gm F | Eb D |', () => [4, 4])
         expect(chords.length).toBe(4)
         expect(chords.getChordAt2(new Position(0))).toEqual(new Chord('Gm'))
         expect(chords.getChordAt2(new Position(0, 2))).toEqual(new Chord('F'))
@@ -117,16 +117,34 @@ describe('Chords', () => {
         expect(chords.durationInBars).toEqual(2)
     });
 
-    it('should get chords at bar 1 from | Gm F | Eb D |', () => {
-        const chords = Chords.fromAsciiChords('| Gm F | Eb D |')
+    it('should get chords at bar 1 from | Gm F | Eb D | @ 4/4', () => {
+        const chords = Chords.fromAsciiChords('| Gm F | Eb D |', () => [4, 4])
         const barChords = chords.getChordsAtBar(0);
         expect(barChords).toBeDefined();
 
         expect(barChords?.ascii).toEqual('| Gm F |')
     });
 
+    it('should get chords at bar 1 from | Gm F | Eb D | @ 6/8', () => {
+        const chords = Chords.fromAsciiChords('| Gm F | Eb D |', () => [6, 8])
+        const barChords = chords.getChordsAtBar(0);
+        expect(barChords).toBeDefined();
+
+        expect(barChords?.ascii).toEqual('| Gm F |')
+    });
+
+    it('should get chords duration from | Gm F | @ 4/4', () => {
+        const chords = Chords.fromAsciiChords('| Gm F |', () => [4, 4])
+        expect(chords.durationInBars).toEqual(1)
+    });
+
+    it('should get chords duration from | Gm F | @ 6/8', () => {
+        const chords = Chords.fromAsciiChords('| Gm F |', () => [6, 8])
+        expect(chords.durationInBars).toEqual(1)
+    });
+
     it('should get chords by indices from | Gm F | Eb D |', () => {
-        const chords = Chords.fromAsciiChords('| Gm F | Eb D |')
+        const chords = Chords.fromAsciiChords('| Gm F | Eb D |', () => [4, 4])
         expect(chords[0].toString()).toEqual('Gm')
         expect(chords[1].toString()).toEqual('F')
         expect(chords[2].toString()).toEqual('Eb')

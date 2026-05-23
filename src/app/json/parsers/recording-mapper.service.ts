@@ -20,8 +20,9 @@ export class RecordingMapper implements ModelDtoMapper<Recording, RecordingDto> 
             dto.name,
             dto.sampleDurationInSeconds,
             dto.warpMarkers,
+            dto.timeSignature,
             dto.midi ?? standaloneMidi,
-            dto.musicXmlString ?? standaloneMusicXmlString,
+            dto.musicXmlString ?? standaloneMusicXmlString
         );
     }
 }

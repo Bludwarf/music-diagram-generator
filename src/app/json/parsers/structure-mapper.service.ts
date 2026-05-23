@@ -2,7 +2,7 @@ import {Injectable} from "@angular/core";
 import {Structure} from "../../structure/structure";
 import {Part} from "../../structure/part/part";
 import {Pattern} from "../../structure/pattern/pattern";
-import {Chords, Key, Mode, Note} from "../../notes";
+import {BarTimeSignatureGetter, Chords, Key, Mode, Note} from "../../notes";
 import {BaseColor} from "../../color";
 import {Section} from "../../structure/section/section";
 import {error, jsonEquals} from "../../utils";
@@ -82,7 +82,7 @@ class Elements<M, D> {
 @Injectable({
     providedIn: 'root'
 })
-export class StructureMapper implements ModelDtoMapper<Structure, StructureDto> {
+export class StructureMapper {
     constructor(
         private readonly patternParser: PatternParser,
         private readonly colorParser: ColorParser,
@@ -123,10 +123,10 @@ export class StructureMapper implements ModelDtoMapper<Structure, StructureDto> 
         }
     }
 
-    model(dto: StructureDto): Structure {
+    model(dto: StructureDto, barTimeSignatureGetter: BarTimeSignatureGetter): Structure {
         const patternsByInitial = byKey(dto.patterns, item => item.initial);
         return Structure.builder()
-            .parts(dto.parts.map(part => this.partModel(part, patternsByInitial)))
+            .parts(dto.parts.map(part => this.partModel(part, patternsByInitial, barTimeSignatureGetter)))
             .build();
     }
 
@@ -137,10 +137,10 @@ export class StructureMapper implements ModelDtoMapper<Structure, StructureDto> 
         }
     }
 
-    private partModel(dto: PartDto, patternsByInitial: Record<string, PatternDto>) {
+    private partModel(dto: PartDto, patternsByInitial: Record<string, PatternDto>, barTimeSignatureGetter: BarTimeSignatureGetter) {
         return new Part(
             dto.name,
-            dto.sections.map(sectionDto => this.modelSection(sectionDto, patternsByInitial)),
+            dto.sections.map(sectionDto => this.modelSection(sectionDto, patternsByInitial, barTimeSignatureGetter)),
         );
     }
 
@@ -151,13 +151,13 @@ export class StructureMapper implements ModelDtoMapper<Structure, StructureDto> 
         }
     }
 
-    private modelSection(dto: SectionDto, patternByInitial: Record<string, PatternDto>): Section {
+    private modelSection(dto: SectionDto, patternByInitial: Record<string, PatternDto>, barTimeSignatureGetter: BarTimeSignatureGetter): Section {
         return new Section(
             dto.name,
             dto.patternInitials.map(initial => {
                 const patternDto = patternByInitial[initial];
                 if (!patternDto) error(`Pattern portant l'initial "${initial}" introuvable pour la section ${dto.name}`);
-                return this.patternParser.model(patternDto);
+                return this.patternParser.model(patternDto, barTimeSignatureGetter);
             }),
             dto.initial,
             dto.color ? this.colorParser.model(dto.color) : undefined,
@@ -169,7 +169,7 @@ export class StructureMapper implements ModelDtoMapper<Structure, StructureDto> 
 @Injectable({
     providedIn: 'root'
 })
-export class PatternParser implements ModelDtoMapper<Pattern, PatternDto> {
+export class PatternParser {
 
 
     constructor(
@@ -191,8 +191,8 @@ export class PatternParser implements ModelDtoMapper<Pattern, PatternDto> {
         }
     }
 
-    model(dto: PatternDto): Pattern {
-        const chords = dto.asciiChords ? Chords.fromAsciiChords(dto.asciiChords) : undefined;
+    model(dto: PatternDto, barTimeSignatureGetter: BarTimeSignatureGetter): Pattern {
+        const chords = dto.asciiChords ? Chords.fromAsciiChords(dto.asciiChords, barTimeSignatureGetter) : undefined;
         return new Pattern(
             dto.name,
             chords ? chords.durationInBars : dto.durationInBars!,

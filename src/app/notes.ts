@@ -1,6 +1,8 @@
 import {Position, PositionFormatter} from "./time";
 import {Comparable} from "./utils/comparator";
 import {checkIsInteger} from "./utils/validators";
+import {error} from "./utils";
+import {TimeSignature} from "./recording/recording";
 
 export const NOTE_NAMES = [
     'C',
@@ -287,6 +289,8 @@ export type AsciiChords = string
 
 export type BarNumber0Indexed = number
 
+export type BarTimeSignatureGetter = (bar: number) => TimeSignature
+
 export class Chords extends Array<Chord> {
 
     constructor(
@@ -294,12 +298,17 @@ export class Chords extends Array<Chord> {
         readonly ascii: AsciiChords, // utilisé pour l'export JSON
         readonly durationInBars: number,
         private readonly chordsByPosition: [Position, Chord | undefined][],
+        private readonly barTimeSignatureGetter ?: BarTimeSignatureGetter,
     ) {
         super();
         this.push(...list);
     }
 
-    static fromAsciiChords(asciiChords: AsciiChords): Chords {
+    /**
+     * @param asciiChords Liste des accords au format ASCII
+     * @param barTimeSignatureGetter Nécessaire uniquement si une mesure contient plusieurs accords
+     */
+    static fromAsciiChords(asciiChords: AsciiChords, barTimeSignatureGetter ?: BarTimeSignatureGetter): Chords {
 
         const barGroups = this.groupAsciiChordsByBar(asciiChords)
 
@@ -310,7 +319,17 @@ export class Chords extends Array<Chord> {
         barGroups.forEach(barAsciiChords => {
 
             const chordGroups = barAsciiChords.split(' ')
-            const chordBeatDuration = this.getChordBeatDuration(chordGroups.length);
+            const next = (position: Position) => {
+                if (chordGroups.length === 1) {
+                    return position.addBars(1)
+                } else {
+                    if (!barTimeSignatureGetter) error(`La mesure ${position.bars + 1} contient ${chordGroups.length} accords, il est donc nécessaire de préciser sa signature rythmique`)
+                    const barTimeSignature = barTimeSignatureGetter(position.bars)
+                    const beatsPerBar = barTimeSignature[0]
+                    const chordBeatDuration = this.getChordBeatDuration(chordGroups.length, beatsPerBar);
+                    return position.addBeats(chordBeatDuration, beatsPerBar)
+                }
+            }
 
             chordGroups.forEach(chordGroup => {
                 const chord = chordGroup ? new Chord(chordGroup) : undefined;
@@ -319,12 +338,12 @@ export class Chords extends Array<Chord> {
                 }
                 chordsByPosition.push([position, chord])
 
-                position = position.addBeats(chordBeatDuration, 4) // TODO 4/4 pour l'instant
+                position = next(position)
             })
 
         })
 
-        return new Chords(chordsList, asciiChords, barGroups.length, chordsByPosition)
+        return new Chords(chordsList, asciiChords, barGroups.length, chordsByPosition, barTimeSignatureGetter)
     }
 
     static groupAsciiChordsByBar(asciiChords: AsciiChords): string[] {
@@ -356,16 +375,15 @@ export class Chords extends Array<Chord> {
             console.warn('No chords at bar ' + bar)
             return undefined
         }
-        return Chords.fromAsciiChords(`| ${chordGroups[bar]} |`);
+        return Chords.fromAsciiChords(`| ${chordGroups[bar]} |`, this.barTimeSignatureGetter);
     }
 
     override toString(): string {
         return this.chordsByPosition.map(([position, chord]) => `${PositionFormatter.DEBUG.format(position)} ${chord}`).join('\n')
     }
 
-    private static getChordBeatDuration(numberOfChordsInOneBar: number): number {
-        // TODO uniquement en 4/4
-        return 4 / numberOfChordsInOneBar;
+    private static getChordBeatDuration(numberOfChordsInOneBar: number, beatsPerBar: number): number {
+        return beatsPerBar / numberOfChordsInOneBar;
     }
 }
 

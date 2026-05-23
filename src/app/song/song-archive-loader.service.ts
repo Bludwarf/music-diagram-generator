@@ -36,6 +36,7 @@ export class SongArchiveLoader {
     async load(zip: File, songRepository: SongRepository): Promise<Setlist> {
         const songArchive = await SongArchive.fromZip(zip);
         for (const song of songArchive) {
+            console.debug(`Chargement du morceau "${song.name}"...`)
             const songEntry = await this.songEntryMapper.modelFromSong(song);
             songRepository.pushAll(songEntry);
 

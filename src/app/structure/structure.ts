@@ -159,7 +159,7 @@ export class Structure {
         const quartersPerBeat = 1 / (tsDen / BeatTime.SIGNATURE[1]); // = BEAT[1] / tsDen
         const quartersPerSixteenth = 1 / 4
 
-        let remaining = beatTime.value;
+        let remaining = +beatTime.value.toFixed(2); // on arrondit au dela d'une double croche
 
         const bars = Math.floor(remaining / quartersPerBar);
         remaining -= bars * quartersPerBar;

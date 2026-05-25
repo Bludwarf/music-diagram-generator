@@ -132,4 +132,22 @@ describe('Structure', () => {
         })
     })
 
+    describe("getPosition arrondie", () => {
+
+        ([
+            [3.994, "1.4.4"],
+            [3.995, "2.1.1"],
+        ] as [number, string][]).forEach(([beatTimeValue, expectedTimecode]) => {
+
+            it(`${beatTimeValue}`, async () => {
+                const structure = new Structure([])
+                const beatTime = new BeatTime(beatTimeValue);
+                const position = structure.getPosition(beatTime);
+                expect(PositionFormatter.ABLETON_GLOBAL_TIMECODE.format(position)).toEqual(expectedTimecode);
+            });
+
+        })
+
+    })
+
 });

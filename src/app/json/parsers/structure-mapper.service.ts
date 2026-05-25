@@ -8,6 +8,7 @@ import {Section} from "../../structure/section/section";
 import {error, jsonEquals} from "../../utils";
 import {ModelDtoMapper} from "./model-dto-mapper";
 import {PartDto, PatternDto, SectionDto, StructureDto} from "../../structure/structure-dto";
+import {Midi} from "../../midi";
 
 function byKey<T>(items: T[], keyGetter: (item: T) => string): Record<string, T> {
     const byKey: Record<string, T> = {}
@@ -120,14 +121,20 @@ export class StructureMapper {
         return {
             parts: partsDtos,
             patterns: patternsSet.dtos,
+            timeSignature: model.timeSignature,
         }
     }
 
-    model(dto: StructureDto, barTimeSignatureGetter: BarTimeSignatureGetter): Structure {
+    model(dto: StructureDto, barTimeSignatureGetter: BarTimeSignatureGetter, midi?: Midi, musicXml?: string): Structure {
         const patternsByInitial = byKey(dto.patterns, item => item.initial);
-        return Structure.builder()
-            .parts(dto.parts.map(part => this.partModel(part, patternsByInitial, barTimeSignatureGetter)))
-            .build();
+        return new Structure(
+            dto.parts.map(part => this.partModel(part, patternsByInitial, barTimeSignatureGetter)),
+            undefined,
+            undefined,
+            dto.timeSignature,
+            midi,
+            musicXml,
+        )
     }
 
     private partDtoWithoutChildren(model: Part): PartDto {

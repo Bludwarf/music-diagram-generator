@@ -5,8 +5,9 @@ import {SongEntry} from "../../song/song-entry";
 import {StructureDto} from "../../structure/structure-dto";
 import {SongInArchive} from "../../song/song-archive";
 import {RecordingDto} from "../../recording/recording-dto";
-import {DEFAULT_MIDI_TIME_SIGNATURE, Midi} from "../../recording/recording";
+import {DEFAULT_MIDI_TIME_SIGNATURE} from "../../structure/structure";
 import {BarTimeSignatureGetter} from "../../notes";
+import {Midi, MidiWrapper} from "../../midi";
 
 @Injectable({
     providedIn: 'root'
@@ -19,21 +20,24 @@ export class SongEntryMapper {
     ) {
     }
 
-    async model(songName: string, version: string | undefined, structure: StructureDto, recordingDto?: RecordingDto, midi?: Midi, musicXml?: string): Promise<SongEntry> {
-        const recording = recordingDto ? this.recordingMapper.model(recordingDto, midi, musicXml) : undefined;
+    async model(songName: string, version: string | undefined, structureDto: StructureDto, recordingDto?: RecordingDto, midi?: Midi, musicXml?: string): Promise<SongEntry> {
+        const midiWrapper = midi ? new MidiWrapper(midi) : undefined;
         const barTimeSignatureGetter: BarTimeSignatureGetter = (bar: number) => {
-            if (!recording) {
-                const timeSignature = DEFAULT_MIDI_TIME_SIGNATURE.timeSignature
-                console.warn(`Sans enregistrement on considère que la signature rythmique du morceau "${songName}" est du ${timeSignature[0]}/${timeSignature[1]}`)
+            if (!midiWrapper) {
+                if (structureDto.timeSignature) {
+                    return structureDto.timeSignature
+                }
+                const timeSignature = DEFAULT_MIDI_TIME_SIGNATURE.timeSignature // TODO on devrait refacto pour mettre cette constante en private
+                console.warn(`Sans MIDI on considère que la signature rythmique du morceau "${songName}" est du ${timeSignature[0]}/${timeSignature[1]}`)
                 return timeSignature
             }
-            return recording.getTimeSignature(bar)
+            return midiWrapper.getTimeSignature(bar)
         }
         return {
             name: songName,
             version,
-            structure: this.structureMapper.model(structure, barTimeSignatureGetter),
-            recording,
+            structure: this.structureMapper.model(structureDto, barTimeSignatureGetter, midi, musicXml),
+            recording: recordingDto ? this.recordingMapper.model(recordingDto) : undefined,
         };
     }
 

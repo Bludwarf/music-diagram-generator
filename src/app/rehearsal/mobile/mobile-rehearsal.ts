@@ -69,7 +69,7 @@ export abstract class MobileRehearsal {
     get position(): Position | undefined {
         const beatTime = this.beatTime;
         if (beatTime !== undefined && beatTime.value >= 0) {
-            return this.recording?.getPosition(beatTime)
+            return this.structure?.getPosition(beatTime)
         }
         return this.currentPatternInStructure?.startPosition
     }
@@ -82,7 +82,7 @@ export abstract class MobileRehearsal {
         return Transport.seconds
     }
 
-    structure?: Structure;
+    structure!: Structure;
     recording?: Recording;
 
     get rythmBarTimecode(): string | undefined {
@@ -155,13 +155,13 @@ export abstract class MobileRehearsal {
         const recording = this.recording;
         if (!recording) return
 
-        const partsInStructure = this.structure?.partsInStructure;
+        const partsInStructure = this.structure.partsInStructure;
         if (!partsInStructure) return
 
         partsInStructure.forEach(partInStructure => {
             partInStructure.sectionsInStructure.forEach(sectionInStructure => {
                 sectionInStructure.patternsInStructure.forEach(patternInStructure => {
-                    const patternStartTime = recording.getSecTimeAt(patternInStructure.startPosition);
+                    const patternStartTime = recording.getSecTime(this.structure.getBeatTimeAt(patternInStructure.startPosition));
                     if (patternStartTime) {
                         this.toneAdapter.schedule(() => {
                             this.currentPatternInStructure = patternInStructure
@@ -169,7 +169,7 @@ export abstract class MobileRehearsal {
                         }, patternStartTime.value);
                     }
 
-                    const patternEndTime = recording.getSecTimeAt(patternInStructure.endPosition);
+                    const patternEndTime = recording.getSecTime(this.structure.getBeatTimeAt(patternInStructure.endPosition));
                     if (patternEndTime) {
                         this.toneAdapter.schedule(() => {
                             if (this.currentPatternInStructure === patternInStructure) {
@@ -196,9 +196,6 @@ export abstract class MobileRehearsal {
     }
 
     async uploadFile(event: Event): Promise<void> {
-        if (!this.structure) {
-            error('Aucune structure')
-        }
         if (!this.recording) {
             error('Aucun enregistrement (Recording)')
         }
@@ -330,7 +327,7 @@ export abstract class MobileRehearsal {
                 this.currentPatternInStructure = element.patternsInStructure[0]
             } else if (element instanceof PartInStructure) {
                 this.currentPatternInStructure = element.sectionsInStructure[0].patternsInStructure[0]
-            } else if (this.structure) {
+            } else {
                 // TODO créer un type BarInStructure, pour être plus propre et plus optimisé
                 const position = element.startPosition
                 const currentPartInStructure = this.structure.getPartInStructureAt(position)
@@ -343,7 +340,7 @@ export abstract class MobileRehearsal {
     }
 
     setPosition(position: Position) {
-        const secTime = this.recording?.getSecTimeAt(position);
+        const secTime = this.recording?.getSecTime(this.structure.getBeatTimeAt(position));
         if (secTime !== undefined) {
             const fixOffset = 0.05 // On corrige la sélection qui arrive souvent sur l'élément précédent => TODO corriger en arrondissant la sélection dans le refresh
             Transport.seconds = secTime.value + fixOffset
@@ -364,9 +361,9 @@ export abstract class MobileRehearsal {
                 error('Aucun enregistrement (Recording)')
             }
 
-            const wrappedStartTime = this.recording.getSecTimeAt(element.startPosition);
+            const wrappedStartTime = this.recording.getSecTime(this.structure.getBeatTimeAt(element.startPosition));
             if (wrappedStartTime !== undefined) {
-                const wrappedEndTime = this.recording.getSecTimeAt(element.endPosition);
+                const wrappedEndTime = this.recording.getSecTime(this.structure.getBeatTimeAt(element.endPosition));
                 if (wrappedEndTime !== undefined) {
                     Transport.loop = true
                     Transport.loopStart = wrappedStartTime.value

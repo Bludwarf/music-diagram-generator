@@ -11,21 +11,11 @@ class StructureBuilder {
     private _parts?: Part[];
     private defaultPart?: Part
     private defaultSection?: Section
-    private _getEventsStartPosition?: (pattern: Pattern) => (Position) | undefined;
-    private _getEventsDurationInBars?: (pattern: Pattern) => number | undefined
+    private readonly getEventsStartPosition?: (pattern: Pattern) => (Position) | undefined;
+    private readonly getEventsDurationInBars?: (pattern: Pattern) => number | undefined
 
     parts(parts: typeof this._parts) {
         this._parts = parts
-        return this
-    }
-
-    getEventsStartPosition(getEventsStartTime: typeof this._getEventsStartPosition) {
-        this._getEventsStartPosition = getEventsStartTime
-        return this
-    }
-
-    getEventsDurationInBars(getEventsDurationInBars: typeof this._getEventsDurationInBars) {
-        this._getEventsDurationInBars = getEventsDurationInBars
         return this
     }
 
@@ -46,18 +36,14 @@ class StructureBuilder {
             this.defaultPart = new Part('DefaultPart', [
                 section,
             ])
-            if (!this._parts) {
-                this._parts = []
-            }
+            this._parts ??= [];
             this._parts.push(this.defaultPart)
         }
         return this.defaultPart
     }
 
     private getOrCreateDefaultSection(): Section {
-        if (!this.defaultSection) {
-            this.defaultSection = new Section('DefaultSection', [])
-        }
+        this.defaultSection ??= new Section('DefaultSection', []);
         return this.defaultSection
     }
 
@@ -72,8 +58,8 @@ class StructureBuilder {
 
         return new Structure(
             parts,
-            this._getEventsStartPosition,
-            this._getEventsDurationInBars
+            this.getEventsStartPosition,
+            this.getEventsDurationInBars
         )
     }
 }
@@ -116,13 +102,6 @@ export class Structure {
         }
 
         this.partsInStructure = partsInStructure
-
-        // if (currentTime.toSeconds() !== sampleDuration.toSeconds()) {
-        //   console.warn('currentTime != duration', currentTime.toSeconds(), currentTime.toAbletonLiveBarsBeatsSixteenths(), sampleDuration.toSeconds())
-        // }
-        // if (currentTime.toAbletonLiveBarsBeatsSixteenths() !== sampleDuration.toAbletonLiveBarsBeatsSixteenths()) {
-        //   console.warn('currentTime != duration', currentTime.toAbletonLiveBarsBeatsSixteenths(), sampleDuration.toAbletonLiveBarsBeatsSixteenths())
-        // }
     }
 
     getPartInStructureAt(position: Position): PartInStructure {

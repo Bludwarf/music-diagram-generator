@@ -1,4 +1,4 @@
-import {Position} from "../time";
+import {BeatTime, Position, TimeSignature} from "../time";
 import {Pattern} from "./pattern/pattern";
 import {PatternInStructure} from "./pattern/pattern-in-structure";
 import {SectionInStructure} from "./section/section-in-structure";
@@ -6,6 +6,7 @@ import {Part} from "./part/part";
 import {PartInStructure} from "./part/part-in-structure";
 import {BaseColor as Color, ColorResolver} from "../color";
 import {Section} from "./section/section";
+import {Midi, MidiTimeSignature} from "../midi";
 
 class StructureBuilder {
     private _parts?: Part[];
@@ -64,6 +65,12 @@ class StructureBuilder {
     }
 }
 
+export const DEFAULT_MIDI_TIME_SIGNATURE: MidiTimeSignature = {
+    ticks: 0,
+    timeSignature: [4, 4],
+    measures: 0,
+};
+
 export class Structure {
 
     key = 'Gm (mock)'; // TODO
@@ -77,6 +84,9 @@ export class Structure {
         parts: Part[],
         getEventsStartPosition?: (pattern: Pattern) => Position | undefined, // TODO en attendant de savoir comment faire les events
         getEventsDurationInBars?: (pattern: Pattern) => number | undefined, // TODO en attendant de savoir comment faire les events
+        readonly timeSignature?: TimeSignature,
+        readonly midi?: Midi,
+        readonly musicXmlString?: string,
     ) {
 
         let currentPosition = new Position();
@@ -128,6 +138,101 @@ export class Structure {
             durationInBars += partInStructure.part.durationInBars
         }
         return durationInBars;
+    }
+
+    getPosition(beatTime: BeatTime): Position {
+        const currentTimeSignature = this.getMidiTimeSignature(beatTime);
+
+        let beatTimeFromCurrentTimeSignature = beatTime;
+        if (this.midi) {
+            const ticks = beatTime.toMidiTicks(this.midi.header.ppq);
+            const ticksFromCurrentTimeSignature = ticks - currentTimeSignature.ticks;
+            beatTimeFromCurrentTimeSignature = BeatTime.fromMidiTicks(ticksFromCurrentTimeSignature, this.midi.header.ppq);
+        }
+
+        return this.getPositionWithTimeSignature(beatTimeFromCurrentTimeSignature, currentTimeSignature);
+    }
+
+    private getPositionWithTimeSignature(beatTime: BeatTime, currentTimeSignature: MidiTimeSignature) {
+        const [tsNum, tsDen] = currentTimeSignature.timeSignature;
+        const quartersPerBar = tsNum * BeatTime.SIGNATURE[1] / tsDen;
+        const quartersPerBeat = 1 / (tsDen / BeatTime.SIGNATURE[1]); // = BEAT[1] / tsDen
+        const quartersPerSixteenth = 1 / 4
+
+        let remaining = beatTime.value;
+
+        const bars = Math.floor(remaining / quartersPerBar);
+        remaining -= bars * quartersPerBar;
+
+        const beats = Math.floor(remaining / quartersPerBeat);
+        remaining -= beats * quartersPerBeat;
+
+        const sixteenths = Math.floor(remaining / quartersPerSixteenth);
+
+        return new Position(
+            currentTimeSignature.measures + bars,
+            beats,
+            sixteenths,
+        );
+    }
+
+    getBeatTimeAt(position: Position): BeatTime {
+        const currentTimeSignature = this.getMidiTimeSignatureAt(position);
+        const currentTimeSignatureBeatTime = BeatTime.fromMidiTicks(currentTimeSignature.ticks, this.midi?.header?.ppq);
+        return this.getBeatTimeWithTimeSignatureAt(currentTimeSignature, currentTimeSignatureBeatTime, position);
+    }
+
+    private getBeatTimeWithTimeSignatureAt(currentTimeSignature: MidiTimeSignature, currentTimeSignatureBeatTime: BeatTime, position: Position) {
+        const barsFromCurrentTimeSignature = position.bars - currentTimeSignature.measures;
+        // TODO facto à faire ?
+        const valueFactor = currentTimeSignature.timeSignature[1] / BeatTime.SIGNATURE[1]
+        return new BeatTime(currentTimeSignatureBeatTime.value
+            + barsFromCurrentTimeSignature * currentTimeSignature.timeSignature[0] / valueFactor
+            + position.beats
+            + position.sixteenths / 4);
+    }
+
+    private _midiTimeSignature: MidiTimeSignature | undefined;
+    get midiTimeSignature(): MidiTimeSignature {
+        if (!this.timeSignature) return DEFAULT_MIDI_TIME_SIGNATURE;
+        this._midiTimeSignature ??= {
+            ...DEFAULT_MIDI_TIME_SIGNATURE,
+            timeSignature: this.timeSignature,
+        };
+        return this._midiTimeSignature
+    }
+
+    private getMidiTimeSignature(beatTime: BeatTime): MidiTimeSignature {
+        let currentTimeSignature = this.midiTimeSignature;
+
+        if (this.midi) {
+            const ticks = beatTime.toMidiTicks(this.midi.header.ppq);
+            currentTimeSignature = this.findCurrentTimeSignature(ticks);
+        }
+
+        return currentTimeSignature;
+    }
+
+    private getMidiTimeSignatureAt(position: Position): MidiTimeSignature {
+        if (!this.midi) {
+            return this.midiTimeSignature
+        }
+        // TODO calcul à mettre dans une lib/util
+        // TODO facto avec getMidiTimeSignature
+        const nextTimeSignatureIndex = this.midi.header.timeSignatures.findIndex(timeSignature => timeSignature.measures > position.bars);
+        const timeSignatureIndex = nextTimeSignatureIndex === -1 ? this.midi.header.timeSignatures.length - 1 : (nextTimeSignatureIndex === 0 ? 0 : nextTimeSignatureIndex - 1);
+        return this.midi.header.timeSignatures[timeSignatureIndex];
+    }
+
+    private findCurrentTimeSignature(ticks: number): MidiTimeSignature {
+        if (!this.midi) {
+            throw new Error(`Impossible de trouver la signature rythmique courante sans données MIDI`);
+        }
+        // TODO calcul à mettre dans une lib/util
+        // TODO facto avec getMidiTimeSignatureAt
+        const nextTimeSignatureIndex = this.midi.header.timeSignatures.findIndex(timeSignature => timeSignature.ticks > ticks);
+        const timeSignatureIndex = nextTimeSignatureIndex === -1 ? this.midi.header.timeSignatures.length - 1 : (nextTimeSignatureIndex === 0 ? 0 : nextTimeSignatureIndex - 1);
+        return this.midi.header.timeSignatures[timeSignatureIndex];
     }
 
 }

@@ -1,8 +1,7 @@
-import {Position, PositionFormatter} from "./time";
+import {Position, PositionFormatter, TimeSignature} from "./time";
 import {Comparable} from "./utils/comparator";
 import {checkIsInteger} from "./utils/validators";
 import {error} from "./utils";
-import {TimeSignature} from "./recording/recording";
 
 export const NOTE_NAMES = [
     'C',

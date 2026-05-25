@@ -1,6 +1,8 @@
 import {Seconds} from "tone/build/esm/core/type/Units";
 import {checkIsInteger, checkIsPositive, checkIsStrictlyPositive} from "./utils/validators";
 import {error} from "./utils";
+import {PartInStructure} from "./structure/part/part-in-structure";
+import {ColorResolver} from "./color";
 
 interface BarsBeatsSixteenthsFields {
     /** 0-indexée */
@@ -11,6 +13,10 @@ interface BarsBeatsSixteenthsFields {
 
 /** Temps en comptant à la noire (1 battement (pulse) = 1 temps en 4/4 ou 0.5 temps en 6/8)  */
 export class BeatTime {
+
+    /** Signature utilisée par le BeatTime Ableton Live quelle que soit la signature réelle */
+    static readonly SIGNATURE: TimeSignature = [4, 4];
+
     constructor(
         readonly value: number,
     ) {
@@ -188,3 +194,5 @@ export class SecTime {
         return new SecTime(seconds)
     }
 }
+
+export type TimeSignature = readonly [number, number];

@@ -1,6 +1,9 @@
+import {TimeSignature} from "../time";
+
 export interface StructureDto {
     parts: PartDto[],
     patterns: PatternDto[],
+    timeSignature?: TimeSignature,
 }
 
 export interface PartDto {

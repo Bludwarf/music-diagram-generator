@@ -1,7 +1,8 @@
 import {ArchiveFile, basenameUnix, unzipArchive} from "../utils/file-utils";
-import {Midi, Recording} from "../recording/recording";
+import {Recording} from "../recording/recording";
 import {error, getOrRequire} from "../utils";
 import {StructureDto} from "../structure/structure-dto";
+import {Midi} from "../midi";
 
 export const STRUCTURE_JSON = "structure.json";
 export const RECORDING_JSON = "recording.json";
@@ -10,16 +11,16 @@ const AUDIO_EXTENSION = ".mp3";
 const RECORDING_MP3 = "recording" + AUDIO_EXTENSION;
 
 const MIDI_EXTENSION = ".mid.json"; // TODO accepter directement du *.mid
-const RECORDING_MIDI = "recording" + MIDI_EXTENSION;
+const STRUCTURE_MIDI = "structure" + MIDI_EXTENSION;
 
 const MUSIC_XML_EXTENSION = ".mxl.xml"; // TODO accepter directement du *.mxl (XML zippé)
-const MUSIC_XML = "recording" + MUSIC_XML_EXTENSION;
+const MUSIC_XML = "structure" + MUSIC_XML_EXTENSION;
 
 const SONG_ARCHIVE_FILE_NAMES = [
     STRUCTURE_JSON,
     RECORDING_JSON,
     RECORDING_MP3,
-    RECORDING_MIDI,
+    STRUCTURE_MIDI,
 ] as readonly string[];
 
 export type SongArchiveFileName = typeof SONG_ARCHIVE_FILE_NAMES[number];
@@ -138,7 +139,7 @@ export class SongInArchive {
 
     // TODO cache
     get midi(): Promise<Midi | undefined> {
-        return this.getDto<Midi>(RECORDING_MIDI, MIDI_EXTENSION);
+        return this.getDto<Midi>(STRUCTURE_MIDI, MIDI_EXTENSION);
     }
 
     // TODO cache

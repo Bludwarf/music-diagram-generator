@@ -20,10 +20,10 @@ import {KeyboardState} from "../../../keyboard/type";
 import {OctavedNote} from "../../../notes";
 import {SheetMusicComponent} from "../../../sheet-music/sheet-music.component";
 import {MAX_MIDI, MIN_MIDI} from "../../../keyboard/notes";
-import {MidiNote} from "../../../recording/recording";
 import {SwipeDirective} from "../../../swipe.directive";
 import {ToneAdapter} from "../../../tonejs/tone-adapter";
 import {TransportButtonComponent} from "../../../buttons/transport-button/transport-button.component";
+import {MidiNote, MidiWrapper} from "../../../midi";
 
 @Component({
     selector: 'app-mobile-rehearsal-p-osmd',
@@ -84,10 +84,12 @@ export class MobileRehearsalPOsmdComponent extends MobileRehearsal implements On
 
     private scheduleKeyboardNotes() {
         // Source : https://github.com/imagicbell/piano-app/blob/a22138d05361e1ebf2571eed2949b0e4544c2781/src/features/midiplayer/index.js
+        const structure = this.structure;
         const recording = this.recording;
-        if (recording) {
-            const midi = recording.midi;
+        if (structure && recording) {
+            const midi = structure.midi;
             if (midi) {
+                const midiWrapper = new MidiWrapper(midi);
                 let lowerMidiValue = MAX_MIDI
                 let higherMidiValue = MIN_MIDI
 
@@ -99,7 +101,7 @@ export class MobileRehearsalPOsmdComponent extends MobileRehearsal implements On
                             return;
                         }
 
-                        const secTime = recording.getStartTime(note);
+                        const secTime = recording.getSecTime(midiWrapper.getStartBeatTime(note));
                         if (secTime) {
                             this.toneAdapter.schedule(() => {
                                 this.keyboardState = keyboardReducer(this.keyboardState, {
@@ -107,7 +109,7 @@ export class MobileRehearsalPOsmdComponent extends MobileRehearsal implements On
                                     key: note.name,
                                 })
                             }, secTime.value);
-                            const endSecTime = recording.getEndTime(note);
+                            const endSecTime = recording.getSecTime(midiWrapper.getEndBeatTime(note));
                             if (!endSecTime) {
                                 throw new Error(`WarpTime end inconnu pour la note MIDI ${note.name} ticks=${note.ticks} durationTicks=${note.durationTicks}`);
                             }
@@ -148,14 +150,14 @@ export class MobileRehearsalPOsmdComponent extends MobileRehearsal implements On
     }
 
     private getMidiNotesFrom(element: PositionedElement | undefined) {
-        const recording = this.recording;
-        const midi = recording?.midi
-        if (!recording || !midi) {
+        const structure = this.structure;
+        const midi = structure?.midi
+        if (!structure || !midi) {
             return []
         }
 
-        const startTicks = element ? recording.getBeatTimeAt(element.startPosition)?.toMidiTicks(midi.header.ppq) : undefined;
-        const endTicks = element ? recording.getBeatTimeAt(element.endPosition)?.toMidiTicks(midi.header.ppq) : undefined;
+        const startTicks = element ? structure.getBeatTimeAt(element.startPosition)?.toMidiTicks(midi.header.ppq) : undefined;
+        const endTicks = element ? structure.getBeatTimeAt(element.endPosition)?.toMidiTicks(midi.header.ppq) : undefined;
         return midi.tracks.flatMap(track =>
             track.notes.filter(note => startTicks !== undefined && endTicks !== undefined ? startTicks <= note.ticks && note.ticks < endTicks : true)
         );
@@ -219,7 +221,7 @@ export class MobileRehearsalPOsmdComponent extends MobileRehearsal implements On
     }
 
     private loadMusicXML() {
-        const musicXmlString = this.recording?.musicXmlString;
+        const musicXmlString = this.structure?.musicXmlString;
         if (musicXmlString) {
             this.musicXml = musicXmlString
             // const musicXmlContent = await loadMusicXml(musicXmlString);
@@ -236,11 +238,11 @@ export class MobileRehearsalPOsmdComponent extends MobileRehearsal implements On
     }
 
     private activateCurrentMidiNotes(position: Position) {
-        const recording = this.recording;
-        if (recording) {
-            const midi = recording.midi;
+        const structure = this.structure;
+        if (structure) {
+            const midi = structure.midi;
             if (midi) {
-                const ticks = recording.getBeatTimeAt(position)?.toMidiTicks(midi.header.ppq);
+                const ticks = structure.getBeatTimeAt(position)?.toMidiTicks(midi.header.ppq);
                 if (ticks !== undefined) {
                     midi.tracks.forEach(track => {
                         const currentNotes = track.notes.filter(note => note.ticks <= ticks && ticks < note.ticks + note.durationTicks);

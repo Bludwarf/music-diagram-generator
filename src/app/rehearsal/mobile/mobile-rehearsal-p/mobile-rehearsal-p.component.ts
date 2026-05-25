@@ -94,7 +94,7 @@ export class MobileRehearsalPComponent extends MobileRehearsal implements OnInit
         // Source : https://github.com/imagicbell/piano-app/blob/a22138d05361e1ebf2571eed2949b0e4544c2781/src/features/midiplayer/index.js
         const recording = this.recording;
         if (recording) {
-            const midi = recording.midi;
+            const midi = this.structure.midi;
             if (midi) {
                 // Tone.Transport.PPQ = midi.header.ppq; // TODO cf. https://github.com/tonejs/tone.js/wiki/Time#ticks
                 midi.tracks.forEach((track, trackIndex) => {
@@ -151,26 +151,23 @@ export class MobileRehearsalPComponent extends MobileRehearsal implements OnInit
     }
 
     private activateCurrentMidiNotes(position: Position) {
-        const recording = this.recording;
-        if (recording) {
-            const midi = recording.midi;
-            if (midi) {
-                const ticks = recording.getBeatTimeAt(position)?.toMidiTicks(midi.header.ppq);
-                if (ticks !== undefined) {
-                    midi.tracks.forEach((track, trackIndex) => {
-                        const currentNotes = track.notes.filter(note => note.ticks <= ticks && ticks < note.ticks + note.durationTicks);
-                        currentNotes.forEach((note, noteIndex) => {
-                            if (note.durationTicks <= 0) {
-                                console.warn(`On ignore cette note car sa durée est invalide`, note)
-                                return;
-                            }
-                            this.keyboardStatesByTrackIndex[trackIndex] = keyboardReducer(this.keyboardStatesByTrackIndex[trackIndex], {
-                                type: 'ACTIVE_KEY',
-                                key: note.name,
-                            })
-                        });
+        const midi = this.structure.midi;
+        if (midi) {
+            const ticks = this.structure.getBeatTimeAt(position)?.toMidiTicks(midi.header.ppq);
+            if (ticks !== undefined) {
+                midi.tracks.forEach((track, trackIndex) => {
+                    const currentNotes = track.notes.filter(note => note.ticks <= ticks && ticks < note.ticks + note.durationTicks);
+                    currentNotes.forEach((note, noteIndex) => {
+                        if (note.durationTicks <= 0) {
+                            console.warn(`On ignore cette note car sa durée est invalide`, note)
+                            return;
+                        }
+                        this.keyboardStatesByTrackIndex[trackIndex] = keyboardReducer(this.keyboardStatesByTrackIndex[trackIndex], {
+                            type: 'ACTIVE_KEY',
+                            key: note.name,
+                        })
                     });
-                }
+                });
             }
         }
     }
@@ -192,7 +189,7 @@ export class MobileRehearsalPComponent extends MobileRehearsal implements OnInit
     }
 
     private getExtremeKey(trackIndex: number, direction: 'down' | 'up', defaultKey: string) {
-        const midi = this.recording?.midi;
+        const midi = this.structure.midi;
         if (midi) {
             const midiTrack = midi.tracks[trackIndex];
             if (midiTrack) {

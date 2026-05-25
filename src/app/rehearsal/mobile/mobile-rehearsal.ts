@@ -342,8 +342,7 @@ export abstract class MobileRehearsal {
     setPosition(position: Position) {
         const secTime = this.recording?.getSecTime(this.structure.getBeatTimeAt(position));
         if (secTime !== undefined) {
-            const fixOffset = 0.05 // On corrige la sélection qui arrive souvent sur l'élément précédent => TODO corriger en arrondissant la sélection dans le refresh
-            Transport.seconds = secTime.value + fixOffset
+            Transport.seconds = secTime.value
             this.secTime.set(secTime)
             this.resetStates(position);
         }

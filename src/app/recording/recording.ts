@@ -37,7 +37,7 @@ export class Recording {
     get meanTempo(): number {
         const weightedBps = this.regions
             .map(region => region.bps * region.secDuration)
-            .reduce(sum, 0)
+            .reduce((accumulator, element) => sum(accumulator, element), 0)
         const start = this.warpMarkers[0];
         const end = this.warpMarkers.at(-1)!;
         return weightedBps / (end.secTime - start.secTime) * 60

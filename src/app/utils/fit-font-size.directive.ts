@@ -12,7 +12,7 @@ export class FitFontSizeDirective implements AfterViewInit {
 
     constructor(
         private readonly elementRef: ElementRef,
-        private ngZone: NgZone,
+        private readonly ngZone: NgZone,
     ) {
     }
 

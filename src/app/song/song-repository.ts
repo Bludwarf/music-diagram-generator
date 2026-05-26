@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
 import {EMPTY, SongEntry} from "./song-entry";
-import {error, remove} from "../utils";
+import {error} from "../utils";
 import {SongInArchive} from "./song-archive";
 import {SongArchiveLoader} from "./song-archive-loader.service";
 
@@ -8,23 +8,16 @@ import {SongArchiveLoader} from "./song-archive-loader.service";
     providedIn: 'root'
 })
 export class SongRepository {
-    private readonly _songNames: string[] = []
     private readonly songEntries: SongEntry[] = []
-
 
     constructor(
         private readonly songArchiveLoader: SongArchiveLoader,
     ) {
     }
 
-    get songNames(): readonly string [] {
-        return this._songNames;
-    }
-
     pushAll(...songEntries: SongEntry[]) {
         for (const songEntry of songEntries) {
             this.removeSong(songEntry.name);
-            this._songNames.push(songEntry.name)
             this.songEntries.push(songEntry)
         }
     }
@@ -62,12 +55,7 @@ export class SongRepository {
     }
 
     private removeSong(songName: string): void {
-        this.removeSongName(songName);
         this.removeSongEntry(songName);
-    }
-
-    private removeSongName(songName: string) {
-        remove(songName, this._songNames);
     }
 
     private removeSongEntry(songName: string) {

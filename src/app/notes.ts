@@ -64,26 +64,26 @@ const NATURAL_NOTE_VALUE_BY_NAME: Record<string, number> = {
 }
 
 export class Note extends Mod12Value {
-    private static NOTES_BY_VALUE: Note[] = []
-    private static NOTES_BY_NAME: Record<string, Note> = {}
+    private static readonly NOTES_BY_VALUE: Note[] = []
+    private static readonly NOTES_BY_NAME: Record<string, Note> = {}
 
-    static C = Note.fromName('C')
-    static Cs = Note.fromName('C#')
-    static Db = Note.Cs
-    static D = Note.fromName('D')
-    static Eb = Note.fromName('Eb')
-    static Ds = Note.Eb
-    static E = Note.fromName('E')
-    static F = Note.fromName('F')
-    static Fs = Note.fromName('F#')
-    static Gb = Note.Fs
-    static G = Note.fromName('G')
-    static Ab = Note.fromName('Ab')
-    static Gs = Note.Ab
-    static A = Note.fromName('A')
-    static Bb = Note.fromName('Bb')
-    static As = Note.Bb
-    static B = Note.fromName('B')
+    static readonly C = Note.fromName('C')
+    static readonly Cs = Note.fromName('C#')
+    static readonly Db = Note.Cs
+    static readonly D = Note.fromName('D')
+    static readonly Eb = Note.fromName('Eb')
+    static readonly Ds = Note.Eb
+    static readonly E = Note.fromName('E')
+    static readonly F = Note.fromName('F')
+    static readonly Fs = Note.fromName('F#')
+    static readonly Gb = Note.Fs
+    static readonly G = Note.fromName('G')
+    static readonly Ab = Note.fromName('Ab')
+    static readonly Gs = Note.Ab
+    static readonly A = Note.fromName('A')
+    static readonly Bb = Note.fromName('Bb')
+    static readonly As = Note.Bb
+    static readonly B = Note.fromName('B')
 
     protected constructor(value: number) {
         super(value);

@@ -9,7 +9,7 @@ import {SwUpdate, VersionEvent} from "@angular/service-worker";
 export class AppComponent implements OnInit {
 
     constructor(
-        private swUpdate: SwUpdate,
+        private readonly swUpdate: SwUpdate,
     ) {
     }
 

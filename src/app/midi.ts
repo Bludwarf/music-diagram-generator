@@ -56,7 +56,7 @@ export class MidiWrapper {
         // TODO optimisation si une seule time signature ?
         const beatTime = this.getBeatTimeAt(measure) ?? error(`Impossible de trouver le BeatTime de la ${measure + 1}${measure > 0 ? "e" : "ère"} mesure`);
         const ticks = beatTimeToMidiTicks(beatTime, this.midi.header.ppq);
-        return this.findCurrentTimeSignature(ticks).timeSignature;
+        return this.getMidiTimeSignature(ticks).timeSignature;
     }
 
     getBeatTimeAt(measure: number): BeatTime | undefined {
@@ -81,11 +81,7 @@ export class MidiWrapper {
             + barsFromCurrentTimeSignature * currentTimeSignature.timeSignature[0] / valueFactor);
     }
 
-    private getMidiTimeSignature(ticks: number): MidiTimeSignature {
-        return this.findCurrentTimeSignature(ticks);
-    }
-
-    private findCurrentTimeSignature(ticks: number): MidiTimeSignature {
+    getMidiTimeSignature(ticks: number): MidiTimeSignature {
         if (!this.midi) {
             throw new Error(`Impossible de trouver la signature rythmique courante sans données MIDI`);
         }

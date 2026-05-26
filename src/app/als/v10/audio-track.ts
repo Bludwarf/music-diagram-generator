@@ -5,7 +5,7 @@ export class AudioTrack {
     }
 
     get audioClips(): AudioClip[] {
-        const xmlAudioClip = this.xmlObject.DeviceChain.MainSequencer.Sample.ArrangerAutomation.Events.AudioClip as any;
+        const xmlAudioClip = this.xmlObject.DeviceChain.MainSequencer.Sample.ArrangerAutomation.Events.AudioClip;
         return [new AudioClip(xmlAudioClip)]
     }
 

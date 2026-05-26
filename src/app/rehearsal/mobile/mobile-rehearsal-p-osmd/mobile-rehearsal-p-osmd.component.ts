@@ -20,7 +20,7 @@ import {MAX_MIDI, MIN_MIDI} from "../../../keyboard/notes";
 import {SwipeDirective} from "../../../swipe.directive";
 import {ToneAdapter} from "../../../tonejs/tone-adapter";
 import {TransportButtonComponent} from "../../../buttons/transport-button/transport-button.component";
-import {MidiNote, MidiWrapper} from "../../../midi";
+import {MidiNote} from "../../../midi";
 import {SongEntry} from "../../../song/song-entry";
 
 @Component({
@@ -84,14 +84,13 @@ export class MobileRehearsalPOsmdComponent extends MobileRehearsal implements On
         const structure = this.structure();
         const recording = this.recording();
         if (structure && recording) {
-            const midi = structure.midi;
-            if (midi) {
-                const midiWrapper = new MidiWrapper(midi);
+            const midiWrapper = structure.midiWrapper;
+            if (midiWrapper) {
                 let lowerMidiValue = MAX_MIDI
                 let higherMidiValue = MIN_MIDI
 
                 // Tone.Transport.PPQ = midi.header.ppq; // TODO cf. https://github.com/tonejs/tone.js/wiki/Time#ticks
-                midi.tracks.forEach(track => {
+                midiWrapper.midi.tracks.forEach(track => {
                     track.notes.forEach(note => {
                         if (note.durationTicks <= 0) {
                             console.warn(`On ignore cette note car sa durée est invalide`, note)
@@ -221,7 +220,6 @@ export class MobileRehearsalPOsmdComponent extends MobileRehearsal implements On
         const musicXmlString = this.structure().musicXmlString;
         if (musicXmlString) {
             this.musicXml = musicXmlString
-            // const musicXmlContent = await loadMusicXml(musicXmlString);
         }
     }
 
@@ -292,7 +290,7 @@ export class MobileRehearsalPOsmdComponent extends MobileRehearsal implements On
             const lengthInBars = this.structure()?.durationInBars;
             if (lengthInBars !== undefined) {
                 const nextBar = Math.min(Math.max(currentBar + barDirection, 0), lengthInBars - 1);
-                this.onClickElementInStructure(this.getBarAsPositionedElement(nextBar)); // TODO remplacer par un setter de this.currentBar
+                this.setPosition(new Position(nextBar));
             }
         }
     }

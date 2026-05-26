@@ -1,4 +1,4 @@
-import {computed, ElementRef, input, InputSignal, signal} from '@angular/core';
+import {computed, ElementRef, InputSignal, signal} from '@angular/core';
 import {PatternInStructure} from "../../structure/pattern/pattern-in-structure";
 import {BarNumber0Indexed, Chords} from "../../notes";
 import {RythmBarEvent} from "../../rythm-bar/event";
@@ -8,7 +8,6 @@ import {error, sequence, stripExtension} from '../../utils';
 import {SampleCacheService} from '../../sample/samples-cache.service';
 import {ToneAdapter} from "../../tonejs/tone-adapter";
 import NoSleep from 'nosleep.js';
-import {Subject} from "rxjs";
 import {SongEntry} from "../../song/song-entry";
 
 export abstract class MobileRehearsal {
@@ -110,23 +109,14 @@ export abstract class MobileRehearsal {
         const recording = this.recording();
         if (!recording) return
 
-        const partsInStructure = this.structure().partsInStructure;
-        if (!partsInStructure) return
-
-        partsInStructure.forEach(partInStructure => {
-            partInStructure.sectionsInStructure.forEach(sectionInStructure => {
-                sectionInStructure.patternsInStructure.forEach(patternInStructure => {
-                    // TODO boucles extérieures inutiles => boucle sur tous les quarters de la structure
-                    patternInStructure.forEachQuarter(beatTime => {
-                        const secTime = recording.getSecTime(beatTime);
-                        if (secTime !== undefined) {
-                            this.toneAdapter.schedule(() => {
-                                this.beatTime.set(beatTime);
-                            }, secTime.value);
-                        }
-                    })
-                })
-            })
+        const structure = this.structure();
+        structure.forEachQuarter(beatTime => {
+            const secTime = recording.getSecTime(beatTime);
+            if (secTime !== undefined) {
+                this.toneAdapter.schedule(() => {
+                    this.beatTime.set(beatTime);
+                }, secTime.value);
+            }
         })
     }
 
@@ -177,10 +167,6 @@ export abstract class MobileRehearsal {
 
         const player = new Player({
             url: audioFileURL,
-            // loop: true,
-            // autostart: true,
-            // loopStart: 0,
-            // loopEnd: this.structure().sampleDuration.toSeconds(),
         }).toDestination();
 
         // cf. https://github.com/Tonejs/Tone.js/blob/dev/examples/daw.html

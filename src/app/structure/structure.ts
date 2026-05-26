@@ -6,7 +6,7 @@ import {Part} from "./part/part";
 import {PartInStructure} from "./part/part-in-structure";
 import {BaseColor as Color, ColorResolver} from "../color";
 import {Section} from "./section/section";
-import {Midi, MidiTimeSignature} from "../midi";
+import {Midi, MidiTimeSignature, MidiWrapper} from "../midi";
 
 class StructureBuilder {
     private _parts?: Part[];
@@ -76,6 +76,7 @@ export class Structure {
     key = 'Gm (mock)'; // TODO
     readonly partsInStructure: PartInStructure[];
     private readonly colorResolver = new ColorResolver(this)
+    readonly midiWrapper?: MidiWrapper;
 
     // TODO info pour savoir qui commence (ou quel instrument ou quelle piste)
     // TODO info pour marquer le type de fin (sur le 1, brutal, normal, fondu, ralenti)
@@ -112,10 +113,10 @@ export class Structure {
         }
 
         this.partsInStructure = partsInStructure
-    }
 
-    getPartInStructureAt(position: Position): PartInStructure {
-        return Position.getElementAtWithOverflow(position, this.partsInStructure)
+        if (this.midi) {
+            this.midiWrapper = new MidiWrapper(this.midi);
+        }
     }
 
     getPatternInStructureAtBar(bar: number) { // TODO cache
@@ -210,9 +211,9 @@ export class Structure {
     private getMidiTimeSignature(beatTime: BeatTime): MidiTimeSignature {
         let currentTimeSignature = this.midiTimeSignature;
 
-        if (this.midi) {
-            const ticks = beatTime.toMidiTicks(this.midi.header.ppq);
-            currentTimeSignature = this.findCurrentTimeSignature(ticks);
+        if (this.midiWrapper) {
+            const ticks = beatTime.toMidiTicks(this.midiWrapper.midi.header.ppq);
+            currentTimeSignature = this.midiWrapper.getMidiTimeSignature(ticks);
         }
 
         return currentTimeSignature;
@@ -229,14 +230,8 @@ export class Structure {
         return this.midi.header.timeSignatures[timeSignatureIndex];
     }
 
-    private findCurrentTimeSignature(ticks: number): MidiTimeSignature {
-        if (!this.midi) {
-            throw new Error(`Impossible de trouver la signature rythmique courante sans données MIDI`);
-        }
-        // TODO calcul à mettre dans une lib/util
-        // TODO facto avec getMidiTimeSignatureAt
-        const nextTimeSignatureIndex = this.midi.header.timeSignatures.findIndex(timeSignature => timeSignature.ticks > ticks);
-        const timeSignatureIndex = nextTimeSignatureIndex === -1 ? this.midi.header.timeSignatures.length - 1 : (nextTimeSignatureIndex === 0 ? 0 : nextTimeSignatureIndex - 1);
-        return this.midi.header.timeSignatures[timeSignatureIndex];
+    forEachQuarter(callback: (beatTime: BeatTime) => void) {
+        const durationInBeats = BeatTime.fromBars(this.durationInBars).value
+        BeatTime.forEachQuarter(0, durationInBeats, callback)
     }
 }

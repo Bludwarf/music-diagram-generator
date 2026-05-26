@@ -13,7 +13,6 @@ import {error} from "../utils";
 import {Title} from "@angular/platform-browser";
 import {SongEntry} from "./song-entry";
 import {SongRepository} from "./song-repository";
-import {SampleCacheService} from "../sample/samples-cache.service";
 
 @Component({
     selector: 'app-song',

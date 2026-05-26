@@ -30,17 +30,19 @@ export class BeatTime {
             if (!ppq) error(`PPQ requis si ticks > 0`)
             beatTimeValue = ticks / ppq;
         }
-        // TODO cache pour chaque ticks, pour perfs
         return new BeatTime(beatTimeValue);
     }
 
     toMidiTicks(ppq: number): number {
-        // TODO cache pour chaque ticks, pour perfs
         return this.value * ppq;
     }
 
-    static forEachQuarter(beatTimeStartValue: number, durationInBeats: number, callback: (beatTime: BeatTime) => void) {
-        for (let beatTimeValue = beatTimeStartValue; beatTimeValue < beatTimeStartValue + durationInBeats; beatTimeValue += BeatTime.QUARTERS_PER_BEAT) {
+    static fromBars(bars: number): BeatTime {
+        return new BeatTime(bars * BeatTime.SIGNATURE[0])
+    }
+
+    static forEachQuarter(beatTimeStartValue: number, beatTimeDurationValue: number, callback: (beatTime: BeatTime) => void) {
+        for (let beatTimeValue = beatTimeStartValue; beatTimeValue < beatTimeStartValue + beatTimeDurationValue; beatTimeValue += BeatTime.QUARTERS_PER_BEAT) {
             const beatTime = new BeatTime(beatTimeValue);
             callback(beatTime);
         }
@@ -124,7 +126,7 @@ export class Position implements BarsBeatsSixteenthsFields {
             }
         }
 
-        return overflow ? elements[elements.length - 1] : undefined
+        return overflow ? elements.at(-1) : undefined
     }
 
     /**
@@ -147,8 +149,8 @@ export class Position implements BarsBeatsSixteenthsFields {
 }
 
 export class PositionFormatter {
-    static DEBUG = new PositionFormatter(':', 0, false);
-    static ABLETON_GLOBAL_TIMECODE = new PositionFormatter('.', 1, true);
+    static readonly DEBUG = new PositionFormatter(':', 0, false);
+    static readonly ABLETON_GLOBAL_TIMECODE = new PositionFormatter('.', 1, true);
 
     /**
      * @param separator

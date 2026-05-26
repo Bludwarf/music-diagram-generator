@@ -1,6 +1,20 @@
-<app-mobile-rehearsal-a *ngIf="view === 'A'"></app-mobile-rehearsal-a>
-<app-mobile-rehearsal-b *ngIf="view === 'B'"></app-mobile-rehearsal-b>
-<app-mobile-rehearsal-b-maq *ngIf="view === 'B-maq'"></app-mobile-rehearsal-b-maq>
-<app-mobile-rehearsal-p *ngIf="view === 'P'"></app-mobile-rehearsal-p>
-<app-mobile-rehearsal-p-osmd *ngIf="view === 'P-osmd'"></app-mobile-rehearsal-p-osmd>
-<app-mobile-rehearsal-c *ngIf="view === 'C'"></app-mobile-rehearsal-c>
+@if (songEntry) {
+    @if (view === "A") {
+        <app-mobile-rehearsal-a [songEntry]="songEntry"></app-mobile-rehearsal-a>
+    }
+    @if (view === "B") {
+        <app-mobile-rehearsal-b [songEntry]="songEntry"></app-mobile-rehearsal-b>
+    }
+    @if (view === "B-maq") {
+        <app-mobile-rehearsal-b-maq [songEntry]="songEntry"></app-mobile-rehearsal-b-maq>
+    }
+    @if (view === "P") {
+        <app-mobile-rehearsal-p [songEntry]="songEntry"></app-mobile-rehearsal-p>
+    }
+    @if (view === "P-osmd") {
+        <app-mobile-rehearsal-p-osmd [songEntry]="songEntry"></app-mobile-rehearsal-p-osmd>
+    }
+    @if (view === "C") {
+        <app-mobile-rehearsal-c [songEntry]="songEntry"></app-mobile-rehearsal-c>
+    }
+}

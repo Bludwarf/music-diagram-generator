@@ -5,6 +5,7 @@ import {ActivatedRoute} from "@angular/router";
 import {of} from "rxjs";
 import {MobileRehearsalAComponent} from "./mobile-rehearsal-a.component";
 import {SongRepository} from "../../../song/song-repository";
+import {DEFAULT_SONG_ENTRY} from "../../../song/song-entry.spec";
 import SpyObj = jasmine.SpyObj;
 
 describe('MobileRehearsalAComponent', () => {
@@ -34,6 +35,7 @@ describe('MobileRehearsalAComponent', () => {
         songRepository.requireSongEntry.and.returnValue(Promise.resolve(songEntry));
 
         fixture = TestBed.createComponent(MobileRehearsalAComponent);
+        fixture.componentRef.setInput('songEntry', DEFAULT_SONG_ENTRY);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });

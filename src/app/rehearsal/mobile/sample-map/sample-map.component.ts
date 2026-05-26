@@ -12,7 +12,7 @@ export class SampleMapComponent {
     @Input() transportSeconds?: number
 
     get timecode(): string | undefined {
-        if (!this.transportSeconds) {
+        if (this.transportSeconds === undefined) {
             return undefined;
         }
         const minutes = Math.floor(this.transportSeconds / 60)

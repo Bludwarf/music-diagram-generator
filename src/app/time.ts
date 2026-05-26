@@ -1,12 +1,10 @@
-import {Seconds} from "tone/build/esm/core/type/Units";
 import {checkIsInteger, checkIsPositive, checkIsStrictlyPositive} from "./utils/validators";
 import {error} from "./utils";
-import {PartInStructure} from "./structure/part/part-in-structure";
-import {ColorResolver} from "./color";
+import {BarNumber0Indexed} from "./notes";
 
 interface BarsBeatsSixteenthsFields {
     /** 0-indexée */
-    bars: number
+    bars: BarNumber0Indexed
     beats: number
     sixteenths: number
 }
@@ -17,13 +15,15 @@ export class BeatTime {
     /** Signature utilisée par le BeatTime Ableton Live quelle que soit la signature réelle */
     static readonly SIGNATURE: TimeSignature = [4, 4];
 
+    static readonly QUARTERS_PER_BEAT = 1 / this.SIGNATURE[1]
+
     constructor(
         readonly value: number,
     ) {
     }
 
     static fromMidiTicks(ticks: number, ppq?: number): BeatTime {
-        let beatTimeValue ;
+        let beatTimeValue;
         if (ticks === 0) {
             beatTimeValue = 0;
         } else {
@@ -37,6 +37,13 @@ export class BeatTime {
     toMidiTicks(ppq: number): number {
         // TODO cache pour chaque ticks, pour perfs
         return this.value * ppq;
+    }
+
+    static forEachQuarter(beatTimeStartValue: number, durationInBeats: number, callback: (beatTime: BeatTime) => void) {
+        for (let beatTimeValue = beatTimeStartValue; beatTimeValue < beatTimeStartValue + durationInBeats; beatTimeValue += BeatTime.QUARTERS_PER_BEAT) {
+            const beatTime = new BeatTime(beatTimeValue);
+            callback(beatTime);
+        }
     }
 }
 
@@ -188,10 +195,6 @@ export class SecTime {
     constructor(
         readonly value: number,
     ) {
-    }
-
-    static fromToneTransportSeconds(seconds: Seconds): SecTime {
-        return new SecTime(seconds)
     }
 }
 

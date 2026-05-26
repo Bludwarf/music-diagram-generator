@@ -118,6 +118,11 @@ export class Structure {
         return Position.getElementAtWithOverflow(position, this.partsInStructure)
     }
 
+    getPatternInStructureAtBar(bar: number) { // TODO cache
+        const position = new Position(bar);
+        return Position.getElementAtWithOverflow(position, this.patternsInStructure)
+    }
+
     static builder(): StructureBuilder {
         return new StructureBuilder()
     }
@@ -159,7 +164,7 @@ export class Structure {
         const quartersPerBeat = 1 / (tsDen / BeatTime.SIGNATURE[1]); // = BEAT[1] / tsDen
         const quartersPerSixteenth = 1 / 4
 
-        let remaining = +beatTime.value.toFixed(2); // on arrondit au dela d'une double croche
+        let remaining = beatTime.value;
 
         const bars = Math.floor(remaining / quartersPerBar);
         remaining -= bars * quartersPerBar;
@@ -234,5 +239,4 @@ export class Structure {
         const timeSignatureIndex = nextTimeSignatureIndex === -1 ? this.midi.header.timeSignatures.length - 1 : (nextTimeSignatureIndex === 0 ? 0 : nextTimeSignatureIndex - 1);
         return this.midi.header.timeSignatures[timeSignatureIndex];
     }
-
 }

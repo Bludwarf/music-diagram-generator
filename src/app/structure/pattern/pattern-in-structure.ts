@@ -1,5 +1,5 @@
 import {Chord, Key} from "../../notes";
-import {Position, PositionedElement} from "../../time";
+import {BeatTime, Position, PositionedElement} from "../../time";
 import {Structure} from "../structure";
 import {Pattern} from "./pattern";
 import {SectionInStructure} from "../section/section-in-structure";
@@ -32,8 +32,15 @@ export class PatternInStructure implements PositionedElement {
         return this.pattern.chords?.getChordAt2(relativePosition)
     }
 
-    getKeyAt(position: Position): Key | undefined {
+    getKeyAt(position: Position): Key | undefined { // TODO
         return this.pattern.key
     }
 
+    get startBeatTime(): BeatTime {
+        return this.structure.getBeatTimeAt(this.startPosition);
+    }
+
+    forEachQuarter(callback: (beatTime: BeatTime) => void) {
+        BeatTime.forEachQuarter(this.startBeatTime.value, this.pattern.durationInBeats, callback)
+    }
 }

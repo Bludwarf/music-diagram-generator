@@ -132,11 +132,12 @@ describe('Structure', () => {
         })
     })
 
-    describe("getPosition arrondie", () => {
+    describe("getPosition non arrondie", () => {
 
         ([
             [3.994, "1.4.4"],
-            [3.995, "2.1.1"],
+            [3.995, "1.4.4"],
+            [3.999999999, "1.4.4"],
         ] as [number, string][]).forEach(([beatTimeValue, expectedTimecode]) => {
 
             it(`${beatTimeValue}`, async () => {

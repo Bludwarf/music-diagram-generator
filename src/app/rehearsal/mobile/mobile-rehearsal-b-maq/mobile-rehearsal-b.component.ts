@@ -1,7 +1,8 @@
-import {ChangeDetectionStrategy, Component} from '@angular/core';
+import {ChangeDetectionStrategy, Component, input} from '@angular/core';
 import {CommonModule} from "@angular/common";
 import {FormsModule} from "@angular/forms";
 import {TransportButtonComponent} from "../../../buttons/transport-button/transport-button.component";
+import {SongEntry} from "../../../song/song-entry";
 
 @Component({
     selector: 'app-mobile-rehearsal-b-maq',
@@ -14,5 +15,7 @@ import {TransportButtonComponent} from "../../../buttons/transport-button/transp
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MobileRehearsalBMaqComponent {
+
+    songEntry = input.required<SongEntry>();
 
 }

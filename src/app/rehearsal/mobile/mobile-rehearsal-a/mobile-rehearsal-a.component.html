@@ -8,14 +8,15 @@
 <div id="transport" *ngIf="sampleIsLoaded">
     <div id="transport-timecode">{{ timecode }}</div>
     <div id="transport-buttons">
-        <app-transport-button icon="play" *ngIf="!playing" (click)="playSong()" [disabled]="playButtonIsDisabled"></app-transport-button>
+        <app-transport-button icon="play" *ngIf="!playing" (click)="playSong()"
+                              [disabled]="playButtonIsDisabled"></app-transport-button>
         <app-transport-button icon="pause" *ngIf="playing" (click)="pauseSong()"></app-transport-button>
     </div>
     <div *ngIf="debug">
-        {{ transportPosition }}
+        {{ position() }}
     </div>
     <div *ngIf="debug">
-        {{ transportBeatTime }} - {{ transportSeconds }}
+        {{ transportBeatTime }} - {{ roundedTransportSeconds() }}
         <br/>
     </div>
     <div id="range-container">
@@ -23,76 +24,73 @@
     </div>
 </div>
 
-<ng-container *ngIf="structure">
+<!-- Parties -->
+<div id="parts">
+    <app-section *ngFor="let partInStructure of structure().partsInStructure"
+                 [class.active]="partInStructure === currentPartInStructure()"
+                 (click)="this.onClickElementInStructure(partInStructure)">{{ partInStructure.part.name }}
+    </app-section>
+</div>
 
-    <!-- Parties -->
-    <div id="parts">
-        <app-section *ngFor="let partInStructure of structure.partsInStructure"
-                     [class.active]="partInStructure === currentPartInStructure"
-                     (click)="this.onClickElementInStructure(partInStructure)">{{ partInStructure.part.name }}
-        </app-section>
-    </div>
-
-    <!-- Sections -->
-    <div id="sections" *ngIf="currentPartInStructure">
+<!-- Sections -->
+@if (currentPartInStructure(); as currentPartInStructure) {
+    <div id="sections">
         <app-section *ngFor="let sectionInStructure of currentPartInStructure.sectionsInStructure"
-                     [class.active]="sectionInStructure === currentSectionInStructure"
+                     [class.active]="sectionInStructure === currentSectionInStructure()"
                      (click)="this.onClickElementInStructure(sectionInStructure)">{{ sectionInStructure.initial }}
         </app-section>
     </div>
+}
 
-    <!-- Détails de la section courante -->
-    <ng-container *ngIf="currentSectionInStructure">
-        <span class="active pattern">{{ currentSectionInStructure.section.name }}</span><br/>
+<!-- Détails de la section courante -->
+@if (currentSectionInStructure(); as currentSectionInStructure) {
+    <span class="active pattern">{{ currentSectionInStructure.section.name }}</span><br/>
 
-        <!-- Patterns -->
-        <div id="patterns">
-            <app-pattern *ngFor="let patternInStructure of currentSectionInStructure.patternsInStructure"
-                         [class.active]="patternInStructure == currentPatternInStructure"
-                         (click)="this.onClickElementInStructure(patternInStructure)">{{ patternInStructure.initial }}
-            </app-pattern>
-        </div>
+    <!-- Patterns -->
+    <div id="patterns">
+        <app-pattern *ngFor="let patternInStructure of currentSectionInStructure.patternsInStructure"
+                     [class.active]="patternInStructure == currentPatternInStructure()"
+                     (click)="this.onClickElementInStructure(patternInStructure)">{{ patternInStructure.initial }}
+        </app-pattern>
+    </div>
+}
 
+<!-- Détail sur le pattern courant -->
+@if (currentPatternInStructure(); as currentPatternInStructure) {
+    <span class="active pattern">{{ currentPatternInStructure.pattern.name }}</span><br/>
+
+    <ng-container *ngIf="currentPatternInStructure.pattern.chords; let chords">
+        {{ chords.ascii }}
+    </ng-container>
+    <ng-container *ngIf="!currentPatternInStructure.pattern.chords">
+        {{ currentPatternInStructure.pattern.durationInBars }}m
+    </ng-container>
+    <br/>
+
+    <!-- TODO pourquoi ne peut pas envoyer lowestFret et fretsCount undefined ? -->
+    <app-fretboard
+        *ngIf="currentPatternInStructure.pattern.fretboard && currentPatternInStructure.pattern.fretboard.lowestFret != undefined && currentPatternInStructure.pattern.fretboard.fretsCount != undefined"
+        [lowestFret]="currentPatternInStructure.pattern.fretboard.lowestFret"
+        [fretsCount]="currentPatternInStructure.pattern.fretboard.fretsCount"
+        [key]="currentPatternInStructure.pattern.key"
+        [currentNote]="currentChord()?.root"
+    ></app-fretboard>
+
+    {{ undefined }} / {{ currentPatternInStructure.pattern.durationInBars }}
+    <br/>
+    <ng-container *ngIf="currentPatternInStructure.eventsStartPosition">
+        <ng-container
+            *ngFor="let barNumber of sequence(currentPatternInStructure.eventsDurationInBars, currentPatternInStructure.eventsStartPosition.bars + 1)">
+            <app-rythm-bar
+                *ngIf="currentPatternInStructure.pattern.events?.length"
+                [number]="barNumber"
+                [events]="currentPatternInStructure.pattern.events"
+                (addEvent)="addEvent($event)"
+                (removeEvent)="removeEvent($event)"
+                [timecode]="rythmBarTimecode"
+            ></app-rythm-bar>
+            <br/>
+        </ng-container>
     </ng-container>
 
-    <!-- Détail sur le pattern courant -->
-    <ng-container *ngIf="currentPatternInStructure">
-        <span class="active pattern">{{ currentPatternInStructure.pattern.name }}</span><br/>
-
-        <ng-container *ngIf="currentPatternInStructure.pattern.chords; let chords">
-            {{ chords.ascii }}
-        </ng-container>
-        <ng-container *ngIf="!currentPatternInStructure.pattern.chords">
-            {{ currentPatternInStructure.pattern.durationInBars }}m
-        </ng-container>
-        <br/>
-
-        <!-- TODO pourquoi ne peut pas envoyer lowestFret et fretsCount undefined ? -->
-        <app-fretboard
-            *ngIf="currentPatternInStructure.pattern.fretboard && currentPatternInStructure.pattern.fretboard.lowestFret != undefined && currentPatternInStructure.pattern.fretboard.fretsCount != undefined"
-            [lowestFret]="currentPatternInStructure.pattern.fretboard.lowestFret"
-            [fretsCount]="currentPatternInStructure.pattern.fretboard.fretsCount"
-            [key]="currentPatternInStructure.pattern.key"
-            [currentNote]="currentChord?.root"
-        ></app-fretboard>
-
-        {{ undefined }} / {{ currentPatternInStructure.pattern.durationInBars }}
-        <br/>
-        <ng-container *ngIf="currentPatternInStructure.eventsStartPosition">
-            <ng-container
-                *ngFor="let barNumber of sequence(currentPatternInStructure.eventsDurationInBars, currentPatternInStructure.eventsStartPosition.bars + 1)">
-                <app-rythm-bar
-                    *ngIf="currentPatternInStructure.pattern.events?.length"
-                    [number]="barNumber"
-                    [events]="currentPatternInStructure.pattern.events"
-                    (addEvent)="addEvent($event)"
-                    (removeEvent)="removeEvent($event)"
-                    [timecode]="rythmBarTimecode"
-                ></app-rythm-bar>
-                <br/>
-            </ng-container>
-        </ng-container>
-
-    </ng-container>
-
-</ng-container>
+}

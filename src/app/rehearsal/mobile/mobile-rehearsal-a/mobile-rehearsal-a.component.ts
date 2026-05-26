@@ -1,6 +1,4 @@
-import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
-import {Title} from "@angular/platform-browser";
+import {ChangeDetectionStrategy, Component, input, OnInit} from '@angular/core';
 import {RythmBarComponent} from "../../../rythm-bar/rythm-bar.component";
 import {CommonModule} from "@angular/common";
 import {FormsModule} from "@angular/forms";
@@ -9,9 +7,9 @@ import {PatternComponent} from "../../../structure/pattern/pattern.component";
 import {SectionComponent} from "../../../structure/section/section.component";
 import {MobileRehearsal} from "../mobile-rehearsal";
 import {SampleCacheService} from '../../../sample/samples-cache.service';
-import {SongRepository} from '../../../song/song-repository';
 import {ToneAdapter} from "../../../tonejs/tone-adapter";
 import {TransportButtonComponent} from "../../../buttons/transport-button/transport-button.component";
+import {SongEntry} from "../../../song/song-entry";
 
 @Component({
     selector: 'app-mobile-rehearsal-a',
@@ -25,14 +23,13 @@ import {TransportButtonComponent} from "../../../buttons/transport-button/transp
 })
 export class MobileRehearsalAComponent extends MobileRehearsal implements OnInit {
 
+    songEntry = input.required<SongEntry>();
+
     constructor(
         toneAdapter: ToneAdapter,
-        activatedRoute: ActivatedRoute,
-        title: Title,
         sampleCacheService: SampleCacheService,
-        songRepository: SongRepository,
     ) {
-        super(toneAdapter, activatedRoute, title, sampleCacheService, songRepository)
+        super(toneAdapter, sampleCacheService)
     }
 
     ngOnInit() {

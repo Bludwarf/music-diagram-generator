@@ -1,97 +1,62 @@
-import {ElementRef, signal} from '@angular/core';
-import {SectionInStructure} from "../../structure/section/section-in-structure";
+import {computed, ElementRef, input, InputSignal, signal} from '@angular/core';
 import {PatternInStructure} from "../../structure/pattern/pattern-in-structure";
-import {BarNumber0Indexed, Chord, Chords, Key} from "../../notes";
-import {Structure} from "../../structure/structure";
-import {ActivatedRoute} from "@angular/router";
-import {Title} from "@angular/platform-browser";
+import {BarNumber0Indexed, Chords} from "../../notes";
 import {RythmBarEvent} from "../../rythm-bar/event";
-import {loaded, Loop, LoopOptions, Player, start, Time as ToneTime, Transport} from "tone";
+import {loaded, Player, start, Time as ToneTime, Transport} from "tone";
 import {BeatTime, Position, PositionedElement, PositionFormatter, SecTime} from "../../time";
 import {error, sequence, stripExtension} from '../../utils';
-import {Recording} from "../../recording/recording";
-import {PartInStructure} from "../../structure/part/part-in-structure";
 import {SampleCacheService} from '../../sample/samples-cache.service';
-import {SongRepository} from '../../song/song-repository';
-import {BarsBeatsSixteenths, Time} from "tone/Tone/core/type/Units";
 import {ToneAdapter} from "../../tonejs/tone-adapter";
 import NoSleep from 'nosleep.js';
 import {Subject} from "rxjs";
+import {SongEntry} from "../../song/song-entry";
 
 export abstract class MobileRehearsal {
 
     debug = false
     fileInput?: ElementRef<HTMLInputElement>;
 
-    get currentPartInStructure(): PartInStructure | undefined {
-        return this.currentSectionInStructure?.partInStructure
-    }
-
-    get currentSectionInStructure(): SectionInStructure | undefined {
-        return this.currentPatternInStructure?.sectionInStructure
-    }
-
-    currentPatternInStructure?: PatternInStructure; // TODO se baser sur currentPositionedBar
-    currentPatternInStructure$ = new Subject<PatternInStructure | undefined>();
-
     private readonly noSleep = new NoSleep();
-
-    get currentChord(): Chord | undefined {
-        const position = this.position;
-        if (!position) return undefined
-        return this.currentPatternInStructure?.getChordAt(position)
-    }
-
-    get currentKey(): Key | undefined {
-        const position = this.position;
-        if (!position) return undefined
-        return this.currentPatternInStructure?.getKeyAt(position)
-    }
 
     get progress(): number {
         return Math.min(Math.max(0, Transport.progress), 1) * 100
     }
 
     get timecode(): string | undefined {
-        return this.position ? PositionFormatter.ABLETON_GLOBAL_TIMECODE.format(this.position) : undefined
+        const position = this.position()
+        return position ? PositionFormatter.ABLETON_GLOBAL_TIMECODE.format(position) : undefined
     }
 
     secTime = signal(new SecTime(0))
 
-    get beatTime(): BeatTime | undefined {
-        return this.recording?.getBeatTime(this.secTime());
-    }
+    roundedTransportSeconds = signal(0);
 
-    get currentBar(): BarNumber0Indexed | undefined {
-        return this.position?.bars
-    }
+    beatTime = signal<BeatTime>(new BeatTime(0))
 
-    get position(): Position | undefined {
-        const beatTime = this.beatTime;
-        if (beatTime !== undefined && beatTime.value >= 0) {
-            return this.structure?.getPosition(beatTime)
-        }
-        return this.currentPatternInStructure?.startPosition
-    }
+    position = computed(() => {
+        const beatTime = this.beatTime();
+        return this.structure().getPosition(beatTime)
+    })
 
-    get transportPosition(): BarsBeatsSixteenths | Time {
-        return Transport.position
-    }
+    currentChord = computed(() => this.currentPatternInStructure().getChordAt(this.position()))
+    currentBar = computed(() => this.position().bars)
+    currentPatternInStructure = computed(() => this.structure().getPatternInStructureAtBar(this.currentBar()))
+    currentSectionInStructure = computed(() => this.currentPatternInStructure().sectionInStructure)
+    currentPartInStructure = computed(() => this.currentSectionInStructure().partInStructure)
 
-    get transportSeconds(): number {
-        return Transport.seconds
-    }
+    currentKey = computed(() => this.currentPatternInStructure().getKeyAt(this.position()))
 
-    structure!: Structure;
-    recording?: Recording;
+    abstract songEntry: InputSignal<SongEntry>;
+    structure = computed(() => this.songEntry().structure);
+    recording = computed(() => this.songEntry().recording);
 
     get rythmBarTimecode(): string | undefined {
-        const position = this.position;
+        const position = this.position();
         if (!position) {
             return undefined;
         }
 
-        const currentPatternInStructure = this.currentPatternInStructure;
+        const currentPatternInStructure = this.currentPatternInStructure();
         if (!currentPatternInStructure?.eventsStartPosition) {
             return undefined;
         }
@@ -103,13 +68,12 @@ export abstract class MobileRehearsal {
     }
 
     get transportBeatTime(): number | undefined {
-        return this.beatTime?.value
+        return this.beatTime()?.value
     }
 
     protected sequence = sequence
 
     player?: Player
-    transportProgressLoop?: Loop<LoopOptions>;
     sampleIsLoaded = false
     playButtonIsDisabled = false
 
@@ -118,66 +82,49 @@ export abstract class MobileRehearsal {
 
     protected constructor(
         protected readonly toneAdapter: ToneAdapter,
-        activatedRoute: ActivatedRoute,
-        title: Title,
-        protected readonly sampleCacheService: SampleCacheService,
-        private readonly songRepository: SongRepository,
+        private readonly sampleCacheService: SampleCacheService,
     ) {
-
-        activatedRoute.params.subscribe(params => {
-            this.songName = params['songName']
-            if (this.songName) {
-                title.setTitle(this.songName)
-            } else {
-                error('Aucun titre')
-            }
-        })
-
-        // console.log('Events chargés depuis le JSON', events);
-
-        // this.toneAdapter.schedule(function (time) {
-        //   console.log('Première mesure')
-        // }, "1m");
     }
 
-    async onInit() {
-        const entry = await this.requireSongEntry();
-        this.structure = entry.structure
-        this.recording = entry.recording
+    onInit() {
         this.scheduleAll();
     }
 
     protected scheduleAll(): void {
+        this.scheduleTransportSeconds();
         this.schedulePositionedElements();
     }
 
+    private scheduleTransportSeconds() {
+        const recording = this.recording();
+        if (recording) {
+            for (let roundedTransportSeconds = 0; roundedTransportSeconds < recording.sampleDurationInSeconds; ++roundedTransportSeconds) {
+                Transport.schedule(() => {
+                    this.roundedTransportSeconds.set(roundedTransportSeconds)
+                }, roundedTransportSeconds);
+            }
+        }
+    }
+
     private schedulePositionedElements() {
-        const recording = this.recording;
+        const recording = this.recording();
         if (!recording) return
 
-        const partsInStructure = this.structure.partsInStructure;
+        const partsInStructure = this.structure().partsInStructure;
         if (!partsInStructure) return
 
         partsInStructure.forEach(partInStructure => {
             partInStructure.sectionsInStructure.forEach(sectionInStructure => {
                 sectionInStructure.patternsInStructure.forEach(patternInStructure => {
-                    const patternStartTime = recording.getSecTime(this.structure.getBeatTimeAt(patternInStructure.startPosition));
-                    if (patternStartTime) {
-                        this.toneAdapter.schedule(() => {
-                            this.currentPatternInStructure = patternInStructure
-                            this.currentPatternInStructure$.next(patternInStructure)
-                        }, patternStartTime.value);
-                    }
-
-                    const patternEndTime = recording.getSecTime(this.structure.getBeatTimeAt(patternInStructure.endPosition));
-                    if (patternEndTime) {
-                        this.toneAdapter.schedule(() => {
-                            if (this.currentPatternInStructure === patternInStructure) {
-                                delete this.currentPatternInStructure
-                                this.currentPatternInStructure$.next(undefined)
-                            }
-                        }, patternEndTime.value);
-                    }
+                    // TODO boucles extérieures inutiles => boucle sur tous les quarters de la structure
+                    patternInStructure.forEachQuarter(beatTime => {
+                        const secTime = recording.getSecTime(beatTime);
+                        if (secTime !== undefined) {
+                            this.toneAdapter.schedule(() => {
+                                this.beatTime.set(beatTime);
+                            }, secTime.value);
+                        }
+                    })
                 })
             })
         })
@@ -186,17 +133,16 @@ export abstract class MobileRehearsal {
     addEvent(event: RythmBarEvent): void {
         // this.events.push(event);
         // this.logEvents();
-        // this.changeDetectorRef.detectChanges() // TODO nécessaire (depuis l'ajout de Tone il semblerait)
     }
 
     removeEvent(event: RythmBarEvent): void {
         // this.events.splice(this.events.indexOf(event), 1);
         // this.logEvents();
-        // this.changeDetectorRef.detectChanges() // TODO nécessaire (depuis l'ajout de Tone il semblerait)
     }
 
     async uploadFile(event: Event): Promise<void> {
-        if (!this.recording) {
+        const recording = this.recording();
+        if (!recording) {
             error('Aucun enregistrement (Recording)')
         }
 
@@ -209,10 +155,10 @@ export abstract class MobileRehearsal {
         const audioFile = fileList[0]
         if (audioFile) {
             const nameWithoutExtension = stripExtension(audioFile.name)
-            if (nameWithoutExtension !== this.recording.name) {
-                alert(`Le nom du fichier chargé "${audioFile.name}" ("${nameWithoutExtension}" sans extension) ne correspond pas à celui de l'enregistrement "${this.recording.name}"`)
+            if (nameWithoutExtension !== recording.name) {
+                alert(`Le nom du fichier chargé "${audioFile.name}" ("${nameWithoutExtension}" sans extension) ne correspond pas à celui de l'enregistrement "${recording.name}"`)
             }
-            this.sampleCacheService.setFile(this.recording.name, audioFile)
+            this.sampleCacheService.setFile(recording.name, audioFile)
         }
 
         await this.playAudioFile(audioFile)
@@ -234,21 +180,18 @@ export abstract class MobileRehearsal {
             // loop: true,
             // autostart: true,
             // loopStart: 0,
-            // loopEnd: this.structure.sampleDuration.toSeconds(),
+            // loopEnd: this.structure().sampleDuration.toSeconds(),
         }).toDestination();
 
         // cf. https://github.com/Tonejs/Tone.js/blob/dev/examples/daw.html
         Transport.bpm.value = 120;
-        if (!this.loopedElement && this.recording) {
+        if (!this.loopedElement && this.recording()) {
             this.loopOnRecording()
         }
 
         player.sync().start(0)
         this.player = player
 
-        this.transportProgressLoop = this.toneAdapter.loop(() => {
-            this.secTime.set(SecTime.fromToneTransportSeconds(Transport.seconds))
-        }, "32n").start(0);
         await loaded() // évite les erreurs de buffer
         await start()
 
@@ -258,12 +201,13 @@ export abstract class MobileRehearsal {
     }
 
     loopOnRecording(): void {
-        if (!this.recording) {
+        const recording = this.recording()
+        if (!recording) {
             error('Aucun enregistrement (Recording)')
         }
         Transport.loop = true
         Transport.loopStart = 0
-        Transport.loopEnd = this.recording.sampleDurationInSeconds // structure.duration.toBarsBeatsSixteenths()
+        Transport.loopEnd = recording.sampleDurationInSeconds // structure.duration.toBarsBeatsSixteenths()
         delete this.loopedElement
     }
 
@@ -274,7 +218,7 @@ export abstract class MobileRehearsal {
     async playSong(): Promise<void> {
         this.playButtonIsDisabled = true;
         if (!this.sampleIsLoaded) {
-            const recording = this.recording;
+            const recording = this.recording();
             if (!recording) {
                 this.playButtonIsDisabled = false;
                 error('Aucun enregistrement (Recording)')
@@ -315,54 +259,44 @@ export abstract class MobileRehearsal {
         } else {
             elementToLoop = undefined
         }
-        if (this.recording) {
+        if (this.recording()) {
             elementToLoop ? this.loopOn(elementToLoop) : this.loopOnRecording();
         }
 
         if (!isCurrentInStructure) {
             this.setPosition(element.startPosition);
-            if (element instanceof PatternInStructure) {
-                this.currentPatternInStructure = element
-            } else if (element instanceof SectionInStructure) {
-                this.currentPatternInStructure = element.patternsInStructure[0]
-            } else if (element instanceof PartInStructure) {
-                this.currentPatternInStructure = element.sectionsInStructure[0].patternsInStructure[0]
-            } else {
-                // TODO créer un type BarInStructure, pour être plus propre et plus optimisé
-                const position = element.startPosition
-                const currentPartInStructure = this.structure.getPartInStructureAt(position)
-                const currentSectionInStructure = currentPartInStructure.getSectionInStructureAt(position)
-                if (currentSectionInStructure) {
-                    this.currentPatternInStructure = currentSectionInStructure.getPatternInStructureAt(position)
-                }
-            }
         }
     }
 
     setPosition(position: Position) {
-        const secTime = this.recording?.getSecTime(this.structure.getBeatTimeAt(position));
+        const beatTime = this.structure().getBeatTimeAt(position);
+        this.beatTime.set(beatTime)
+
+        const secTime = this.recording()?.getSecTime(beatTime);
         if (secTime !== undefined) {
             Transport.seconds = secTime.value
             this.secTime.set(secTime)
+            this.roundedTransportSeconds.set(Math.round(secTime.value))
             this.resetStates(position);
         }
     }
 
     isCurrentInStructure(element: any): boolean {
-        return element && (element === this.currentPartInStructure || element === this.currentSectionInStructure || element === this.currentPatternInStructure)
+        return element && (element === this.currentPartInStructure() || element === this.currentSectionInStructure() || element === this.currentPatternInStructure())
     }
 
     private loopOn(element: PositionedElement) {
         let looped = false
+        const recording = this.recording();
 
         if (this.loopedElement !== element) {
-            if (!this.recording) {
+            if (!recording) {
                 error('Aucun enregistrement (Recording)')
             }
 
-            const wrappedStartTime = this.recording.getSecTime(this.structure.getBeatTimeAt(element.startPosition));
+            const wrappedStartTime = recording.getSecTime(this.structure().getBeatTimeAt(element.startPosition));
             if (wrappedStartTime !== undefined) {
-                const wrappedEndTime = this.recording.getSecTime(this.structure.getBeatTimeAt(element.endPosition));
+                const wrappedEndTime = recording.getSecTime(this.structure().getBeatTimeAt(element.endPosition));
                 if (wrappedEndTime !== undefined) {
                     Transport.loop = true
                     Transport.loopStart = wrappedStartTime.value
@@ -375,14 +309,14 @@ export abstract class MobileRehearsal {
         Transport.loop = looped
         if (looped) {
             this.loopedElement = element
-        } else if (this.recording) {
+        } else if (recording) {
             this.loopOnRecording()
         }
     }
 
     onClickBar(bar: BarNumber0Indexed): void {
         const barAsPositionedElement = this.getBarAsPositionedElement(bar);
-        this.onClickElementInStructure(barAsPositionedElement, bar === this.currentBar)
+        this.onClickElementInStructure(barAsPositionedElement, bar === this.currentBar())
     }
 
     getBarAsPositionedElement(bar: BarNumber0Indexed): PositionedElement {
@@ -394,8 +328,8 @@ export abstract class MobileRehearsal {
         }
     }
 
-    get currentBarAsPositionedElement(): PositionedElement | undefined {
-        return this.currentBar !== undefined ? this.getBarAsPositionedElement(this.currentBar) : undefined
+    get currentBarAsPositionedElement(): PositionedElement {
+        return this.getBarAsPositionedElement(this.currentBar())
     }
 
     setProgress(event: Event): void {
@@ -414,25 +348,11 @@ export abstract class MobileRehearsal {
         return Transport.state === 'started'
     }
 
-    protected async requireSongEntry() {
-        try {
-            return await this.songRepository.requireSongEntry(this.songName!)
-        } catch (e) {
-            history.back();
-            throw e;
-        }
-    }
-
     getPatternChords(patternInStructure: PatternInStructure): Chords {
         return patternInStructure.pattern.chords || Chords.repeatNoChord(patternInStructure.pattern.durationInBars);
     }
 
     onDestroy() {
-        if (this.transportProgressLoop) {
-            this.transportProgressLoop.cancel()
-            this.transportProgressLoop.dispose()
-            delete this.transportProgressLoop
-        }
         if (this.player) {
             this.player.unsync()
             this.player.dispose()

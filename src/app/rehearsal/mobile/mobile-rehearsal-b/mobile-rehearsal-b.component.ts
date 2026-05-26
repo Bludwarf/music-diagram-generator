@@ -1,8 +1,6 @@
 import {CommonModule} from "@angular/common";
-import {ChangeDetectionStrategy, Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {ChangeDetectionStrategy, Component, ElementRef, input, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {FormsModule} from "@angular/forms";
-import {Title} from "@angular/platform-browser";
-import {ActivatedRoute} from "@angular/router";
 import {FretboardComponent} from "../../../fretboard/fretboard.component";
 import {RythmBarComponent} from "../../../rythm-bar/rythm-bar.component";
 import {ChordsGridComponent} from "../chords-grid/chords-grid.component";
@@ -13,9 +11,9 @@ import {SampleMapComponent} from "../sample-map/sample-map.component";
 import {StructureMapComponent} from "../structure-map/structure-map.component";
 import {PatternInStructure} from "../../../structure/pattern/pattern-in-structure";
 import {SampleCacheService} from "../../../sample/samples-cache.service";
-import {SongRepository} from "../../../song/song-repository";
 import {ToneAdapter} from "../../../tonejs/tone-adapter";
 import {TransportButtonComponent} from "../../../buttons/transport-button/transport-button.component";
+import {SongEntry} from "../../../song/song-entry";
 
 @Component({
     selector: 'app-mobile-rehearsal-b',
@@ -38,21 +36,20 @@ import {TransportButtonComponent} from "../../../buttons/transport-button/transp
 })
 export class MobileRehearsalBComponent extends MobileRehearsal implements OnInit, OnDestroy {
 
+    songEntry = input.required<SongEntry>();
+
     @ViewChild('fileInput')
     override fileInput?: ElementRef<HTMLInputElement>;
 
     constructor(
         toneAdapter: ToneAdapter,
-        activatedRoute: ActivatedRoute,
-        title: Title,
         sampleCacheService: SampleCacheService,
-        songRepository: SongRepository,
     ) {
-        super(toneAdapter, activatedRoute, title, sampleCacheService, songRepository)
+        super(toneAdapter, sampleCacheService)
     }
 
     ngOnInit() {
-        super.onInit().then();
+        super.onInit();
     }
 
     ngOnDestroy(): void {

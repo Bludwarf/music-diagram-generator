@@ -1,8 +1,6 @@
 import {CommonModule} from "@angular/common";
-import {ChangeDetectionStrategy, Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {ChangeDetectionStrategy, Component, ElementRef, input, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {FormsModule} from "@angular/forms";
-import {Title} from "@angular/platform-browser";
-import {ActivatedRoute} from "@angular/router";
 import {RythmBarComponent} from "../../../rythm-bar/rythm-bar.component";
 import {ChordsGridComponent} from "../chords-grid/chords-grid.component";
 import {MobileRehearsal} from "../mobile-rehearsal";
@@ -13,7 +11,6 @@ import {StructureMapComponent} from "../structure-map/structure-map.component";
 import {PatternInStructure} from "../../../structure/pattern/pattern-in-structure";
 import {SampleCacheService} from "../../../sample/samples-cache.service";
 import {error} from "../../../utils";
-import {SongRepository} from "../../../song/song-repository";
 import {KeyboardComponent} from "../../../keyboard/keyboard.component";
 import {BeatTime, Position} from "../../../time";
 import keyboardReducer from "../../../keyboard/reducer";
@@ -22,6 +19,7 @@ import {OctavedNote} from "../../../notes";
 import {KeyboardAdapter} from "../../../keyboard/keyboard-adapter";
 import {ToneAdapter} from "../../../tonejs/tone-adapter";
 import {TransportButtonComponent} from "../../../buttons/transport-button/transport-button.component";
+import {SongEntry} from "../../../song/song-entry";
 
 @Component({
     selector: 'app-mobile-rehearsal-p',
@@ -44,6 +42,8 @@ import {TransportButtonComponent} from "../../../buttons/transport-button/transp
 })
 export class MobileRehearsalPComponent extends MobileRehearsal implements OnInit, OnDestroy {
 
+    songEntry = input.required<SongEntry>();
+
     @ViewChild('fileInput')
     override fileInput?: ElementRef<HTMLInputElement>;
 
@@ -52,13 +52,10 @@ export class MobileRehearsalPComponent extends MobileRehearsal implements OnInit
 
     constructor(
         toneAdapter: ToneAdapter,
-        activatedRoute: ActivatedRoute,
-        title: Title,
         sampleCacheService: SampleCacheService,
-        songRepository: SongRepository,
         private readonly keyboardAdapter: KeyboardAdapter,
     ) {
-        super(toneAdapter, activatedRoute, title, sampleCacheService, songRepository)
+        super(toneAdapter, sampleCacheService)
     }
 
     ngOnInit() {
@@ -76,7 +73,7 @@ export class MobileRehearsalPComponent extends MobileRehearsal implements OnInit
 
     override async playSong(): Promise<void> {
         if (!this.sampleIsLoaded) {
-            const recording = this.recording;
+            const recording = this.recording();
             if (!recording) {
                 error('Aucun enregistrement (Recording)')
             }
@@ -93,9 +90,9 @@ export class MobileRehearsalPComponent extends MobileRehearsal implements OnInit
 
     private scheduleKeyboardNotes() {
         // Source : https://github.com/imagicbell/piano-app/blob/a22138d05361e1ebf2571eed2949b0e4544c2781/src/features/midiplayer/index.js
-        const recording = this.recording;
+        const recording = this.recording();
         if (recording) {
-            const midi = this.structure.midi;
+            const midi = this.structure().midi;
             if (midi) {
                 // Tone.Transport.PPQ = midi.header.ppq; // TODO cf. https://github.com/tonejs/tone.js/wiki/Time#ticks
                 midi.tracks.forEach((track, trackIndex) => {
@@ -152,9 +149,10 @@ export class MobileRehearsalPComponent extends MobileRehearsal implements OnInit
     }
 
     private activateCurrentMidiNotes(position: Position) {
-        const midi = this.structure.midi;
+        const structure = this.structure();
+        const midi = structure.midi;
         if (midi) {
-            const ticks = this.structure.getBeatTimeAt(position)?.toMidiTicks(midi.header.ppq);
+            const ticks = structure.getBeatTimeAt(position)?.toMidiTicks(midi.header.ppq);
             if (ticks !== undefined) {
                 midi.tracks.forEach((track, trackIndex) => {
                     const currentNotes = track.notes.filter(note => note.ticks <= ticks && ticks < note.ticks + note.durationTicks);
@@ -190,7 +188,7 @@ export class MobileRehearsalPComponent extends MobileRehearsal implements OnInit
     }
 
     private getExtremeKey(trackIndex: number, direction: 'down' | 'up', defaultKey: string) {
-        const midi = this.structure.midi;
+        const midi = this.structure().midi;
         if (midi) {
             const midiTrack = midi.tracks[trackIndex];
             if (midiTrack) {

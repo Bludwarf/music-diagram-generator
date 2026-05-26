@@ -1,8 +1,6 @@
 import {CommonModule} from "@angular/common";
-import {ChangeDetectionStrategy, Component, ElementRef, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {ChangeDetectionStrategy, Component, ElementRef, input, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {FormsModule} from "@angular/forms";
-import {Title} from "@angular/platform-browser";
-import {ActivatedRoute} from "@angular/router";
 import {ChordsGridComponent} from "../chords-grid/chords-grid.component";
 import {MobileRehearsal} from "../mobile-rehearsal";
 import {PartLineComponent} from "../part-line/part-line.component";
@@ -12,7 +10,6 @@ import {StructureMapComponent} from "../structure-map/structure-map.component";
 import {PatternInStructure} from "../../../structure/pattern/pattern-in-structure";
 import {SampleCacheService} from "../../../sample/samples-cache.service";
 import {error} from "../../../utils";
-import {SongRepository} from "../../../song/song-repository";
 import {KeyboardComponent} from "../../../keyboard/keyboard.component";
 import {Position, PositionedElement} from "../../../time";
 import keyboardReducer from "../../../keyboard/reducer";
@@ -24,6 +21,7 @@ import {SwipeDirective} from "../../../swipe.directive";
 import {ToneAdapter} from "../../../tonejs/tone-adapter";
 import {TransportButtonComponent} from "../../../buttons/transport-button/transport-button.component";
 import {MidiNote, MidiWrapper} from "../../../midi";
+import {SongEntry} from "../../../song/song-entry";
 
 @Component({
     selector: 'app-mobile-rehearsal-p-osmd',
@@ -47,6 +45,8 @@ import {MidiNote, MidiWrapper} from "../../../midi";
 })
 export class MobileRehearsalPOsmdComponent extends MobileRehearsal implements OnInit, OnDestroy {
 
+    songEntry = input.required<SongEntry>();
+
     @ViewChild('fileInput')
     override fileInput?: ElementRef<HTMLInputElement>;
 
@@ -56,18 +56,14 @@ export class MobileRehearsalPOsmdComponent extends MobileRehearsal implements On
 
     constructor(
         toneAdapter: ToneAdapter,
-        activatedRoute: ActivatedRoute,
-        title: Title,
         sampleCacheService: SampleCacheService,
-        songRepository: SongRepository,
     ) {
-        super(toneAdapter, activatedRoute, title, sampleCacheService, songRepository)
+        super(toneAdapter, sampleCacheService)
     }
 
     ngOnInit() {
-        super.onInit().then(() => {
-            this.loadMusicXML();
-        })
+        super.onInit();
+        this.loadMusicXML();
     }
 
     ngOnDestroy() {
@@ -85,8 +81,8 @@ export class MobileRehearsalPOsmdComponent extends MobileRehearsal implements On
 
     private scheduleKeyboardNotes() {
         // Source : https://github.com/imagicbell/piano-app/blob/a22138d05361e1ebf2571eed2949b0e4544c2781/src/features/midiplayer/index.js
-        const structure = this.structure;
-        const recording = this.recording;
+        const structure = this.structure();
+        const recording = this.recording();
         if (structure && recording) {
             const midi = structure.midi;
             if (midi) {
@@ -142,7 +138,7 @@ export class MobileRehearsalPOsmdComponent extends MobileRehearsal implements On
     }
 
     get currentMidiNotesElement(): PositionedElement | undefined {
-        // return this.currentSectionInStructure;
+        // return this.currentSectionInStructure();
         return undefined; // Pour avoir toutes les notes du morceau
     }
 
@@ -151,7 +147,7 @@ export class MobileRehearsalPOsmdComponent extends MobileRehearsal implements On
     }
 
     private getMidiNotesFrom(element: PositionedElement | undefined) {
-        const structure = this.structure;
+        const structure = this.structure();
         const midi = structure?.midi
         if (!structure || !midi) {
             return []
@@ -191,7 +187,7 @@ export class MobileRehearsalPOsmdComponent extends MobileRehearsal implements On
 
     get markedOctavedNotes(): OctavedNote[] {
         // // V1 : la fondamentale de l'accord courant
-        // const root = this.currentChord?.root;
+        // const root = this.currentChord()?.root;
         // if (!root) {
         //   return []
         // }
@@ -202,7 +198,7 @@ export class MobileRehearsalPOsmdComponent extends MobileRehearsal implements On
         // ])
 
         // V2 : toutes les notes courante
-        // return this.getMidiNotesFrom(this.currentPatternInStructure)
+        // return this.getMidiNotesFrom(this.currentPatternInStructure())
         //   .map(midiNote => OctavedNote.fromMidi(midiNote.midi))
 
         // V3 : configurable
@@ -215,14 +211,14 @@ export class MobileRehearsalPOsmdComponent extends MobileRehearsal implements On
             case "bar":
                 return this.currentBarAsPositionedElement
             case "pattern":
-                return this.currentPatternInStructure
+                return this.currentPatternInStructure()
             case "section":
-                return this.currentSectionInStructure
+                return this.currentSectionInStructure()
         }
     }
 
     private loadMusicXML() {
-        const musicXmlString = this.structure?.musicXmlString;
+        const musicXmlString = this.structure().musicXmlString;
         if (musicXmlString) {
             this.musicXml = musicXmlString
             // const musicXmlContent = await loadMusicXml(musicXmlString);
@@ -239,7 +235,7 @@ export class MobileRehearsalPOsmdComponent extends MobileRehearsal implements On
     }
 
     private activateCurrentMidiNotes(position: Position) {
-        const structure = this.structure;
+        const structure = this.structure();
         if (structure) {
             const midi = structure.midi;
             if (midi) {
@@ -291,9 +287,9 @@ export class MobileRehearsalPOsmdComponent extends MobileRehearsal implements On
     }
 
     onSheetMusicSwipe(barDirection: number): void {
-        const currentBar = this.currentBar;
+        const currentBar = this.currentBar();
         if (currentBar !== undefined) {
-            const lengthInBars = this.structure?.durationInBars;
+            const lengthInBars = this.structure()?.durationInBars;
             if (lengthInBars !== undefined) {
                 const nextBar = Math.min(Math.max(currentBar + barDirection, 0), lengthInBars - 1);
                 this.onClickElementInStructure(this.getBarAsPositionedElement(nextBar)); // TODO remplacer par un setter de this.currentBar

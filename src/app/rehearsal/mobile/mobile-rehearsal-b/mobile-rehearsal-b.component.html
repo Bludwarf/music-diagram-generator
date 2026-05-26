@@ -5,30 +5,31 @@
 <div id="transport">
 
     <div id="transport-buttons">
-        <app-transport-button icon="play" *ngIf="!playing" (click)="playSong()" [disabled]="playButtonIsDisabled"></app-transport-button>
+        <app-transport-button icon="play" *ngIf="!playing" (click)="playSong()"
+                              [disabled]="playButtonIsDisabled"></app-transport-button>
         <app-transport-button icon="pause" *ngIf="playing" (click)="pauseSong()"></app-transport-button>
     </div>
 
     <div id="song-map">
-        <app-structure-map *ngIf="structure" [structure]="structure" [timecode]="timecode"
-                           [currentPatternInStructure]="currentPatternInStructure"
+        <app-structure-map [structure]="structure()" [timecode]="timecode"
+                           [currentPatternInStructure]="currentPatternInStructure()"
                            (clickPatternInStructure)="onClickElementInStructure($event)"></app-structure-map>
-        @if (recording) {
-            <app-sample-map [transportSeconds]="transportSeconds"></app-sample-map>
+        @if (recording()) {
+            <app-sample-map [transportSeconds]="roundedTransportSeconds()"></app-sample-map>
         }
     </div>
 
 </div>
 
-<app-part-tabs *ngIf="structure" [structure]="structure"
-               [currentPartInStructure]="currentPartInStructure"
+<app-part-tabs [structure]="structure()"
+               [currentPartInStructure]="currentPartInStructure()"
                [loopedElement]="loopedElement"
                (clickPartInStructure)="onClickElementInStructure($event)"
 ></app-part-tabs>
 
-<app-part-line *ngIf="currentPartInStructure" [partInStructure]="currentPartInStructure"
-               [currentSectionInStructure]="currentSectionInStructure"
-               [currentPatternInStructure]="currentPatternInStructure"
+<app-part-line *ngIf="currentPartInStructure" [partInStructure]="currentPartInStructure()"
+               [currentSectionInStructure]="currentSectionInStructure()"
+               [currentPatternInStructure]="currentPatternInStructure()"
                [loopedElement]="loopedElement"
                (clickPatternInStructure)="onClickElementInStructure($event)"
                (clickSectionInStructure)="onClickElementInStructure($event)"
@@ -37,7 +38,7 @@
 
 <!-- TODO on reprend le composant A en attendant de trouver la bonne manière de faire -->
 <!-- Détail sur le pattern courant -->
-<ng-container *ngIf="currentPatternInStructure && currentBar !== undefined">
+@if (currentPatternInStructure(); as currentPatternInStructure) {
 
     <div class="chords-and-fretboard">
 
@@ -49,9 +50,9 @@
         </span>
             </div>
 
-            <app-chords-grid [chords]="getPatternChords(currentPatternInStructure)" [key]="currentKey"
-                             [currentBar]="currentBar - currentPatternInStructure.startPosition.bars"
-                             [currentBarIsLooped]="currentBar !== undefined && (loopedElement?.startPosition?.bars === currentBar && loopedElement?.endPosition?.bars === currentBar + 1)"
+            <app-chords-grid [chords]="getPatternChords(currentPatternInStructure)" [key]="currentKey()"
+                             [currentBar]="currentBar() - currentPatternInStructure.startPosition.bars"
+                             [currentBarIsLooped]="loopedElement?.startPosition?.bars === currentBar() && loopedElement?.endPosition?.bars === currentBar() + 1"
                              [style.border-color]="getPatternColor(currentPatternInStructure)"
                              (clickBar)="onClickBar(currentPatternInStructure.startPosition.bars + $event)"></app-chords-grid>
 
@@ -77,11 +78,11 @@
                 [lowestFret]="0"
                 [fretsCount]="13"
                 [key]="currentPatternInStructure.pattern.key"
-                [currentNote]="currentChord?.root"
+                [currentNote]="currentChord()?.root"
             ></app-fretboard>
 
         </div>
 
     </div>
 
-</ng-container>
+}

@@ -1,7 +1,10 @@
 import {BaseColor as Color} from '../../color';
 import {AsciiChords, Chords, Key} from '../../notes';
+import {BeatTime} from "../../time";
 
 export class Pattern {
+
+    readonly durationInBeats: number
 
     constructor(
         readonly name: string,
@@ -13,6 +16,7 @@ export class Pattern {
         readonly fretboard?: FretboardData,
         readonly color?: Color,
     ) {
+        this.durationInBeats = durationInBars * BeatTime.SIGNATURE[0]
     }
 
     static fromData(data: PatternInitData): Pattern {

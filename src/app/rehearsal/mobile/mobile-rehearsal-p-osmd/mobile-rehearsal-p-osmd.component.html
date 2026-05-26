@@ -3,14 +3,16 @@
 
 <!-- Transport -->
 <div id="transport">
-    <div class="buttons">
-        <app-transport-button icon="tools" (click)="promptSetting()"></app-transport-button>
-    </div>
-    <div class="buttons" id="transport-buttons">
-        <app-transport-button icon="play" *ngIf="!playing" (click)="playSong()"
-                              [disabled]="playButtonIsDisabled"></app-transport-button>
-        <app-transport-button icon="pause" *ngIf="playing" (click)="pauseSong()"></app-transport-button>
-    </div>
+    @if (recording()) {
+        <div class="buttons">
+            <app-transport-button icon="tools" (click)="promptSetting()"></app-transport-button>
+        </div>
+        <div class="buttons" id="transport-buttons">
+            <app-transport-button icon="play" *ngIf="!playing" (click)="playSong()"
+                                  [disabled]="playButtonIsDisabled"></app-transport-button>
+            <app-transport-button icon="pause" *ngIf="playing" (click)="pauseSong()"></app-transport-button>
+        </div>
+    }
 
     <div id="song-map">
         <app-structure-map [structure]="structure()" [timecode]="timecode"

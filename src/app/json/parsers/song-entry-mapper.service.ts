@@ -31,7 +31,7 @@ export class SongEntryMapper {
                 console.warn(`Sans MIDI on considère que la signature rythmique du morceau "${songName}" est du ${timeSignature[0]}/${timeSignature[1]}`)
                 return timeSignature
             }
-            return midiWrapper.getTimeSignature(bar)
+            return midiWrapper.getTimeSignature("measures", bar).timeSignature
         }
         return {
             name: songName,

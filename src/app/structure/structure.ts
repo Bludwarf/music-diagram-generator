@@ -213,7 +213,7 @@ export class Structure {
 
         if (this.midiWrapper) {
             const ticks = beatTime.toMidiTicks(this.midiWrapper.midi.header.ppq);
-            currentTimeSignature = this.midiWrapper.getMidiTimeSignature(ticks);
+            currentTimeSignature = this.midiWrapper.getTimeSignature("ticks", ticks);
         }
 
         return currentTimeSignature;

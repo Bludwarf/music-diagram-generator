@@ -38,10 +38,33 @@ class Mod12Value implements Comparable<Mod12Value> {
         return itemsByValue[value]
     }
 
-    static getValueFromName(name: string, names: string[]): number {
-        const value = names.indexOf(name);
-        if (value === -1) throw new Error('invalid name : ' + name);
-        return value;
+    static getNaturalValueFromName(naturalName: string, naturalNames: string[]): number {
+        if (naturalNames.length !== NATURAL_VALUES.length) error(`Le tableau contenant les noms doit être de longueur ${NATURAL_VALUES.length}`)
+        const index = naturalNames.indexOf(naturalName);
+        if (index === -1) error(`Invalid naturalName "${naturalName}"`);
+        return NATURAL_VALUES[index];
+    }
+
+    protected static _fromName<T extends Mod12Value>(name: string, itemsByName: Record<string, T>, naturalNames: string[], tName: string, fromValue: (value: number) => T): T {
+        if (!(name in itemsByName)) {
+            const naturalName = name.replace(/[b#s]/, "")
+            const naturalValue = this.getNaturalValueFromName(naturalName, naturalNames);
+            if (naturalValue === undefined) {
+                throw new Error(`Unknown natural ${tName} name ` + naturalValue);
+            }
+
+            let value = naturalValue;
+            for (const car of name) {
+                if (car === 'b') {
+                    --value
+                } else if (car === '#') {
+                    ++value
+                }
+            }
+
+            itemsByName[name] = fromValue(value)
+        }
+        return itemsByName[name]
     }
 
     equals(note: Note): boolean {
@@ -53,17 +76,27 @@ class Mod12Value implements Comparable<Mod12Value> {
     }
 }
 
-const NATURAL_NOTE_VALUE_BY_NAME: Record<string, number> = {
-    C: 0,
-    D: 2,
-    E: 4,
-    F: 5,
-    G: 7,
-    A: 9,
-    B: 11,
-}
+const NATURAL_VALUES: number[] = [
+    0,
+    2,
+    4,
+    5,
+    7,
+    9,
+    11,
+]
 
 export class Note extends Mod12Value {
+
+    private static readonly NATURAL_NOTE_NAMES = [
+        "C",
+        "D",
+        "E",
+        "F",
+        "G",
+        "A",
+        "B",
+    ]
     private static readonly NOTES_BY_VALUE: Note[] = []
     private static readonly NOTES_BY_NAME: Record<string, Note> = {}
 
@@ -100,27 +133,7 @@ export class Note extends Mod12Value {
      * Utiliser plutôt les constantes (comme {@link Note#C Note.C}) si possible
      */
     static fromName(name: string): Note {
-        if (!(name in this.NOTES_BY_NAME)) {
-            const naturalName = name[0]
-            const naturalValue = NATURAL_NOTE_VALUE_BY_NAME[naturalName];
-            if (naturalValue === undefined) {
-                throw new Error('Unknown natural note name ' + naturalValue);
-            }
-
-            let value = naturalValue;
-            for (let alteration of name.substring(1)) {
-                if (alteration === 'b') {
-                    --value
-                } else if (alteration === '#') {
-                    ++value
-                } else {
-                    throw new Error('Unknown alteration ' + alteration)
-                }
-            }
-
-            this.NOTES_BY_NAME[name] = this.fromValue(value)
-        }
-        return this.NOTES_BY_NAME[name]
+        return this._fromName(name, this.NOTES_BY_NAME, this.NATURAL_NOTE_NAMES, "note", value => this.fromValue(value))
     }
 
     transpose(halfsteps: number): Note {
@@ -136,7 +149,7 @@ export class Note extends Mod12Value {
     }
 
     modeIn(key: Key): Mode {
-        return new Mode(key.mode.value + this.value - key.note.value);
+        return Mode.fromValue(key.mode.value + this.value - key.note.value);
     }
 
     override toString(forcedAlteration?: 'b' | '#'): string {
@@ -176,18 +189,35 @@ export const MODE_NAMES = [
 ];
 
 export class Mode extends Mod12Value {
-    constructor(value: number) {
+
+    private static readonly NATURAL_MODE_NAMES = [
+        "I",
+        "ii",
+        "iii",
+        "IV",
+        "V",
+        "vi",
+        "vii",
+    ]
+    private static readonly MODES_BY_VALUE: Mode[] = []
+    private static readonly MODES_BY_NAME: Record<string, Mode> = {}
+
+    private constructor(value: number) {
         super(value);
     }
 
-    static fromName(name: string): Mode {
-        // TODO cache comme Note
-        return new Mode(Mod12Value.getValueFromName(name, MODE_NAMES));
+    /**
+     * Utiliser plutôt les constantes (comme {@link Mode#I}) si possible
+     */
+    static fromValue(value: number): Mode {
+        return this._fromValue(value, this.MODES_BY_VALUE, value => new Mode(value));
     }
 
-    static fromValue(value: number): Mode {
-        // TODO cache comme Note
-        return new Mode(value);
+    /**
+     * Utiliser plutôt les constantes (comme {@link Mode#I}) si possible
+     */
+    static fromName(name: string): Mode {
+        return this._fromName(name, this.MODES_BY_NAME, this.NATURAL_MODE_NAMES, "mode", value => this.fromValue(value))
     }
 
     get name(): string {
@@ -196,7 +226,6 @@ export class Mode extends Mod12Value {
 }
 
 export namespace Mode {
-    // TODO utiliser un cache au niveau du constructeur plutôt que de définir des constantes
     export const I = Mode.fromName('I')
     export const vi = Mode.fromName('vi')
 }

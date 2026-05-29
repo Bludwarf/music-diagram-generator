@@ -1,4 +1,4 @@
-import {Chord, Chords, Note, OctavedNote} from "./notes";
+import {Chord, Chords, Mode, Note, OctavedNote} from "./notes";
 import {Position} from "./time";
 
 const C = Note.C
@@ -26,12 +26,7 @@ describe('Note', () => {
         expect(Cs.equals(Db)).toBeTrue();
     });
 
-    it('compareTo', () => {
-        expect(C.equals(C)).toBeTrue();
-        expect(Cs.equals(Db)).toBeTrue();
-    });
-
-    it('should convert flat to flat', () => {
+    it('should convert sharp to flat', () => {
         expect(C.toString('b')).toEqual('C');
         expect(Cs.toString('b')).toEqual('Db');
         expect(Db.toString('b')).toEqual('Db');
@@ -81,6 +76,32 @@ describe('Note', () => {
 
 });
 
+describe('Mode', () => {
+
+    ([
+        ["I", 0],
+        ["bii", 1],
+        ["ii", 2],
+        ["biii", 3],
+        ["iii", 4],
+        ["IV", 5],
+        ["bV", 6],
+        ["V", 7],
+        ["bvi", 8],
+        ["vi", 9],
+        ["bvii", 10],
+        ["vii", 11],
+    ] as [string, number][]).forEach(([name, value]) => {
+        it(`${name} -> ${value}`, () => {
+            const mode = Mode.fromName(name);
+            expect(mode.value).toEqual(value);
+            expect(Mode.fromValue(value)).toBe(mode); // test du cache
+            expect(Mode.fromName(name)).toBe(mode); // test du cache
+        });
+    })
+
+});
+
 describe('Chord', () => {
 
     it('should get root from chord Am', () => {
@@ -104,8 +125,6 @@ describe('Chords', () => {
         expect(chords.getChordAt2(new Position(3))).toEqual(new Chord('D'))
         expect(chords.durationInBars).toEqual(4)
     });
-
-    // TODO TU Position pour avoir '0:0:0' == '0:0' == '0'
 
     it('should create from | Gm F | Eb D |', () => {
         const chords = Chords.fromAsciiChords('| Gm F | Eb D |', () => [4, 4])

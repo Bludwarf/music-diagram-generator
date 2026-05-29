@@ -24,7 +24,7 @@ export class SandboxComponent {
     firstFretboardRootModeValue = Mode.fromName('vi').value;
 
     get firstFretboardRootMode(): Mode {
-        return new Mode(this.firstFretboardRootModeValue);
+        return Mode.fromValue(this.firstFretboardRootModeValue);
     }
 
     get firstFretboardKey(): Key {

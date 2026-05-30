@@ -29,7 +29,7 @@ export class PatternInStructure implements PositionedElement {
 
     getChordAt(position: Position): Chord | undefined {
         const relativePosition = position.relativeTo(this.startPosition)
-        return this.pattern.chords?.getChordAt2(relativePosition)
+        return this.pattern.chords?.getChordAt(relativePosition)
     }
 
     getKeyAt(position: Position): Key | undefined { // TODO

@@ -389,7 +389,7 @@ export class Chords extends Array<Chord> {
         return new Chords([], asciiChords, barsDuration, []);
     }
 
-    getChordAt2(position: Position): Chord | undefined {
+    getChordAt(position: Position): Chord | undefined {
         // TODO factoriser avec getCurrentPattern et Position.getElementAt
         const reversedChordsByPosition = [...this.chordsByPosition].reverse()
         const chordAtPosition = reversedChordsByPosition.find(([chordTime]) => chordTime.isBeforeOrEquals(position));

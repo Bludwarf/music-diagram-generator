@@ -28,7 +28,7 @@ export class SandboxComponent {
     }
 
     get firstFretboardKey(): Key {
-        return new Key(this.firstFretboardRoot, this.firstFretboardRootMode);
+        return Key.from(this.firstFretboardRoot, this.firstFretboardRootMode);
     }
 
     NOTE_NAMES = NOTE_NAMES;

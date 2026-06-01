@@ -232,35 +232,48 @@ export namespace Mode {
 
 /** Tonalité */
 export class Key {
-    constructor(readonly note: Note, readonly mode: Mode = Mode.I) {
+    // TODO utiliser from
+    static readonly C = new Key(Note.C)
+    static readonly Cs = new Key(Note.Cs)
+    static readonly D = new Key(Note.D)
+    static readonly Eb = new Key(Note.Eb)
+    static readonly E = new Key(Note.E)
+    static readonly F = new Key(Note.F)
+    static readonly Fs = new Key(Note.Fs)
+    static readonly G = new Key(Note.G)
+    static readonly Ab = new Key(Note.Ab)
+    static readonly A = new Key(Note.A)
+    static readonly Bb = new Key(Note.Bb)
+
+    static readonly Cm = new Key(Note.C, Mode.vi)
+    static readonly Csm = new Key(Note.Cs, Mode.vi)
+    static readonly Dm = new Key(Note.D, Mode.vi)
+    static readonly Ebm = new Key(Note.Eb, Mode.vi)
+    static readonly Em = new Key(Note.E, Mode.vi)
+    static readonly Fm = new Key(Note.F, Mode.vi)
+    static readonly Fsm = new Key(Note.Fs, Mode.vi)
+    static readonly Gm = new Key(Note.G, Mode.vi)
+    static readonly Abm = new Key(Note.Ab, Mode.vi)
+    static readonly Am = new Key(Note.A, Mode.vi)
+    static readonly Bbm = new Key(Note.Bb, Mode.vi)
+
+    private static readonly KEYS_BY_NOTE_VALUE_AND_MODE_VALUE: Key[][] = [];
+
+    private constructor(readonly note: Note, readonly mode: Mode = Mode.I) {
     }
-}
 
-export namespace Key {
-    // TODO utiliser un cache au niveau du constructeur plutôt que de définir des constantes
-    export const C = new Key(Note.C)
-    export const Cs = new Key(Note.Cs)
-    export const D = new Key(Note.D)
-    export const Eb = new Key(Note.Eb)
-    export const E = new Key(Note.E)
-    export const F = new Key(Note.F)
-    export const Fs = new Key(Note.Fs)
-    export const G = new Key(Note.G)
-    export const Ab = new Key(Note.Ab)
-    export const A = new Key(Note.A)
-    export const Bb = new Key(Note.Bb)
+    static from(note: Note, mode: Mode): Key {
+        if (!(note.value in this.KEYS_BY_NOTE_VALUE_AND_MODE_VALUE)) {
+            this.KEYS_BY_NOTE_VALUE_AND_MODE_VALUE[note.value] = [];
+        }
+        const keysNotesByModeValue = this.KEYS_BY_NOTE_VALUE_AND_MODE_VALUE[note.value];
 
-    export const Cm = new Key(Note.C, Mode.vi)
-    export const Csm = new Key(Note.Cs, Mode.vi)
-    export const Dm = new Key(Note.D, Mode.vi)
-    export const Ebm = new Key(Note.Eb, Mode.vi)
-    export const Em = new Key(Note.E, Mode.vi)
-    export const Fm = new Key(Note.F, Mode.vi)
-    export const Fsm = new Key(Note.Fs, Mode.vi)
-    export const Gm = new Key(Note.G, Mode.vi)
-    export const Abm = new Key(Note.Ab, Mode.vi)
-    export const Am = new Key(Note.A, Mode.vi)
-    export const Bbm = new Key(Note.Bb, Mode.vi)
+        if (!(mode.value in keysNotesByModeValue)) {
+            keysNotesByModeValue[mode.value] = new Key(note, mode);
+        }
+
+        return keysNotesByModeValue[mode.value];
+    }
 }
 
 export class Degree extends Mod12Value {

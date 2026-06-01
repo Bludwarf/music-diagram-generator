@@ -260,7 +260,7 @@ export class KeyParser implements ModelDtoMapper<Key, KeyDto> {
     }
 
     model(dto: KeyDto): Key {
-        return new Key(
+        return Key.from(
             this.noteParser.model(dto[0]),
             this.modeParser.model(dto[1]),
         );

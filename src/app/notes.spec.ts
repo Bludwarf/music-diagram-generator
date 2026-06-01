@@ -1,4 +1,4 @@
-import {Chord, Chords, Mode, Note, OctavedNote} from "./notes";
+import {Chord, Chords, Key, Mode, Note, OctavedNote} from "./notes";
 import {Position} from "./time";
 
 const C = Note.C
@@ -99,6 +99,24 @@ describe('Mode', () => {
             expect(Mode.fromName(name)).toBe(mode); // test du cache
         });
     })
+
+});
+
+describe('Key', () => {
+
+    for (let noteValue = 0; noteValue < 12; ++noteValue) {
+        for (let modeValue = 0; modeValue < 12; ++modeValue) {
+            it(`${noteValue}, ${modeValue}`, () => {
+                const key = Key.from(Note.fromValue(noteValue), Mode.fromValue(modeValue));
+                expect(key.note.value).toEqual(noteValue);
+                expect(key.mode.value).toEqual(modeValue);
+
+                // test du cache
+                const sameKey = Key.from(Note.fromValue(noteValue), Mode.fromValue(modeValue));
+                expect(sameKey).toBe(key);
+            });
+        }
+    }
 
 });
 

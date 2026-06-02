@@ -1,4 +1,4 @@
-import {Position, PositionFormatter, TimeSignature} from "./time";
+import {Position, PositionedElement, PositionFormatter, TimeSignature} from "./time";
 import {Comparable} from "./utils/comparator";
 import {checkIsInteger} from "./utils/validators";
 import {error} from "./utils";
@@ -332,6 +332,10 @@ export type BarNumber0Indexed = number
 
 export type BarTimeSignatureGetter = (bar: number) => TimeSignature
 
+interface PositionedChord extends PositionedElement {
+    chord: Chord;
+}
+
 export class Chords extends Array<Chord> {
 
     constructor(
@@ -339,9 +343,12 @@ export class Chords extends Array<Chord> {
         readonly ascii: AsciiChords, // utilisé pour l'export JSON
         readonly durationInBars: number,
         private readonly chordsByPosition: [Position, Chord | undefined][],
+        /** Optionnel si on a une durée d'une seule mesure */
+        private readonly chordsByBar ?: Record<number, Chords>,
         private readonly barTimeSignatureGetter ?: BarTimeSignatureGetter,
     ) {
         super();
+        if (durationInBars !== 1 && list.length > 0 && !chordsByBar) error(`chordsByBar est obligatoire car la durée des accords est différente de 1`)
         this.push(...list);
     }
 
@@ -355,6 +362,7 @@ export class Chords extends Array<Chord> {
 
         const chordsList: Chord[] = []
         const chordsByPosition: [Position, Chord | undefined][] = []
+        const chordsByBar: Record<number, Chords> = {}
 
         let position = new Position()
         barGroups.forEach(barAsciiChords => {
@@ -372,19 +380,36 @@ export class Chords extends Array<Chord> {
                 }
             }
 
+            const bar: BarNumber0Indexed = position.bars
+            let barPosition = new Position()
+            const barChordsList: Chord[] = []
+            const barChordsByPosition: [Position, Chord | undefined][] = []
+
             chordGroups.forEach(chordGroup => {
                 const chord = chordGroup ? new Chord(chordGroup) : undefined;
                 if (chord) {
                     chordsList.push(chord)
+                    barChordsList.push(chord)
                 }
                 chordsByPosition.push([position, chord])
+                barChordsByPosition.push([position, chord])
 
                 position = next(position)
+                barPosition = next(barPosition)
             })
+
+            chordsByBar[bar] = new Chords(
+                barChordsList,
+                `| ${barAsciiChords} |`,
+                1,
+                barChordsByPosition,
+                undefined,
+                barTimeSignatureGetter,
+            );
 
         })
 
-        return new Chords(chordsList, asciiChords, barGroups.length, chordsByPosition, barTimeSignatureGetter)
+        return new Chords(chordsList, asciiChords, barGroups.length, chordsByPosition, chordsByBar, barTimeSignatureGetter)
     }
 
     static groupAsciiChordsByBar(asciiChords: AsciiChords): string[] {
@@ -402,21 +427,39 @@ export class Chords extends Array<Chord> {
         return new Chords([], asciiChords, barsDuration, []);
     }
 
+    private _positionedChords?: PositionedChord[]
+    private get positionedChords(): PositionedChord[] {
+        if (!this._positionedChords) {
+            const positionedChords: PositionedChord[] = [];
+            for (let i = 0; i < this.chordsByPosition.length; i++) {
+                const [position, chord] = this.chordsByPosition[i];
+                const nextPosition = i + 1 < this.chordsByPosition.length ? this.chordsByPosition[i + 1][0] : new Position(this.durationInBars);
+                if (chord) {
+                    positionedChords.push({
+                        chord,
+                        startPosition: position,
+                        endPosition: nextPosition,
+                    })
+                }
+            }
+            this._positionedChords = positionedChords;
+        }
+        return this._positionedChords;
+    }
+
     getChordAt(position: Position): Chord | undefined {
-        // TODO factoriser avec getCurrentPattern et Position.getElementAt
-        const reversedChordsByPosition = [...this.chordsByPosition].reverse()
-        const chordAtPosition = reversedChordsByPosition.find(([chordTime]) => chordTime.isBeforeOrEquals(position));
-        return chordAtPosition?.[1]
+        const positionedChord = Position.getElementAt(position, this.positionedChords, false);
+        return positionedChord?.chord
     }
 
     getChordsAtBar(bar: BarNumber0Indexed): Chords | undefined {
-        // TODO cache
-        const chordGroups = Chords.groupAsciiChordsByBar(this.ascii)
-        if (bar > chordGroups.length - 1) {
-            console.warn('No chords at bar ' + bar)
-            return undefined
+        if (this.chordsByBar) {
+            return this.chordsByBar[bar]
+        } else if (bar === 0 && this.durationInBars === 1) {
+            return this;
+        } else {
+            return undefined;
         }
-        return Chords.fromAsciiChords(`| ${chordGroups[bar]} |`, this.barTimeSignatureGetter);
     }
 
     override toString(): string {

@@ -170,6 +170,30 @@ describe('Chords', () => {
         expect(barChords?.ascii).toEqual('| Gm F |')
     });
 
+    it('should get chords from chords at bar 1 from | Gm F | Eb D | @ 6/8', () => {
+        const chords = Chords.fromAsciiChords('| Gm F | Eb D |', () => [6, 8])
+        const barChords = chords.getChordsAtBar(0);
+        expect(barChords).toBeDefined();
+
+        expect(barChords!.getChordsAtBar(0)).toBe(barChords)
+    });
+
+    ([
+        [0,0, "Gm"],
+        [2,1, "Gm"],
+        [3,0, "F"],
+        [5,2, "F"],
+    ] as [number, number, string][]).forEach(([beats, sixteenths, expectedChordName]) => {
+        it(`should get ${expectedChordName} at ${beats}:${sixteenths} from chords at bar 1 from | Gm F | Eb D | @ 6/8`, () => {
+            const chords = Chords.fromAsciiChords('| Gm F | Eb D |', () => [6, 8])
+            const barChords = chords.getChordsAtBar(0);
+            expect(barChords).toBeDefined();
+
+            const position = new Position(0, beats, sixteenths);
+            expect(barChords?.getChordAt(position)).toEqual(new Chord(expectedChordName))
+        });
+    })
+
     it('should get chords duration from | Gm F | @ 4/4', () => {
         const chords = Chords.fromAsciiChords('| Gm F |', () => [4, 4])
         expect(chords.durationInBars).toEqual(1)

@@ -115,6 +115,8 @@ export class Position implements BarsBeatsSixteenthsFields {
      * @param overflow Doit-on renvoyer le 1er élément ou le dernier élément si la position dépasse les éléments (sinon undefined) ?
      */
     static getElementAt<E extends PositionedElement>(position: Position, elements: E[], overflow: boolean): E | undefined {
+        if (elements.length === 0) return undefined
+
         const firstElement = elements[0];
         if (position.isBefore(firstElement.startPosition)) {
             return overflow ? firstElement : undefined
@@ -122,7 +124,7 @@ export class Position implements BarsBeatsSixteenthsFields {
 
         for (const element of elements) {
             if (position.isBefore(element.endPosition)) {
-                return element
+                return position.isBefore(element.startPosition) ? undefined : element
             }
         }
 

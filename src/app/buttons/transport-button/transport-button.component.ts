@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, computed, input} from '@angular/core';
-import {NgIcon, provideIcons} from "@ng-icons/core";
+import {NgIcon, provideIcons, IconName as NgIconName} from "@ng-icons/core";
 import {bootstrapPauseFill, bootstrapPlayFill, bootstrapTools} from "@ng-icons/bootstrap-icons";
 import {error} from "../../utils";
 
@@ -20,10 +20,9 @@ export class TransportButtonComponent {
     disabled = input(false);
     icon = input.required<IconName>()
 
-    ngIconName = computed(() => {
+    ngIconName = computed<NgIconName>(() => {
         const name = this.icon();
         switch (name) {
-            // TODO typage du retour
             case "play":
                 return "bootstrapPlayFill";
             case "pause":
@@ -31,6 +30,5 @@ export class TransportButtonComponent {
             case "tools":
                 return "bootstrapTools";
         }
-        error(`Icône inconnue : ${name}`);
     })
 }

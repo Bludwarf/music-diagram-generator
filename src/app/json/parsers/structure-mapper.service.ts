@@ -36,29 +36,7 @@ class Elements<M, D> {
     /**
      * @return undefined si model déjà connu
      */
-    put(model: M): D | undefined {
-        const dto = this.dto(model); // TODO ne pas refaire deux fois, si déjà fait dans la boucle
-
-        const key = this.keyGetter(model);
-        const alreadyExistingDto = this.dtosByKey[key];
-        if (alreadyExistingDto) {
-            if (!jsonEquals(dto, alreadyExistingDto)) {
-                console.log("alreadyExistingDto", alreadyExistingDto);
-                console.log("dto", dto);
-                error(`Deux éléments différents portent la même clé "${key}"`)
-            }
-            return undefined;
-        }
-
-        this.orderedKeys.push(key);
-        this.dtosByKey[key] = dto;
-        return dto;
-    }
-
-    /**
-     * @return undefined si model déjà connu
-     */
-    put2(model: M, dto: D) {
+    put(model: M, dto: D) {
         const key = this.keyGetter(model);
         const alreadyExistingDto = this.dtosByKey[key];
         if (alreadyExistingDto) {
@@ -108,7 +86,7 @@ export class StructureMapper {
 
                 for (const pattern of section.patterns) {
                     const patternDto = this.patternParser.dto(pattern);
-                    patternsSet.put2(pattern, patternDto);
+                    patternsSet.put(pattern, patternDto);
                     sectionDto.patternInitials.push(pattern.initial);
                 }
 

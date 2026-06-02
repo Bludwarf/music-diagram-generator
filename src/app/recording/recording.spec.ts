@@ -115,6 +115,4 @@ describe('Recording', () => {
         expect(recording.getBeatTime(secTime!)).toEqual(beatTime);
     });
 
-    // TODO getSecTimeAt
-
 });

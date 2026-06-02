@@ -27,7 +27,7 @@ export class SongEntryMapper {
                 if (structureDto.timeSignature) {
                     return structureDto.timeSignature
                 }
-                const timeSignature = DEFAULT_MIDI_TIME_SIGNATURE.timeSignature // TODO on devrait refacto pour mettre cette constante en private
+                const timeSignature = DEFAULT_MIDI_TIME_SIGNATURE.timeSignature
                 console.warn(`Sans MIDI on considère que la signature rythmique du morceau "${songName}" est du ${timeSignature[0]}/${timeSignature[1]}`)
                 return timeSignature
             }

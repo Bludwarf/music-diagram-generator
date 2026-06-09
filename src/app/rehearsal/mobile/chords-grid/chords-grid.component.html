@@ -1,7 +1,12 @@
 <ng-container *ngFor="let bar of sequence(chords.durationInBars)">
     <div *ngIf="chords.getChordsAtBar(bar); let currentBarChords" class="bar" [class.current]="isCurrentBar(bar)"
          (click)="onClickBar(bar)" [class.multi-chords]="currentBarChords.length > 1"
-         [class.looped]="isCurrentBar(bar) && currentBarIsLooped">
+         [class.looped]="isCurrentBar(bar) && currentBarIsLooped"
+         [class.first-line]="bar < 4"
+         [class.first-column]="bar % 4 == 0" [class.last-column]="bar % 4 == 3"
+         [class.last-line]="bar >= chords.durationInBars - 4"
+         [style.min-height.px]="barMinHeight"
+    >
         <div *ngFor="let chord of currentBarChords" class="chord" #chordElement
              [attr.data-mode]="key && chord.root.modeIn(key).name">
             <span [appFitFontSize]="chordElement">{{ chord.toString() }}</span>

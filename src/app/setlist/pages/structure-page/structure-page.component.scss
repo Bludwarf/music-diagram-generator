@@ -1,3 +1,7 @@
+:host {
+    --background: white;
+}
+
 .information {
     display: flex;
 
@@ -8,16 +12,23 @@
 
 .pattern-list {
     text-align: left;
+    column-count: 3;
 
-    .pattern-initial {
-        color: rgba(255, 255, 255, 0.2);
-        font-weight: bold;
-        display: inline-block;
-        padding: 0.2ex;
+    .pattern {
+        page-break-inside: avoid;
+        break-inside: avoid-column;
+        margin-bottom: 1em;
     }
 
     .pattern-name {
-        text-decoration: underline;
+        color: white;
+        font-weight: bold;
+        display: inline-block;
+        padding: 3pt; // idem chords-grid.border
+
+        &:has(+app-chords-grid) {
+            padding-bottom: 0;
+        }
     }
 
     .pattern-chords {

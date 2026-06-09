@@ -30,7 +30,7 @@ export class FitFontSizeDirective implements AfterViewInit {
     //   this.adjustFontSize()
     // }
 
-    private adjustFontSize() {
+    adjustFontSize() {
         if (this.container) {
             this.ngZone.run(() => {
                 if (this.container) {

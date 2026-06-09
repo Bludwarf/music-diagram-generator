@@ -4,6 +4,9 @@
             @if (songEntry.recording) {
                 Tempo moyen : {{ round(songEntry.recording.meanTempo) }}
             }
+            @if (songEntry.structure.timeSignature) {
+                ({{ songEntry.structure.timeSignature[0] }}/{{ songEntry.structure.timeSignature[1] }})
+            }
         </div>
         <div>
             Version : {{ songEntry.version || '(inconnue)' }}
@@ -17,19 +20,20 @@
     @if (patternsWithoutDuplicatedInitial.length) {
         <br>
         <hr>
-        <ul class="pattern-list">
+        <div class="pattern-list">
             @for (pattern of patternsWithoutDuplicatedInitial; track pattern) {
-                <li
-                    [style.color]="getPatternColor(pattern)"
-                >
-        <span class="pattern-initial"
-              [style.background-color]="getPatternColor(pattern)">{{ getFirstPatternInStructure(pattern).initial }}</span>&nbsp;<span
-                    class="pattern-name">{{ pattern.name }}</span> ({{ pattern.durationInBars }}m)
+                <div class="pattern" [style.color]="getPatternColor(pattern)">
+                    <span class="pattern-name"
+                          [style.background-color]="getPatternColor(pattern)">{{ pattern.name }}</span>
                     @if (pattern.chords) {
-                        : <span class="pattern-chords">{{ pattern.chords.ascii }}</span>
+                        <app-chords-grid [chords]="pattern.chords" [key]="pattern.key"
+                                         [style.border-color]="getPatternColor(pattern)"
+                        ></app-chords-grid>
+                    } @else {
+                        ({{ pattern.durationInBars }}m)
                     }
-                </li>
+                </div>
             }
-        </ul>
+        </div>
     }
 </app-page>

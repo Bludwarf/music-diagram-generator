@@ -1,134 +1,188 @@
 {
-  "parts": [
-    {
-      "name": "1",
-      "sections": [
+    "parts": [
         {
-          "name": "Intro",
-          "patternInitials": [
-            "I"
-          ]
+            "name": "1",
+            "sections": [
+                {
+                    "name": "Intro",
+                    "patternInitials": [
+                        "I"
+                    ]
+                },
+                {
+                    "name": "Couplet",
+                    "patternInitials": [
+                        "C",
+                        "C",
+                        "C",
+                        "Ad"
+                    ]
+                },
+                {
+                    "name": "Couplet (bleu)",
+                    "color": "#1976d2",
+                    "patternInitials": [
+                        "C16"
+                    ]
+                },
+                {
+                    "name": "Refrain",
+                    "patternInitials": [
+                        "R",
+                        "R"
+                    ]
+                }
+            ]
         },
         {
-          "name": "Couplet",
-          "patternInitials": [
-            "C",
-            "C",
-            "C",
-            "C"
-          ]
+            "name": "2",
+            "sections": [
+                {
+                    "name": "Couplet",
+                    "patternInitials": [
+                        "C",
+                        "C",
+                        "C",
+                        "A2"
+                    ]
+                },
+                {
+                    "name": "Couplet (bleu)",
+                    "color": "#1976d2",
+                    "patternInitials": [
+                        "C",
+                        "C",
+                        "C",
+                        "A4"
+                    ]
+                },
+                {
+                    "name": "Refrain",
+                    "patternInitials": [
+                        "R",
+                        "R"
+                    ]
+                }
+            ]
         },
         {
-          "name": "Couplet (bleu)",
-          "color": "#1976d2",
-          "patternInitials": [
-            "C",
-            "C",
-            "C",
-            "C"
-          ]
-        },
-        {
-          "name": "Refrain",
-          "patternInitials": [
-            "R",
-            "R"
-          ]
+            "name": "3",
+            "sections": [
+                {
+                    "name": "Couplet",
+                    "patternInitials": [
+                        "C",
+                        "C",
+                        "C",
+                        "A1"
+                    ]
+                },
+                {
+                    "name": "Couplet (bleu)",
+                    "color": "#1976d2",
+                    "patternInitials": [
+                        "C",
+                        "C",
+                        "C",
+                        "C2/4"
+                    ]
+                },
+                {
+                    "name": "Refrain",
+                    "patternInitials": [
+                        "R",
+                        "R"
+                    ]
+                }
+            ]
         }
-      ]
-    },
-    {
-      "name": "2",
-      "sections": [
+    ],
+    "patterns": [
         {
-          "name": "Couplet",
-          "patternInitials": [
-            "C",
-            "C",
-            "C",
-            "C"
-          ]
+            "initial": "I",
+            "name": "Intro",
+            "durationInBars": 4,
+            "key": [
+                0,
+                0
+            ]
         },
         {
-          "name": "Couplet (bleu)",
-          "color": "#1976d2",
-          "patternInitials": [
-            "C",
-            "C",
-            "C",
-            "C"
-          ]
+            "initial": "C",
+            "name": "Couplet",
+            "asciiChords": "| C | Dm | Em | Dm |",
+            "key": [
+                0,
+                0
+            ]
         },
         {
-          "name": "Refrain",
-          "patternInitials": [
-            "R",
-            "R"
-          ]
+            "initial": "C2/4",
+            "name": "Couplet en 2/4",
+            "asciiChords": "| C | B | Bbm | Am | Ab | Gm | F# | F |",
+            "color": "#096",
+            "key": [
+                0,
+                0
+            ]
+        },
+        {
+            "initial": "Ad",
+            "name": "Accords doublés",
+            "asciiChords": "| C | C | Am | Am |",
+            "key": [
+                0,
+                0
+            ]
+        },
+        {
+            "initial": "C16",
+            "name": "Couplet 16 mesures",
+            "asciiChords": "| C | Dm | Em | Dm | C | Dm | Em | Dm | C | Dm | Em | Dm | C | Dm | Em | Dm |",
+            "key": [
+                0,
+                0
+            ]
+        },
+        {
+            "initial": "R",
+            "name": "Refrain",
+            "asciiChords": "| C | F | G | F |",
+            "key": [
+                0,
+                0
+            ]
+        },
+        {
+            "initial": "A2",
+            "name": "Deux accords / m.",
+            "asciiChords": "| C B | Bbm Am | Ab Gm | F# F |",
+            "key": [
+                0,
+                0
+            ]
+        },
+        {
+            "initial": "A4",
+            "name": "1 -> 4",
+            "asciiChords": "| C | B Bbm | Am Ab Gm Gm | F# F Em Eb |",
+            "key": [
+                0,
+                0
+            ]
+        },
+        {
+            "initial": "A1",
+            "name": "4 -> 1",
+            "asciiChords": "| F# F Em Eb | Am Ab Gm Gm | B Bbm | C |",
+            "key": [
+                0,
+                0
+            ]
         }
-      ]
-    },
-    {
-      "name": "3",
-      "sections": [
-        {
-          "name": "Couplet",
-          "patternInitials": [
-            "C",
-            "C",
-            "C",
-            "C"
-          ]
-        },
-        {
-          "name": "Couplet (bleu)",
-          "color": "#1976d2",
-          "patternInitials": [
-            "C",
-            "C",
-            "C",
-            "C"
-          ]
-        },
-        {
-          "name": "Refrain",
-          "patternInitials": [
-            "R",
-            "R"
-          ]
-        }
-      ]
-    }
-
-
-  ],
-  "patterns": [
-    {
-      "initial": "I",
-      "name": "Intro",
-      "durationInBars": 4,
-      "key": [
-        0,
-        0
-      ]
-    },
-    {
-      "initial": "C",
-      "name": "Couplet",
-      "asciiChords": "| C | Dm | Em | Dm |",
-      "key": [
-        0,
-        0
-      ]
-    },
-    {
-      "initial": "R",
-      "name": "Refrain",
-      "asciiChords": "| C | F | G | F |",
-      "key": [
-        0,
-        0
-      ]
-    }
-  ]
+    ],
+    "timeSignature": [
+        4,
+        4
+    ]
 }

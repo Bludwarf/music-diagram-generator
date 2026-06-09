@@ -3,12 +3,12 @@
     color: black;
     background: white;
     height: 29.7cm;
-    max-width: 21cm;
+    width: 21cm;
     padding: 1.2cm;
 
     @media print {
         height: unset;
-        max-width: none;
+        width: unset;
         padding: 0;
         margin: 0;
         page-break-after: always;

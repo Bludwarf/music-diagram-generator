@@ -1,9 +1,7 @@
 :host {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    border: solid 3px #0006; // TODO couleur idem part-line active-section-line
-    background: black;
-    gap: 1px;
+    border: solid 3pt #0006;
     font-size: 6mm;
 
     & > * {
@@ -13,22 +11,55 @@
 
 .bar {
     background: var(--background);
-    aspect-ratio: 1;
     display: flex;
     flex-direction: column;
     justify-content: center;
     color: black;
-    border: solid 1px transparent;
-
-    $padding: 2px;
+    border: solid 0 black;
+    $padding: 3%;
     padding: $padding;
+
+    &.first-line {
+        border-top-width: 1pt;
+    }
+
+    &:not(.first-line) {
+        border-top-width: 1pt;
+    }
+
+    &.first-column {
+        border-left-width: 1pt;
+    }
+
+    &:not(.first-column) {
+        border-left-width: 1pt;
+    }
+
+    &.last-column,
+    &:last-of-type {
+        border-right-width: 1pt;
+    }
+
+    &.last-line {
+        border-bottom-width: 1pt;
+    }
 
     & > .chord {
         flex: 1;
         display: flex;
 
+        &:not(:last-of-type) {
+            border-bottom: dashed 1px #CCC;
+        }
+
         & > span {
             margin: auto;
+
+            // Bordure de texte
+            -webkit-text-stroke-width: 0.05em;
+            -webkit-text-stroke-color: black;
+            paint-order: stroke fill; // Pour passer la bordure à l'arrière-plan
+            text-wrap: nowrap;
         }
 
         &[data-mode='vi'] {
@@ -87,12 +118,18 @@
 
 }
 
+$current-bar-color: white;
+
 .current {
-    color: white;
+    color: $current-bar-color;
 }
 
 .current.bar {
-    border-color: white;
+    border-color: $current-bar-color;
+
+    &:not(.last-column) + .bar {
+        border-left-color: $current-bar-color;
+    }
 
     &.looped {
         border-color: yellow;

@@ -7,6 +7,7 @@ import {PatternInStructure} from "../../../structure/pattern/pattern-in-structur
 import {SongInSetlist} from "../../setlist";
 import {SongEntry} from "../../../song/song-entry";
 import {PageComponent} from "../../../page/page.component";
+import {ChordsGridComponent} from "../../../rehearsal/mobile/chords-grid/chords-grid.component";
 
 @Component({
     selector: 'app-structure-page',
@@ -14,6 +15,7 @@ import {PageComponent} from "../../../page/page.component";
     imports: [
         StructureGridComponent,
         PageComponent,
+        ChordsGridComponent,
     ],
     templateUrl: './structure-page.component.html',
     styleUrl: './structure-page.component.scss',

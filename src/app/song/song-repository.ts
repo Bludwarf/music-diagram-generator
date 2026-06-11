@@ -2,18 +2,12 @@ import {Injectable} from "@angular/core";
 import {EMPTY, SongEntry} from "./song-entry";
 import {error} from "../utils";
 import {SongInArchive} from "./song-archive";
-import {SongArchiveLoader} from "./song-archive-loader.service";
 
 @Injectable({
     providedIn: 'root'
 })
 export class SongRepository {
     private readonly songEntries: SongEntry[] = []
-
-    constructor(
-        private readonly songArchiveLoader: SongArchiveLoader,
-    ) {
-    }
 
     pushAll(...songEntries: SongEntry[]) {
         for (const songEntry of songEntries) {
@@ -22,28 +16,28 @@ export class SongRepository {
         }
     }
 
-    private findSongEntry(songName: string, defaultSongEntry?: SongEntry | undefined): SongEntry | undefined {
-        const resolvedSongName = SongInArchive.resolveSongNameFromSetlist(songName);
-        return this.songEntries.find(entry => this.songNameEquals(resolvedSongName, entry.name)) || defaultSongEntry;
-    }
-
-    async requireSongEntry(songName: string, fromSongArchiveLoader = false): Promise<SongEntry> {
-        const entry = this.findSongEntry(songName);
-        if (!entry) {
-            if (!fromSongArchiveLoader && this.songArchiveLoader.isDefaultSong(songName)) {
-                await this.songArchiveLoader.getDefaultSetlist(this);
-                return this.requireSongEntry(songName, true);
-            }
-            error('SongEntry inconnu pour ' + songName)
-        }
-        return entry;
-    }
-
-    findSongEntryOrEmpty(songName: string): SongEntry {
-        return this.findSongEntry(songName, {
+    async findSongEntry(songName: string, defaultSongEntryProvider?: () => Promise<SongEntry | undefined>): Promise<SongEntry | undefined> {
+        defaultSongEntryProvider ??= () => Promise.resolve({
             ...EMPTY,
             name: songName,
-        })!;
+        })
+        const resolvedSongName = SongInArchive.resolveSongNameFromSetlist(songName);
+
+        const existingSongEntry = this.songEntries.find(entry => this.songNameEquals(resolvedSongName, entry.name));
+        if (existingSongEntry) return existingSongEntry;
+
+        const createdSongEntry = await defaultSongEntryProvider?.();
+        if (createdSongEntry) {
+            this.songEntries.push(createdSongEntry);
+        }
+
+        return createdSongEntry;
+    }
+
+    async requireSongEntry(songName: string): Promise<SongEntry> {
+        const entry = await this.findSongEntry(songName);
+        if (!entry) error('SongEntry inconnu pour ' + songName);
+        return entry;
     }
 
     private songNameEquals(expectedSongName: string | undefined, songName: string) {

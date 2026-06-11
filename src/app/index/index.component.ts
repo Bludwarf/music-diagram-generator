@@ -1,4 +1,4 @@
-import {Component, isDevMode, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
 import {RouterLink} from "@angular/router";
@@ -29,14 +29,6 @@ export class IndexComponent implements OnInit {
     ];
     protected viewType: ViewType = "B";
 
-    protected readonly testRoutes: readonly string[] = [
-        "chords-grid",
-        "structure-list",
-        "create-zip",
-    ]
-
-    protected readonly isDevMode = isDevMode;
-
     constructor(
         private readonly songRepository: SongRepository,
         private readonly setlistRepository: SetlistRepository,
@@ -64,10 +56,6 @@ export class IndexComponent implements OnInit {
 
     async loadSetlist(): Promise<void> {
         this.setlist = this.setlistRepository.lastPushed;
-
-        if (!this.setlist && isDevMode()) {
-            this.setlist = await this.songArchiveLoader.getDefaultSetlist(this.songRepository);
-        }
     }
 
     async uploadZip(event: Event): Promise<void> {

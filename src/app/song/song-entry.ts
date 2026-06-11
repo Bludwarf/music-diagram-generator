@@ -3,14 +3,13 @@ import {Recording} from "../recording/recording";
 
 export interface SongEntry {
     name: string
-    version?: string // TODO à mettre en obligatoire dès que tous les songs l'utilisent
+    version?: string
     structure: Structure
     recording?: Recording
 }
 
 export const EMPTY: SongEntry = {
-    name: 'Intro',
-    version: '1',
+    name: '(Morceau inconnu)',
     structure: Structure.builder()
         .parts([])
         .build(),

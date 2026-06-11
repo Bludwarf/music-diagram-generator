@@ -1,4 +1,4 @@
-import {ArchiveFile, basenameUnix, unzipArchive} from "../utils/file-utils";
+import {basenameUnix, unzipArchive} from "../utils/file-utils";
 import {Recording} from "../recording/recording";
 import {error, getOrRequire} from "../utils";
 import {StructureDto} from "../structure/structure-dto";
@@ -16,31 +16,75 @@ const STRUCTURE_MIDI = "structure" + MIDI_EXTENSION;
 const MUSIC_XML_EXTENSION = ".mxl.xml"; // TODO accepter directement du *.mxl (XML zippé)
 const MUSIC_XML = "structure" + MUSIC_XML_EXTENSION;
 
-const SONG_ARCHIVE_FILE_NAMES = [
+const SONG_FILE_NAMES = [
     STRUCTURE_JSON,
     RECORDING_JSON,
     RECORDING_MP3,
     STRUCTURE_MIDI,
 ] as readonly string[];
 
-export type SongArchiveFileName = typeof SONG_ARCHIVE_FILE_NAMES[number];
+export type SongFileName = typeof SONG_FILE_NAMES[number];
 
 const SETLIST_TXT = "setlist.txt";
 
-export class SongArchive {
+export abstract class SongFileSystem<T extends SongInFileSystem> {
 
-    constructor(
+    protected constructor(
+        readonly nameForErrorMessage: string,
         readonly title: string,
-        private readonly versionBySongCode: Record<string, string | undefined>,
-        private readonly filesBySongCode: Record<string, Record<SongArchiveFileName, ArchiveFile>>,
+        protected readonly versionBySongCode: Record<string, string | undefined>,
+        protected readonly filesBySongCode: Record<string, Record<SongFileName, Blob>>,
         readonly setlist: readonly string[],
     ) {
+    }
+
+    static async parseSetlistFile(file: Blob): Promise<string[]> {
+        const text = await file.text()
+        return text
+            .trim()
+            .split(/\r?\n/)
+            .map(songNameInSetlist => SongInArchive.resolveSongNameFromSetlist(songNameInSetlist))
+            ;
+    }
+
+    * [Symbol.iterator](): Iterator<T> {
+        const uniqueSongNames = [...new Set(this.setlist)]
+        for (const songName of uniqueSongNames) {
+            const song = this.getSong(songName, false);
+            if (song) { // On autorise les morceaux inconnus dans la playlist
+                yield song;
+            }
+        }
+    }
+
+    song(songName: string): T {
+        return this.requireSong(songName);
+    }
+
+    private requireSong(songName: string): T {
+        const song = this.getSong(songName, true);
+        if (!song) error(`Morceau "${songName}" introuvable ${this.nameForErrorMessage} !`)
+        return song;
+    }
+
+    protected abstract getSong(songName: string, required: boolean): T | undefined;
+}
+
+export class SongArchive extends SongFileSystem<SongInArchive> {
+
+    constructor(
+        title: string,
+        versionBySongCode: Record<string, string | undefined>,
+        filesBySongCode: Record<string, Record<SongFileName, Blob>>,
+        setlist: readonly string[],
+    ) {
+        super(`dans l'archive`, title, versionBySongCode, filesBySongCode, setlist);
     }
 
     static async fromZip(zip: File): Promise<SongArchive> {
         const archive = await unzipArchive(zip);
         const versionBySongCode: Record<string, string | undefined> = {};
-        const filesBySongCode: Record<string, Record<SongArchiveFileName, ArchiveFile>> = {};
+        const filesBySongCode: Record<string, Record<SongFileName, Blob>> = {};
         let songNames: Set<string> = new Set();
         let setlist: string[] | undefined = undefined;
         for (const [fileName, archiveFile] of archive) {
@@ -83,53 +127,24 @@ export class SongArchive {
         return new SongArchive(title, versionBySongCode, filesBySongCode, setlist ?? [...songNames]);
     }
 
-    private static async parseSetlistFile(archiveFile: ArchiveFile): Promise<string[]> {
-        const text = await archiveFile.text()
-        return text
-            .trim()
-            .split(/\r?\n/)
-            .map(songNameInSetlist => SongInArchive.resolveSongNameFromSetlist(songNameInSetlist))
-            ;
-    }
-
-    * [Symbol.iterator](): Iterator<SongInArchive> {
-        const uniqueSongNames = [...new Set(this.setlist)]
-        for (const songName of uniqueSongNames) {
-            const song = this.getSong(songName);
-            if (song) { // On autorise les morceaux inconnus dans la playlist
-                yield song;
-            }
-        }
-    }
-
-    song(songName: string): SongInArchive {
-        return this.requireSong(songName);
-    }
-
-    private requireSong(songName: string): SongInArchive {
-        const song = this.getSong(songName, true);
-        if (!song) error(`Morceau "${songName}" introuvable dans l'archive !`)
-        return song;
-    }
-
-    private getSong(songName: string, required = false): SongInArchive | undefined {
+    protected override getSong(songName: string, required = false): SongInArchive | undefined {
         const songCode = SongInArchive.songCode(songName);
         getOrRequire(songCode in this.filesBySongCode, required, () => `Morceau "${songName}" introuvable dans l'archive !`);
 
         const songFiles = getOrRequire(this.filesBySongCode[songCode], required, () => `Aucun fichiers trouvés dans l'archive pour le morceau ${songName}`);
         if (!songFiles) return undefined;
 
-        return new SongInArchive(songName, this.versionBySongCode[songCode], songFiles);
+        return new SongInArchive(this, songName, this.versionBySongCode[songCode], songFiles);
     }
-
 }
 
-export class SongInArchive {
-    constructor(
+export abstract class SongInFileSystem {
+    protected constructor(
+        public readonly songFileSystem: SongFileSystem<SongInFileSystem>,
         /** Le nom du morceau tel qu'il apparaît dans la setlist ou dans son dossier */
         public readonly name: string,
         public readonly version: string | undefined,
-        private readonly songFiles: Record<string, ArchiveFile>) {
+    ) {
     }
 
     // TODO cache
@@ -156,47 +171,37 @@ export class SongInArchive {
         return this.getArrayBuffer(RECORDING_MP3, AUDIO_EXTENSION);
     }
 
-    private async requireDto<T>(fileName: SongArchiveFileName): Promise<T> {
+    private async requireDto<T>(fileName: SongFileName): Promise<T> {
         return new Promise<T>((resolve, reject) => {
             this.getDto<T>(fileName)
                 .then(dto => {
                     if (dto) {
                         resolve(dto)
                     } else {
-                        reject(new Error(`${fileName} requis introuvable dans l'archive`));
+                        reject(new Error(`${fileName} requis introuvable ${this.songFileSystem.nameForErrorMessage}`));
                     }
                 })
         });
     }
 
-    private async getDto<T>(fileName: SongArchiveFileName, extension?: string): Promise<T | undefined> {
+    private async getDto<T>(fileName: SongFileName, extension?: string): Promise<T | undefined> {
         const json = await this.getText(fileName, extension);
         if (!json) return undefined;
         return JSON.parse(json) as T
     }
 
-    private async getText(fileName: SongArchiveFileName, extension?: string): Promise<string | undefined> {
-        const file = this.getArchiveFile(fileName, extension)
+    private async getText(fileName: SongFileName, extension?: string): Promise<string | undefined> {
+        const file = await this.getFile(fileName, extension)
         return file?.text();
     }
 
-    private async getArrayBuffer(fileName: SongArchiveFileName, extension?: string): Promise<Blob | undefined> {
-        const file = this.getArchiveFile(fileName, extension)
+    private async getArrayBuffer(fileName: SongFileName, extension?: string): Promise<Blob | undefined> {
+        const file = await this.getFile(fileName, extension)
         if (!file) return undefined;
         return new Blob([await file.arrayBuffer()]);
     }
 
-    private getArchiveFile(fileName: SongArchiveFileName, extension?: string): ArchiveFile | undefined {
-        return this.songFiles[fileName] ??
-            (extension ? this.searchArchiveFileByExtension(extension) : undefined)
-    }
-
-    private searchArchiveFileByExtension(extension: string): ArchiveFile | undefined {
-        for (const fileName in this.songFiles) {
-            if (fileName.endsWith(extension)) return this.songFiles[fileName];
-        }
-        return undefined;
-    }
+    protected abstract getFile(fileName: SongFileName, extension?: string): Promise<Blob | undefined>;
 
     static songCode(songName: string): string {
         return songName.trim()
@@ -215,6 +220,29 @@ export class SongInArchive {
         return songNameFromSetlist;
     }
 
+}
+
+export class SongInArchive extends SongInFileSystem {
+    constructor(
+        archive: SongArchive,
+        name: string,
+        version: string | undefined,
+        private readonly songFiles: Record<string, Blob>,
+    ) {
+        super(archive, name, version);
+    }
+
+    protected async getFile(fileName: SongFileName, extension?: string): Promise<Blob | undefined> {
+        return this.songFiles[fileName] ??
+            (extension ? this.searchArchiveFileByExtension(extension) : undefined)
+    }
+
+    private searchArchiveFileByExtension(extension: string): Blob | undefined {
+        for (const fileName in this.songFiles) {
+            if (fileName.endsWith(extension)) return this.songFiles[fileName];
+        }
+        return undefined;
+    }
 }
 
 const LE_PHARE = SongInArchive.songCode("Le phare");

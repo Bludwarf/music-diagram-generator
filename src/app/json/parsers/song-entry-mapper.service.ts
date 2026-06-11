@@ -3,7 +3,7 @@ import {RecordingMapper} from "./recording-mapper.service";
 import {Injectable} from "@angular/core";
 import {SongEntry} from "../../song/song-entry";
 import {StructureDto} from "../../structure/structure-dto";
-import {SongInArchive} from "../../song/song-archive";
+import {SongInFileSystem} from "../../song/song-archive";
 import {RecordingDto} from "../../recording/recording-dto";
 import {DEFAULT_MIDI_TIME_SIGNATURE} from "../../structure/structure";
 import {BarTimeSignatureGetter} from "../../notes";
@@ -41,7 +41,7 @@ export class SongEntryMapper {
         };
     }
 
-    async modelFromSong(song: SongInArchive): Promise<SongEntry> {
+    async modelFromSong(song: SongInFileSystem): Promise<SongEntry> {
         const structure = await song.structure;
         return await this.model(
             song.name,

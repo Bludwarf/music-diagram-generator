@@ -1,0 +1,9 @@
+@if (setlist) {
+    @for (song of setlist.songs; track song; ) {
+        <app-structure-page
+            [song]="song"
+            [songTotalCount]="setlist.songs.length"></app-structure-page>
+    }
+} @else {
+    Aucune setlist
+}

@@ -20,6 +20,13 @@ export function getAssetFile(filePath: string, fileName = filePath): Promise<Fil
     });
 }
 
+/**
+ * @param assetPath chemin relatif au dossier <code>assets</code>, sans séparateur en préfixe
+ */
+export function fetchAssetFile(assetPath: string): Promise<Response> {
+    return fetch(`${document.baseURI}assets/${assetPath}`)
+}
+
 function createAssetFileRequest(filePath: string): XMLHttpRequest {
     const request = new XMLHttpRequest();
     request.open('GET', filePath, true);
@@ -41,9 +48,9 @@ export class Archive {
 
     }
 
-    * [Symbol.iterator](): Generator<[string, ArchiveFile]> {
+    * [Symbol.iterator](): Generator<[string, Blob]> {
         for (const [path, data] of Object.entries(this.unzipped)) {
-            yield [this.decodePath(path), new ArchiveFile(data)];
+            yield [this.decodePath(path), newBlob(data)];
         }
     }
 
@@ -76,12 +83,8 @@ export class Cp437Archive extends Archive {
     }
 }
 
-export class ArchiveFile extends Blob {
-    constructor(
-        data: Uint8Array,
-    ) {
-        super([data]);
-    }
+export function newBlob(data: Uint8Array): Blob {
+    return new Blob([data]);
 }
 
 function unzipAsync(uint8: Uint8Array): Promise<Unzipped> {

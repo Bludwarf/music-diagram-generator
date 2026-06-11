@@ -1,5 +1,5 @@
 import {getKarmaFile} from "../test/test-utils";
-import {ArchiveFile, unzipArchive} from "./file-utils";
+import {unzipArchive} from "./file-utils";
 
 
 describe('file-utils', () => {
@@ -10,7 +10,7 @@ describe('file-utils', () => {
         const archive = await unzipArchive(blob);
         console.log(Object.keys(archive))
 
-        const filesByFileName: Record<string, ArchiveFile> = {};
+        const filesByFileName: Record<string, Blob> = {};
         const fileNames: string[] = [];
         for (const [fileName, archiveFile] of archive) {
             fileNames.push(fileName);

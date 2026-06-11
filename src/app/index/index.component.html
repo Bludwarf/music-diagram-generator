@@ -3,7 +3,7 @@
     <a routerLink="setlist" [queryParams]="{setlistTitle: setlist.title}">Setlist {{ setlist.title }}</a><br/>
 
     <select [(ngModel)]="viewType" (change)="onViewTypeChange()">
-        @for (viewType of VIEW_TYPES; track viewType; let i = $index) {
+        @for (viewType of VIEW_TYPES; track viewType) {
             <option [ngValue]="viewType">{{ viewType }}</option>
         }
     </select>
@@ -15,15 +15,6 @@
                [queryParams]="{view: viewType}">{{ song.name }}</a>
         </li>
     </ol>
-}
-
-@if (isDevMode()) {
-    <hr/>
-    <ul>
-        @for (testRoute of testRoutes; track testRoute) {
-            <li><a [routerLink]="'test/' + testRoute">{{ testRoute }}</a></li>
-        }
-    </ul>
 }
 
 <hr/>

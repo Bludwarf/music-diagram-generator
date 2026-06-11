@@ -18,7 +18,7 @@ export class Setlist implements Iterable<SongInSetlist> {
         return this.songs[Symbol.iterator]();
     }
 
-    static fromSongArchive(songArchive: SongArchive, songRepository: SongRepository): Setlist {
+    static fromSongArchive(songArchive: SongArchive, songRepository: SongRepository): Promise<Setlist> {
         const titleVersionRegex = /^([^(]+) +\((.+)\)$/;
         const matches = titleVersionRegex.exec(songArchive.title);
         const bandName = matches?.[1];
@@ -27,12 +27,15 @@ export class Setlist implements Iterable<SongInSetlist> {
         return Setlist.from(setlistTitle, setlistVersion, songRepository, songArchive.setlist)
     }
 
-    private static from(title: string, version: string | undefined, songRepository: SongRepository, songNames: readonly string[]) {
-        const songs = songNames.map(songName => {
-            const songEntry = songRepository.findSongEntryOrEmpty(songName);
-            return SongInSetlist.from(songEntry);
-        });
-        return new Setlist(title, songs, version);
+    static async from(title: string, version: string | undefined, songRepository: SongRepository, songNames: readonly string[]) {
+        const songEntries: SongEntry[] = [];
+        for (const songName of songNames) {
+            const songEntry = await songRepository.findSongEntry(songName);
+            if (songEntry) {
+                songEntries.push(songEntry)
+            }
+        }
+        return new Setlist(title, songEntries.map(songEntry => SongInSetlist.from(songEntry)), version);
     }
 
 }

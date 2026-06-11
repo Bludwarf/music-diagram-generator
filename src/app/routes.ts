@@ -11,6 +11,10 @@ const routes: Routes = [
     {path: '', component: IndexComponent},
     {path: 'morceaux/:songName', component: SongComponent},
     {path: 'convert', component: ConvertComponent},
+    {
+        path: 'test',
+        loadChildren: () => import('./test/test.module').then(m => m.TestModule),
+    },
     {path: 'test/chords-grid', component: ChordsGridComponent},
     {path: 'test/structure-list', component: StructureListComponent},
     {path: 'test/create-zip', component: CreateZipComponent},

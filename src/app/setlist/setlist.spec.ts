@@ -12,17 +12,17 @@ describe('Setlist', () => {
         const songArchive = await getSongArchive(encodedArchiveName);
 
         const songRepository = createSpyObj<SongRepository>('SongRepository', [
-            'findSongEntryOrEmpty',
+            'findSongEntry',
         ]);
 
-        songRepository.findSongEntryOrEmpty.and.callFake((songName: string) => {
-            return {
+        songRepository.findSongEntry.and.callFake((songName: string) => {
+            return Promise.resolve({
                 name: songName,
                 structure: new Structure([]),
-            }
+            })
         })
 
-        const setlist = Setlist.fromSongArchive(songArchive, songRepository);
+        const setlist = await Setlist.fromSongArchive(songArchive, songRepository);
 
         expect(setlist.title).toEqual("Groupe de test");
         expect(setlist.version).toEqual("15/05/2026");

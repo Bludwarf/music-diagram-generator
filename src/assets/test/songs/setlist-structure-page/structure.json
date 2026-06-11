@@ -1,0 +1,134 @@
+{
+  "parts": [
+    {
+      "name": "1",
+      "sections": [
+        {
+          "name": "Intro",
+          "patternInitials": [
+            "I"
+          ]
+        },
+        {
+          "name": "Couplet",
+          "patternInitials": [
+            "C",
+            "C",
+            "C",
+            "C"
+          ]
+        },
+        {
+          "name": "Couplet (bleu)",
+          "color": "#1976d2",
+          "patternInitials": [
+            "C",
+            "C",
+            "C",
+            "C"
+          ]
+        },
+        {
+          "name": "Refrain",
+          "patternInitials": [
+            "R",
+            "R"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "2",
+      "sections": [
+        {
+          "name": "Couplet",
+          "patternInitials": [
+            "C",
+            "C",
+            "C",
+            "C"
+          ]
+        },
+        {
+          "name": "Couplet (bleu)",
+          "color": "#1976d2",
+          "patternInitials": [
+            "C",
+            "C",
+            "C",
+            "C"
+          ]
+        },
+        {
+          "name": "Refrain",
+          "patternInitials": [
+            "R",
+            "R"
+          ]
+        }
+      ]
+    },
+    {
+      "name": "3",
+      "sections": [
+        {
+          "name": "Couplet",
+          "patternInitials": [
+            "C",
+            "C",
+            "C",
+            "C"
+          ]
+        },
+        {
+          "name": "Couplet (bleu)",
+          "color": "#1976d2",
+          "patternInitials": [
+            "C",
+            "C",
+            "C",
+            "C"
+          ]
+        },
+        {
+          "name": "Refrain",
+          "patternInitials": [
+            "R",
+            "R"
+          ]
+        }
+      ]
+    }
+
+
+  ],
+  "patterns": [
+    {
+      "initial": "I",
+      "name": "Intro",
+      "durationInBars": 4,
+      "key": [
+        0,
+        0
+      ]
+    },
+    {
+      "initial": "C",
+      "name": "Couplet",
+      "asciiChords": "| C | Dm | Em | Dm |",
+      "key": [
+        0,
+        0
+      ]
+    },
+    {
+      "initial": "R",
+      "name": "Refrain",
+      "asciiChords": "| C | F | G | F |",
+      "key": [
+        0,
+        0
+      ]
+    }
+  ]
+}

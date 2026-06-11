@@ -1,7 +1,6 @@
 import {Injectable} from "@angular/core";
 import {SongRepository} from "./song-repository";
 import {SongEntry} from "./song-entry";
-import {getAssetFile} from "../utils/file-utils";
 import {SongArchive} from "./song-archive";
 import {SongEntryMapper} from "../json/parsers/song-entry-mapper.service";
 import {Observable, switchMap} from "rxjs";
@@ -24,15 +23,6 @@ export class SongArchiveLoader {
     ) {
     }
 
-    isDefaultSong(songName: string): boolean {
-        return songName === DEFAULT_SONG;
-    }
-
-    async getDefaultSetlist(songRepository: SongRepository): Promise<Setlist> {
-        const zip = await getAssetFile('assets/test/test.zip');
-        return this.load(zip, songRepository);
-    }
-
     async load(zip: File, songRepository: SongRepository): Promise<Setlist> {
         const songArchive = await SongArchive.fromZip(zip);
         for (const song of songArchive) {
@@ -48,7 +38,7 @@ export class SongArchiveLoader {
                 }
             }
         }
-        const setlist = Setlist.fromSongArchive(songArchive, songRepository)
+        const setlist = await Setlist.fromSongArchive(songArchive, songRepository)
         this.setlistRepository.push(setlist);
         console.log(`Setlist "${setlist.title}" initialisée`);
         return setlist;

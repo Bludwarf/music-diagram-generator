@@ -25,7 +25,7 @@ export interface PatternDto {
     initial: string;
     key?: KeyDto,
     asciiChords?: string;
-    events: any, // TODO type vraiment inconnu // TODO ce serait mieux de le mettre dans un autre fichier
+    events?: any, // TODO type vraiment inconnu // TODO ce serait mieux de le mettre dans un autre fichier
     color?: string,
 }
 

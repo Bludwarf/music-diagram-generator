@@ -1,6 +1,6 @@
 {
   "configVersion": 1,
-  "timestamp": 1780414499040,
+  "timestamp": 1781240784044,
   "index": "/music-diagram-generator/index.html",
   "assetGroups": [
     {
@@ -11,8 +11,10 @@
         "ignoreVary": true
       },
       "urls": [
+        "/music-diagram-generator/chunk-5DHMYUAO.js",
+        "/music-diagram-generator/chunk-7ME6GQXR.js",
         "/music-diagram-generator/index.html",
-        "/music-diagram-generator/main-XLD6AGIL.js",
+        "/music-diagram-generator/main-D5OGAOUP.js",
         "/music-diagram-generator/manifest.webmanifest",
         "/music-diagram-generator/polyfills-RT5I6R6G.js",
         "/music-diagram-generator/styles-IOFI7NST.css"
@@ -42,6 +44,8 @@
         "/music-diagram-generator/assets/images/WholeNote-centered.svg",
         "/music-diagram-generator/assets/images/WholeNote.svg",
         "/music-diagram-generator/assets/images/beat-marker.svg",
+        "/music-diagram-generator/assets/test/songs/Morceau vide/structure.json",
+        "/music-diagram-generator/assets/test/songs/setlist-structure-page/structure.json",
         "/music-diagram-generator/assets/test/test.zip",
         "/music-diagram-generator/media/Beats-JVHCVOT7.woff2",
         "/music-diagram-generator/media/realbook-webfont-IIPLEHXN.woff"
@@ -66,9 +70,13 @@
     "/music-diagram-generator/assets/images/WholeNote-centered.svg": "2f79539db81d31250014be9547b43961216bad4f",
     "/music-diagram-generator/assets/images/WholeNote.svg": "9af7fdfa41aa8caee06f753cc60a290acfc1839e",
     "/music-diagram-generator/assets/images/beat-marker.svg": "b64a350053fdf2b2d76ab05f20b4176153b35979",
+    "/music-diagram-generator/assets/test/songs/Morceau vide/structure.json": "a536fdcf0bbc0b477192c2b4a2ef74b51c5f1dfb",
+    "/music-diagram-generator/assets/test/songs/setlist-structure-page/structure.json": "d1abd6cb12cc27e3d074314a7fa1e99801fbf3cf",
     "/music-diagram-generator/assets/test/test.zip": "7cb8d5aaab4623383a5cf20f9496fd4b11683230",
-    "/music-diagram-generator/index.html": "bd5f6d0f18a2d60ca1545baeb09475d179091bc1",
-    "/music-diagram-generator/main-XLD6AGIL.js": "ac6a729ba58ddf491c4724994156632fcda79d7a",
+    "/music-diagram-generator/chunk-5DHMYUAO.js": "bdb1d7354363977636be881c8cdb4c312c666649",
+    "/music-diagram-generator/chunk-7ME6GQXR.js": "e779b61e7beb3a378f657138a3e501e796dbd000",
+    "/music-diagram-generator/index.html": "710b135f14baa7eee86adeb425011135bb369141",
+    "/music-diagram-generator/main-D5OGAOUP.js": "42af829fec8d9965ed3ee724be5ac3761e47e668",
     "/music-diagram-generator/manifest.webmanifest": "6b8b3c692f3e448d195d8e68390df5760775d9a0",
     "/music-diagram-generator/media/Beats-JVHCVOT7.woff2": "7eefac0d91d94dd75857af00f09c1ceb0833d906",
     "/music-diagram-generator/media/realbook-webfont-IIPLEHXN.woff": "74586d16b87fee05fdee4be295c3295ccee599e9",

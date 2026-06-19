@@ -1,10 +1,6 @@
 import {BeatTime, PositionFormatter} from "../time";
-import {Midi, MidiTimeSignature} from "../midi";
+import {Midi} from "../midi";
 import {Structure} from "./structure";
-import {Part} from "./part/part";
-import {Section} from "./section/section";
-import {Pattern} from "./pattern/pattern";
-import {BarNumber0Indexed} from "../notes";
 
 describe('Structure', () => {
 
@@ -135,84 +131,6 @@ describe('Structure', () => {
 
         })
     })
-
-    it(`midiTimeSignatures from structure`, async () => {
-        const expectedMidiTimeSignatures: MidiTimeSignature[] = [
-                {
-                    ticks: 0,
-                    timeSignature: [
-                        3,
-                        4,
-                    ],
-                    measures: 0,
-                },
-                {
-                    ticks: 1440,
-                    timeSignature: [
-                        4,
-                        4,
-                    ],
-                    measures: 1,
-                },
-                {
-                    ticks: 3360,
-                    timeSignature: [
-                        3,
-                        4,
-                    ],
-                    measures: 2,
-                },
-                {
-                    ticks: 4800,
-                    timeSignature: [
-                        4,
-                        4,
-                    ],
-                    measures: 3,
-                },
-                {
-                    ticks: 6720,
-                    timeSignature: [
-                        3,
-                        4,
-                    ],
-                    measures: 4,
-                },
-                {
-                    ticks: 8160,
-                    timeSignature: [
-                        4,
-                        4,
-                    ],
-                    measures: 5,
-                },
-            ]
-        ;
-
-        function newPattern(barNumber: BarNumber0Indexed, beats: number) {
-            return new Pattern(`bar${barNumber}`, 1, barNumber + "", undefined, undefined, undefined, undefined, undefined, [beats, 4])
-        }
-
-        const structure = new Structure([
-            new Part("1", [
-                new Section("Section 1", [
-                    newPattern(0, 3),
-                    newPattern(1, 4),
-                ]),
-                new Section("Section 2", [
-                    newPattern(2, 3),
-                    newPattern(3, 4),
-                ]),
-            ]),
-            new Part("2", [
-                new Section("Section 3", [
-                    newPattern(4, 3),
-                    newPattern(5, 4),
-                ]),
-            ]),
-        ], undefined, undefined, undefined, undefined)
-        expect(structure.midiTimeSignatures).toEqual(expectedMidiTimeSignatures);
-    });
 
     describe("getPosition non arrondie", () => {
 

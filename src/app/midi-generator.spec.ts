@@ -11,7 +11,7 @@ describe('MidiGenerator', () => {
     it(`generateMidi`, async () => {
         const expectedMidi: Midi = {
             header: {
-                ppq: 480,
+                ppq: 24,
                 timeSignatures: [
                     {
                         ticks: 0,
@@ -22,7 +22,7 @@ describe('MidiGenerator', () => {
                         measures: 0,
                     },
                     {
-                        ticks: 1440,
+                        ticks: 72,
                         timeSignature: [
                             4,
                             4,
@@ -30,7 +30,7 @@ describe('MidiGenerator', () => {
                         measures: 1,
                     },
                     {
-                        ticks: 3360,
+                        ticks: 168,
                         timeSignature: [
                             3,
                             4,
@@ -38,7 +38,7 @@ describe('MidiGenerator', () => {
                         measures: 2,
                     },
                     {
-                        ticks: 4800,
+                        ticks: 240,
                         timeSignature: [
                             4,
                             4,
@@ -46,7 +46,7 @@ describe('MidiGenerator', () => {
                         measures: 3,
                     },
                     {
-                        ticks: 6720,
+                        ticks: 336,
                         timeSignature: [
                             3,
                             4,
@@ -54,7 +54,7 @@ describe('MidiGenerator', () => {
                         measures: 4,
                     },
                     {
-                        ticks: 8160,
+                        ticks: 408,
                         timeSignature: [
                             4,
                             4,

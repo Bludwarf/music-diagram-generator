@@ -2,7 +2,7 @@ import {addBarsToTicks, Midi, MidiTimeSignature} from "./midi";
 import {TimeSignature} from "./time";
 import {Structure} from "./structure/structure";
 
-const DEFAULT_MIDI_PPQ: number = 480;
+const DEFAULT_MIDI_PPQ: number = 24; // cf. https://en.wikipedia.org/wiki/MIDI_beat_clock#Pulses_per_quarter_note
 
 export function generateMidi(structure: Structure, defaultTimeSignature: TimeSignature): Midi {
     return {

@@ -8,6 +8,7 @@ import {RecordingDto} from "../../recording/recording-dto";
 import {DEFAULT_MIDI_TIME_SIGNATURE} from "../../structure/structure";
 import {BarTimeSignatureGetter} from "../../notes";
 import {Midi, MidiWrapper} from "../../midi";
+import {generateMidi} from "../../midi-generator";
 
 @Injectable({
     providedIn: 'root'
@@ -21,6 +22,7 @@ export class SongEntryMapper {
     }
 
     async model(songName: string, version: string | undefined, structureDto: StructureDto, recordingDto?: RecordingDto, midi?: Midi, musicXml?: string): Promise<SongEntry> {
+        midi ??= generateMidi(this.structureMapper.model(structureDto, () => DEFAULT_MIDI_TIME_SIGNATURE.timeSignature, midi, musicXml), DEFAULT_MIDI_TIME_SIGNATURE.timeSignature);
         const midiWrapper = midi ? new MidiWrapper(midi) : undefined;
         const barTimeSignatureGetter: BarTimeSignatureGetter = (bar: number) => {
             if (!midiWrapper) {

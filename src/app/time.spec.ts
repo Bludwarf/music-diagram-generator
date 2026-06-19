@@ -1,4 +1,4 @@
-import {BeatTime, Position, PositionedElement, PositionFormatter} from "./time";
+import {BeatTime, Position, PositionedElement, PositionFormatter, TimeSignature} from "./time";
 
 describe('BeatTime', () => {
 
@@ -37,13 +37,13 @@ describe('Position', () => {
     });
 
     it('should add beats', () => {
-        expect(new Position(0).addBeats(0, 4)).toEqual(new Position(0))
-        expect(new Position(0).addBeats(1, 4)).toEqual(new Position(0, 1))
-        expect(new Position(0, 2).addBeats(1, 4)).toEqual(new Position(0, 3))
-        expect(new Position(0, 3).addBeats(1, 4)).toEqual(new Position(1))
-        expect(new Position(0, 2).addBeats(1, 2)).toEqual(new Position(1, 1))
-        expect(() => new Position(1).addBeats(-1, 4)).toThrowError(`beats should be positive : -1`)
-        expect(() => new Position(1).addBeats(1.5, 4)).toThrowError(`beats should be an integer : 1.5`)
+        expect(new Position(0).addBeats(0, [4, 4])).toEqual(new Position(0))
+        expect(new Position(0).addBeats(1, [4, 4])).toEqual(new Position(0, 1))
+        expect(new Position(0, 2).addBeats(1, [4, 4])).toEqual(new Position(0, 3))
+        expect(new Position(0, 3).addBeats(1, [4, 4])).toEqual(new Position(1))
+        expect(new Position(0, 2).addBeats(1, [2, 4])).toEqual(new Position(1, 1))
+        expect(() => new Position(1).addBeats(-1, [4, 4])).toThrowError(`beats should be positive : -1`)
+        expect(() => new Position(1).addBeats(1.5, [4, 4])).toThrowError(`beats should be an integer : 1.5`)
     });
 
     it('isBefore()', () => {
@@ -109,6 +109,30 @@ describe('Position', () => {
         expect(() => new Position(2).modBars(2.5)).toThrowError(`bars should be an integer : 2.5`)
         expect(() => new Position(2).modBars(0)).toThrowError(`bars should be strictly positive : 0`)
         expect(() => new Position(2).modBars(-1)).toThrowError(`bars should be strictly positive : -1`)
+    });
+
+    describe("toBeatTime()", () => {
+        ([
+            ["0:0:0", [4, 4], 0],
+
+            ["1:0:0", [4, 4], 4],
+            ["1:0:0", [3, 4], 3],
+            ["1:0:0", [6, 8], 3],
+
+            ["0:1:0", [4, 4], 1],
+            ["0:1:0", [3, 4], 1],
+            ["0:1:0", [6, 8], 0.5],
+
+            ["0:0:1", [4, 4], 0.25],
+            ["0:0:1", [3, 4], 0.25],
+            ["0:0:1", [6, 8], 0.25],
+
+        ] as [string, TimeSignature, number][]).forEach(([positionString, timeSignature, expected]) => {
+            it(`${positionString} @${timeSignature}`, () => {
+                const position = PositionFormatter.DEBUG.parse(positionString);
+                expect(position.toBeatTime(timeSignature).value).toEqual(expected);
+            });
+        })
     });
 
 });

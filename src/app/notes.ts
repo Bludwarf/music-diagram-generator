@@ -376,7 +376,7 @@ export class Chords extends Array<Chord> {
                     const barTimeSignature = barTimeSignatureGetter(position.bars)
                     const beatsPerBar = barTimeSignature[0]
                     const chordBeatDuration = this.getChordBeatDuration(chordGroups.length, beatsPerBar);
-                    return position.addBeats(chordBeatDuration, beatsPerBar)
+                    return position.addBeats(chordBeatDuration, barTimeSignature)
                 }
             }
 

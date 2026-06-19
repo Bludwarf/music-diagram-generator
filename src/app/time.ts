@@ -47,6 +47,32 @@ export class BeatTime {
             callback(beatTime);
         }
     }
+
+    add(value: number): BeatTime {
+        return new BeatTime(this.value + value);
+    }
+}
+
+class BeatTimeRatios {
+
+    constructor(
+        readonly quartersPerBar: number,
+        readonly quartersPerBeat: number,
+    ) {
+    }
+
+    static from(timeSignature: TimeSignature): BeatTimeRatios {
+        const [tsNum, tsDen] = timeSignature;
+        return new BeatTimeRatios(
+            tsNum * BeatTime.SIGNATURE[1] / tsDen,
+            1 / (tsDen / BeatTime.SIGNATURE[1]), // = BEAT[1] / tsDen
+        )
+    }
+
+    get quartersPerSixteenth(): number {
+        // TODO uniformiser le nommage entre les deux
+        return BeatTime.QUARTERS_PER_BEAT;
+    }
 }
 
 export class Position implements BarsBeatsSixteenthsFields {
@@ -66,6 +92,35 @@ export class Position implements BarsBeatsSixteenthsFields {
         checkIsPositive('sixteenths', this.sixteenths);
     }
 
+    static fromBeatTime(beatTime: BeatTime, timeSignature: TimeSignature) {
+        const r = BeatTimeRatios.from(timeSignature);
+
+        let remaining = beatTime.value;
+
+        const bars = Math.floor(remaining / r.quartersPerBar);
+        remaining -= bars * r.quartersPerBar;
+
+        const beats = Math.floor(remaining / r.quartersPerBeat);
+        remaining -= beats * r.quartersPerBeat;
+
+        const sixteenths = Math.floor(remaining / r.quartersPerSixteenth);
+
+        return new Position(
+            bars,
+            beats,
+            sixteenths,
+        );
+    }
+
+    toBeatTime(timeSignature: TimeSignature): BeatTime {
+        const r = BeatTimeRatios.from(timeSignature);
+        return new BeatTime(
+            this.bars * r.quartersPerBar +
+            this.beats * r.quartersPerBeat +
+            this.sixteenths * r.quartersPerSixteenth,
+        )
+    }
+
     addBars(bars: number): Position {
         return new Position(
             this.bars + bars,
@@ -74,12 +129,10 @@ export class Position implements BarsBeatsSixteenthsFields {
         )
     }
 
-    addBeats(beats: number, beatsPerBar: number) {
-        const rawBeats = this.beats + beats;
-        return new Position(
-            this.bars + Math.floor(rawBeats / beatsPerBar),
-            rawBeats % beatsPerBar,
-        )
+    addBeats(beats: number, timeSignature: TimeSignature) {
+        const beatTime = this.toBeatTime(timeSignature).add(beats)
+        console.log(this.toString(), beatTime.value, beats, Position.fromBeatTime(beatTime, timeSignature).toString())
+        return Position.fromBeatTime(beatTime, timeSignature)
     }
 
     private static checkOnlyBars(fields: BarsBeatsSixteenthsFields) {
@@ -147,6 +200,10 @@ export class Position implements BarsBeatsSixteenthsFields {
         checkIsStrictlyPositive('bars', bars);
         checkIsInteger('bars', bars);
         return new Position(this.bars % bars, this.beats, this.sixteenths)
+    }
+
+    toString(): string {
+        return PositionFormatter.DEBUG.format(this);
     }
 }
 

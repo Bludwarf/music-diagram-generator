@@ -22,9 +22,14 @@
         <hr>
         <div class="pattern-list">
             @for (pattern of patternsWithoutDuplicatedInitial; track pattern) {
-                <div class="pattern" [style.color]="getPatternColor(pattern)">
+                <div class="pattern" [style.color]="getPatternColor(pattern)" [class.has-chords]="!!pattern.chords">
                     <span class="pattern-name"
                           [style.background-color]="getPatternColor(pattern)">{{ pattern.name }}</span>
+                    @if (pattern.timeSignature) {
+                        <span class="time-signature">
+                            {{ pattern.timeSignature[0] }}/{{ pattern.timeSignature[1] }}
+                        </span>
+                    }
                     @if (pattern.chords) {
                         <app-chords-grid [chords]="pattern.chords" [key]="pattern.key"
                                          [style.border-color]="getPatternColor(pattern)"

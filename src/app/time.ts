@@ -131,7 +131,6 @@ export class Position implements BarsBeatsSixteenthsFields {
 
     addBeats(beats: number, timeSignature: TimeSignature) {
         const beatTime = this.toBeatTime(timeSignature).add(beats)
-        console.log(this.toString(), beatTime.value, beats, Position.fromBeatTime(beatTime, timeSignature).toString())
         return Position.fromBeatTime(beatTime, timeSignature)
     }
 

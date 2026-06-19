@@ -18,16 +18,22 @@
         page-break-inside: avoid;
         break-inside: avoid-column;
         margin-bottom: 1em;
-    }
 
-    .pattern-name {
-        color: white;
-        font-weight: bold;
-        display: inline-block;
-        padding: 3pt; // idem chords-grid.border
+        .pattern-name, .time-signature {
+            color: white;
+            font-weight: bold;
+            display: inline-block;
+            padding: 3pt; // idem chords-grid.border
+        }
 
-        &:has(+app-chords-grid) {
-            padding-bottom: 0;
+        .time-signature {
+            color: red;
+        }
+
+        &.has-chords {
+            .pattern-name, .time-signature {
+                padding-bottom: 0;
+            }
         }
     }
 

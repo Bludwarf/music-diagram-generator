@@ -1,5 +1,6 @@
 import {BaseColor as Color} from '../../color';
 import {AsciiChords, Chords, Key} from '../../notes';
+import {TimeSignature} from "../../time";
 
 export class Pattern {
 
@@ -12,6 +13,7 @@ export class Pattern {
         readonly events?: any,
         readonly fretboard?: FretboardData,
         readonly color?: Color,
+        readonly timeSignature?: TimeSignature,
     ) {
     }
 

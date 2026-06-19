@@ -6,7 +6,7 @@ import {Part} from "./part/part";
 import {PartInStructure} from "./part/part-in-structure";
 import {BaseColor as Color, ColorResolver} from "../color";
 import {Section} from "./section/section";
-import {Midi, MidiTimeSignature, MidiWrapper} from "../midi";
+import {addBarsToTicks, Midi, MidiTimeSignature, MidiWrapper} from "../midi";
 
 class StructureBuilder {
     private _parts?: Part[];
@@ -60,11 +60,12 @@ class StructureBuilder {
         return new Structure(
             parts,
             this.getEventsStartPosition,
-            this.getEventsDurationInBars
+            this.getEventsDurationInBars,
         )
     }
 }
 
+export const DEFAULT_MIDI_PPQ: number = 480;
 export const DEFAULT_MIDI_TIME_SIGNATURE: MidiTimeSignature = {
     ticks: 0,
     timeSignature: [4, 4],
@@ -130,7 +131,7 @@ export class Structure {
 
     get patternsInStructure(): PatternInStructure[] {
         return this.partsInStructure.flatMap(partInStructure =>
-            partInStructure.patternsInStructure
+            partInStructure.patternsInStructure,
         )
     }
 
@@ -206,6 +207,33 @@ export class Structure {
             timeSignature: this.timeSignature,
         };
         return this._midiTimeSignature
+    }
+
+    // TODO Ne devrait-on pas générer tout l'objet midi en entier ?
+    private _midiTimeSignatures: MidiTimeSignature[] | undefined;
+    get midiTimeSignatures(): MidiTimeSignature[] {
+        if (!this._midiTimeSignatures) {
+            const midiTimeSignatures: MidiTimeSignature[] = [];
+            let ticks = 0;
+            let timeSignature: TimeSignature = this.timeSignature ?? DEFAULT_MIDI_TIME_SIGNATURE.timeSignature; // TODO il faut d'abord calculer le timeSignature moyen avant cette ligne
+            for (const partInStructure of this.partsInStructure) {
+                for (const sectionInStructure of partInStructure.sectionsInStructure) {
+                    for (const patternInStructure of sectionInStructure.patternsInStructure) {
+                        if (patternInStructure.pattern.timeSignature && patternInStructure.pattern.timeSignature !== timeSignature) {
+                            timeSignature = patternInStructure.pattern.timeSignature;
+                            midiTimeSignatures.push({
+                                measures: patternInStructure.startPosition.bars,
+                                ticks,
+                                timeSignature,
+                            });
+                        }
+                        ticks = addBarsToTicks(ticks, patternInStructure.pattern.durationInBars, timeSignature, DEFAULT_MIDI_PPQ);
+                    }
+                }
+            }
+            this._midiTimeSignatures = midiTimeSignatures;
+        }
+        return this._midiTimeSignatures;
     }
 
     private getMidiTimeSignature(beatTime: BeatTime): MidiTimeSignature {

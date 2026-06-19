@@ -173,6 +173,7 @@ export class PatternParser {
             asciiChords,
             events: model.events,
             color: model.color ? this.colorParser.dto(model.color) : undefined,
+            timeSignature: model.timeSignature,
         }
     }
 
@@ -187,6 +188,7 @@ export class PatternParser {
             dto.events,
             undefined, // TODO : dto.fretboard,
             dto.color ? this.colorParser.model(dto.color) : undefined,
+            dto.timeSignature,
         );
     }
 

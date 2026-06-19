@@ -1,5 +1,6 @@
 // TODO type pour le MIDI : https://github.com/Tonejs/Midi
 import {BeatTime, TimeSignature} from "./time";
+import {BarNumber0Indexed} from "./notes";
 
 export type Midi = {
     header: MidiHeader;
@@ -15,7 +16,7 @@ export type MidiTimeSignature = {
     ticks: number;
     timeSignature: TimeSignature;
     /** 0-indexée */
-    measures: number;
+    measures: BarNumber0Indexed;
 }
 
 export type MidiTrack = {
@@ -54,4 +55,9 @@ export class MidiWrapper {
         const timeSignatureIndex = nextTimeSignatureIndex === -1 ? this.midi.header.timeSignatures.length - 1 : (nextTimeSignatureIndex === 0 ? 0 : nextTimeSignatureIndex - 1);
         return this.midi.header.timeSignatures[timeSignatureIndex];
     }
+}
+
+// On ne peut pas utiliser BeatTime, car il utilise une signature rythmique fixe
+export function addBarsToTicks(ticks: number, bars: number, timeSignature: TimeSignature, ppq: number) {
+    return ticks + bars * timeSignature[0] * ppq;
 }

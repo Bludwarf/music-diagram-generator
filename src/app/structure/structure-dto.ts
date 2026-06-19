@@ -26,7 +26,8 @@ export interface PatternDto {
     key?: KeyDto,
     asciiChords?: string;
     events?: any, // TODO type vraiment inconnu // TODO ce serait mieux de le mettre dans un autre fichier
-    color?: string,
+    color?: string;
+    timeSignature?: TimeSignature;
 }
 
 type KeyDto = [number, number]; // TODO il faut que le JSON soit lisible et modifiable par un humain

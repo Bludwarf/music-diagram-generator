@@ -22,16 +22,11 @@
 </pre>
 
 @if (recordingDto) {
-    src/assets/recordings/{{ recordingDto.name }}.json
+    {{ recordingDto.name }}.json
     <textarea [ngModel]="recordingDto | json" rows="10"></textarea>
 }
 
 @if (structureDto) {
-    *.zip/structure.json
+    structure.json
     <textarea [ngModel]="structureDto | json" rows="10"></textarea>
-}
-
-@if (songEntry) {
-    src/app/song/entries/{{ songName }}.ts
-    <textarea [ngModel]="songEntry" rows="10"></textarea>
 }

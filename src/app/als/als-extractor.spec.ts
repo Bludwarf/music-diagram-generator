@@ -40,11 +40,12 @@ describe('AlsExtractor', () => {
         expect(lastWarpMarker.beatTime).toBe(360.35486076423575)
     });
 
-    it('should get JSON structure from Petit papillon', async () => {
-        const extractor = await createExtractorFor('Petit papillon')
-        const jsonStructure = extractor.extractStructureObject()
-        console.log(JSON.stringify(jsonStructure))
-        expect(jsonStructure).toBeTruthy()
+    it('should get structure from Man In The Mirror', async () => {
+        const extractor = await createExtractorFor('Man In The Mirror')
+        const structure = extractor.extractStructure()
+        const partInStructures = structure.partsInStructure;
+        expect(partInStructures.length).toEqual(1)
+        expect(partInStructures[0].sectionsInStructure.length).toEqual(15)
     });
 
     it('should get recording name from Petit papillon', async () => {

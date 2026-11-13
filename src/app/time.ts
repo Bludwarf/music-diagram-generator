@@ -9,8 +9,12 @@ interface BarsBeatsSixteenthsFields {
     sixteenths: number
 }
 
+export interface Time {
+    value: number;
+}
+
 /** Temps en comptant à la noire (1 battement (pulse) = 1 temps en 4/4 ou 0.5 temps en 6/8)  */
-export class BeatTime {
+export class BeatTime implements Time {
 
     /** Signature utilisée par le BeatTime Ableton Live quelle que soit la signature réelle */
     static readonly SIGNATURE: TimeSignature = [4, 4];

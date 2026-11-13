@@ -2,16 +2,17 @@ import {Component} from '@angular/core';
 import {FormsModule} from "@angular/forms";
 import {AlsImporter} from "../als/als-importer";
 import {AlsExtractor} from "../als/als-extractor";
-import {JsonPipe, NgIf} from "@angular/common";
+import {JsonPipe} from "@angular/common";
 import {RecordingDto} from "../recording/recording-dto";
+import {StructureDto} from "../structure/structure-dto";
+import {StructureMapper} from "../json/parsers/structure-mapper.service";
 
 @Component({
     selector: 'app-convert',
     standalone: true,
     imports: [
         FormsModule,
-        NgIf,
-        JsonPipe
+        JsonPipe,
     ],
     templateUrl: './convert.component.html',
     styleUrl: './convert.component.scss'
@@ -19,12 +20,14 @@ import {RecordingDto} from "../recording/recording-dto";
 export class ConvertComponent {
 
     recordingDto?: RecordingDto;
+    structureDto?: StructureDto;
     songEntry?: string;
 
     _songName?: string
 
     constructor(
         private readonly alsImporter: AlsImporter,
+        private readonly structureMapper: StructureMapper,
     ) {
     }
 
@@ -42,6 +45,23 @@ export class ConvertComponent {
         const structureExtractor = new AlsExtractor(alsProject);
         // this.jsonStructure = JSON.stringify(structureExtractor.extractStructureObject(), undefined, 4)
         this.recordingDto = structureExtractor.extractRecordingDto()
+
+        // const structure = structureExtractor.extractStructure();
+        // this.structureDto = this.structureMapper.dto(structure);
+        const sections = structureExtractor.extractSections();
+        const patterns = structureExtractor.extractPatternDtoArray();
+        this.structureDto = {
+            parts: [
+                {
+                    name: '1',
+                    sections: sections.map(section => ({
+                        name: section.name,
+                        patternInitials: [],
+                    })),
+                }
+            ],
+            patterns,
+        }
 
         this.songName = alsFile.name.substring(0, alsFile.name.indexOf('.'))
     }

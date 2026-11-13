@@ -21,12 +21,17 @@
 
 </pre>
 
-<ng-container *ngIf="recordingDto">
+@if (recordingDto) {
     src/assets/recordings/{{ recordingDto.name }}.json
     <textarea [ngModel]="recordingDto | json" rows="10"></textarea>
-</ng-container>
+}
 
-<ng-container *ngIf="songEntry">
+@if (structureDto) {
+    *.zip/structure.json
+    <textarea [ngModel]="structureDto | json" rows="10"></textarea>
+}
+
+@if (songEntry) {
     src/app/song/entries/{{ songName }}.ts
     <textarea [ngModel]="songEntry" rows="10"></textarea>
-</ng-container>
+}

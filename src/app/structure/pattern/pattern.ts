@@ -39,7 +39,7 @@ export class Pattern {
         return new Array(n).fill(this);
     }
 
-    private static getInitialFromName(name: string) {
+    static getInitialFromName(name: string) {
         return name[0];
     }
 

@@ -3,6 +3,7 @@ export const TEST_PATHS = [
     'structure-list',
     'create-zip',
     'setlist-structure-page',
+    'markdown-structure',
 ] as const;
 
 export const TEST_PATHS_MAP: Record<string, string> = {}

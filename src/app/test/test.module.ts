@@ -8,6 +8,7 @@ import {TestSongRepository} from "./test-song-repository";
 import {TestComponent} from "./test.component";
 import {Setlist} from "../setlist/setlist";
 import {TEST_PATHS_MAP} from "./test-paths";
+import {MarkdownStructureComponent} from "./markdown-structure/markdown-structure.component";
 
 const routes: Routes = [
     {
@@ -35,6 +36,10 @@ const routes: Routes = [
                 return Setlist.from("Tests", undefined, testSongRepository, ["setlist-structure-page"]);
             },
         },
+    },
+    {
+        path: TEST_PATHS_MAP['markdown-structure'],
+        component: MarkdownStructureComponent,
     },
 ];
 

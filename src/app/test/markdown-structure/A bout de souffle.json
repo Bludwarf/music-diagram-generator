@@ -1,0 +1,150 @@
+{
+    "parts": [
+        {
+            "name": "1",
+            "sections": [
+                {
+                    "name": "Intro",
+                    "patternInitials": [
+                        "C"
+                    ]
+                },
+                {
+                    "name": "C1",
+                    "patternInitials": [
+                        "C"
+                    ]
+                },
+                {
+                    "name": "Instru",
+                    "patternInitials": [
+                        "C"
+                    ]
+                },
+                {
+                    "name": "C2",
+                    "patternInitials": [
+                        "C"
+                    ]
+                },
+                {
+                    "name": "C3",
+                    "patternInitials": [
+                        "C"
+                    ]
+                },
+                {
+                    "name": "Instru",
+                    "patternInitials": [
+                        "C"
+                    ]
+                },
+                {
+                    "name": "Pré-refrain",
+                    "patternInitials": [
+                        "P"
+                    ]
+                },
+                {
+                    "name": "Refrain",
+                    "patternInitials": [
+                        "R",
+                        "R"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "2",
+            "sections": [
+                {
+                    "name": "Instru",
+                    "patternInitials": [
+                        "C"
+                    ]
+                },
+                {
+                    "name": "C4",
+                    "patternInitials": [
+                        "C"
+                    ]
+                },
+                {
+                    "name": "C5",
+                    "patternInitials": [
+                        "C"
+                    ]
+                },
+                {
+                    "name": "Pré-refrain",
+                    "patternInitials": [
+                        "P"
+                    ]
+                },
+                {
+                    "name": "Refrain",
+                    "patternInitials": [
+                        "R",
+                        "R"
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "3",
+            "sections": [
+                {
+                    "name": "Instru",
+                    "patternInitials": [
+                        "C",
+                        "C",
+                        "C",
+                        "C"
+                    ]
+                },
+                {
+                    "name": "Pré-refrain",
+                    "patternInitials": [
+                        "P"
+                    ]
+                },
+                {
+                    "name": "Refrain",
+                    "patternInitials": [
+                        "R",
+                        "R"
+                    ]
+                }
+            ]
+        }
+    ],
+    "patterns": [
+        {
+            "name": "Couplet",
+            "initial": "C",
+            "key": [
+                5,
+                9
+            ],
+            "asciiChords": "| Fm8 | Fm8 | C# | C# | Ab | Ab | Eb | Eb |"
+        },
+        {
+            "name": "Pré-refrain",
+            "initial": "P",
+            "key": [
+                5,
+                9
+            ],
+            "asciiChords": "| Fm8 | Fm8 | C | C | C# | C# | C | C |"
+        },
+        {
+            "name": "Refrain",
+            "initial": "R",
+            "key": [
+                5,
+                9
+            ],
+            "asciiChords": "| Eb | Eb | C# | C# | Ab | Ab | Eb | Eb |"
+        }
+    ]
+}

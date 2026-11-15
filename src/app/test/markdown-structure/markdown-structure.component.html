@@ -3,17 +3,20 @@
 <h3>Sections</h3>
 <textarea [ngModel]="markdownA.sectionsWithoutPatterns" rows="19" cols="30"></textarea>
 <textarea [ngModel]="markdownA.sectionsWithPatterns" rows="19" cols="30"></textarea>
+<textarea [ngModel]="markdownA.sectionsWithPatternsBr" rows="19" cols="30"></textarea>
 
-<h3>Patterns</h3>
-<textarea [ngModel]="markdownA.patternsMin" rows="19" cols="40"></textarea>
-<textarea [ngModel]="markdownA.patternsMax" rows="19" cols="50"></textarea>
-<textarea [ngModel]="markdownA.patternsWithChords" rows="19" cols="44"></textarea>
+<h3>Patterns avec |</h3>
+<textarea [ngModel]="markdownA.patternsA" rows="19" cols="40"></textarea>
+<textarea [ngModel]="markdownA.patternsABr" rows="19" cols="40"></textarea>
+<textarea [ngModel]="markdownA.patternsABrWithChords" rows="19" cols="44"></textarea>
+<textarea [ngModel]="markdownA.patternsAWithChords" rows="19" cols="60"></textarea>
+
+<h3>Patterns sans |</h3>
+<textarea [ngModel]="markdownA.patternsMinWithChords" rows="19" cols="44"></textarea>
+<textarea [ngModel]="markdownA.patternsMinWithChordsBy4" rows="19" cols="44"></textarea>
+<textarea [ngModel]="markdownA.patternsMinAlignedWithChords" rows="19" cols="44"></textarea>
 
 <h3>Patterns UTF-Tables</h3>
 <textarea [ngModel]="markdownA.patternsUtfMin" rows="19" cols="40"></textarea>
 <textarea [ngModel]="markdownA.patternsUtfMax" rows="19" cols="50"></textarea>
 <textarea [ngModel]="markdownA.patternsUtfWithChords" rows="19" cols="44"></textarea>
-
-<h3>Patterns minimal</h3>
-<textarea [ngModel]="markdownA.patternsMinWithChords" rows="19" cols="44"></textarea>
-<textarea [ngModel]="markdownA.patternsMinAlignedWithChords" rows="19" cols="44"></textarea>
